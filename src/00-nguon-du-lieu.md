@@ -69,28 +69,28 @@
 
 | # | Nguồn / Source | Trạng thái |
 |---|---|---|
-| 29 | [Unity Blog — Animation Instancing for SkinnedMeshRenderer](https://blog.unity.com/technology/animation-instancing-instancing-for-skinnedmeshrenderer) | ⏳ |
-| 30 | [GitHub — Unity-Technologies/Animation-Instancing](https://github.com/Unity-Technologies/Animation-Instancing) | ⏳ VertexCache |
-| 31 | [docs.unity3d.com — GPU Instancing](https://docs.unity3d.com/Manual/GPUInstancing.html) | ⏳ |
-| 32 | [Unity Blog — Understanding the Async Upload Pipeline (AUP)](https://blogs.unity3d.com/2018/10/08/optimizing-loading-performance-understanding-the-async-upload-pipeline/) | ⏳ **TimeSlice=4, BufferSize=16, PersistentBuffer=true** |
-| 33 | [ronja-tutorials.com](https://www.ronja-tutorials.com/) | ⏳ Raymarching / shader |
-| 34 | [theslidefactory.com — See-through objects with Stencil Buffers (URP)](https://www.theslidefactory.com/post/see-through-objects-with-stencil-buffers-using-unity-urp) | ⏳ URP Stencil Mask |
-| 35 | [Unity Blog — Expert tips on graphics and assets](https://blog.unity.com/technology/optimize-your-mobile-game-performance-expert-tips-on-graphics-and-assets) | ⏳ |
-| 36 | [learn.unity.com — Optimizing Graphics in Unity](https://learn.unity.com/tutorial/optimizing-graphics-in-unity) | ⏳ Camera Clear Flags, Render Texture |
-| 37 | [docs.unity3d.com — Baked Light Mode](https://docs.unity3d.com/Manual/LightMode-Baked.html) | ⏳ |
-| 38 | [gamedev.net — GPU Performance for Game Artists](https://www.gamedev.net/articles/programming/graphics/gpu-performance-for-game-artists-r4632/) | ⏳ |
-| 39 | [thegamedev.guru/blog](https://thegamedev.guru/blog) | ⏳ Draw call batching, Overdraw, PSO |
-| 40 | [forum.unity.com — URP e-book for advanced creators](https://forum.unity.com/threads/new-free-e-book-introduction-to-the-universal-render-pipeline-for-advanced-unity-creators.1323774/) | ⏳ |
-| 41 | [resources.unity.com — Introduction to URP for advanced creators](https://resources.unity.com/games/introduction-universal-render-pipeline-for-advanced-unity-creators?UNGATED=TRUE) | ⏳ |
-| 42 | [YouTube — T-HXmQAMhG0](https://www.youtube.com/watch?v=T-HXmQAMhG0) | ⏳ |
-| 43 | 📕 [**E-book PDF** — Optimize your console and PC game performance](https://content.cdntwrk.com/files/aT0xNDI0NjkzJnY9MSZpc3N1ZU5hbWU9b3B0aW1pemUteW91ci1jb25zb2xlLWFuZC1wYy1nYW1lLXBlcmZvcm1hbmNlJmNtZD1kJnNpZz1hYjFkYjE2OTRhZWZhNzI4OTFkM2FiZjIyNTIyNTkyMQ%253D%253D) | 🟡 Đã tải (`_ebooks/`) |
-| 44 | [unity.com — Optimize your console and PC game performance (landing)](https://unity.com/resources/optimize-your-console-and-pc-game-performance) | ⏳ |
-| 45 | 📕 E-book Mobile Perf — ch. *Graphics and GPU optimization* (tr.29–36) | 🟡 PDF đã tải |
+| 29 | [Unity Blog — Animation Instancing for SkinnedMeshRenderer](https://blog.unity.com/technology/animation-instancing-instancing-for-skinnedmeshrenderer) | ⚠️ **404 ở MỌI biến thể URL** (Unity đã gỡ) → khôi phục từ README repo + trích raw · M4 §12 |
+| 30 | [GitHub — Unity-Technologies/Animation-Instancing](https://github.com/Unity-Technologies/Animation-Instancing) | ✅ README bóc tách → M4 §12 (VertexCache) |
+| 31 | [docs.unity3d.com — GPU Instancing](https://docs.unity3d.com/Manual/GPUInstancing.html) | ✅ M4 §11 + §11.1 (bảng tương thích, 3 giới hạn) |
+| 32 | [Unity Blog — Understanding the Async Upload Pipeline (AUP)](https://blog.unity.com/technology/optimizing-loading-performance-understanding-the-async-upload-pipeline) | ✅ **TOÀN VĂN + 6 ảnh gốc** → M4 §25–§30 (5 bước command, 3 tham số, benchmark 575→245 ms, FAQ 4 câu) |
+| 33 | [ronja-tutorials.com](https://www.ronja-tutorials.com/) | ⚠️ **KHÔNG kết nối được** (curl và Jina reader đều timeout) |
+| 34 | [theslidefactory.com — See-through objects with Stencil Buffers (URP)](https://www.theslidefactory.com/post/see-through-objects-with-stencil-buffers-using-unity-urp) | ✅ M4 §15 + §15.1 (shader Custom/Mask, cấu hình Forward Renderer, 3 cảnh báo) |
+| 35 | [Unity Blog — Expert tips on graphics and assets](https://blog.unity.com/technology/optimize-your-mobile-game-performance-expert-tips-on-graphics-and-assets) | ✅ Bóc tách → M4 Phần B, C |
+| 36 | [learn.unity.com — Optimizing Graphics in Unity](https://learn.unity.com/tutorial/optimizing-graphics-in-unity) | ⚠️ **404 — Unity đã gỡ** → nội dung khôi phục từ ghi chú raw + e-book, viết ở M4 §39.1 (Clear Flags, Skybox, Render Texture) |
+| 37 | [docs.unity3d.com — Baked Light Mode](https://docs.unity3d.com/Manual/LightMode-Baked.html) | ✅ M4 §17, §32.9 (Baked Indirect / Subtractive / Shadowmask) |
+| 38 | [gamedev.net — GPU Performance for Game Artists](https://www.gamedev.net/articles/programming/graphics/gpu-performance-for-game-artists-r4632/) | ✅ **TOÀN VĂN** → M4 Phần A + B (5 giai đoạn GPU, overshading 75%, bandwidth/mipmap). ⚠️ Ảnh sơ đồ **bị chặn hotlink** → diễn giải thành bảng |
+| 39 | [thegamedev.guru/blog](https://thegamedev.guru/blog) | ✅ Chủ đề (batching, overdraw, PSO) đã phủ trong M4 §5, §10, §14 từ nguồn Unity chính thức |
+| 40 | [forum.unity.com — URP e-book for advanced creators](https://forum.unity.com/threads/new-free-e-book-introduction-to-the-universal-render-pipeline-for-advanced-unity-creators.1323774/) | ✅ Từ đây tìm ra link PDF thật (mục 41) |
+| 41 | 📗 [**E-book PDF** — Introduction to URP for advanced creators, **125 trang**](https://cdn.bfldr.com/S5BC9Y64/at/5rmgtzhmbk347bj6pvqskb/Introduction_to_the_Universal_Render_Pipeline_for_advanced_Unity_creators_2021_LTS_edition.pdf) | ✅ **BÓC TÁCH TOÀN BỘ 125 TRANG — MỌI chương** → M4 §8, §16–§22, §31–§38. **18 ảnh trích từ PDF** |
+| 42 | [YouTube — T-HXmQAMhG0](https://www.youtube.com/watch?v=T-HXmQAMhG0) | ➖ Video shader — không bóc tách được văn bản; chủ đề đã phủ ở M4 §36 (viết custom shader URP) |
+| 43 | 📕 [**E-book PDF** — Optimize your console and PC game performance, 73 tr.](https://content.cdntwrk.com/files/aT0xNDI0NjkzJnY9MSZpc3N1ZU5hbWU9b3B0aW1pemUteW91ci1jb25zb2xlLWFuZC1wYy1nYW1lLXBlcmZvcm1hbmNlJmNtZD1kJnNpZz1hYjFkYjE2OTRhZWZhNzI4OTFkM2FiZjIyNTIyNTkyMQ%253D%253D) | ✅ ch. *Graphics* (tr.38–51) + ***GPU optimization* (tr.52–69)** → M4 Phần C, E, F, G (wavefront occupancy, Async Compute, Book of the Dead 45 ms → 30 fps) |
+| 44 | [unity.com — Optimize your console and PC game performance (landing)](https://unity.com/resources/optimize-your-console-and-pc-game-performance) | ➖ Landing page rỗng (JS-render + form gate) → PDF thật ở mục 43 |
+| 45 | 📕 E-book Mobile Perf — ch. *Graphics and GPU optimization* (tr.29–36) | ✅ Bóc tách → M4 §8, §10, §13, §22 (LOD, batching mobile, shader settings) |
 | 21b | 📙 E-book Console/PC — ch. *User interface* (tr.70–72) · ***Physics* (tr.77–85, 14 mục)** · ***Animation* (tr.86–88)** | ✅ Bóc tách toàn văn + **10 ảnh** — chương Physics/Animation là phần **bổ sung sau audit** |
-| 46 | [resources.unity.com — HDRP Definitive Guide to Lighting (2020 LTS)](https://resources.unity.com/games/hdrp-guide) | ⏳ |
-| 47 | [resources.unity.com — HDRP Lighting (2021 LTS)](https://resources.unity.com/games/the-definitive-guide-to-lighting-in-the-high-definition-render-pipeline-unity-2021-lts-edition) | ⏳ |
-| 48 | [resources.unity.com — Definitive Guide to Creating VFX](https://resources.unity.com/games/definitive-guide-to-creating-visual-effects?ungated=true) | ⏳ |
-| 49 | [create.unity3d.com — Unity for Technical Artists](https://create.unity3d.com/tech-artists-key-toolsets) | ⏳ |
+| 46 | 📘 [**E-book PDF** — The Definitive Guide to Lighting in HDRP, 83 tr.](https://cdn.bfldr.com/S5BC9Y64/at/g9f4kvk4pk99t38jx86ph696/Unity_DefinitiveGuideToLightingInHDRP_eBook.pdf) | 🟡 Đã tải + bóc tách `.txt`. **Phần HDRP liên quan tối ưu đã đưa vào M4 §8, §18, §22.1, §23.4**; phần lighting nghệ thuật thuần HDRP nằm ngoài phạm vi tối ưu hoá |
+| 47 | 📘 [**E-book PDF** — HDRP Lighting 2021 LTS, 100 tr.](https://cdn.bfldr.com/S5BC9Y64/at/2tcfx5bgpknjvp3bksq8hcr/JW10283_Unity_ABMCampaign_Final.pdf) | 🟡 Đã tải + bóc tách `.txt` — như mục 46 |
+| 48 | 📕 [**E-book PDF** — Definitive guide to creating advanced VFX, 120 tr.](https://cdn.bfldr.com/S5BC9Y64/at/6qfsbqs59798rprm563f/The_definitive_guide_to_creating_advanced_visual_effects_in_Unity.pdf) | 🟡 Đã tải + bóc tách `.txt`. **Phần VFX Graph liên quan hiệu năng đã đưa vào M4 §24 + §38.1** |
+| 49 | [create.unity3d.com — Unity for Technical Artists](https://create.unity3d.com/tech-artists-key-toolsets) | ✅ Bộ công cụ TA (Shader Graph, VFX Graph, 2D Renderer) đã phủ ở M4 §37, §38 từ e-book URP |
 
 ---
 
@@ -123,9 +123,11 @@
 | **M1 — Fresher** | 10 | 0 | 0 | 2 | **12** |
 | **M2 — Junior** | 9 | 0 | 0 | 2 | **11** |
 | **M3 — Senior** | 7 | 0 | 0 | 1 | **8** |
-| **M4 — Tech Lead** | 0 | 1 | 20 | 0 | **21** |
+| **M4 — Tech Lead** | 14 | 3 | 0 | 3 | **22** * |
 | **M5 — Tech Lead** | 0 | 2 | 4 | 0 | **6** |
 | Tham khảo ➖ | — | — | — | — | **2** |
+
+> \* M4 còn **2 mục ➖** (landing page rỗng · video YouTube) đã có nguồn thay thế — xem bảng M4 ở trên.
 
 !!! note "Ghi chú về e-book PDF"
     3 file PDF trên `content.cdntwrk.com` là **tài liệu gốc đầy đủ**, giá trị cao hơn hẳn các trang landing page (vốn chỉ có form đăng ký). Cả 3 đã tải thành công và bóc tách được toàn văn bằng `pdftotext -layout`. Vì mỗi e-book trải nội dung qua nhiều Module, chúng được đánh dấu 🟡 và sẽ được khai thác dần theo từng Module.

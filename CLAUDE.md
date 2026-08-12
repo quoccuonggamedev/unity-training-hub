@@ -130,3 +130,8 @@ let d='';process.stdin.on('data',c=>d+=c).on('end',()=>console.log(convert(d,{wo
 | `cgcookie.com` trả ~5 KB | Cloudflare JS challenge — không cào được bằng curl |
 | Nav `mkdocs.yml` dạng `01-fresher/` | Không hợp lệ với MkDocs thuần (cần plugin `awesome-pages`) — khai báo file tường minh |
 | `pdftotext` / `pdfimages` thiếu | `brew install poppler` |
+| `blog.unity.com` trả HTML nhưng `h2t.js` xuất ra **rỗng** | Dùng **Jina reader**: `curl -sL "https://r.jina.ai/<URL>" -o out.md` — trả về Markdown sạch kèm URL ảnh gốc (`cdn.sanity.io`) |
+| Ảnh trong bài blog Unity | Grep HTML: `grep -oE 'https?://[^"]+\.(png|jpg)' page.html`, lọc bỏ `logo|icon|favicon|avatar|sprite`, rồi tải từ `cdn.sanity.io` (KHÔNG qua `blog.unity.com/_next/image`) |
+| `pdfimages` xuất **hàng chục ảnh rác** (smask, icon) | Lọc theo dung lượng: xoá file `< 60 KB` rồi `ls -S` để duyệt các ảnh lớn nhất trước |
+| Anchor `#tên-mục` bị vỡ trong tiếng Việt | MkDocs **BỎ ký tự `đ`/`Đ`** khi slugify (`đ` → rỗng): `19. Shadow — Point Light tốn GẤP 6 LẦN` → `#19-shadow-point-light-ton-gap-6-lan`. **Luôn verify bằng script**: đối chiếu `href="#..."` trong `.md` với `id="..."` trong `docs/*.html` |
+| Chèn phần mới vào GIỮA tài liệu làm **lệch số chương** | Tách file tại tiêu đề mốc, renumber phần đuôi bằng regex qua **token trung gian** (31→A→33) để tránh va chạm, rồi sửa các anchor trỏ tới phần đuôi |

@@ -14,7 +14,7 @@ theme:
     - navigation.tabs
     - navigation.sections
     - navigation.top
-tiep tuc task dang do cho den khi hoan thanh     - search.highlight
+    - search.highlight
     - content.code.copy
   palette:
     - media: "(prefers-color-scheme: light)"
@@ -52,4 +52,5 @@ nav:
       - Module 2 — UI & Physics Deep Dive: 02-junior/01-ui-physics-deep-dive.md
   - ⚔️ 3. Senior:
       - Module 3 — Memory, Addressables & Networking: 03-senior/01-memory-addressables-networking.md
-  - 👑 4. Tech Lead: []
+  - 👑 4. Tech Lead:
+      - Module 4 — GPU, URP & Advanced Rendering: 04-tech-lead/01-gpu-urp-advanced-rendering.md
