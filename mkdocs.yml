@@ -14,7 +14,7 @@ theme:
     - navigation.tabs
     - navigation.sections
     - navigation.top
-    - search.highlight
+tiep tuc task dang do cho den khi hoan thanh     - search.highlight
     - content.code.copy
   palette:
     - media: "(prefers-color-scheme: light)"
@@ -48,6 +48,8 @@ nav:
   - 📋 Bảng kiểm nguồn dữ liệu: 00-nguon-du-lieu.md
   - 🌱 1. Fresher:
       - Module 1 — Ultimate Guide to Profiling: 01-fresher/01-ultimate-guide-to-profiling.md
-  - 🚀 2. Junior: []
-  - ⚔️ 3. Senior: []
+  - 🚀 2. Junior:
+      - Module 2 — UI & Physics Deep Dive: 02-junior/01-ui-physics-deep-dive.md
+  - ⚔️ 3. Senior:
+      - Module 3 — Memory, Addressables & Networking: 03-senior/01-memory-addressables-networking.md
   - 👑 4. Tech Lead: []

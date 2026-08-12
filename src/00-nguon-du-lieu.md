@@ -37,16 +37,16 @@
 
 | # | Nguồn / Source | Trạng thái |
 |---|---|---|
-| 12 | [learn.unity.com — Optimizing Unity UI](https://learn.unity.com/tutorial/optimizing-unity-ui) | ⏳ Canvas separation, Graphic Raycaster, Rich Text |
-| 13 | [learn.unity.com — Physics Best Practices](https://learn.unity.com/tutorial/physics-best-practices) | ⏳ RaycastNonAlloc, Collision Matrix, Fixed Timestep |
-| 14 | [tvd12.com — S.O.L.I.D](https://tvd12.com/solid/) | ⏳ 5 nguyên lý SOLID (tiếng Việt) |
-| 15 | [kodeco.com — Introduction to Unity Unit Testing](https://www.kodeco.com/9454-introduction-to-unity-unit-testing) | ⏳ |
-| 16 | [jacksondunstan.com — C# event vs UnityEvent](https://www.jacksondunstan.com/articles/3335) | ⏳ Benchmark chi phí |
-| 17 | [GitHub — thefuntastic/Unity3d-Finite-State-Machine](https://github.com/thefuntastic/Unity3d-Finite-State-Machine) | ⏳ |
-| 18 | [gamedevbeginner.com — State Machines in Unity](https://gamedevbeginner.com/state-machines-in-unity-how-and-when-to-use-them/) | ⏳ |
-| 19 | [GitHub — aniketrajnish/Unity-Collider-Optimizer](https://github.com/aniketrajnish/Unity-Collider-Optimizer) | ⏳ Tối ưu mesh collider |
-| 20 | [GitHub — QianMo/Unity-Design-Pattern](https://github.com/QianMo/Unity-Design-Pattern) | ⏳ (dùng chung với Module 3) |
-| 21 | 📕 E-book Mobile Perf — ch. *User interface* (tr.37–40), *Physics* (tr.45–47), *Animation* (tr.43–44) | 🟡 PDF đã tải |
+| 12 | [learn.unity.com — Optimizing Unity UI](https://learn.unity.com/tutorial/optimizing-unity-ui) | ✅ ⭐ **Nguồn chính M2** — cào đủ **6/6 chương** + 5 ảnh |
+| 13 | [learn.unity.com — Physics Best Practices](https://learn.unity.com/tutorial/physics-best-practices) | ⚠️ **HTTP 404** — Unity Learn đã xóa. Thay bằng e-book Unity (tr.45–47) + ghi chú raw |
+| 14 | [tvd12.com — S.O.L.I.D](https://tvd12.com/solid) | ✅ Cào qua **API `tvd12.com/api/v1/posts/solid`** (trang HTML là SPA render 404) — nguyên văn tiếng Việt |
+| 15 | [kodeco.com — Introduction to Unity Unit Testing](https://www.kodeco.com/9454-introduction-to-unity-unit-testing) | ⚠️ **Paywall một phần** — cào được phần khái niệm + setup; code test nửa sau bị chặn |
+| 16 | [jacksondunstan.com — C# event vs UnityEvent](https://www.jacksondunstan.com/articles/3335) | ✅ **3 bảng benchmark đầy đủ** + tranh luận trong comments |
+| 17 | [GitHub — thefuntastic/Unity3d-Finite-State-Machine](https://github.com/thefuntastic/Unity3d-Finite-State-Machine) | ✅ README đầy đủ + Driver deep-dive |
+| 18 | [gamedevbeginner.com — State Machines in Unity](https://gamedevbeginner.com/state-machines-in-unity-how-and-when-to-use-them/) | ✅ **Cào được qua Jina reader** (`r.jina.ai`) sau khi curl bị 403 WAF — 34.8 KB + **5 sơ đồ**; 3 cách cài FSM (Interface/Inheritance/Hierarchical) |
+| 19 | [GitHub — aniketrajnish/Unity-Collider-Optimizer](https://github.com/aniketrajnish/Unity-Collider-Optimizer) | ✅ README + **6 ảnh so sánh** + số liệu (3032→918 tris, 214→23 paths) |
+| 20 | [GitHub — QianMo/Unity-Design-Pattern](https://github.com/QianMo/Unity-Design-Pattern) | ✅ Catalog **23 GoF + 9 Game Programming Patterns** |
+| 21 | 📕 E-book Mobile Perf — ch. *User interface* (tr.37–40), *Physics* (tr.45–47), *Animation* (tr.43–44) | ✅ Bóc tách toàn văn + **11 ảnh trích từ PDF** |
 
 ---
 
@@ -54,14 +54,14 @@
 
 | # | Nguồn / Source | Trạng thái |
 |---|---|---|
-| 22 | [discussions.unity.com — Effective Asset Management with Addressables](https://discussions.unity.com/t/effective-asset-management-in-unity-with-addressables/1621379) | ⏳ **"Requested Assets and Dependencies"** |
-| 23 | [educba.com — Protobuf vs JSON](https://www.educba.com/protobuf-vs-json/) | ⏳ |
-| 24 | [docs.colyseus.io](https://docs.colyseus.io/colyseus/) | ⏳ Realtime multiplayer server |
-| 25 | [learn.unity.com — Memory Management in Unity](https://learn.unity.com/tutorial/memory-management-in-unity) | ⏳ Audio: Streaming, Force to mono, Decompress On Load |
-| 26 | [codelearn.io — Sử dụng Reflection trong C#](https://codelearn.io/sharing/su-dung-reflection-trong-csharp) | ⏳ |
-| 27 | [gucheng0712.github.io — C# Reflection in Unity](https://gucheng0712.github.io/unity/csharp/2019/04/19/C-Reflection-in-Unity-copy.html) | ⏳ |
-| 28 | 📕 E-book Mobile Perf — ch. *Assets* (tr.24–28), *Audio* (tr.41–42) | 🟡 PDF đã tải |
-| — | *Bổ sung từ ghi chú raw (không có URL):* Service Locator, WebSocket Lock-step, Wei = 10⁻¹⁸, MLAPI/Mirror, Android plugin, UnityWebRequest | ⏳ |
+| 22 | [discussions.unity.com — Effective Asset Management with Addressables](https://discussions.unity.com/t/effective-asset-management-in-unity-with-addressables/1621379) | ✅ ⭐ Bài viết + **toàn bộ Q&A reply** (gồm câu trả lời về *Requested Assets and Dependencies* và cảnh báo `Resources.UnloadUnusedAssets`) + **9 ảnh** |
+| 23 | [educba.com — Protobuf vs JSON](https://www.educba.com/protobuf-vs-json/) | ✅ Bảng so sánh + ưu/nhược điểm đầy đủ |
+| 24 | [docs.colyseus.io](https://docs.colyseus.io/colyseus/) | ✅ URL raw **404** → tìm ra `docs.colyseus.io/getting-started/unity`; cào qua Jina reader, có code SDK Unity đầy đủ |
+| 25 | [learn.unity.com — Memory Management in Unity](https://learn.unity.com/tutorial/memory-management-in-unity) | ✅ ⭐ **Nguồn chính M3** — cào đủ **12/12 chương** (Unity 2022.3) + **3 ảnh** |
+| 26 | [codelearn.io — Sử dụng Reflection trong C#](https://codelearn.io/sharing/su-dung-reflection-trong-csharp) | ⚠️ **CAPTCHA** — curl và Jina reader đều bị chặn. Thay bằng #27 + ghi chú raw |
+| 27 | [gucheng0712.github.io — C# Reflection in Unity](https://gucheng0712.github.io/unity/csharp/2019/04/19/C-Reflection-in-Unity-copy.html) | ✅ Toàn văn: System.Type, BindingFlags, Assembly, tạo object động |
+| 28 | 📕 E-book Mobile Perf — ch. *Assets* (tr.24–28), *Audio* (tr.41–42) · 📙 E-book Console/PC — ch. *Assets* (tr.30–37) | ✅ Bóc tách toàn văn + **10 ảnh trích PDF** |
+| — | *Bổ sung từ ghi chú raw (không có URL):* Service Locator, WebSocket Lock-step, Wei = 10⁻¹⁸, MLAPI/Mirror, Android plugin, UnityWebRequest | ✅ Đã đưa vào §10, §12, §13 |
 
 ---
 
@@ -86,6 +86,7 @@
 | 43 | 📕 [**E-book PDF** — Optimize your console and PC game performance](https://content.cdntwrk.com/files/aT0xNDI0NjkzJnY9MSZpc3N1ZU5hbWU9b3B0aW1pemUteW91ci1jb25zb2xlLWFuZC1wYy1nYW1lLXBlcmZvcm1hbmNlJmNtZD1kJnNpZz1hYjFkYjE2OTRhZWZhNzI4OTFkM2FiZjIyNTIyNTkyMQ%253D%253D) | 🟡 Đã tải (`_ebooks/`) |
 | 44 | [unity.com — Optimize your console and PC game performance (landing)](https://unity.com/resources/optimize-your-console-and-pc-game-performance) | ⏳ |
 | 45 | 📕 E-book Mobile Perf — ch. *Graphics and GPU optimization* (tr.29–36) | 🟡 PDF đã tải |
+| 21b | 📙 E-book Console/PC — ch. *User interface* (tr.70–72) · ***Physics* (tr.77–85, 14 mục)** · ***Animation* (tr.86–88)** | ✅ Bóc tách toàn văn + **10 ảnh** — chương Physics/Animation là phần **bổ sung sau audit** |
 | 46 | [resources.unity.com — HDRP Definitive Guide to Lighting (2020 LTS)](https://resources.unity.com/games/hdrp-guide) | ⏳ |
 | 47 | [resources.unity.com — HDRP Lighting (2021 LTS)](https://resources.unity.com/games/the-definitive-guide-to-lighting-in-the-high-definition-render-pipeline-unity-2021-lts-edition) | ⏳ |
 | 48 | [resources.unity.com — Definitive Guide to Creating VFX](https://resources.unity.com/games/definitive-guide-to-creating-visual-effects?ungated=true) | ⏳ |
@@ -120,8 +121,8 @@
 | Module | Đã cào ✅ | Đã tải 🟡 | Chờ ⏳ | Lỗi ⚠️ | Tổng |
 |---|---|---|---|---|---|
 | **M1 — Fresher** | 10 | 0 | 0 | 2 | **12** |
-| **M2 — Junior** | 0 | 1 | 9 | 0 | **10** |
-| **M3 — Senior** | 0 | 1 | 6 | 0 | **7** |
+| **M2 — Junior** | 9 | 0 | 0 | 2 | **11** |
+| **M3 — Senior** | 7 | 0 | 0 | 1 | **8** |
 | **M4 — Tech Lead** | 0 | 1 | 20 | 0 | **21** |
 | **M5 — Tech Lead** | 0 | 2 | 4 | 0 | **6** |
 | Tham khảo ➖ | — | — | — | — | **2** |
