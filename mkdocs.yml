@@ -45,6 +45,7 @@ markdown_extensions:
 
 nav:
   - 🏠 Trang chủ: index.md
+  - 📋 Bảng kiểm nguồn dữ liệu: 00-nguon-du-lieu.md
   - 🌱 1. Fresher:
       - Module 1 — Ultimate Guide to Profiling: 01-fresher/01-ultimate-guide-to-profiling.md
   - 🚀 2. Junior: []

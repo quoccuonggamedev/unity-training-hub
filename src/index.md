@@ -2,11 +2,13 @@
 
 > Hệ thống đào tạo & tối ưu hóa Unity — nội dung song ngữ **Việt / English**, bóc tách từ tài liệu chuyên sâu của Unity Technologies và cộng đồng.
 
+📋 **[Bảng kiểm nguồn dữ liệu](00-nguon-du-lieu.md)** — 55 URL từ `raw-optimization-data.txt`, ánh xạ vào từng Module kèm trạng thái cào.
+
 ## Lộ trình / Roadmap
 
 | Cấp độ / Level | Module | Trạng thái / Status |
 |---|---|---|
-| 🌱 **Fresher** | [Module 1 — Ultimate Guide to Profiling](01-fresher/01-ultimate-guide-to-profiling.md) | ✅ Hoàn thành |
+| 🌱 **Fresher** | [Module 1 — Ultimate Guide to Profiling](01-fresher/01-ultimate-guide-to-profiling.md) | ✅ Hoàn thành — 18 chương, 102 khối song ngữ, 44 ảnh |
 | 🚀 **Junior** | Module 2 — UI & Physics Deep Dive | ⏳ Chờ duyệt |
 | ⚔️ **Senior** | Module 3 — Memory, Addressables & Networking | ⏳ Chờ duyệt |
 | 👑 **Tech Lead** | Module 4 — GPU, URP & Advanced Rendering | ⏳ Chờ duyệt |

@@ -1,26 +1,57 @@
 # 🌱 Module 1 — Ultimate Guide to Profiling (Hướng dẫn Profiling toàn tập)
 
-!!! abstract "Nguồn / Sources"
-    - [Ultimate guide to profiling Unity games — Unity Technologies](https://unity.com/resources/ultimate-guide-to-profiling-unity-games)
+!!! abstract "Nguồn đã cào / Sources scraped"
+    **E-book PDF gốc (primary source, đã tải & bóc tách toàn văn + trích ảnh gốc):**
+
+    - 📗 **Ultimate Guide to Profiling Unity Games** — **75 trang** ([PDF](https://cdn.bfldr.com/S5BC9Y64/at/jmv8gbjf4gc35jptsnmrrsz/Ultimate_Guide_to_Profiling_Unity_Games.pdf)) — ⭐ **nguồn chính của Module này**: *Profiling 101*, *Profiling workflow*, *Memory profiling*, *Unity profiling and debug tools*, *Frame Debugger*, *Profile Analyzer*, *Memory Profiler*, *Deep profiling*.
+    - 📗 **Ultimate Guide to Profiling Games — Unity 6 edition** — **93 trang** ([PDF](https://cdn.bfldr.com/S5BC9Y64/at/8t9r5hwz38rrbrw4x8zcq2c/Ultimate_Guide_to_Profiling_Games_e-book_-_Unity_6_edition.pdf)) — ✅ **đã đối chiếu toàn bộ**; 13 mục chỉ có ở bản này đã được bóc tách: *The anatomy of a frame*, *Instrumentation vs sampling*, *Establish a profiling methodology*, *Common pitfalls* (main/render/worker thread), *Tools to solve the identified bottlenecks* (6 hệ thống batching), *A few tips when memory profiling*, *Rendering Debugger*, *Domain Reload*, *Performance Testing Package*.
+    - 📕 **Optimize Your Mobile Game Performance** — Unity 2020 LTS Edition, **52 trang** ([PDF](https://content.cdntwrk.com/files/aT0xMzg4ODYxJnY9MSZpc3N1ZU5hbWU9dW5pdHktZS1ib29rLW9wdGltaXplLXlvdXItbW9iaWxlLWdhbWUtcGVyZm9ybWFuY2UmY21kPWQmc2lnPWU3NWYzMDQxZjdkNTk4ZDc4NjVhMjZiZTVmM2E1ODQ4)) — chương *Profiling* (tr.4–9), *Memory* (tr.10–13), *Adaptive Performance* (tr.14–15), *Programming and code architecture* (tr.16–21).
+
+    **Bài viết web:**
+
+    - [Ultimate guide to profiling Unity games — Unity Technologies](https://unity.com/resources/ultimate-guide-to-profiling-unity-games) · [bản Unity 6](https://unity.com/resources/ultimate-guide-to-profiling-unity-games-unity-6)
     - [Optimize your mobile game performance: tips on profiling, memory, and code architecture — Unity Blog](https://blog.unity.com/technology/optimize-your-mobile-game-performance-tips-on-profiling-memory-and-code-architecture)
     - [Everything you need to know about Memory Profiler 1.0.0 — Unity Blog](https://blog.unity.com/technology/everything-you-need-to-know-about-memory-profiler)
     - [Optimization of Unity Game — makaka.org](https://makaka.org/unity-tutorials/optimization)
     - [How To Optimize Unity Game — Awesome Tuts](https://awesometuts.com/blog/optimize-unity-game/)
 
+    ⚠️ *Không cào được:* `learn.unity.com/tutorial/profiling-applications-made-with-unity` → **404** (Unity Learn đã tái cấu trúc). `cgcookie.com` → chặn bởi Cloudflare JS challenge. Xem [Bảng kiểm nguồn dữ liệu](../00-nguon-du-lieu.md) để biết trạng thái toàn bộ 55 URL.
+
 ---
 
 ## 1. Tư duy nền tảng: Vì sao FPS là một metric TỆ
 
+<img src="../assets/fps-vs-frametime-graph.png" alt="FPS vs frame time graph">
+<p><em>VI: Đồ thị FPS đối chiếu Frame Time — quan hệ nghịch đảo, KHÔNG tuyến tính. / EN: The fps versus frame time graph — an inverse, non-linear relationship.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
-<p><strong>Đừng dùng FPS làm thước đo chính.</strong> FPS (khung hình/giây) là một đại lượng <em>phi tuyến</em> — nó che giấu chi phí thật sự của mỗi khung hình. Metric đúng phải là <strong>Frame Time (ms)</strong>.</p>
-<p>Ví dụ kinh điển: giảm từ 900 FPS xuống 450 FPS nghe có vẻ "mất một nửa hiệu năng", nhưng thực chất bạn chỉ tốn thêm <strong>1.1 ms</strong>. Ngược lại, rơi từ 60 FPS xuống 30 FPS cũng là "mất một nửa" — nhưng bạn đã tốn thêm <strong>16.6 ms</strong>, gấp 15 lần.</p>
-<p>Vì thế: <strong>luôn đo bằng mili-giây, luôn so sánh với ngân sách khung hình (frame budget)</strong>.</p>
+<p><strong>Đừng dùng FPS làm thước đo chính.</strong> Game thủ đo hiệu năng bằng frame rate, nhưng lập trình viên nên dùng <strong>frame time tính bằng mili-giây</strong>. Lý do nằm ở đồ thị trên: quan hệ giữa FPS và frame time là <em>nghịch đảo, phi tuyến</em>.</p>
+<p><strong>Ví dụ nguyên văn từ sách — hãy xem kỹ, đây là điểm mấu chốt:</strong></p>
+<ul>
+<li>1000 ms ÷ <strong>900 fps</strong> = <strong>1.111 ms</strong>/frame</li>
+<li>1000 ms ÷ <strong>450 fps</strong> = <strong>2.222 ms</strong>/frame</li>
+<li>1000 ms ÷ <strong>60 fps</strong> = <strong>16.666 ms</strong>/frame</li>
+<li>1000 ms ÷ <strong>56.25 fps</strong> = <strong>17.777 ms</strong>/frame</li>
+</ul>
+<p>Từ 900 → 450 fps: frame rate <em>giảm một nửa</em>, nghe như thảm họa — nhưng thực tế chỉ tốn thêm <strong>1.111 ms</strong>.</p>
+<p>Từ 60 → 56.25 fps: cũng đúng <strong>1.111 ms</strong> tăng thêm — nhưng phần trăm sụt giảm nghe <em>nhẹ hều</em>.</p>
+<p>👉 <strong>Cùng một chi phí 1.111 ms, nhưng FPS kể hai câu chuyện trái ngược nhau.</strong> Đó là lý do developer dùng frame time trung bình để benchmark tốc độ game thay vì fps.</p>
+<p>Đừng bận tâm tới fps trừ khi bạn tụt dưới target frame rate. Hãy tập trung vào frame time và ở trong ngân sách khung hình.</p>
 </div>
 <div class="col-en">
-<p><strong>Don't use FPS as your primary metric.</strong> Frames per second is a <em>non-linear</em> quantity — it hides the true cost of each frame. The correct metric is <strong>Frame Time (ms)</strong>.</p>
-<p>Classic example: dropping from 900 FPS to 450 FPS sounds like "losing half your performance", but you actually only spent an extra <strong>1.1 ms</strong>. Conversely, falling from 60 FPS to 30 FPS is also "half" — but you spent an extra <strong>16.6 ms</strong>, 15× more.</p>
-<p>Therefore: <strong>always measure in milliseconds, always compare against the frame budget</strong>.</p>
+<p><strong>Don't use FPS as your primary metric.</strong> A common way that gamers measure performance is with frames per second. However, it's recommended that you use <strong>frame time in milliseconds</strong> instead. The reason is in the graph above: the relationship is <em>inverse and non-linear</em>.</p>
+<p><strong>Verbatim example from the book — this is the crux:</strong></p>
+<ul>
+<li>1000 ms/sec ÷ <strong>900 fps</strong> = <strong>1.111 ms</strong> per frame</li>
+<li>1000 ms/sec ÷ <strong>450 fps</strong> = <strong>2.222 ms</strong> per frame</li>
+<li>1000 ms/sec ÷ <strong>60 fps</strong> = <strong>16.666 ms</strong> per frame</li>
+<li>1000 ms/sec ÷ <strong>56.25 fps</strong> = <strong>17.777 ms</strong> per frame</li>
+</ul>
+<p>From 900 → 450 fps: the frame rate <em>appears to drop by one half</em>, sounding catastrophic — yet this represents a difference of only <strong>1.111 milliseconds</strong>.</p>
+<p>From 60 → 56.25 fps: also exactly <strong>1.111 ms</strong> extra per frame — but here the drop in frame rate feels <em>far less dramatic</em> percentage-wise.</p>
+<p>👉 <strong>The same 1.111 ms cost, yet FPS tells two opposite stories.</strong> This is why developers use average frame time to benchmark game speed rather than fps.</p>
+<p>Don't worry about fps unless you drop below your target frame rate. Focus on frame time to measure how fast your game is running, then stay within your frame budget.</p>
 </div>
 </div>
 
@@ -71,9 +102,631 @@ public class ThermalGovernor : MonoBehaviour
 }
 ```
 
+### 1.2. ⚠️ Thermal throttling — Cơ chế vật lý phía sau
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Kiểm soát nhiệt là một trong những mảng quan trọng nhất cần tối ưu khi phát triển ứng dụng mobile.</strong></p>
+<p>Cơ chế: nếu CPU hoặc GPU chạy hết công suất quá lâu do code kém hiệu quả, các chip đó sẽ <strong>nóng lên</strong>. Để tránh hỏng chip (và tránh làm bỏng tay người chơi!), hệ điều hành sẽ <strong>giảm xung nhịp</strong> thiết bị để nó nguội đi — gây giật khung hình và trải nghiệm tệ. Đây chính là <strong>thermal throttling</strong>.</p>
+<p>Frame rate cao hơn và nhiều lệnh thực thi hơn (hoặc nhiều thao tác truy cập DRAM hơn) ⇒ tốn pin nhiều hơn và sinh nhiệt nhiều hơn. Hiệu năng kém còn <em>loại bỏ hẳn cả phân khúc thiết bị cấu hình thấp</em>, khiến bạn mất cơ hội thị trường.</p>
+<p>👉 Khi xử lý bài toán nhiệt, hãy coi ngân sách của bạn là <strong>ngân sách toàn hệ thống</strong> (system-wide budget).</p>
+<p><strong>Cách diễn đạt chính xác của sách:</strong> để lại <strong>~35% thời gian nhàn rỗi (idle)</strong> mỗi khung hình là khuyến nghị điển hình để chống vấn đề nhiệt khi chơi lâu — tức chỉ dùng ~65% ngân sách.</p>
+</div>
+<div class="col-en">
+<p><strong>Thermal control is one of the most important areas to optimize for when developing applications for mobile devices.</strong></p>
+<p>The mechanism: if the CPU or GPU spend too long working at full throttle due to inefficient code, those chips will get hot. To avoid damage to the chips (and potentially burning a player's hands!), the operating system will <strong>reduce the clock speed</strong> of the device to allow it to cool down, causing frame stuttering and a poor user experience. This is <strong>thermal throttling</strong>.</p>
+<p>Higher frame rates and increased code execution (or DRAM access operations) lead to increased battery drain and heat generation. Bad performance can also cut out entire segments of lower-end mobile devices, which can lead to missed market opportunities.</p>
+<p>👉 When taking on the problem of thermals, consider the budget you have to work with as a <strong>system-wide budget</strong>.</p>
+<p><strong>The book's precise framing:</strong> leaving a frame <strong>idle time of around 35%</strong> is the typical recommendation to combat device thermal issues over extended play times — i.e. use only ~65% of the budget.</p>
+</div>
+</div>
+
+### 1.3. 🎬 Giải phẫu một khung hình (The anatomy of a frame)
+
+!!! note "Nội dung bổ sung từ bản Unity 6 (93 trang)"
+    Mục này **chỉ có trong bản Unity 6 edition**, không có trong bản 75 trang.
+
+<img src="../assets/anatomy-of-a-frame.png" alt="Anatomy of a frame — CPU/GPU pipeline">
+<p><em>VI: CPU chuẩn bị các chỉ thị render rồi bàn giao cho GPU. / EN: The CPU prepares rendering instructions that are handed off to the GPU.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Nhắm 60 fps nghĩa là 16.66 ms mỗi frame — <strong>nhưng Unity thực chất duy trì một PIPELINE, trong đó CPU và GPU làm việc trên các frame KHÁC NHAU cùng lúc.</strong></p>
+<p><strong>Phía CPU</strong>, việc thực thi bắt đầu bằng:</p>
+<ol>
+<li><strong>Engine code</strong> — code nội bộ của Unity (nằm ngoài tầm kiểm soát của bạn)</li>
+<li><strong>Your code</strong> — logic game tùy biến của bạn (các script)</li>
+<li><strong>Render</strong> — CPU chuẩn bị các chỉ thị render</li>
+</ol>
+<p>Các chỉ thị này sau đó được <strong>bàn giao cho GPU</strong>. Trong khi GPU bắt đầu render frame <strong>N</strong>, CPU đã <em>đang làm việc trên frame kế tiếp</em> (ký hiệu <strong>N+1</strong>).</p>
+<p><strong>Hệ thống hai luồng của Unity:</strong></p>
+<ul>
+<li><strong>Main thread</strong> — xử lý game logic, physics, animation, và input; đồng thời <em>xếp hàng các lệnh render</em>.</li>
+<li><strong>Render thread</strong> — chuyển các lệnh đó thành chỉ thị mà GPU hiểu được.</li>
+</ul>
+<p>Khi GPU nhận được chỉ thị render, nó xử lý qua <strong>graphics pipeline</strong>: vertex shading → fragment shading → post-processing → cuối cùng xuất frame ra màn hình.</p>
+<p>⚠️ <strong>Điểm mấu chốt:</strong> Cách tiếp cận song song này cho phép CPU bắt đầu chuẩn bị frame tiếp theo trong khi GPU vẫn đang render frame hiện tại. <strong>Tuy nhiên, GPU PHẢI CHỜ CPU chuẩn bị xong dữ liệu render mới tiếp tục được</strong> — khiến việc <em>đồng bộ giữa hai bên trở nên tối quan trọng đối với hiệu năng</em>.</p>
+<p>👉 Đây chính là lý do vì sao các marker <code>Gfx.WaitFor*</code> tồn tại, và vì sao bạn phải chẩn đoán CPU-bound / GPU-bound trước tiên (§3).</p>
+</div>
+<div class="col-en">
+<p>Targeting 60 frames per second results in 16.66 milliseconds per frame — <strong>but Unity actually maintains a PIPELINE where the CPU and GPU work on DIFFERENT frames simultaneously.</strong></p>
+<p><strong>On the CPU side</strong>, execution begins with:</p>
+<ol>
+<li><strong>Engine code</strong> — Unity's internal code (outside your control)</li>
+<li><strong>Your code</strong> — your custom game logic (your scripts)</li>
+<li><strong>Render</strong> — the CPU prepares rendering instructions</li>
+</ol>
+<p>These instructions are then <strong>handed off to the GPU</strong>. While the GPU begins rendering frame <strong>N</strong>, the CPU is <em>already working on the following frame</em> (denoted as <strong>N+1</strong>).</p>
+<p><strong>Unity's dual-threaded system:</strong></p>
+<ul>
+<li>The <strong>main thread</strong> handles game logic, physics, animation, and input, while also <em>queuing up rendering commands</em>.</li>
+<li>The <strong>render thread</strong> converts these commands into GPU-friendly instructions.</li>
+</ul>
+<p>Once the GPU receives the render instructions, it processes them through the <strong>graphics pipeline</strong>: vertex shading → fragment shading → post-processing → finally outputting the frame to the display.</p>
+<p>⚠️ <strong>The crux:</strong> This parallelized approach allows the CPU to begin preparing the next frame while the GPU is still rendering the current one. <strong>However, the GPU MUST WAIT for the CPU to finish preparing rendering data before it can proceed</strong> — making <em>synchronization between the two critical for performance</em>.</p>
+<p>👉 This is exactly why the <code>Gfx.WaitFor*</code> markers exist, and why you must diagnose CPU-bound / GPU-bound first (§3).</p>
+</div>
+</div>
+
 ---
 
-## 2. Chu trình Profiling chuẩn (The Profiling Cycle)
+## 2. Profiling 101 — Hai trường phái đo lường
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Có <strong>hai phương pháp phổ biến</strong> để profile hiệu năng game:</p>
+<p><strong>① SAMPLE-BASED PROFILING (dựa trên lấy mẫu)</strong></p>
+<p>Thu thập <em>dữ liệu thống kê</em> về công việc đang diễn ra rồi phân tích. Profiler loại này <strong>thăm dò call stack mỗi "n" nano-giây</strong>, dùng thông tin call stack để suy ra hàm nào được gọi (và bởi hàm nào), cũng như gọi trong bao lâu.</p>
+<ul>
+<li>✅ Không cần chèn marker vào code.</li>
+<li>⚖️ <strong>Đánh đổi:</strong> Tăng tần số lấy mẫu ⇒ độ chính xác tăng (không bỏ sót các lời gọi hàm ngắn), <strong>nhưng overhead cũng tăng theo</strong>.</li>
+</ul>
+<p><strong>② INSTRUMENTATION-BASED PROFILING (dựa trên chèn đo)</strong></p>
+<p>"Instrument" code bằng cách chèn <strong>Profiler markers</strong>, ghi lại thông tin thời gian chi tiết về việc code trong mỗi marker mất bao lâu để chạy. Profiler bắt một luồng sự kiện <strong>Begin</strong> và <strong>End</strong> cho từng marker.</p>
+<ul>
+<li>✅ <strong>Không mất thông tin nào cả.</strong></li>
+<li>⚖️ <strong>Đánh đổi:</strong> Phụ thuộc vào việc marker <em>có được đặt hay không</em> thì dữ liệu mới được ghi.</li>
+</ul>
+<p>👉 <strong>Unity Profiler thuộc loại instrumentation-based.</strong> <em>(Bản Unity 6 nói rõ hơn: Unity Profiler <strong>kết hợp CẢ HAI</strong>, tùy chế độ đang dùng.)</em></p>
+</div>
+<div class="col-en">
+<p>There are <strong>two common methods</strong> of profiling game performance:</p>
+<p><strong>① SAMPLE-BASED PROFILING</strong></p>
+<p>Statistical data about the work being done in the application is collected and then analyzed. Sample-based profilers <strong>probe the call stack every "n" nanoseconds</strong> and use call stack information to figure out when functions were called (and by which functions), as well as for how long.</p>
+<ul>
+<li>✅ No need to insert markers into code.</li>
+<li>⚖️ <strong>Trade-off:</strong> Accuracy increases by using higher sampling rate frequencies because shorter calls to functions are not missed in the call stack. However, <strong>it leads to higher overhead</strong>.</li>
+</ul>
+<p><strong>② INSTRUMENTATION-BASED PROFILING</strong></p>
+<p>Involves "instrumenting" the code by adding <strong>Profiler markers</strong>, which record detailed timing information about how long the code in each marker takes to execute. This profiler captures a stream of <strong>Begin</strong> and <strong>End</strong> events for each marker.</p>
+<ul>
+<li>✅ <strong>This method doesn't lose any information.</strong></li>
+<li>⚖️ <strong>Trade-off:</strong> It does rely on markers <em>being placed</em> in order for profiling data to be captured.</li>
+</ul>
+<p>👉 <strong>The Unity Profiler is instrumentation-based.</strong> <em>(The Unity 6 edition clarifies: the Unity Profiler <strong>combines BOTH</strong>, depending on the mode being used.)</em></p>
+</div>
+</div>
+
+#### ⚖️ Instrumentation vs Sampling — So sánh overhead
+
+!!! note "Bổ sung từ bản Unity 6"
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Nhìn chung: <strong>sample-based</strong> profiling phân tích hiệu năng ở <em>mức cao</em>, còn <strong>instrumentation-based</strong> chỉ đích danh điểm nóng hiệu năng nhưng <em>overhead cao hơn</em>.</p>
+<p><strong>Khác biệt then chốt về bản chất overhead:</strong></p>
+<ul>
+<li><strong>Sampling profiler:</strong> overhead <strong>KHÔNG ĐỔI</strong>, bất kể CPU đang làm gì trong lúc profile. Bạn có thể đổi sample rate để điều chỉnh, nhưng nhìn chung overhead thấp hơn.</li>
+<li><strong>Instrumentation profiler:</strong> overhead <strong>THAY ĐỔI theo SỐ LƯỢNG MARKER</strong> — thêm nhiều marker khiến capture đắt hơn, vì <em>bản thân marker cũng tốn thời gian</em>.</li>
+</ul>
+<p>⚠️ <strong>Hệ quả rất quan trọng khi đọc số liệu:</strong> Những nơi trong dự án <em>gọi nhiều hàm</em> có thể <strong>trông đắt hơn thực tế</strong>. Hiện tượng này đặc biệt rõ khi <strong>deep profiling</strong>, và nó <em>bóp méo timing</em> trong capture của bạn.</p>
+</div>
+<div class="col-en">
+<p>Generally, <strong>sample-based</strong> profiling analyzes the application's <em>high-level</em> performance, while <strong>instrumentation-based</strong> profiling pinpoints critical performance but with <em>higher overhead</em>.</p>
+<p><strong>The key difference in the nature of the overhead:</strong></p>
+<ul>
+<li><strong>Sampling profilers:</strong> the overhead is <strong>CONSTANT</strong> no matter what work the CPU is doing while being profiled. You can change the sample rate to accommodate that, but it's generally lower.</li>
+<li><strong>Instrumentation profilers:</strong> the overhead <strong>VARIES WITH THE NUMBER OF MARKERS</strong> — adding a lot of markers makes the capture more expensive because <em>the markers themselves take time</em>.</li>
+</ul>
+<p>⚠️ <strong>A very important consequence when reading data:</strong> Places in your project which <em>call a lot of functions</em> might <strong>look more expensive than they really are</strong>. This shows up especially when <strong>deep profiling</strong>, and it <em>distorts the timings</em> in your profiler capture.</p>
+</div>
+</div>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Unity cân bằng độ chi tiết và overhead như thế nào?</strong></p>
+<p>Unity đạt được sự cân bằng tốt bằng cách đặt marker sẵn ở <strong>hầu hết bề mặt Unity API</strong>. Các chức năng native quan trọng và các lời gọi message của scripting code base đều được instrument sẵn, nhằm bắt được những "nét lớn" quan trọng nhất mà không phát sinh quá nhiều overhead.</p>
+<p>Điều này cho phép bạn khám phá hiệu năng code, định vị vấn đề dễ dàng, và tìm ra các cải thiện nhanh — kèm tùy chọn đào sâu hơn bằng cách <strong>tự thêm Profiler marker</strong> hoặc dùng <strong>deep profiling</strong>.</p>
+<p><strong>Deep profiling</strong> tự động chèn marker Begin/End vào <em>mọi</em> lời gọi phương thức scripting, <strong>kể cả C# Getter và Setter property</strong>. Cho chi tiết đầy đủ ở phía scripting, nhưng overhead đi kèm <em>có thể thổi phồng số liệu thời gian</em> tùy theo có bao nhiêu lời gọi nằm trong phạm vi được profile.</p>
+</div>
+<div class="col-en">
+<p><strong>How does Unity balance detail vs overhead?</strong></p>
+<p>A good balance of detail vs overhead is struck by markers being set in <strong>most of the Unity API surface</strong>. Important native functionality and scripting code base message calls are instrumented to capture the most important "broad strokes" without incurring too much overhead.</p>
+<p>This allows you to explore the performance of your code, locate performance issues easily, and spot quick optimization wins, with the option of going even deeper by <strong>adding custom Profiler markers</strong> or using <strong>deep profiling</strong>.</p>
+<p><strong>Deep profiling</strong> automatically inserts Begin and End markers in <em>every</em> scripting method call, <strong>including C# Getter and Setter properties</strong>. This system gives full profiling detail on the scripting side, but it comes with an associated overhead that <em>can inflate the reported timing data</em> based on how many calls are within the captured profiling scopes.</p>
+</div>
+</div>
+
+### 2.1. Profiler modules — Các module đo lường
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Profiler <strong>bắt các chỉ số hiệu năng theo từng khung hình</strong> để giúp bạn xác định bottleneck. Bạn đào sâu vào chi tiết thông qua các <strong>Profiler module</strong> tích hợp sẵn: <em>CPU Usage, GPU, Rendering, Memory, Physics</em>, v.v.</p>
+<p>Cửa sổ Profiler liệt kê chi tiết đã bắt được của module <em>đang chọn</em> ở panel phía dưới. Ví dụ, module <strong>CPU Usage</strong> hiển thị view Timeline hoặc Hierarchy của công việc CPU kèm thời gian cụ thể.</p>
+<p>⚠️ <strong>Cảnh báo quan trọng:</strong> Mặc định Profiler sẽ kết nối tới instance <em>Unity Editor Player</em>. Bạn sẽ thấy <strong>khác biệt rất lớn</strong> giữa profiling trong Editor và profiling một standalone build. Kết nối Profiler tới standalone build chạy trực tiếp trên phần cứng đích <strong>luôn luôn là lựa chọn tốt hơn</strong>, vì nó cho kết quả chính xác nhất mà không có overhead của Editor.</p>
+</div>
+<div class="col-en">
+<p>The Profiler <strong>captures per-frame performance metrics</strong> to help you identify bottlenecks. Drill down into details by using the <strong>Profiler modules</strong> included in the Profiler, such as <em>CPU Usage, GPU, Rendering, Memory, Physics</em>, and so on.</p>
+<p>The Profiler window lists details captured with the <em>currently selected</em> Profiler module in a panel at the bottom of the view. The <strong>CPU Usage</strong> Profiler module, for instance, displays a timeline or hierarchy view of the work of the CPU, along with specific times.</p>
+<p>⚠️ <strong>Important caveat:</strong> By default, the Profiler will connect to the Unity Editor Player instance. Be aware that you will see a <strong>large difference</strong> in performance between profiling in the Editor and profiling a standalone build. Connecting the Profiler to a standalone build running directly on your target hardware is <strong>always preferable</strong> since this yields the most accurate results without Editor overhead.</p>
+</div>
+</div>
+
+### 2.2. Giảm thao tác truy cập bộ nhớ (Mobile)
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Truy cập DRAM là thao tác tiêu tốn điện năng rất lớn trên thiết bị mobile.</strong></p>
+<p>📊 <strong>Con số cần nhớ:</strong> Theo khuyến nghị tối ưu nội dung đồ họa mobile của Arm, truy cập bộ nhớ <strong>LPDDR4 tốn khoảng 100 pico-joule mỗi byte</strong>.</p>
+<p><strong>Bốn cách giảm số thao tác truy cập bộ nhớ mỗi frame:</strong></p>
+<ol>
+<li><strong>Giảm frame rate</strong></li>
+<li><strong>Giảm độ phân giải hiển thị</strong> ở những chỗ có thể</li>
+<li><strong>Dùng mesh đơn giản hơn</strong> — giảm số đỉnh (vertex count) và độ chính xác thuộc tính (attribute precision)</li>
+<li><strong>Dùng nén texture và mipmapping</strong></li>
+</ol>
+<p>👉 Nếu tập trung vào thiết bị dùng phần cứng <strong>Arm / Arm Mali</strong>, bộ công cụ <strong>Arm Mobile Studio</strong> — cụ thể là <strong>Streamline Performance Analyzer</strong> — có các performance counter rất tốt để nhận diện vấn đề <em>băng thông bộ nhớ</em>. Counter được liệt kê và giải thích cho từng thế hệ GPU Arm (ví dụ Mali-G78).</p>
+<p>⚠️ Lưu ý: GPU profiling của Mobile Studio <strong>yêu cầu Arm Mali</strong>.</p>
+</div>
+<div class="col-en">
+<p><strong>DRAM access is typically a power-hungry operation on mobile devices.</strong></p>
+<p>📊 <strong>The number to remember:</strong> Arm's optimization advice for graphics content on mobile devices says that <strong>LPDDR4 memory access costs approximately 100 picojoules per byte</strong>.</p>
+<p><strong>Four ways to reduce memory access operations per frame:</strong></p>
+<ol>
+<li><strong>Reducing frame rate</strong></li>
+<li><strong>Reducing display resolution</strong> where possible</li>
+<li><strong>Using simpler meshes</strong> with reduced vertex count and attribute precision</li>
+<li><strong>Using texture compression and mipmapping</strong></li>
+</ol>
+<p>👉 When you need to focus on devices leveraging <strong>Arm or Arm Mali</strong> hardware, <strong>Arm Mobile Studio</strong> tooling (specifically, <strong>Streamline Performance Analyzer</strong>) includes some great performance counters for identifying <em>memory bandwidth</em> issues. The counters are listed and explained for each Arm GPU generation, for example, Mali-G78.</p>
+<p>⚠️ Note that Mobile Studio GPU profiling <strong>requires Arm Mali</strong>.</p>
+</div>
+</div>
+
+### 2.3. Profiling vs Debugging vs Static Analysis
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Ba loại công cụ khác nhau, đừng nhầm lẫn:</p>
+<ul>
+<li><strong>Profiling tools</strong> — instrument và thu thập dữ liệu thời gian liên quan tới việc thực thi code. <em>(Unity Profiler, Profile Analyzer)</em></li>
+<li><strong>Debugging tools</strong> — cho phép bạn bước qua từng bước thực thi chương trình, tạm dừng và kiểm tra giá trị. Ví dụ: <strong>Frame Debugger</strong> cho bạn bước qua quá trình render từng frame, kiểm tra giá trị shader, v.v. <em>(Về mặt kỹ thuật đây KHÔNG phải profiler, nhưng cực kỳ quan trọng trong bộ đồ nghề.)</em></li>
+<li><strong>Static analyzers</strong> — nhận source code hoặc asset làm đầu vào, phân tích bằng bộ luật dựng sẵn để suy luận về tính "đúng đắn" của đầu vào — <strong>mà không cần chạy project</strong>. <em>(Project Auditor)</em></li>
+</ul>
+</div>
+<div class="col-en">
+<p>Three distinct tool categories — don't conflate them:</p>
+<ul>
+<li><strong>Profiling tools</strong> instrument and collect timing data relating to code execution. <em>(Unity Profiler, Profile Analyzer)</em></li>
+<li><strong>Debugging tools</strong> allow you to step through the execution of a program, pause and examine values, and provide many other advanced features. For example, the <strong>Frame Debugger</strong> lets you step through the rendering of frames, examine shader values, and more. <em>(Technically not profilers, but important to include in your toolkit.)</em></li>
+<li><strong>Static analyzers</strong> are programs that take source code or other assets as input and analyze them using built-in rules to reason about the "correctness" of said input, <strong>without needing to run the project</strong>. <em>(Project Auditor)</em></li>
+</ul>
+</div>
+</div>
+
+---
+
+## 3. 🗺️ SƠ ĐỒ CHẨN ĐOÁN BOTTLENECK — Bản đồ tối ưu hóa
+
+<img src="../assets/bottleneck-flowchart.png" alt="Bottleneck diagnosis flowchart">
+<p><em>VI: Đi theo sơ đồ này và dùng Profiler để xác định chính xác nơi cần dồn nỗ lực tối ưu. / EN: Follow this flowchart and use the Profiler to help pinpoint where to focus your optimization efforts.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Đây là tài sản giá trị nhất của cả cuốn sách.</strong> Hãy in ra dán lên tường. Trình tự đọc:</p>
+<p><strong>BƯỚC 1 — START HERE:</strong> Mở Unity Profiler. <em>Chúng ta có nằm trong frame budget không?</em></p>
+<ul>
+<li><strong>Có</strong> → 🎉 Tuyệt vời. Giờ chuyển sang xem <strong>Memory</strong>!</li>
+<li><strong>Không</strong> → đi tiếp Bước 2.</li>
+</ul>
+<p><strong>BƯỚC 2 — Main thread có đang chờ thread khác không?</strong></p>
+<ul>
+<li><strong>Không</strong> → 🔴 <strong>Main thread bound</strong></li>
+<li><strong>Có, chờ job threads</strong> → 🔴 <strong>Job worker thread bound</strong></li>
+<li><strong>Có, chờ render thread</strong> → đi tiếp Bước 3.</li>
+</ul>
+<p><strong>BƯỚC 3 — Chúng ta có đang chờ GPU không?</strong></p>
+<ul>
+<li><strong>Không</strong> → 🔴 <strong>Render thread bound</strong></li>
+<li><strong>Có</strong> → 🔴 <strong>GPU-bound</strong></li>
+</ul>
+</div>
+<div class="col-en">
+<p><strong>This is the single most valuable asset in the entire book.</strong> Print it and pin it to your wall. Reading order:</p>
+<p><strong>STEP 1 — START HERE:</strong> Look at the Unity Profiler. <em>Are we in frame budget?</em></p>
+<ul>
+<li><strong>Yes</strong> → 🎉 Great. Now look at <strong>Memory</strong>!</li>
+<li><strong>No</strong> → proceed to Step 2.</li>
+</ul>
+<p><strong>STEP 2 — Is the main thread waiting for another thread?</strong></p>
+<ul>
+<li><strong>No, main thread bound</strong> → 🔴 <strong>Main thread bound</strong></li>
+<li><strong>Yes, job threads</strong> → 🔴 <strong>Job worker thread bound</strong></li>
+<li><strong>Yes, render thread</strong> → proceed to Step 3.</li>
+</ul>
+<p><strong>STEP 3 — Are we waiting for the GPU?</strong></p>
+<ul>
+<li><strong>No</strong> → 🔴 <strong>Render thread bound</strong></li>
+<li><strong>Yes</strong> → 🔴 <strong>GPU-bound</strong></li>
+</ul>
+</div>
+</div>
+
+### 3.1. Bảng tra: Nghẽn ở đâu → Làm gì tiếp → Sửa cái gì
+
+| Bottleneck | **What now?** (Điều tra bằng gì) | **What might the fix be?** (Sửa gì) |
+|---|---|---|
+| 🔴 **Main thread bound**<br>🔴 **Job worker thread bound** | Dùng **Unity Profiler** + **Profile Analyzer** để xác định chi phí lớn nhất. Nếu chưa thấy rõ vấn đề, bật **Deep Profiling**, **Call Stacks**, hoặc dùng **native CPU profiler**. | Optimize **Scripts, Physics, Garbage allocation/collection, Cameras, UI, Animation, Job dependencies, Parallelization** |
+| 🔴 **Render thread bound** | Xem **Frame Debugger** và **Graphics / Quality settings** | Optimize **Cameras, Culling, Draw call batching** |
+| 🔴 **GPU-bound** | Xem **GPU Debugger**, **Shaders**, và **Graphics / Quality settings** | Optimize **Shaders, Mesh or Texture Compression, Resolution, Overdraw, Post-processing** |
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Vòng lặp khép kín:</strong> Sau khi sửa → <em>"Implement optimizations and profile again. Compare results using Profile Analyzer to confirm performance improvements."</em> → quay lại START HERE.</p>
+<p>Sơ đồ này <strong>bắt buộc bạn phải chứng minh</strong> cải thiện bằng số liệu, không phải bằng cảm giác.</p>
+</div>
+<div class="col-en">
+<p><strong>Closed loop:</strong> After fixing → <em>"Implement optimizations and profile again. Compare results using Profile Analyzer to confirm performance improvements."</em> → back to START HERE.</p>
+<p>The flowchart <strong>forces you to prove</strong> the improvement with data, not with a feeling.</p>
+</div>
+</div>
+
+### 3.2. Ba luồng CPU cần biết / The three CPU threads
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Hiếm khi toàn bộ tải CPU là bottleneck.</strong> CPU hiện đại có nhiều nhân, chạy độc lập và đồng thời; mỗi nhân chạy được thread khác nhau. Unity dùng nhiều loại thread, nhưng 3 loại hay gây vấn đề hiệu năng nhất là:</p>
+<ul>
+<li><strong>Main thread</strong> — nơi <em>mặc định</em> toàn bộ game logic/script thực thi, và là nơi tốn phần lớn thời gian cho các hệ thống như physics, animation, UI, và rendering.</li>
+<li><strong>Render thread</strong> — trong quá trình render, main thread duyệt scene và thực hiện <em>Camera culling, depth sorting, draw call batching</em>, tạo ra một danh sách những thứ cần vẽ. Danh sách này được chuyển sang render thread, nơi nó được <em>dịch</em> từ biểu diễn nội bộ trung lập nền tảng của Unity sang các lời gọi graphics API cụ thể để ra lệnh cho GPU trên nền tảng đó.</li>
+<li><strong>Job worker threads</strong> — bạn có thể dùng <strong>C# Job System</strong> để lên lịch một số loại công việc chạy trên worker thread, giảm tải cho main thread. Một số hệ thống của Unity cũng dùng job system: physics, animation, rendering.</li>
+</ul>
+<p>👉 Mục đích của profiling là <strong>xác định bottleneck làm mục tiêu tối ưu</strong>. Nếu dựa vào phỏng đoán, bạn có thể tối ưu những phần <em>không phải</em> bottleneck ⇒ cải thiện rất ít hoặc bằng không. Một số "tối ưu" thậm chí còn <strong>làm game tệ đi</strong>.</p>
+</div>
+<div class="col-en">
+<p><strong>It's rare for the entire CPU workload to be the bottleneck.</strong> Modern CPUs have a number of different cores, capable of performing work independently and simultaneously; different threads run on each core. A full Unity application uses a range of threads, but the three most common for finding performance issues are:</p>
+<ul>
+<li><strong>The main thread</strong> — where all of the game logic/scripts perform their work <em>by default</em>, and where the majority of time is spent for features and systems such as physics, animation, UI, and rendering.</li>
+<li><strong>The render thread</strong> — during rendering, the main thread examines the scene and performs <em>Camera culling, depth sorting, and draw call batching</em>, resulting in a list of things to render. This list is passed to the render thread, which <em>translates</em> it from Unity's internal platform-agnostic representation to the specific graphics API calls required to instruct the GPU on a particular platform.</li>
+<li><strong>The Job worker threads</strong> — developers can use the <strong>C# Job System</strong> to schedule certain kinds of work to run on worker threads, reducing the workload on the main thread. Some of Unity's systems also use the job system: physics, animation, and rendering.</li>
+</ul>
+<p>👉 The point of profiling is to <strong>identify bottlenecks as targets for optimization</strong>. If you rely on guesswork, you can end up optimizing parts of the game that are <em>not</em> bottlenecks, resulting in little or no improvement. Some "optimizations" might even <strong>worsen your game's overall performance</strong>.</p>
+</div>
+</div>
+
+### 3.3. Đọc capture thật — 4 tình huống điển hình
+
+#### ✅ Tình huống 1: Nằm TRONG ngân sách (healthy)
+
+<img src="../assets/profiler-within-budget.png" alt="Profiler capture within frame budget">
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Game mobile thật, target 60 fps trên máy cấu hình cao và 30 fps trên máy trung/thấp (capture này từ máy trung/thấp).</p>
+<p><strong>Dấu hiệu khỏe mạnh cần nhận ra:</strong></p>
+<ul>
+<li>Gần <strong>một nửa</strong> thời gian của frame bị chiếm bởi marker <strong><code>WaitForTargetfps</code></strong> màu vàng. App đã set <code>Application.targetFrameRate = 30</code> và bật VSync.</li>
+<li>Công việc xử lý thực sự trên main thread <strong>kết thúc ở mốc ~19 ms</strong>; phần còn lại là chờ cho hết 33.33 ms.</li>
+<li>Tuy được biểu diễn bằng một Profiler marker, main thread thực chất <strong>đang nhàn rỗi</strong> — cho phép CPU <em>nguội đi</em> và dùng <em>tối thiểu pin</em>.</li>
+<li>Render thread nhàn rỗi trong <strong><code>Gfx.WaitForGfxCommandsFromMainThread</code></strong> — đã gửi xong draw call của frame này, đang chờ frame sau.</li>
+<li><code>Job Worker 0</code> có chút thời gian trong <code>Canvas.GeometryJob</code>, nhưng <strong>phần lớn là Idle</strong>.</li>
+</ul>
+<p>💡 <strong>Thời gian nhàn rỗi hiển thị bằng marker màu xám hoặc vàng.</strong> Đây đều là dấu hiệu của một ứng dụng nằm thoải mái trong ngân sách.</p>
+<p>💡 Có thể quan sát <strong>khoảng VBlank</strong> bằng cách nhìn thời điểm kết thúc của <code>Gfx.Present</code> qua từng frame.</p>
+</div>
+<div class="col-en">
+<p>A real Unity mobile game targeting 60 fps on high-spec phones and 30 fps on medium/low-spec phones (this capture is from the latter).</p>
+<p><strong>Healthy signs to recognize:</strong></p>
+<ul>
+<li>Nearly <strong>half</strong> the frame is occupied by the yellow <strong><code>WaitForTargetfps</code></strong> marker. The app set <code>Application.targetFrameRate</code> to 30 fps and VSync is enabled.</li>
+<li>Actual processing work on the main thread <strong>finishes around the 19 ms mark</strong>; the rest is spent waiting for the remainder of the 33.33 ms.</li>
+<li>Although represented with a Profiler marker, the main CPU thread is essentially <strong>idle</strong> during this time, <em>allowing the CPU to cool</em> and using a <em>minimum of battery power</em>.</li>
+<li>The render thread idles in <strong><code>Gfx.WaitForGfxCommandsFromMainThread</code></strong> — it has finished sending draw calls for one frame and awaits more on the next.</li>
+<li><code>Job Worker 0</code> spends some time in <code>Canvas.GeometryJob</code>, but <strong>most of the time it's Idle</strong>.</li>
+</ul>
+<p>💡 <strong>Idle time is represented by gray or yellow Profiler markers.</strong> These are all signs of an application that's comfortably within the frame budget.</p>
+<p>💡 The <strong>VBlank interval</strong> can be observed by looking at the end times of <code>Gfx.Present</code> frame over frame.</p>
+</div>
+</div>
+
+!!! success "Nếu bạn đã trong budget / If your game is in frame budget"
+    **VI:** Nếu đã nằm trong ngân sách (kể cả sau khi điều chỉnh cho pin và thermal throttling), bạn **đã xong** phần profiling hiệu năng lần này — chúc mừng. Hãy cân nhắc chạy **Memory Profiler** để đảm bảo app cũng nằm trong ngân sách bộ nhớ.
+
+    **EN:** If you are within the frame budget, including any adjustments for battery usage and thermal throttling, you have finished performance profiling until next time – congratulations. Consider running the **Memory Profiler** to ensure the application is also within its memory budget.
+
+#### 🔴 Tình huống 2: Main thread bound
+
+<img src="../assets/profiler-main-thread-bound.png" alt="Profiler capture main thread bound">
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Đọc capture: <strong>CPU 46.35 ms</strong> — vượt xa mốc 33 ms (30 FPS). Main thread đặc kín công việc: <code>PlayerLoop (46.33ms)</code>, trong đó <code>PostLateUpdate.FinishFrameRendering (16.23ms)</code>, <code>BehaviourUpdate (7.27ms)</code>.</p>
+<p>Render thread có <code>WaitForSignal</code> đáng kể (7.28ms, 8.89ms) và <strong>Worker 0/1 Idle 11.20ms / 6.30ms / 8.35ms</strong>.</p>
+<p>👉 <strong>Chẩn đoán:</strong> Render thread và worker thread đều <em>rảnh rỗi chờ việc</em>, còn main thread thì quá tải ⇒ <strong>Main thread bound</strong>. Đi tối ưu Scripts / Physics / GC / UI / Animation.</p>
+</div>
+<div class="col-en">
+<p>Reading the capture: <strong>CPU 46.35 ms</strong> — well over the 33 ms (30 FPS) line. The main thread is packed: <code>PlayerLoop (46.33ms)</code>, including <code>PostLateUpdate.FinishFrameRendering (16.23ms)</code> and <code>BehaviourUpdate (7.27ms)</code>.</p>
+<p>The render thread shows substantial <code>WaitForSignal</code> (7.28ms, 8.89ms), and <strong>Worker 0/1 are Idle for 11.20ms / 6.30ms / 8.35ms</strong>.</p>
+<p>👉 <strong>Diagnosis:</strong> Render and worker threads are <em>idle, waiting for work</em>, while the main thread is saturated ⇒ <strong>Main thread bound</strong>. Optimize Scripts / Physics / GC / UI / Animation.</p>
+</div>
+</div>
+
+#### 🔴 Tình huống 2b: Job worker thread bound
+
+<img src="../assets/profiler-worker-thread-bound.png" alt="Profiler capture job worker thread bound">
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Đọc capture: <strong>CPU 48.14 ms</strong>. Main thread bị chi phối bởi chuỗi DOTS/ECS: <code>SimulationSystemGroup (36.48ms)</code> → <code>EndSimulationEntityCommandBufferSystem (35.58ms)</code> → <strong><code>JobHandle.Complete (35.57ms)</code></strong> → <strong><code>WaitForJobGroupID (35.57ms)</code></strong>.</p>
+<p>Nhìn xuống khu <strong>Job</strong>: <strong>Worker 0 → Worker 10+</strong> đều <em>đặc kín</em> công việc — <code>FindNearLeafNodesJob (Burst)</code>, <code>ViscositySystem:Viscosity (Burst) 11.77ms</code>, <code>PopulateNeighbours</code>, <code>SpringAdjustment</code>, <code>DensityCalc</code>.</p>
+<p>👉 <strong>Chẩn đoán:</strong> Main thread <em>chờ</em> job hoàn thành (<code>WaitForJobGroupID</code>), còn worker thread thì bận rộn ⇒ <strong>Job worker thread bound</strong>.</p>
+<p><strong>Cách sửa:</strong> tối ưu <em>Job dependencies</em> và <em>Parallelization</em> — chia nhỏ job hợp lý hơn, giảm phụ thuộc tuần tự, hoặc schedule sớm hơn để main thread có việc khác làm trong lúc chờ.</p>
+<p>💡 <strong>Mẹo phân biệt với Main thread bound:</strong> nếu thấy marker <code>WaitForJobGroupID</code> / <code>JobHandle.Complete</code> chiếm phần lớn main thread <em>và</em> worker thread đang bận ⇒ job-bound, không phải main-thread-bound.</p>
+</div>
+<div class="col-en">
+<p>Reading the capture: <strong>CPU 48.14 ms</strong>. The main thread is dominated by a DOTS/ECS chain: <code>SimulationSystemGroup (36.48ms)</code> → <code>EndSimulationEntityCommandBufferSystem (35.58ms)</code> → <strong><code>JobHandle.Complete (35.57ms)</code></strong> → <strong><code>WaitForJobGroupID (35.57ms)</code></strong>.</p>
+<p>Look at the <strong>Job</strong> section: <strong>Worker 0 → Worker 10+</strong> are all <em>packed</em> with work — <code>FindNearLeafNodesJob (Burst)</code>, <code>ViscositySystem:Viscosity (Burst) 11.77ms</code>, <code>PopulateNeighbours</code>, <code>SpringAdjustment</code>, <code>DensityCalc</code>.</p>
+<p>👉 <strong>Diagnosis:</strong> The main thread is <em>waiting</em> for jobs to complete (<code>WaitForJobGroupID</code>) while the worker threads are busy ⇒ <strong>Job worker thread bound</strong>.</p>
+<p><strong>The fix:</strong> optimize <em>Job dependencies</em> and <em>Parallelization</em> — split jobs more sensibly, reduce sequential dependencies, or schedule earlier so the main thread has other work while waiting.</p>
+<p>💡 <strong>Distinguishing from main-thread bound:</strong> if <code>WaitForJobGroupID</code> / <code>JobHandle.Complete</code> dominates the main thread <em>and</em> the worker threads are busy ⇒ job-bound, not main-thread-bound.</p>
+</div>
+</div>
+
+#### 🔴 Tình huống 3: Render thread bound
+
+<img src="../assets/profiler-render-thread-bound.png" alt="Profiler capture render thread bound">
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Đọc capture: <strong>CPU 104.87 ms</strong> (~9.5 FPS!). Marker quyết định trên main thread là <strong><code>Gfx.WaitForPresentOnGfxThread (45.39ms)</code></strong> và <code>Semaphore.WaitForSignal (45.39ms)</code>.</p>
+<p>Trong khi đó render thread <strong>đặc kín</strong>: <code>Camera.Render (101.24ms)</code> → <code>Drawing (99.92ms)</code> → <code>RenderForward.RenderLoopJob (54.74ms)</code>.</p>
+<p>👉 <strong>Chẩn đoán:</strong> Main thread <em>chờ</em> render thread, còn render thread thì nghẹt thở ⇒ <strong>Render thread bound</strong>. Mở <strong>Frame Debugger</strong>, tối ưu Camera / Culling / Draw call batching.</p>
+</div>
+<div class="col-en">
+<p>Reading the capture: <strong>CPU 104.87 ms</strong> (~9.5 FPS!). The decisive main-thread markers are <strong><code>Gfx.WaitForPresentOnGfxThread (45.39ms)</code></strong> and <code>Semaphore.WaitForSignal (45.39ms)</code>.</p>
+<p>Meanwhile the render thread is <strong>saturated</strong>: <code>Camera.Render (101.24ms)</code> → <code>Drawing (99.92ms)</code> → <code>RenderForward.RenderLoopJob (54.74ms)</code>.</p>
+<p>👉 <strong>Diagnosis:</strong> The main thread is <em>waiting on</em> the render thread, which is choking ⇒ <strong>Render thread bound</strong>. Open the <strong>Frame Debugger</strong>; optimize Cameras / Culling / Draw call batching.</p>
+</div>
+</div>
+
+#### 🔴 Tình huống 4: GPU-bound
+
+<img src="../assets/profiler-gpu-bound.png" alt="Profiler capture GPU bound">
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Đọc capture: <strong>CPU 154.06 ms</strong>. Main thread có <code>Gfx.WaitForPresentOnGfxThread (80.33ms)</code>.</p>
+<p>Điểm khác biệt then chốt so với Tình huống 3: trên <strong>render thread</strong> xuất hiện <strong><code>Gfx.PresentFrame (109.36ms)</code></strong> và <strong><code>GfxDeviceVK.Present (99.40ms)</code></strong> — tức render thread <em>cũng</em> đang chờ, và nó chờ <strong>GPU</strong> trình bày frame.</p>
+<p>👉 <strong>Chẩn đoán:</strong> Cả main thread lẫn render thread đều chờ ⇒ <strong>GPU-bound</strong>. Tối ưu Shader / Overdraw / Texture Compression / Resolution / Post-processing.</p>
+<p>💡 <strong>Mẹo phân biệt nhanh:</strong> nhìn vào render thread. Nếu nó <em>bận</em> ⇒ render thread bound. Nếu nó <em>cũng đang Present/chờ</em> ⇒ GPU-bound.</p>
+</div>
+<div class="col-en">
+<p>Reading the capture: <strong>CPU 154.06 ms</strong>. The main thread shows <code>Gfx.WaitForPresentOnGfxThread (80.33ms)</code>.</p>
+<p>The key difference from Scenario 3: on the <strong>render thread</strong> we see <strong><code>Gfx.PresentFrame (109.36ms)</code></strong> and <strong><code>GfxDeviceVK.Present (99.40ms)</code></strong> — the render thread is <em>also</em> waiting, and it is waiting on the <strong>GPU</strong> to present the frame.</p>
+<p>👉 <strong>Diagnosis:</strong> Both main and render threads are waiting ⇒ <strong>GPU-bound</strong>. Optimize Shaders / Overdraw / Texture Compression / Resolution / Post-processing.</p>
+<p>💡 <strong>Quick discriminator:</strong> look at the render thread. If it is <em>busy</em> ⇒ render thread bound. If it is <em>also presenting/waiting</em> ⇒ GPU-bound.</p>
+</div>
+</div>
+
+### 3.4. 🎯 Cạm bẫy thường gặp theo từng loại bottleneck
+
+!!! note "Bổ sung từ bản Unity 6 — phần giá trị nhất bản mới thêm vào"
+    Bản 75 trang chỉ nói "hãy tối ưu CPU/GPU". Bản Unity 6 **liệt kê cụ thể phải nhìn vào đâu**.
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>🔴 MAIN THREAD BOUND — bảy nơi hay có vấn đề</strong></p>
+<p>"Lợi ích lớn nhất đến từ việc tối ưu những thứ mất nhiều thời gian nhất." Các vùng thường màu mỡ:</p>
+<ol>
+<li><strong>Physics calculations</strong> — tính toán vật lý</li>
+<li><strong>MonoBehaviour script updates</strong></li>
+<li><strong>Garbage allocation và/hoặc collection</strong></li>
+<li><strong>Camera culling và rendering trên main thread</strong></li>
+<li><strong>Draw call batching kém hiệu quả</strong></li>
+<li><strong>UI updates, layouts, và rebuilds</strong></li>
+<li><strong>Animation</strong></li>
+</ol>
+<p><strong>Công cụ tương ứng với từng vấn đề:</strong></p>
+<ul>
+<li>Script MonoBehaviour <em>tốn thời gian nhưng không rõ vì sao</em> → thêm <strong>Profiler Marker</strong> vào code, hoặc thử <strong>deep profiling</strong> để thấy full call stack.</li>
+<li>Script <em>cấp phát managed memory</em> → bật <strong>allocation call stacks</strong> để thấy chính xác cấp phát đến từ đâu. Hoặc bật deep profiling, hoặc dùng <strong>Project Auditor</strong> (lọc theo memory ⇒ liệt kê mọi dòng code gây managed allocation).</li>
+<li>Batching kém → dùng <strong>Frame Debugger</strong>.</li>
+</ul>
+</div>
+<div class="col-en">
+<p><strong>🔴 MAIN THREAD BOUND — seven common culprits</strong></p>
+<p>"The biggest performance gains will be made by optimizing the things that take the longest time." Often fruitful areas:</p>
+<ol>
+<li><strong>Physics calculations</strong></li>
+<li><strong>MonoBehaviour script updates</strong></li>
+<li><strong>Garbage allocation and/or collection</strong></li>
+<li><strong>Camera culling and rendering on the main thread</strong></li>
+<li><strong>Inefficient draw call batching</strong></li>
+<li><strong>UI updates, layouts, and rebuilds</strong></li>
+<li><strong>Animation</strong></li>
+</ol>
+<p><strong>Matching tool to problem:</strong></p>
+<ul>
+<li>MonoBehaviour scripts that <em>take a long time but don't show you exactly why</em> → add <strong>Profiler Markers</strong> to the code, or try <strong>deep profiling</strong> to see the full call stack.</li>
+<li>Scripts that <em>allocate managed memory</em> → enable <strong>allocation call stacks</strong> to see exactly where the allocations come from. Alternatively enable deep profiling, or use <strong>Project Auditor</strong>, which shows code issues filtered by memory so you can identify all lines of code resulting in managed allocations.</li>
+<li>Poor batching → use the <strong>Frame Debugger</strong>.</li>
+</ul>
+</div>
+</div>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>🔴 RENDER THREAD BOUND — ba nguyên nhân cần điều tra</strong></p>
+<ol>
+<li><strong>Draw call batching kém</strong> — đặc biệt đúng trên các graphics API cũ như <strong>OpenGL</strong> hoặc <strong>DirectX 11</strong>.</li>
+<li><strong>Quá nhiều Camera</strong> — trừ khi bạn làm game multiplayer chia đôi màn hình, <em>khả năng cao bạn chỉ nên có DUY NHẤT một Camera đang bật</em>.</li>
+<li><strong>Culling kém</strong> — dẫn tới quá nhiều thứ bị vẽ. Hãy kiểm tra <em>kích thước frustum của Camera</em> và <em>cull layer mask</em>.</li>
+</ol>
+<p>💡 Module <strong>Rendering Profiler</strong> cho bạn tổng quan số <strong>draw call batch</strong> và <strong>SetPass call</strong> mỗi frame. Nhưng công cụ tốt nhất để điều tra <em>batch nào</em> đang được render thread gửi tới GPU vẫn là <strong>Frame Debugger</strong>.</p>
+</div>
+<div class="col-en">
+<p><strong>🔴 RENDER THREAD BOUND — three causes to investigate</strong></p>
+<ol>
+<li><strong>Poor draw call batching</strong> — applies particularly on older graphics APIs such as <strong>OpenGL</strong> or <strong>DirectX 11</strong>.</li>
+<li><strong>Too many cameras</strong> — unless you're making a split-screen multiplayer game, <em>the chances are you should only ever have one active Camera</em>.</li>
+<li><strong>Poor culling</strong> — results in too many things being drawn. Investigate your Camera's <em>frustum dimensions</em> and <em>cull layer masks</em>.</li>
+</ol>
+<p>💡 The <strong>Rendering Profiler</strong> module shows an overview of the number of <strong>draw call batches</strong> and <strong>SetPass calls</strong> every frame. But the best tool for investigating <em>which draw call batches</em> your render thread is issuing to the GPU is the <strong>Frame Debugger</strong>.</p>
+</div>
+</div>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>🔴 WORKER THREAD BOUND — bốn nguyên nhân gây sync point</strong></p>
+<ol>
+<li><strong>Job không được biên dịch bởi Burst compiler</strong></li>
+<li><strong>Job chạy dài trên MỘT worker thread</strong> thay vì được song song hóa qua nhiều worker thread</li>
+<li><strong>Không đủ thời gian</strong> giữa thời điểm job được <em>schedule</em> và thời điểm <em>kết quả được cần tới</em></li>
+<li><strong>Nhiều "sync point" trong một frame</strong> — buộc toàn bộ job phải hoàn thành ngay lập tức</li>
+</ol>
+<p>🔧 <strong>Công cụ:</strong> Dùng tính năng <strong>Flow Events</strong> trong Timeline view của module CPU Usage để điều tra <em>khi nào job được schedule</em> và <em>khi nào main thread cần kết quả</em>.</p>
+</div>
+<div class="col-en">
+<p><strong>🔴 WORKER THREAD BOUND — four causes of sync points</strong></p>
+<ol>
+<li><strong>Jobs not being compiled by the Burst compiler</strong></li>
+<li><strong>Long-running jobs on a SINGLE worker thread</strong> instead of being parallelized across multiple worker threads</li>
+<li><strong>Insufficient time</strong> between the point in the frame when a job is <em>scheduled</em> and the point when the <em>result is required</em></li>
+<li><strong>Multiple "sync points" in a frame</strong>, which require all jobs to complete immediately</li>
+</ol>
+<p>🔧 <strong>Tool:</strong> Use the <strong>Flow Events</strong> feature in the Timeline view of the CPU Usage Profiler module to investigate <em>when jobs are scheduled</em> and <em>when their results are expected</em> by the main thread.</p>
+</div>
+</div>
+
+### 3.5. Sáu hệ thống Batching — Chọn cái nào?
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Bản Unity 6 liệt kê <strong>6 hệ thống batching</strong> khác nhau. Chọn đúng phụ thuộc vào vấn đề bạn đã <em>xác định được</em>:</p>
+</div>
+<div class="col-en">
+<p>The Unity 6 edition lists <strong>six different batching systems</strong>. Choosing correctly depends on the problem you have <em>identified</em>:</p>
+</div>
+</div>
+
+| Hệ thống / System | Cơ chế / Mechanism | Khi nào dùng / When |
+|---|---|---|
+| **SRP Batching** | Giảm CPU overhead bằng cách **lưu material data thường trú trong bộ nhớ GPU**. ⚠️ **KHÔNG giảm số draw call thực tế** — nó làm **mỗi draw call rẻ hơn**. | URP/HDRP, nhiều Material nhưng ít shader variant |
+| **GPU instancing** | Gộp **nhiều instance của CÙNG mesh dùng CÙNG material** thành một draw call. | Nhiều object lặp lại (cây, đá, kẻ địch) |
+| **Static Batching** | Gộp các mesh **tĩnh (không di chuyển)** dùng chung material. | Level design có nhiều phần tử tĩnh |
+| **GPU resident drawer** | **Tự động** dùng GPU instancing để giảm CPU overhead và draw call, bằng cách **nhóm các GameObject tương tự** lại. | Unity 6+, giải pháp tự động |
+| **Dynamic Batching** | Gộp **mesh nhỏ lúc runtime**. ⚠️ **Nhược điểm:** phép biến đổi vertex cũng có thể ngốn tài nguyên. | Thiết bị mobile cũ có chi phí draw call cao |
+| **GPU occlusion culling** | Dùng **compute shader** xác định tính hữu hình của object bằng cách so sánh depth buffer của frame **hiện tại và frame trước**. ✅ **Không cần dữ liệu bake trước.** | Giảm render các object bị che khuất |
+
+### 3.6. VSync — Hiểu để không đọc sai số liệu
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>VSync đồng bộ frame rate của ứng dụng với tần số quét của màn hình.</strong> Nghĩa là nếu bạn có màn hình 60Hz và game chạy trong ngân sách 16.66 ms, nó sẽ <em>bị ép</em> chạy ở 60 fps chứ không được chạy nhanh hơn.</p>
+<p><strong>Lợi ích:</strong> giảm gánh nặng cho GPU và ngăn hiện tượng <em>screen tearing</em> (xé hình).</p>
+<p><strong>Cấu hình:</strong> <code>Edit &gt; Project Settings &gt; Quality</code> → thuộc tính <strong>VSync Count</strong>.</p>
+<p>⚠️ <strong>Bẫy khi đọc số liệu:</strong> Trên mobile, VSync <strong>luôn được bật</strong>. Thời gian CPU báo cáo <em>bao gồm cả thời gian chờ VSync</em> — nếu không trừ đi, bạn sẽ tưởng CPU nặng hơn thực tế.</p>
+</div>
+<div class="col-en">
+<p><strong>VSync synchronizes the application's frame rate with the monitor's refresh rate.</strong> This means that if you have a 60Hz monitor and your game runs within the frame budget of 16.66 ms, it will be <em>forced</em> to run at 60 fps rather than allowed to run faster.</p>
+<p><strong>Benefits:</strong> lightens the burden on your GPU and stops visual artifacts such as screen tearing.</p>
+<p><strong>Configure:</strong> <code>Edit &gt; Project Settings &gt; Quality</code> → the <strong>VSync Count</strong> property.</p>
+<p>⚠️ <strong>Data-reading trap:</strong> On mobile, VSync is <strong>always enabled</strong>. The CPU time reported <em>includes time spent waiting for VSync</em> — fail to subtract it and you will think the CPU is heavier than it really is.</p>
+</div>
+</div>
+
+### 3.7. Bảng quyết định CPU/GPU-bound (VSync bật)
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Bốn tình huống chuẩn với ngân sách 33.33 ms (30 fps) — <strong>học thuộc bảng này</strong>:</p>
+</div>
+<div class="col-en">
+<p>Four canonical cases against a 33.33 ms (30 fps) budget — <strong>memorize this table</strong>:</p>
+</div>
+</div>
+
+| CPU frame time | GPU time | Chẩn đoán / Verdict | Hành động / Action |
+|---|---|---|---|
+| **25 ms** | 20 ms | CPU-bound **nhưng trong budget** | ✅ Không vấn đề! Tối ưu sẽ **không** cải thiện frame rate — trừ khi đưa được **cả hai** xuống dưới 16.66 ms để nhảy lên 60 fps |
+| **40 ms** | 20 ms | **CPU-bound** | Tối ưu CPU. Tối ưu GPU **vô ích**. Cân nhắc **chuyển bớt việc từ CPU sang GPU** (ví dụ dùng Compute shader thay cho code C#) để cân bằng lại |
+| 20 ms | **40 ms** | **GPU-bound** | Tối ưu công việc GPU |
+| **40 ms** | **40 ms** | **Nghẽn cả hai** | Phải tối ưu **cả hai** xuống dưới 33.33 ms để đạt 30 fps |
+
+---
+
+## 4. Ngân sách bộ nhớ & Hardware Tiers
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Hiểu và lập ngân sách cho giới hạn bộ nhớ của thiết bị đích là điều tối quan trọng khi phát triển đa nền tảng.</strong> Khi thiết kế scene và level, hãy bám vào ngân sách bộ nhớ đặt ra cho từng thiết bị. Đặt giới hạn và hướng dẫn rõ ràng giúp đảm bảo ứng dụng chạy tốt trong khuôn khổ phần cứng của từng nền tảng.</p>
+<p>Bạn tìm thông số bộ nhớ thiết bị trong tài liệu dành cho developer. Ví dụ: theo tài liệu, máy <strong>Xbox One giới hạn tối đa 5 GB</strong> bộ nhớ khả dụng cho game chạy ở foreground.</p>
+<p>Cũng nên đặt <em>content budget</em> cho độ phức tạp mesh, shader, và nén texture — tất cả đều ảnh hưởng đến lượng bộ nhớ cấp phát.</p>
+</div>
+<div class="col-en">
+<p><strong>Understanding and budgeting for the memory limitations of your target devices is critical for multiplatform development.</strong> When designing scenes and levels, stick to the memory budget set for each target device. By setting limits and guidelines, you ensure your application works well within the confines of each platform's hardware specification.</p>
+<p>You can find device memory specifications in developer documentation. For example, the <strong>Xbox One console is limited to 5 GB</strong> of maximum available memory for games running in the foreground, according to documentation.</p>
+<p>It's also useful to set content budgets around mesh and shader complexity, as well as texture compression — these all play into how much memory is allocated.</p>
+</div>
+</div>
+
+### 4.1. Ba bước lập ngân sách bộ nhớ
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>① Xác định giới hạn RAM vật lý</strong></p>
+<p>Dùng Memory Profiler xem một snapshot. Mục <strong>Hardware Resources</strong> hiển thị dung lượng <strong>RAM</strong> và <strong>VRAM</strong> của máy đã chụp. Con số này <em>không</em> tính đến việc không phải toàn bộ dung lượng đó đều dùng được — nhưng nó cho một mốc ước lượng hữu ích để bắt đầu.</p>
+<p>⚠️ Nên đối chiếu chéo với thông số phần cứng của nền tảng đích, vì con số hiển thị ở đây <em>không phải lúc nào cũng phản ánh toàn bộ bức tranh</em>. Máy dev kit đôi khi có nhiều RAM hơn, hoặc bạn đang làm với phần cứng dùng <em>kiến trúc bộ nhớ hợp nhất</em> (unified memory).</p>
+<p><strong>② Xác định cấu hình thấp nhất cần hỗ trợ cho mỗi nền tảng</strong></p>
+<p>Tìm phần cứng có RAM thấp nhất cho từng nền tảng bạn hỗ trợ và dùng nó để định hướng quyết định ngân sách.</p>
+<p>Nhớ rằng <em>không phải toàn bộ RAM vật lý đều dùng được</em>. Ví dụ, một console có thể đang chạy hypervisor để hỗ trợ game cũ, chiếm mất một phần bộ nhớ. Hãy nghĩ theo tỉ lệ phần trăm — <strong>ví dụ dùng 80% tổng dung lượng</strong>.</p>
+<p>Với mobile, cân nhắc chia thành <strong>nhiều tier cấu hình</strong> để hỗ trợ chất lượng và tính năng tốt hơn cho máy cao cấp.</p>
+<p><strong>③ Ngân sách theo từng team (cho team lớn)</strong></p>
+<p>Khi đã có ngân sách bộ nhớ tổng, cân nhắc chia ngân sách cho từng team: environment artist được một lượng bộ nhớ cho mỗi level/scene, team audio được phần cho nhạc và hiệu ứng, v.v.</p>
+<p>💡 <strong>Phải linh hoạt</strong> khi dự án tiến triển: nếu một team dùng ít hơn ngân sách rất nhiều, hãy chuyển phần dư sang team khác nếu điều đó cải thiện được mảng họ đang làm.</p>
+</div>
+<div class="col-en">
+<p><strong>① Determine physical RAM limits</strong></p>
+<p>Use the Memory Profiler to look at a capture snapshot. <strong>Hardware Resources</strong> shows Physical RAM and VRAM sizes for the device the snapshot was captured on. This figure doesn't account for the fact that not all of that space might be available to use — however, it provides a useful ballpark figure to start working with.</p>
+<p>⚠️ It's a good idea to cross-reference hardware specifications for target platforms, as figures displayed here <em>might not always show the full picture</em>. Developer kit hardware sometimes has more memory, or you may be working with hardware that has a <em>unified memory architecture</em>.</p>
+<p><strong>② Determine the lowest specification to support for each target platform</strong></p>
+<p>Identify the hardware with the lowest specification in terms of RAM for each platform you support, and use this to guide your memory budget decision.</p>
+<p>Remember that not all of that physical memory might be available. For example, a console could have a hypervisor running to support older games which might use some of the total memory. Think about a percentage — <strong>e.g., 80% of total</strong> — to use.</p>
+<p>For mobile platforms, consider splitting into <strong>multiple tiers of specifications</strong> to support better quality and features for those with higher-end devices.</p>
+<p><strong>③ Consider per-team budgets for larger teams</strong></p>
+<p>Once you have a memory budget defined, consider setting memory budgets per team. For example, your environment artists get a certain amount of memory for each level or scene loaded, the audio team gets an allocation for music and sound effects, and so on.</p>
+<p>💡 <strong>It's important to be flexible</strong> as the project progresses. If one team comes in way under budget, assign the surplus to another team if it can improve the areas of the game they're developing.</p>
+</div>
+</div>
+
+### 4.2. Hardware tiers để benchmark
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Ngoài việc dùng công cụ profiling riêng của từng nền tảng, hãy <strong>thiết lập các tier</strong> hoặc một thiết bị cấu hình thấp nhất cho mỗi nền tảng và mỗi mức chất lượng bạn muốn hỗ trợ — rồi profile và tối ưu cho <em>từng</em> cấu hình đó.</p>
+<p><strong>Ví dụ mobile:</strong> bạn có thể quyết định hỗ trợ <strong>3 tier</strong>, với các nút điều khiển chất lượng bật/tắt tính năng theo phần cứng đích. Sau đó tối ưu cho thiết bị có cấu hình <em>thấp nhất trong mỗi tier</em>.</p>
+<p><strong>Ví dụ console:</strong> nếu phát triển cho cả PlayStation 4 và PlayStation 5, hãy đảm bảo bạn profile trên <em>cả hai</em>.</p>
+</div>
+<div class="col-en">
+<p>In addition to using platform-specific profiling tools, <strong>establish tiers</strong> or a lowest-spec device for each platform and tier of quality you wish to support, then profile and optimize performance for <em>each</em> of these specifications.</p>
+<p><strong>Mobile example:</strong> you might decide to support <strong>three tiers</strong> with quality controls that toggle features on or off based on the target hardware. You then optimize for the lowest device specification <em>in each tier</em>.</p>
+<p><strong>Console example:</strong> if you're developing a game for both PlayStation 4 and PlayStation 5, make sure you profile on both.</p>
+</div>
+</div>
+
+---
+
+## 5. Chu trình Profiling chuẩn (The Profiling Cycle)
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -100,7 +753,7 @@ public class ThermalGovernor : MonoBehaviour
 </div>
 </div>
 
-### 2.1. Phân loại vấn đề hiệu năng (Problem Taxonomy)
+### 5.1. Phân loại vấn đề hiệu năng (Problem Taxonomy)
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -119,7 +772,7 @@ public class ThermalGovernor : MonoBehaviour
 
 ---
 
-## 3. Unity Profiler — Công cụ chủ lực
+## 6. Unity Profiler — Công cụ chủ lực
 
 <img src="../assets/profiler-window-overview.png" alt="Unity Profiler Window">
 <p><em>VI: Cửa sổ Unity Profiler — dùng để kiểm tra hiệu năng và phân bổ tài nguyên. / EN: Use the Unity Profiler to test performance and resource allocation for your application.</em></p>
@@ -139,7 +792,7 @@ public class ThermalGovernor : MonoBehaviour
 </div>
 </div>
 
-### 3.1. Các category Profiler theo dõi / Profiler categories
+### 6.0. Các category Profiler theo dõi / Profiler categories
 
 | Category | Nội dung / Content |
 |---|---|
@@ -152,7 +805,7 @@ public class ThermalGovernor : MonoBehaviour
 | UI | Canvas rebuild, layout, batching |
 | Global Illumination | Lightmap & realtime GI cost |
 
-### 3.2. Hierarchy vs Timeline — Chọn view nào?
+### 6.1. Hierarchy vs Timeline — Chọn view nào?
 
 <img src="../assets/profiler-hierarchy-view.png" alt="Profiler Hierarchy View">
 <p><em>VI: Hierarchy view cho phép sắp xếp ProfileMarkers theo chi phí thời gian. / EN: The Hierarchy view allows you to sort ProfileMarkers by time cost.</em></p>
@@ -194,7 +847,7 @@ public class ThermalGovernor : MonoBehaviour
 </div>
 </div>
 
-### 3.3. 🔑 Metric vàng: Xác định CPU-bound hay GPU-bound
+### 6.2. 🔑 Metric vàng: Xác định CPU-bound hay GPU-bound
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -215,7 +868,7 @@ public class ThermalGovernor : MonoBehaviour
 </div>
 </div>
 
-### 3.4. Deep Profiling
+### 6.3. Deep Profiling
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -254,7 +907,7 @@ public class EnemyAI : MonoBehaviour
 
 ---
 
-## 4. Build để Profiling & Profiling trên thiết bị thật
+## 7. Build để Profiling & Profiling trên thiết bị thật
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -279,7 +932,67 @@ public class EnemyAI : MonoBehaviour
 </div>
 </div>
 
-### 4.1. ⚠️ Quy tắc nhiệt độ khi profiling mobile
+### 7.0. Quy trình 8 bước khởi động Profiler / 8-step Profiler setup
+
+<div class="bilingual-row">
+<div class="col-vi">
+<ol>
+<li><strong>Bắt buộc dùng development build.</strong> <code>File &gt; Build Settings &gt; Development Build</code>.</li>
+<li><strong>Tick <em>Autoconnect Profiler</em> (tùy chọn).</strong><br>⚠️ <strong>Cảnh báo quan trọng:</strong> Autoconnect Profiler có thể <strong>cộng thêm tới 10 giây</strong> vào thời gian khởi động ban đầu. Chỉ bật nếu bạn muốn profile giai đoạn khởi tạo scene đầu tiên. Nếu không bật, bạn vẫn luôn có thể kết nối Profiler thủ công vào build đang chạy.</li>
+<li><strong>Build cho nền tảng đích.</strong></li>
+<li><strong>Mở Profiler:</strong> <code>Window &gt; Analysis &gt; Profiler</code>.</li>
+<li><strong>Tắt các Profiler module không cần.</strong> Mỗi module bật lên đều gây overhead cho player. <em>(Có thể quan sát phần overhead này qua marker <code>Profiler.CollectGlobalStats</code>.)</em></li>
+<li><strong>Tắt mạng di động của thiết bị, giữ WiFi bật.</strong></li>
+<li><strong>Chạy build trên thiết bị đích.</strong></li>
+<li><strong>Kết nối:</strong> Nếu đã chọn Autoconnect, IP máy Editor đã được nhúng sẵn vào build — app sẽ tự kết nối khi khởi chạy. Nếu không, kết nối thủ công qua dropdown <strong>Target Selection</strong>.</li>
+</ol>
+<p><strong>Quy tắc ngón tay cái:</strong> luôn bật <strong>CPU, Memory, Renderer</strong>. Bật thêm Audio, Physics… tùy nhu cầu.</p>
+</div>
+<div class="col-en">
+<ol>
+<li><strong>You must use a development build.</strong> <code>File &gt; Build Settings &gt; Development Build</code>.</li>
+<li><strong>Tick <em>Autoconnect Profiler</em> (optional).</strong><br>⚠️ <strong>Important warning:</strong> Autoconnect Profiler <strong>can add up to 10 seconds</strong> to initial startup time and should only be enabled if you want to profile your first scene's initialization. If you don't enable it, you can always connect the Profiler to a running development build manually.</li>
+<li><strong>Build for the target platform.</strong></li>
+<li><strong>Open the Unity Profiler</strong> via <code>Window &gt; Analysis &gt; Profiler</code>.</li>
+<li><strong>Disable any Profiler modules you will not need.</strong> Each module enabled incurs a performance overhead for the player. <em>(You can observe some of this overhead using the <code>Profiler.CollectGlobalStats</code> marker.)</em></li>
+<li><strong>Disable your device mobile network, and leave WiFi enabled.</strong></li>
+<li><strong>Run the build on your target device.</strong></li>
+<li><strong>Connect:</strong> With Autoconnect selected, the build has the Editor machine's IP address baked in and connects at launch. Otherwise, connect manually using the <strong>Target Selection</strong> dropdown.</li>
+</ol>
+<p><strong>Rule of thumb:</strong> always enable <strong>CPU, Memory, and Renderer</strong>. Enable others such as Audio and Physics as you see fit.</p>
+</div>
+</div>
+
+### 7.0.1. Bốn mẹo giảm nhiễu số liệu / Four noise-reduction tips
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>① Tắt category VSync và Others trong CPU Usage module</strong></p>
+<p>Marker <strong>VSync</strong> đại diện cho <em>"thời gian chết"</em> — main thread nhàn rỗi trong lúc chờ VSync. Tuy nhiên, ẩn marker đi đôi khi lại khiến khó hiểu các category khác hình thành thế nào, hoặc tổng frame time cấu thành ra sao. Vì vậy, một lựa chọn khác là <strong>sắp xếp lại danh sách để VSync nằm trên cùng</strong> — cho cái nhìn rõ ràng hơn về đồ thị, giảm "nhiễu" do VSync gây ra.</p>
+<p>Marker <strong>Others</strong> đại diện cho <em>overhead của chính profiler</em> và <strong>có thể bỏ qua an toàn</strong>, vì nó sẽ không xuất hiện trong build cuối.</p>
+<p><strong>② Tắt hẳn VSync trong build</strong></p>
+<p>Để thấy rõ main thread, render thread, và GPU tương tác với nhau ra sao, hãy profile một build đã tắt VSync hoàn toàn: <code>Edit &gt; Project Settings &gt; Quality</code> → chọn Quality Level dùng cho thiết bị đích → set <strong>VSync Count = Don't Sync</strong>.</p>
+<p><strong>③ Dùng Standalone Profiler</strong></p>
+<p>Profiler khởi chạy như một <strong>tiến trình riêng biệt</strong>, tách khỏi Unity Editor. Tránh việc UI của Profiler hay Editor ảnh hưởng tới số đo, và cho bạn bộ dữ liệu sạch hơn để lọc và làm việc.</p>
+<p><strong>④ Biết khi nào nên profile trong Editor</strong></p>
+<p>Profile trong Editor khi bạn muốn <em>lặp nhanh</em>. Ví dụ: phát hiện vấn đề hiệu năng trong build → profile trong Editor để xác nhận vấn đề cũng tái hiện ở đó → nếu có, dùng Play mode profiling để lặp nhanh trên các thay đổi → khi giải quyết xong, tạo build và <strong>xác nhận lại giải pháp trên thiết bị đích</strong>.</p>
+<p>💡 Quy trình này tối ưu vì bạn tốn ít thời gian build và deploy hơn.</p>
+</div>
+<div class="col-en">
+<p><strong>① Disable VSync and Others categories in the CPU Usage Profiler module</strong></p>
+<p>The <strong>VSync</strong> marker represents <em>"dead time,"</em> wherein the CPU main thread is idle while waiting for VSync. However, hiding markers can sometimes make it difficult to understand how other category times came to be, or even how the total frame time is formed. With this in mind, another option is to <strong>reorder the list so that VSync is at the top</strong> — this provides a clearer view of the graph where the "noise" added by the VSync marker is reduced.</p>
+<p>The <strong>Others</strong> markers represent <em>profiling overhead</em> and <strong>can be safely ignored</strong> since they won't be present in final builds of your project.</p>
+<p><strong>② Disable VSync in the build</strong></p>
+<p>Another option for getting a clear picture of how the main thread, render thread, and GPU interact is to profile a build in which VSync is disabled entirely: <code>Edit &gt; Project Settings &gt; Quality</code> → select the Quality Level(s) used on your target device → set <strong>VSync Count to Don't Sync</strong>.</p>
+<p><strong>③ Use the Standalone Profiler</strong></p>
+<p>The Profiler launches as a <strong>new process</strong>, separate from the Unity Editor. This avoids the Profiler UI or Editor having an effect on measured timings, and gives you a cleaner set of profiling data to filter and work with.</p>
+<p><strong>④ Know when to profile in the Editor</strong></p>
+<p>Profile in the Editor when you want to <em>quickly iterate</em>. For example: a performance problem is spotted in the build → profile in the Editor to verify you can also find it there → if you do, use Play mode profiling to quickly iterate toward a solution → once solved, make a build and <strong>verify the solution also works on target devices</strong>.</p>
+<p>💡 This workflow is optimal because you spend less time building changes and deploying to devices.</p>
+</div>
+</div>
+
+### 7.1. ⚠️ Quy tắc nhiệt độ khi profiling mobile
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -302,7 +1015,7 @@ public class EnemyAI : MonoBehaviour
 </div>
 </div>
 
-### 4.2. Công cụ profiling native theo nền tảng
+### 7.2. Công cụ profiling native theo nền tảng
 
 | Platform | Tools |
 |---|---|
@@ -314,9 +1027,281 @@ public class EnemyAI : MonoBehaviour
 
 ---
 
-## 5. Profile Analyzer — Từ 1 frame lên hàng nghìn frame
+## 8. Frame Debugger — Mổ xẻ từng Draw Call
+
+<img src="../assets/frame-debugger-window.png" alt="Frame Debugger window">
+<p><em>VI: Cửa sổ Frame Debugger liệt kê draw call và event ở cột trái, kèm thanh trượt để bước qua từng cái. / EN: The Frame Debugger window lists draw calls and events down the left side and provides a slider to visually step through each one.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Frame Debugger giúp bạn tối ưu rendering</strong> bằng cách <em>đóng băng</em> playback của game đang chạy tại một frame cụ thể, rồi xem từng draw call riêng lẻ dùng để render nó. Công cụ cho phép bạn <strong>bước qua danh sách draw call từng cái một</strong>, thấy được frame được dựng lên dần dần từ các thành phần đồ họa.</p>
+<p><strong>Ưu điểm so với các frame debugger khác:</strong> khi một draw call tương ứng với geometry của một GameObject, object đó sẽ được <strong>highlight ngay trong panel Hierarchy</strong> để bạn nhận diện dễ dàng.</p>
+<p>Frame Debugger cũng dùng được để <strong>kiểm tra overdraw</strong> bằng cách phân tích thứ tự render từng frame.</p>
+<p><strong>Cách mở:</strong> <code>Window &gt; Analysis &gt; Frame Debugger</code>. Với app đang chạy trong Editor hoặc trên thiết bị, bấm <strong>Enable</strong>. Thao tác này sẽ <em>tạm dừng</em> ứng dụng và liệt kê toàn bộ draw call theo trình tự của frame hiện tại ở phía bên trái cửa sổ. Các chi tiết bổ sung như <em>framebuffer clear events</em> cũng được đưa vào.</p>
+<p><strong>Thanh trượt</strong> ở trên cùng cho phép bạn "tua" nhanh qua các draw call để định vị mục cần quan tâm.</p>
+</div>
+<div class="col-en">
+<p><strong>The Frame Debugger helps you optimize rendering</strong> by letting you <em>freeze</em> playback for a running game on a specific frame and view the individual draw calls used to render it. The tool lets you <strong>step through the list of draw calls, one by one</strong>, so you can see the frames as they are constructed from their graphical elements.</p>
+<p><strong>Advantage over other frame debugging tools:</strong> where a draw call corresponds to the geometry of a GameObject, that object will be <strong>highlighted in the main Hierarchy panel</strong> to assist identification.</p>
+<p>The Frame Debugger can also be used to <strong>test for overdraw</strong> by analyzing the rendering order frame-by-frame.</p>
+<p><strong>How to open:</strong> <code>Window &gt; Analysis &gt; Frame Debugger</code>. With your application running in the Editor or on a device, click <strong>Enable</strong>. This pauses the application and lists all the draw calls in sequence for the current frame on the left side of the Frame Debug window. Additional details, such as <em>framebuffer clear events</em>, are also included.</p>
+<p>The <strong>slider</strong> at the top lets you scrub rapidly through the draw calls to locate an item of interest quickly.</p>
+</div>
+</div>
+
+### 8.1. 🔑 Khái niệm cốt lõi: Draw Call và Render State
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Unity phát ra <strong>draw call</strong> tới graphics API để vẽ geometry lên màn hình. Một draw call nói cho graphics API biết <em>vẽ cái gì</em> và <em>vẽ như thế nào</em>. Mỗi draw call chứa toàn bộ thông tin API cần: texture, shader, buffer.</p>
+<p>🔑 <strong>Điểm mấu chốt mà rất nhiều người bỏ qua:</strong></p>
+<blockquote>
+<p>"<em>Thông thường, việc <strong>chuẩn bị</strong> cho một draw call còn tốn tài nguyên hơn chính bản thân draw call đó.</em>"</p>
+</blockquote>
+<p>Quá trình chuẩn bị này được gộp lại dưới tên gọi <strong>"render state"</strong>. Một cách tối ưu hiệu năng ở mảng này là <strong>giảm số lần thay đổi render state</strong>.</p>
+<p>👉 Frame Debugger giúp xác định draw call đến <em>từ đâu</em>. Dùng nó để hình dung và hiểu quá trình render, từ đó ra quyết định <strong>gom nhóm draw call</strong> sao cho giảm thiểu thay đổi render state.</p>
+<p>💡 Đây chính là nền tảng lý thuyết của <em>static batching</em>, <em>dynamic batching</em>, <em>GPU instancing</em>, <em>SRP Batcher</em>, và <em>texture atlas</em> — tất cả đều nhằm một mục đích: <strong>giữ nguyên render state càng lâu càng tốt</strong>.</p>
+</div>
+<div class="col-en">
+<p>Unity issues <strong>draw calls</strong> to the graphics API to draw geometry on the screen. A draw call tells the graphics API <em>what</em> to draw and <em>how</em>. Each draw call contains all the information the graphics API needs, such as information about textures, shaders, and buffers.</p>
+<p>🔑 <strong>The key point many people miss:</strong></p>
+<blockquote>
+<p>"<em>Often, the <strong>preparation</strong> for a draw call is more resource intensive than the draw call itself.</em>"</p>
+</blockquote>
+<p>This preparation process is grouped under what's known as <strong>"render state."</strong> One way to optimize performance in this area is to <strong>reduce the number of changes to this render state</strong>.</p>
+<p>👉 The Frame Debugger helps identify where draw calls are coming in from. Use it to visualize and understand the rendering process to guide decisions on how to <strong>group draw calls</strong> in order to reduce changes to render state.</p>
+<p>💡 This is the theoretical foundation of <em>static batching</em>, <em>dynamic batching</em>, <em>GPU instancing</em>, the <em>SRP Batcher</em>, and <em>texture atlases</em> — all serving one goal: <strong>keep the render state unchanged for as long as possible</strong>.</p>
+</div>
+</div>
+
+### 8.2. Đọc cửa sổ Frame Debugger
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Trong ảnh chụp ở trên (dự án BoatAttack, URP), hãy để ý:</p>
+<ul>
+<li><strong>Thanh trượt trên cùng:</strong> <code>149 of 192</code> — frame này có <strong>192 sự kiện render</strong>, đang xem sự kiện thứ 149.</li>
+<li><strong>Cây bên trái:</strong> <code>UniversalRenderPipeline.RenderSingleCamera (46)</code> → <code>ScriptableRenderer.Execute: PlanarReflection (46)</code> → <code>DrawOpaqueObjects (36)</code> → <code>RenderLoopNewBatcher.Draw (24)</code> → hàng loạt <strong>SRP Batch</strong>. Con số bên phải là số draw call của nhánh đó.</li>
+<li><strong>RenderTarget:</strong> <code>_CameraColorTexture</code>, độ phân giải <strong>3840x2160</strong>, định dạng <code>B10G11R11_UFloatPack32</code>.</li>
+<li><strong>Chi tiết sự kiện #149 (Draw Mesh):</strong> Shader <code>Universal Render Pipeline/Terrain/Lit (Base Pass)</code>, Pass <code>ForwardLit</code>, Keywords <code>DIRLIGHTMAP_COMBINED FOG_EXP2 INSTANCING_ON LIGHTMAP...</code></li>
+<li><strong>Trạng thái render:</strong> Blend <code>One Zero</code>, ZClip <code>True</code>, ZTest <code>LessEqual</code>, ZWrite <code>On</code>, Cull <code>Back</code>, Conservative <code>False</code>.</li>
+<li><strong>Textures:</strong> liệt kê từng texture đang bind (<code>_TerrainHeightmapTexture</code>, <code>unity_Lightmap</code>, <code>_MainTex</code>…).</li>
+</ul>
+<p>👉 Nhìn thấy nhiều <strong>SRP Batch</strong> liên tiếp là dấu hiệu <em>tốt</em> — batching đang hoạt động. Nếu thấy nhiều draw call rời rạc với shader/keyword khác nhau ⇒ render state đổi liên tục ⇒ cần gom lại.</p>
+</div>
+<div class="col-en">
+<p>In the screenshot above (BoatAttack project, URP), note:</p>
+<ul>
+<li><strong>Top slider:</strong> <code>149 of 192</code> — this frame has <strong>192 render events</strong>; we're viewing event 149.</li>
+<li><strong>Left tree:</strong> <code>UniversalRenderPipeline.RenderSingleCamera (46)</code> → <code>ScriptableRenderer.Execute: PlanarReflection (46)</code> → <code>DrawOpaqueObjects (36)</code> → <code>RenderLoopNewBatcher.Draw (24)</code> → a run of <strong>SRP Batch</strong> entries. The number on the right is that branch's draw call count.</li>
+<li><strong>RenderTarget:</strong> <code>_CameraColorTexture</code>, resolution <strong>3840x2160</strong>, format <code>B10G11R11_UFloatPack32</code>.</li>
+<li><strong>Event #149 detail (Draw Mesh):</strong> Shader <code>Universal Render Pipeline/Terrain/Lit (Base Pass)</code>, Pass <code>ForwardLit</code>, Keywords <code>DIRLIGHTMAP_COMBINED FOG_EXP2 INSTANCING_ON LIGHTMAP...</code></li>
+<li><strong>Render state:</strong> Blend <code>One Zero</code>, ZClip <code>True</code>, ZTest <code>LessEqual</code>, ZWrite <code>On</code>, Cull <code>Back</code>, Conservative <code>False</code>.</li>
+<li><strong>Textures:</strong> every bound texture is listed (<code>_TerrainHeightmapTexture</code>, <code>unity_Lightmap</code>, <code>_MainTex</code>…).</li>
+</ul>
+<p>👉 Seeing many consecutive <strong>SRP Batch</strong> entries is a <em>good</em> sign — batching is working. Many scattered draw calls with differing shaders/keywords means the render state keeps changing ⇒ they need grouping.</p>
+</div>
+</div>
+
+<img src="../assets/frame-debugger-rendertarget.png" alt="Frame Debugger render target display options">
+<p><em>VI: Tùy chọn hiển thị render target — tách kênh R/G/B/A và chỉnh Levels để soi từng thành phần. / EN: Render target display options — isolate R/G/B/A channels and adjust Levels to inspect individual components.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Remote Frame Debugging:</strong> Frame Debugger kết nối được tới build đang chạy trên thiết bị thật, không chỉ trong Editor — cực kỳ quan trọng vì hành vi batching và shader variant trên mobile <em>khác</em> so với Editor.</p>
+<p><strong>Render target display options:</strong> Bạn có thể tách riêng từng kênh màu (<strong>R / G / B / A</strong>) và chỉnh thanh <strong>Levels</strong>. Hữu ích khi soi các buffer trung gian như depth, normal, hoặc kênh alpha để tìm nguồn gây overdraw.</p>
+</div>
+<div class="col-en">
+<p><strong>Remote Frame Debugging:</strong> the Frame Debugger can connect to a build running on a real device, not just in the Editor — critical because batching behavior and shader variants on mobile <em>differ</em> from the Editor.</p>
+<p><strong>Render target display options:</strong> you can isolate individual color channels (<strong>R / G / B / A</strong>) and adjust the <strong>Levels</strong> slider. Useful for inspecting intermediate buffers such as depth, normals, or the alpha channel when hunting overdraw.</p>
+</div>
+</div>
+
+### 8.2b. Rendering Debugger (URP / HDRP)
+
+!!! note "Bổ sung từ bản Unity 6"
+
+<img src="../assets/rendering-debugger.png" alt="Rendering Debugger window">
+<p><em>VI: Rendering Debugger cho phép trực quan hóa nhiều thuộc tính lighting, rendering và material để khoanh vùng vấn đề render và tối ưu scene. / EN: The Rendering Debugger lets you visualize various lighting, rendering, and material properties so you can identify rendering issues and optimize scenes.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Rendering Debugger</strong> cung cấp nhiều debug view và mode hiển thị thông tin về <strong>overdraw, độ phức tạp lighting, rendering, và thuộc tính material</strong> — cho phép bạn khoanh vùng vấn đề render và tối ưu scene cho <strong>URP và HDRP</strong>.</p>
+<p><strong>Cách mở:</strong></p>
+<ul>
+<li>Editor: <code>Window &gt; Analysis &gt; Rendering Debugger</code></li>
+<li>Phím tắt: <strong>LeftCtrl + Backspace</strong> (macOS: <strong>LeftCtrl + Delete</strong>) trong Play mode hoặc trên desktop player build</li>
+</ul>
+<p><strong>Đọc ảnh chụp:</strong> Tab <em>Display Stats</em> hiển thị Frame Stats với Avg/Min/Max — <code>Frame Rate 162.5 / 112.9 / 186.2</code>, <code>Frame Time 6.26 / 5.37 / 8.86 ms</code>, <code>CPU Main Thread Frame 2.57 ms</code>, <code>CPU Render Thread Frame 1.90 ms</code>, <code>CPU Present Wait 0.00 ms</code>, <code>GPU Frame 5.01 ms</code>. Bên dưới là <em>Profiling Scopes</em> theo từng pass URP: <code>DrawOpaqueObjects</code>, <code>DrawTransparentObjects</code>, <code>MainLightShadow</code>, <code>SSAO</code>, <code>DrawSkybox</code>…</p>
+<p>⚠️ <strong>Hai giới hạn:</strong></p>
+<ol>
+<li>Cửa sổ với thống kê chi tiết <strong>chỉ khả dụng cho Development build</strong>.</li>
+<li>Có thể có giới hạn về cách nó tương tác với <em>shader không thuộc pipeline cụ thể</em> hoặc <em>object render bên ngoài</em>.</li>
+</ol>
+<p>💡 Lưu ý mục <strong>Bottlenecks</strong> hiện "<em>Not supported in Editor</em>" — muốn dùng phải chạy trên build.</p>
+</div>
+<div class="col-en">
+<p>The <strong>Rendering Debugger</strong> provides multiple debug views and modes that display information about <strong>overdraw, lighting complexity, rendering, and material properties</strong>, allowing you to pinpoint rendering issues and optimize scenes for <strong>URP and HDRP</strong>.</p>
+<p><strong>How to open:</strong></p>
+<ul>
+<li>Editor: <code>Window &gt; Analysis &gt; Rendering Debugger</code></li>
+<li>Shortcut: <strong>LeftCtrl + Backspace</strong> (macOS: <strong>LeftCtrl + Delete</strong>) in Play mode or for a desktop player build</li>
+</ul>
+<p><strong>Reading the capture:</strong> The <em>Display Stats</em> tab shows Frame Stats with Avg/Min/Max — <code>Frame Rate 162.5 / 112.9 / 186.2</code>, <code>Frame Time 6.26 / 5.37 / 8.86 ms</code>, <code>CPU Main Thread Frame 2.57 ms</code>, <code>CPU Render Thread Frame 1.90 ms</code>, <code>CPU Present Wait 0.00 ms</code>, <code>GPU Frame 5.01 ms</code>. Below are <em>Profiling Scopes</em> per URP pass: <code>DrawOpaqueObjects</code>, <code>DrawTransparentObjects</code>, <code>MainLightShadow</code>, <code>SSAO</code>, <code>DrawSkybox</code>…</p>
+<p>⚠️ <strong>Two limitations:</strong></p>
+<ol>
+<li>The window with detailed statistics is <strong>only available for Development builds</strong>.</li>
+<li>There can be limitations with how it interacts with <em>non-pipeline-specific shaders</em> or <em>external rendering objects</em>.</li>
+</ol>
+<p>💡 Note the <strong>Bottlenecks</strong> section reads "<em>Not supported in Editor</em>" — you must run a build to use it.</p>
+</div>
+</div>
+
+### 8.3. Năm hướng tối ưu rendering thường gặp
+
+<img src="../assets/gpu-frame-breakdown.png" alt="Initial GPU frame breakdown chart">
+<p><em>VI: Phân rã thời gian GPU một frame theo từng giai đoạn — 45 ms, vượt xa cả mốc 30 FPS (33.3 ms). / EN: GPU frame time broken down by stage — 45 ms, well past even the 30 FPS line (33.3 ms).</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Biểu đồ trên cho thấy cách phân rã thời gian GPU theo <em>từng giai đoạn render</em>: <strong>Gbuffer, Motion Vectors, SSAO, Shadows, Lighting, Atmospherics, Post</strong>. Tổng <strong>45 ms</strong> — vượt xa cả ngưỡng 30 FPS.</p>
+<p>👉 Cách đọc: giai đoạn nào chiếm dải rộng nhất chính là mục tiêu tối ưu đầu tiên. Ở đây <strong>Gbuffer</strong> (~11 ms) và <strong>Shadows</strong> (~14 ms) là hai kẻ tốn kém nhất.</p>
+<p><strong>Năm hướng xử lý theo sách</strong> — chi tiết ở các mục 8.3.1 → 8.3.5 bên dưới.</p>
+</div>
+<div class="col-en">
+<p>The chart shows GPU frame time broken down by <em>render stage</em>: <strong>Gbuffer, Motion Vectors, SSAO, Shadows, Lighting, Atmospherics, Post</strong>. Total <strong>45 ms</strong> — well past even the 30 FPS line.</p>
+<p>👉 How to read it: whichever stage occupies the widest band is your first optimization target. Here <strong>Gbuffer</strong> (~11 ms) and <strong>Shadows</strong> (~14 ms) are the most expensive.</p>
+<p><strong>The book's five directions</strong> — detailed in 8.3.1 → 8.3.5 below.</p>
+</div>
+</div>
+
+#### 8.3.1. Xác định bottleneck TRƯỚC
+
+!!! danger "Identify your performance bottlenecks first"
+    **VI:** Đừng lao vào tối ưu rendering nếu bạn đang **main-thread bound**. Quay lại §3 và chạy sơ đồ chẩn đoán trước.
+
+    **EN:** Don't dive into rendering optimization if you are **main-thread bound**. Go back to §3 and run the diagnosis flowchart first.
+
+#### 8.3.2. Draw call optimization
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Phần cứng PC và console thế hệ hiện tại có thể "đẩy" được rất nhiều draw call, <strong>nhưng overhead của mỗi lời gọi vẫn đủ cao để đáng công giảm bớt</strong>. Trên thiết bị mobile, tối ưu draw call là <strong>sống còn</strong>. Cách đạt được: <em>draw call batching</em>.</p>
+<p>Dùng Frame Debugger để nhận diện những draw call có thể <strong>sắp xếp lại</strong> cho tối ưu nhóm và batch. Công cụ này cũng giúp xác định <strong>vì sao</strong> một số draw call <em>không thể</em> batch được.</p>
+<p><strong>Ba kỹ thuật giảm draw call batch:</strong></p>
+<ul>
+<li><strong>Occlusion Culling</strong> — loại bỏ object bị che khuất phía sau object tiền cảnh, giảm overdraw. ⚠️ Lưu ý việc này <em>đòi hỏi thêm xử lý CPU</em>, nên hãy dùng Profiler để đảm bảo việc chuyển công việc từ GPU sang CPU là <strong>có lợi</strong>.</li>
+<li><strong>GPU instancing</strong> — giảm số batch nếu bạn có nhiều object <em>dùng chung mesh và material</em>. Số lượng model hạn chế trong scene có thể cải thiện hiệu năng. Nếu làm khéo, bạn vẫn dựng được scene phức tạp mà không trông lặp lại.</li>
+<li><strong>SRP Batcher</strong> — giảm phần thiết lập GPU giữa các draw call bằng cách batch các lệnh <em>Bind</em> và <em>Draw</em>. Để hưởng lợi: dùng <strong>bao nhiêu Material cũng được</strong>, nhưng giới hạn chúng vào <em>một số ít shader variant tương thích</em> (ví dụ shader Lit và Unlit trong URP/HDRP), với càng ít biến thể tổ hợp keyword càng tốt.</li>
+</ul>
+</div>
+<div class="col-en">
+<p>PC and current generation console hardware can push a lot of draw calls, <strong>but the overhead of each call is still high enough to warrant trying to reduce them</strong>. On mobile devices, draw call optimization is <strong>vital</strong>. You can achieve this with <em>draw call batching</em>.</p>
+<p>Use the Frame Debugger to help identify draw calls that can be <strong>reorganized</strong> for optimal group and batch. The tool also helps identify <strong>why</strong> certain draw calls <em>can't</em> be batched.</p>
+<p><strong>Three techniques to reduce draw call batches:</strong></p>
+<ul>
+<li><strong>Occlusion Culling</strong> — remove objects hidden behind foreground objects and reduce overdraw. ⚠️ Be aware this <em>requires additional CPU processing</em>, so use the Profiler to ensure moving work from the GPU to CPU is <strong>beneficial</strong>.</li>
+<li><strong>GPU instancing</strong> — this can reduce your batches if you have many objects that <em>share the same mesh and material</em>. A limited number of models in your scene can improve performance. If it's done artfully, you can build a complex scene without making it look repetitive.</li>
+<li><strong>The SRP Batcher</strong> — reduces the GPU setup between draw calls by batching <em>Bind</em> and <em>Draw</em> GPU commands. To benefit: use <strong>as many Materials as needed</strong>, but restrict them to <em>a small number of compatible shader variants</em>, e.g., Lit and Unlit Shaders in URP and HDRP, with as few variations between keyword combinations as possible.</li>
+</ul>
+</div>
+</div>
+
+#### 8.3.3. Tối ưu fill rate bằng cách giảm Overdraw
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Overdraw</strong> cho thấy ứng dụng đang cố vẽ <em>nhiều pixel mỗi frame hơn mức GPU chịu nổi</em>. Không chỉ hiệu năng gặp rủi ro, mà <strong>nhiệt độ và thời lượng pin</strong> trên mobile cũng bị ảnh hưởng.</p>
+<p>Chống overdraw bằng cách hiểu <strong>Unity sắp xếp object thế nào trước khi render</strong>:</p>
+<p><strong>Built-In Render Pipeline</strong> sắp xếp GameObject theo <em>Rendering Mode</em> và <em>renderQueue</em>. Shader của mỗi object đặt nó vào một render queue, và queue này thường quyết định thứ tự vẽ.</p>
+<p>👉 <strong>Cách xem overdraw (Built-In RP):</strong> dùng thanh điều khiển Scene view → chuyển <strong>draw mode</strong> sang <strong>Overdraw</strong>.</p>
+<p><strong>Cách đọc:</strong> <em>Pixel sáng</em> = object đang vẽ chồng lên nhau. <em>Pixel tối</em> = ít overdraw hơn.</p>
+</div>
+<div class="col-en">
+<p><strong>Overdraw</strong> can indicate an application is trying to draw <em>more pixels per frame than the GPU can cope with</em>. Not only is performance at risk, but <strong>thermals and battery life</strong> on mobile devices suffer too.</p>
+<p>Combat overdraw by understanding <strong>how Unity sorts objects before rendering them</strong>:</p>
+<p>The <strong>Built-In Render Pipeline</strong> sorts GameObjects according to their <em>Rendering Mode</em> and <em>renderQueue</em>. Each object's shader places it in a render queue, which often determines its draw order.</p>
+<p>👉 <strong>To visualize overdraw (Built-In RP):</strong> use the Scene view control bar → switch the <strong>draw mode</strong> to <strong>Overdraw</strong>.</p>
+<p><strong>How to read it:</strong> <em>Bright pixels</em> indicate objects drawing on top of one another, while <em>dark pixels</em> mean less overdraw.</p>
+</div>
+</div>
+
+<img src="../assets/scene-shaded-view.png" alt="Scene in standard Shaded view">
+<p><em>VI: Scene ở chế độ Shaded thông thường. / EN: A Scene in standard Shaded view.</em></p>
+
+<img src="../assets/scene-overdraw-view.png" alt="Same scene in Overdraw view">
+<p><em>VI: Cùng scene đó ở chế độ Overdraw — geometry chồng lấn thường là nguồn gây overdraw. Vùng càng sáng càng nhiều lớp vẽ đè. / EN: The same Scene in Overdraw view — overlapping geometry is often a source of overdraw. Brighter areas mean more layers drawn on top.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Với HDRP</strong>, render queue được điều khiển hơi khác (xem mục <em>Renderer and Material Priority</em>). HDRP có công cụ riêng để nhận diện overdraw:</p>
+<ol>
+<li>Mở <code>Window &gt; Render Pipeline &gt; Render Pipeline Debug</code></li>
+<li>Vào mục <strong>Rendering</strong></li>
+<li>Đổi <strong>Fullscreen Debug Mode</strong> thành <strong>TransparencyOverdraw</strong></li>
+</ol>
+<p><strong>Cách đọc heat map:</strong> mỗi pixel hiển thị dưới dạng bản đồ nhiệt — từ <strong>đen</strong> (không có pixel trong suốt), qua <strong>xanh dương</strong>, tới <strong>đỏ</strong> (đạt số <em>Max Pixel Cost</em> pixel trong suốt).</p>
+<p>💡 Bật chế độ này rồi chơi qua các scene/khu vực, ghi chú lại những vùng có overdraw đáng kể.</p>
+</div>
+<div class="col-en">
+<p><strong>HDRP</strong> controls the render queue slightly differently (see the <em>Renderer and Material Priority</em> section). HDRP includes tooling to identify overdraw:</p>
+<ol>
+<li>Open <code>Window &gt; Render Pipeline &gt; Render Pipeline Debug</code></li>
+<li>Go to the <strong>Rendering</strong> section</li>
+<li>Change <strong>Fullscreen Debug Mode</strong> to <strong>TransparencyOverdraw</strong></li>
+</ol>
+<p><strong>Reading the heat map:</strong> each pixel is displayed as a heat map, ranging from <strong>black</strong> (no transparent pixels), through <strong>blue</strong>, then <strong>red</strong> — the latter indicating the <em>Max Pixel Cost</em> number of transparent pixels.</p>
+<p>💡 With this mode enabled, play through scenes and areas of your application, taking note of areas with significant overdraw.</p>
+</div>
+</div>
+
+<img src="../assets/hdrp-transparency-overdraw.png" alt="HDRP TransparencyOverdraw debug mode">
+<p><em>VI: Hình dung overdraw với HDRP qua Fullscreen Debug Mode. / EN: Visualizing overdraw with HDRP and the Fullscreen Debug Mode.</em></p>
+
+#### 8.3.4. Soi những shader đắt nhất
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Đây là chủ đề sâu, nhưng nhìn chung: <strong>hãy giảm độ phức tạp shader ở những nơi có thể</strong>.</p>
+<p><strong>Vài cách thắng nhanh:</strong></p>
+<ul>
+<li><strong>Giảm precision</strong> ở nơi có thể — dùng biến dấu phẩy động <strong>half precision</strong> nếu được.</li>
+<li>Tìm hiểu về <strong>wavefront occupancy</strong> cho nền tảng đích và cách dùng công cụ GPU profiling để đạt occupancy tốt.</li>
+</ul>
+</div>
+<div class="col-en">
+<p>This is a deep topic, but in general, <strong>aim to reduce shader complexity where possible</strong>.</p>
+<p><strong>Some easy wins:</strong></p>
+<ul>
+<li><strong>Reducing precision</strong> where possible — use <strong>half precision</strong> floating point variables if you can.</li>
+<li>Learn about <strong>wavefront occupancy</strong> for your target platform and how to use GPU profiling tools to assist in getting a healthy occupancy.</li>
+</ul>
+</div>
+</div>
+
+#### 8.3.5. Đa nhân cho rendering & Post-processing
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Multi-core optimization for rendering:</strong> Bật <strong>Graphics Jobs</strong> tại <code>Player Settings &gt; Other Settings</code> để tận dụng bộ xử lý đa nhân trên <strong>PlayStation và Xbox</strong>. Graphics Jobs cho phép Unity <em>trải công việc rendering ra nhiều nhân CPU</em>, gỡ áp lực khỏi render thread.</p>
+<p><strong>Profile post-processing effects:</strong> Đảm bảo asset post-processing được tối ưu cho nền tảng đích. Các công cụ trên Asset Store <em>vốn được viết cho game PC</em> có thể ngốn nhiều tài nguyên hơn mức cần thiết trên console hoặc mobile.</p>
+<p>👉 Hãy profile nền tảng đích bằng <strong>công cụ profiler native của chính nó</strong>. Khi tự viết hiệu ứng post-processing cho mobile/console, <strong>giữ chúng đơn giản nhất có thể</strong>.</p>
+</div>
+<div class="col-en">
+<p><strong>Multi-core optimization for rendering:</strong> Enable <strong>Graphics Jobs</strong> in <code>Player Settings &gt; Other Settings</code> to take advantage of the multi-core processors in <strong>PlayStation and Xbox</strong>. Graphics Jobs allows Unity to <em>spread the rendering work across multiple CPU cores</em>, removing pressure from the render thread.</p>
+<p><strong>Profile post-processing effects:</strong> Ensure your post-processing assets are optimized for your target platform. Tools from the Asset Store that were <em>originally authored for PC games</em> might consume more resources than necessary on consoles or mobile devices.</p>
+<p>👉 Profile your target platform using <strong>its native profiler tools</strong>. When authoring your own post-processing effects for mobile or console targets, <strong>keep them as simple as possible</strong>.</p>
+</div>
+</div>
+
+---
+
+## 9. Profile Analyzer — Từ 1 frame lên hàng nghìn frame
 
 <img src="../assets/profile-analyzer.png" alt="Profile Analyzer">
+
+<img src="../assets/profile-analyzer-overview.png" alt="Profile Analyzer full window">
+<p><em>VI: Toàn cảnh cửa sổ Profile Analyzer — gộp nhiều frame thành thống kê tổng hợp thay vì soi từng frame một. / EN: The full Profile Analyzer window — it aggregates many frames into summary statistics instead of inspecting one frame at a time.</em></p>
 <p><em>VI: Profile Analyzer bổ trợ Profiler, cho phép phân tích sâu nhiều frame và dữ liệu marker. / EN: Take an even deeper dive into frames and marker data with the Profile Analyzer, which complements the existing Profiler.</em></p>
 
 <div class="bilingual-row">
@@ -346,6 +1331,124 @@ public class EnemyAI : MonoBehaviour
 </div>
 </div>
 
+### 9.1. Single view — Thống kê marker
+
+<img src="../assets/profile-analyzer-single-view.png" alt="Profile Analyzer Single view">
+<p><em>VI: Single view hiển thị thống kê và thời gian của marker cho một frame hoặc một dải frame. / EN: The Single view shows profile marker statistics and timings for a single or range of frames.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Đọc ảnh chụp trên (capture1, 299 frame, chọn dải 18→64 = 47 frame):</p>
+<ul>
+<li><strong>Frame Summary:</strong> Max <strong>24.02 ms</strong> (frame 60) · Upper Quartile <strong>20.00</strong> · <strong>Median 18.83</strong> (frame 22) · Mean <strong>18.99</strong> · Lower Quartile <strong>17.98</strong> · Min <strong>16.06</strong> (frame 28).</li>
+<li><strong>Filters:</strong> Thread = Main Thread, Depth Slice = All, <em>556 of 616 markers, 1 of 30 threads</em>.</li>
+<li><strong>Marker Details:</strong> bảng sắp theo Median — <code>PlayerLoop 18.79</code>, <code>PostLateUpdate.FinishFrameRendering 16.07</code>, <code>Semaphore.WaitForSignal 7.34</code> (Count <strong>613</strong>!), <code>Gfx.WaitForPresentOnGfxThread 6.93</code>…</li>
+<li><strong>Marker Summary:</strong> <code>PostLateUpdate.FinishFrameRendering</code> đóng góp <strong>84.85%</strong> mean frame contribution.</li>
+</ul>
+<p>👉 Cột <strong>Depth</strong> và <strong>Count</strong> là hai thứ dân profiling hay bỏ qua: <code>Semaphore.WaitForSignal</code> có Depth <code>5-14</code> và Count <code>613</code> ⇒ được gọi ở nhiều tầng khác nhau, rất nhiều lần.</p>
+</div>
+<div class="col-en">
+<p>Reading the capture above (capture1, 299 frames, range 18→64 = 47 frames selected):</p>
+<ul>
+<li><strong>Frame Summary:</strong> Max <strong>24.02 ms</strong> (frame 60) · Upper Quartile <strong>20.00</strong> · <strong>Median 18.83</strong> (frame 22) · Mean <strong>18.99</strong> · Lower Quartile <strong>17.98</strong> · Min <strong>16.06</strong> (frame 28).</li>
+<li><strong>Filters:</strong> Thread = Main Thread, Depth Slice = All, <em>556 of 616 markers, 1 of 30 threads</em>.</li>
+<li><strong>Marker Details:</strong> sorted by Median — <code>PlayerLoop 18.79</code>, <code>PostLateUpdate.FinishFrameRendering 16.07</code>, <code>Semaphore.WaitForSignal 7.34</code> (Count <strong>613</strong>!), <code>Gfx.WaitForPresentOnGfxThread 6.93</code>…</li>
+<li><strong>Marker Summary:</strong> <code>PostLateUpdate.FinishFrameRendering</code> accounts for <strong>84.85%</strong> mean frame contribution.</li>
+</ul>
+<p>👉 The <strong>Depth</strong> and <strong>Count</strong> columns are what profilers often overlook: <code>Semaphore.WaitForSignal</code> has Depth <code>5-14</code> and Count <code>613</code> ⇒ called at many different levels, very many times.</p>
+</div>
+</div>
+
+### 9.2. 🎯 Ba mẹo Profile Analyzer
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>① Lọc thẳng vào script của bạn — chọn Depth level = 4</strong></p>
+<p>Đào vào user script (bỏ qua các tầng Unity Engine API) bằng cách chọn <strong>Depth level 4</strong>. Sau khi lọc tới mức này rồi nhìn Unity Profiler ở chế độ timeline, bạn có thể đối chiếu độ sâu call stack — <strong>script MonoBehaviour hiện màu xanh dương và nằm ở tầng thứ tư</strong>.</p>
+<p>👉 Đây là <em>cách nhanh nhất</em> để xem logic và gameplay script của bạn có nặng hay không, <strong>mà không lẫn "nhiễu"</strong> từ engine.</p>
+<p><strong>② Lọc tương tự cho các mảng khác của engine</strong> — ví dụ animator hoặc engine physics.</p>
+<p><strong>③ Nhảy thẳng tới frame tệ nhất</strong></p>
+<p>Ở bên phải, mục <strong>Frame Summary</strong> có <em>histogram dải hiệu năng</em> của method đang highlight. <strong>Hover lên số Max Frame</strong> (chính xác frame nào có timing lớn nhất) để lấy một <strong>link bấm được</strong> mở frame đó trong Unity Profiler. Dùng view này để phân tích các yếu tố khác có thể góp phần gây ra frame time cực đại đó.</p>
+</div>
+<div class="col-en">
+<p><strong>① Drill straight into your scripts — select Depth level 4</strong></p>
+<p>Drill into user scripts (ignoring Unity Engine API levels) by selecting a <strong>Depth level of 4</strong>. After filtering to this level and looking at the Unity Profiler in timeline mode, you can correlate the call stack depth to make a selection here — <strong>MonoBehaviour scripts appear in blue and are at the fourth level down</strong>.</p>
+<p>👉 This is a <em>quick way</em> to see if your specific logic and gameplay scripts are taxing by themselves <strong>without any other "noise."</strong></p>
+<p><strong>② Filter data the same way for other areas of the engine</strong> — such as animators or engine physics.</p>
+<p><strong>③ Jump straight to the worst frame</strong></p>
+<p>On the right side in the <strong>Frame Summary</strong> section, you'll find the highlighted method's <em>performance range histogram</em>. <strong>Hover over the Max Frame number</strong> (the exact frame in which max timing was found) to get a <strong>clickable link</strong> to view that frame selection in the Unity Profiler. Use this to analyze other factors potentially contributing to the high maximum frame time.</p>
+</div>
+</div>
+
+### 9.3. Compare view — Quy trình "Pull Data" 5 bước
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>"Compare view là nơi Profile Analyzer thực sự tỏa sáng."</strong> Bạn nạp 2 bộ dữ liệu, hiển thị bằng 2 màu khác nhau.</p>
+<p><strong>Chuẩn bị:</strong> Định vị một khu vực cụ thể của game để test. Cách tốt: chạy một <em>phiên gameplay đã ghi sẵn hoặc có script</em> để có thể lặp lại nhiều lần. Chơi tay nhiều lượt cũng được.</p>
+<p><strong>Quy trình "Pull Data":</strong></p>
+<ol>
+<li>Mở Profile Analyzer: <code>Window &gt; Analysis &gt; Profile Analyzer</code></li>
+<li>Profile phiên <em>tất định (deterministic)</em> <strong>trước khi</strong> tối ưu, bằng Unity Profiler</li>
+<li>Trong Profile Analyzer, chuyển sang tab <strong>Compare</strong>, bấm nút <strong>Pull Data</strong> thứ nhất để nạp capture hiện tại từ Profiler</li>
+<li>Áp dụng các cải tiến code/hiệu năng, rồi <strong>clear và profile lại</strong> một phiên mới</li>
+<li>Bấm nút <strong>Pull Data</strong> thứ hai để nạp dữ liệu phiên mới</li>
+</ol>
+<p>⚠️ <strong>Lưu ý về định dạng file:</strong> Nếu chọn <strong>Load</strong>, dữ liệu phải ở định dạng <code>.pdata</code> của Profile Analyzer. Nếu bạn có dữ liệu Profiler ở định dạng <code>.data</code>, hãy mở nó trong Profiler <em>trước</em>, rồi bấm <strong>Pull Data</strong> trong Profile Analyzer. Nhớ <strong>lưu file <code>.data</code> trước khi pull</strong> để giữ được bản sao ở định dạng đó.</p>
+<p><strong>Đọc bảng Marker Comparison:</strong> xem chênh lệch thời gian marker giữa bộ dữ liệu thứ nhất và thứ hai (trái và phải). Cột đánh dấu <strong>&lt;</strong> và <strong>&gt;</strong> cho biết bên trái hay bên phải có giá trị lớn hơn. Điều chỉnh filter <strong>Marker Columns</strong> sẽ thay đổi các giá trị được so sánh tương ứng.</p>
+</div>
+<div class="col-en">
+<p><strong>"The Compare view is where Profile Analyzer really starts to shine."</strong> You load two data sets, displayed in two different colors.</p>
+<p><strong>Preparation:</strong> Start by locating a specific area of your game to test. One way is running a <em>prerecorded or scripted gameplay session</em> that can be executed multiple times. Capturing multiple session playthroughs manually also works.</p>
+<p><strong>The "Pull Data" workflow:</strong></p>
+<ol>
+<li>Open Profile Analyzer via <code>Window &gt; Analysis &gt; Profile Analyzer</code></li>
+<li>Profile the <em>deterministic</em> session <strong>before</strong> optimization work using the Unity Profiler</li>
+<li>In Profile Analyzer, switch to the <strong>Compare</strong> tab, then click the first <strong>Pull Data</strong> button to load the current capture from the Profiler</li>
+<li>Apply your code and performance improvements, then <strong>clear and profile a new session</strong> again</li>
+<li>Click the second <strong>Pull Data</strong> button to load the new session data</li>
+</ol>
+<p>⚠️ <strong>File format note:</strong> If you select <strong>Load</strong>, the data must be in Profile Analyzer's <code>.pdata</code> file format. If you have data from the Profiler in <code>.data</code> format, open it in the Profiler <em>first</em>, then click <strong>Pull Data</strong> in Profile Analyzer. Be sure to <strong>save your Profiler <code>.data</code> file before pulling it in</strong> so that you have a copy in that format too.</p>
+<p><strong>Reading the Marker Comparison pane:</strong> view differences in marker timings between the first and second data sets (left and right). The columns marked with <strong>&lt;</strong> and <strong>&gt;</strong> show the difference if the left or right data sets are larger in value. Adjusting the <strong>Marker Columns</strong> filter changes the values compared accordingly.</p>
+</div>
+</div>
+
+### 9.4. 💎 Kỹ thuật cao cấp: So sánh frame TRUNG VỊ với frame DÀI NHẤT
+
+<img src="../assets/profile-analyzer-compare-median.png" alt="Comparing median and longest frames">
+<p><em>VI: So sánh frame trung vị và frame dài nhất trong cùng một capture. / EN: Comparing the median and longest frames from a capture.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Đây là mẹo hay nhất trong toàn chương Profile Analyzer.</strong></p>
+<p><strong>Mục đích:</strong> So sánh frame <em>trung vị</em> với frame <em>dài nhất</em> <strong>trong cùng MỘT capture</strong> để chỉ đích danh những gì xảy ra ở frame dài mà <em>không</em> xuất hiện ở frame trung vị — hoặc để thấy cái gì mất thời gian lâu hơn mức trung bình.</p>
+<p><strong>Cách làm:</strong></p>
+<ol>
+<li>Mở Compare view của Profile Analyzer và nạp <strong>CÙNG MỘT bộ dữ liệu cho cả hai bên</strong> trái và phải. <em>(Cũng có thể nạp ở Single view rồi chuyển sang Compare.)</em></li>
+<li><strong>Chuột phải</strong> vào đồ thị Frame Control <em>phía trên</em> → chọn <strong>Select Median Frame</strong></li>
+<li><strong>Chuột phải</strong> vào đồ thị <em>phía dưới</em> → chọn <strong>Select Longest Frame</strong></li>
+<li>Panel <strong>Marker Comparison</strong> tự cập nhật để hiển thị chênh lệch</li>
+</ol>
+<p><strong>Biến thể nâng cao:</strong> Sắp xếp <em>cả hai</em> đồ thị theo thời lượng frame (<strong>chuột phải → Order By Frame Duration</strong>), rồi chọn một dải ở mỗi bộ — hoặc <em>tập trung vào</em>, hoặc <em>loại trừ</em> các frame ngoại lai (frame dài/ngắn bất thường).</p>
+<p>👉 Cách này cho phép <strong>so sánh giữa frame "bình thường nhất" và frame "bất thường nhất"</strong>. Dữ liệu sau đó phân tích được trong bảng lọc <em>Marker Comparison</em> cho dải đang chọn.</p>
+<p>💡 Đây chính là công cụ để <strong>săn spike</strong> mà không cần đoán mò.</p>
+</div>
+<div class="col-en">
+<p><strong>This is the best trick in the entire Profile Analyzer chapter.</strong></p>
+<p><strong>Purpose:</strong> Compare the <em>median</em> and <em>longest</em> frames <strong>within a SINGLE Profiler capture</strong> to pinpoint things happening in the latter that do not appear in the former, or to see what is taking longer than average to complete.</p>
+<p><strong>How:</strong></p>
+<ol>
+<li>Open the Profile Analyzer Compare view and load the <strong>SAME data set for both</strong> the left and right sides. <em>(You can also load a data set in the Single view, then switch to Compare.)</em></li>
+<li><strong>Right-click</strong> the <em>top</em> Frame Control graph → choose <strong>Select Median Frame</strong></li>
+<li><strong>Right-click</strong> the <em>bottom</em> graph → choose <strong>Select Longest Frame</strong></li>
+<li>The <strong>Marker Comparison</strong> panel updates to display the differences</li>
+</ol>
+<p><strong>Advanced variant:</strong> Sort <em>both</em> graphs by frame duration (<strong>Right-click &gt; Order By Frame Duration</strong>), then select a range in each set, either <em>focusing on</em> or <em>excluding</em> the outlier frames (frames that are disproportionately long or short).</p>
+<p>👉 This allows a comparison between the <strong>most ordinary and extraordinary frames</strong>. The data can then be analyzed in the filtered <em>Marker Comparison</em> table for the currently selected range.</p>
+<p>💡 This is <strong>the</strong> tool for hunting spikes without guesswork.</p>
+</div>
+</div>
+
 !!! info "Highlights Module (Unity 2023.2+)"
     **VI:** Module **Highlights** hiển thị ngay: ứng dụng có đạt frame rate mục tiêu không, đang bị giới hạn bởi CPU hay GPU, và nên bắt đầu điều tra từ đâu. Module này **không bật mặc định** — mở Profiler window → dropdown "Profiler Modules" → tick "Highlights".
 
@@ -353,7 +1456,7 @@ public class EnemyAI : MonoBehaviour
 
 ---
 
-## 6. Memory Profiler 1.0.0 — Toàn cảnh bộ nhớ
+## 10. Memory Profiler 1.0.0 — Toàn cảnh bộ nhớ
 
 <img src="../assets/memory-profiler-snapshot.png" alt="Memory Profiler snapshot">
 <p><em>VI: Chụp, kiểm tra và so sánh snapshot trong Memory Profiler. / EN: Capture, inspect, and compare snapshots in the Memory Profiler.</em></p>
@@ -373,7 +1476,60 @@ public class EnemyAI : MonoBehaviour
 </div>
 </div>
 
-### 6.1. Cấu trúc 3 phần của Memory Profiler
+### 10.0. Phân biệt: Memory Profiler **module** vs Memory Profiler **package**
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>⚠️ <strong>Đây là hai thứ KHÁC NHAU, rất nhiều người nhầm:</strong></p>
+<ul>
+<li><strong>Memory Profiler <em>module</em></strong> — nằm sẵn <em>trong</em> cửa sổ Unity Profiler. Cho số liệu <strong>theo từng frame</strong>. Có 2 view: <strong>Simple</strong> và <strong>Detailed</strong>.</li>
+<li><strong>Memory Profiler <em>package</em></strong> — add-on cài từ Package Manager. Chụp <strong>snapshot</strong> toàn cảnh, phân tích sâu, so sánh (§10.1–10.2).</li>
+</ul>
+<p><strong>Dùng module khi:</strong> muốn nhanh chóng thu thập thông tin liên quan tới cấp phát bộ nhớ của Asset và Scene object.</p>
+</div>
+<div class="col-en">
+<p>⚠️ <strong>These are TWO DIFFERENT things — commonly confused:</strong></p>
+<ul>
+<li><strong>Memory Profiler <em>module</em></strong> — built <em>into</em> the Unity Profiler window. Gives <strong>per-frame</strong> figures. Has two views: <strong>Simple</strong> and <strong>Detailed</strong>.</li>
+<li><strong>Memory Profiler <em>package</em></strong> — an add-on installed from Package Manager. Takes full <strong>snapshots</strong>, deep analysis, comparison (§10.1–10.2).</li>
+</ul>
+<p><strong>Use the module when:</strong> you want to quickly gather information relating to Asset and Scene object memory allocation.</p>
+</div>
+</div>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>SIMPLE VIEW — Cái nhìn tổng quan</strong></p>
+<p>Ba con số bạn phải hiểu chính xác:</p>
+<ul>
+<li><strong>Total Used Memory</strong> — chính là <em>"Total Tracked by Unity Memory"</em>. Nó <strong>KHÔNG</strong> bao gồm phần bộ nhớ Unity đã <em>reserve</em> (phần đó là <strong>Total Reserved Memory</strong>).</li>
+<li><strong>Total Reserved Memory</strong> — tổng bộ nhớ Unity đã đặt chỗ.</li>
+<li><strong>System Used Memory</strong> — con số mà <em>hệ điều hành</em> coi là đang được ứng dụng của bạn sử dụng.</li>
+</ul>
+<p>⚠️ <strong>Bẫy quan trọng:</strong> Nếu <strong>System Used Memory hiển thị 0</strong>, điều đó có nghĩa là <em>Profiler counter chưa được cài đặt trên nền tảng bạn đang profile</em> — <strong>không phải</strong> app của bạn dùng 0 bộ nhớ! Trong trường hợp này, chỉ số đáng tin cậy nhất là <strong>Total Reserved Memory</strong>, và nên chuyển sang dùng <strong>công cụ profiling native của nền tảng</strong> để lấy thông tin bộ nhớ chi tiết.</p>
+<p><strong>DETAILED VIEW — Chụp snapshot chi tiết</strong></p>
+<p>Muốn biết executable, DLL, và Mono Virtual Machine dùng bao nhiêu bộ nhớ? <strong>Số liệu theo từng frame sẽ không đủ.</strong> Hãy dùng <strong>Detailed snapshot capture</strong> để đào vào kiểu phân rã bộ nhớ này.</p>
+<p>⚠️ <strong>Lưu ý về reference tree:</strong> Cây tham chiếu trong Detailed view của <em>module</em> chỉ hiển thị <strong>Native references</strong>. Tham chiếu từ các object kế thừa <code>UnityEngine.Object</code> có thể xuất hiện với tên "managed shell" của chúng — nhưng chúng xuất hiện <em>chỉ vì</em> chúng có Native Object đi kèm.</p>
+</div>
+<div class="col-en">
+<p><strong>SIMPLE VIEW — the high-level picture</strong></p>
+<p>Three figures you must read precisely:</p>
+<ul>
+<li><strong>Total Used Memory</strong> — this is the <em>"Total Tracked by Unity Memory."</em> It does <strong>NOT</strong> include memory that Unity has <em>reserved</em> (that figure is <strong>Total Reserved Memory</strong>).</li>
+<li><strong>Total Reserved Memory</strong> — the total Unity has set aside.</li>
+<li><strong>System Used Memory</strong> — what the <em>OS</em> considers as being in use by your application.</li>
+</ul>
+<p>⚠️ <strong>Critical trap:</strong> If <strong>System Used Memory displays 0</strong>, this indicates <em>the Profiler counter is not implemented on the platform you are profiling</em> — <strong>not</strong> that your app uses zero memory! In this case, the best indicator to rely on is <strong>Total Reserved Memory</strong>, and it's recommended to switch to a <strong>native platform profiling tool</strong> for detailed memory information.</p>
+<p><strong>DETAILED VIEW — detailed snapshot capture</strong></p>
+<p>To look into how much memory is used by your executable, DLLs, and the Mono Virtual Machine, <strong>frame-by-frame memory figures will not cut it.</strong> Use a <strong>Detailed snapshot capture</strong> to dig into this kind of memory breakdown.</p>
+<p>⚠️ <strong>Note on the reference tree:</strong> The reference tree in the Detailed view of the <em>module</em> only shows <strong>Native references</strong>. References from objects of types inheriting from <code>UnityEngine.Object</code> might show up with the name of their managed shells — however, they might show up <em>only because</em> they have Native Objects.</p>
+</div>
+</div>
+
+<img src="../assets/memprof-summary-detail.png" alt="Memory Profiler module summary detail">
+<p><em>VI: Dùng Memory Profiler <strong>module</strong> để nhanh chóng thu thập thông tin về cấp phát bộ nhớ của Asset và Scene object. / EN: Use the Memory Profiler <strong>module</strong> to quickly gather information relating to Asset and Scene object memory allocation.</em></p>
+
+### 10.1. Cấu trúc 3 phần của Memory Profiler
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -416,6 +1572,9 @@ public class EnemyAI : MonoBehaviour
 #### ② Summary View
 
 <img src="../assets/memprof-summary-view.png" alt="Memory Profiler Summary view">
+
+<img src="../assets/memory-profiler-summary-full.png" alt="Memory Profiler Summary view full window">
+<p><em>VI: Summary view toàn cảnh (dự án BoatAttack, PC). Đọc số: <strong>Total Used 2.56 GB</strong>, Hardware Resources 55.71 GB. Phân rã — Managed Heap 73.1/89.6 MB · Virtual Machine 65.6 MB · <strong>Graphics &amp; Graphics Driver 439.9 MB</strong> · Audio 5.2 MB · Executable &amp; DLLs 456.0 MB · <strong>Untracked Memory 0.61 GB</strong>. Managed Memory: Objects 10.9 MB, Empty Active Heap Space 3.7 KB, <strong>Empty Fragmented Heap Space 62.2 MB</strong> ⟵ dấu hiệu phân mảnh heap. Tree map cho thấy Texture2D (801 đối tượng) chiếm 0.77 GB. / EN: The full Summary view (BoatAttack, PC). Note <strong>Empty Fragmented Heap Space 62.2 MB</strong> — a fragmentation signal — and Texture2D (801) at 0.77 GB.</em></p>
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -513,7 +1672,7 @@ public class EnemyAI : MonoBehaviour
 </div>
 </div>
 
-### 6.2. So sánh Snapshot (Compare Mode) — Vũ khí săn Memory Leak
+### 10.2. So sánh Snapshot (Compare Mode) — Vũ khí săn Memory Leak
 
 <img src="../assets/memprof-compare.png" alt="Memory Profiler Compare mode">
 
@@ -542,7 +1701,230 @@ public class EnemyAI : MonoBehaviour
 
 ---
 
-## 7. Garbage Collection — Kẻ thù số 1 của Frame Time
+### 10.3. Objects and Allocations — Lọc đa tầng
+
+<img src="../assets/memprof-objects-allocations.png" alt="Objects and Allocations view">
+<p><em>VI: Bảng Objects and Allocations lọc được ở nhiều mức, cho phép đào sâu vào bộ nhớ snapshot với độ chi tiết cao. / EN: The Objects and Allocations table can be filtered at many levels, allowing you to drill down into captured snapshot memory usage with high granularity.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>View <strong>Objects and Allocations</strong> hiển thị một bảng có thể chuyển đổi để lọc theo các lựa chọn dựng sẵn: <strong>All Objects</strong>, <strong>All Native Objects</strong>, <strong>All Managed Objects</strong>, <strong>All Native Allocations</strong>, và nhiều hơn nữa.</p>
+<p>Bạn cũng đổi được bảng phía dưới để hiển thị <strong>Objects</strong>, <strong>Allocations</strong>, hoặc <strong>Memory Regions</strong> trong dải đang chọn.</p>
+<p>👉 Tận dụng điều này khi tối ưu bộ nhớ và nhắm tới việc <strong>đóng gói bộ nhớ hiệu quả hơn</strong> cho các nền tảng phần cứng có ngân sách bộ nhớ hạn hẹp.</p>
+</div>
+<div class="col-en">
+<p>The <strong>Objects and Allocations</strong> view shows a table that can be switched to filter based on ready-made selections, such as <strong>All Objects</strong>, <strong>All Native Objects</strong>, <strong>All Managed Objects</strong>, <strong>All Native Allocations</strong>, and more.</p>
+<p>You can switch the bottom table to display the <strong>Objects</strong>, <strong>Allocations</strong>, or <strong>Memory Regions</strong> in the selected range.</p>
+<p>👉 Use this to your advantage when optimizing memory usage and aiming to <strong>pack memory more efficiently</strong> for hardware platforms where memory budgets are limited.</p>
+</div>
+</div>
+
+<img src="../assets/memprof-references-panel.png" alt="Memory Profiler references panel">
+<p><em>VI: Panel References + Selection Details — truy vết ai đang giữ asset trong bộ nhớ. Ví dụ: Texture2D "InventorySlotBG" 341.8 KB (341.8 KB Native + 24 B Managed), được tham chiếu bởi Sprite → MonoBehaviour → Image → GameObject. / EN: The References + Selection Details panel — trace who is holding an asset in memory.</em></p>
+
+### 10.4. Quy trình profiling bộ nhớ
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Quy trình chuẩn:</strong></p>
+<ol>
+<li>Nạp một snapshot của Memory Profiler.</li>
+<li>Đi qua <strong>Tree Map view</strong> để kiểm tra các category, <em>xếp từ lớn nhất tới nhỏ nhất</em> theo dung lượng bộ nhớ.</li>
+<li>👉 <strong>Asset của dự án thường là kẻ ngốn bộ nhớ nhiều nhất.</strong></li>
+<li>Dùng <strong>Table view</strong>, định vị các object: <strong>Texture</strong>, <strong>Meshes</strong>, <strong>AudioClips</strong>, <strong>RenderTextures</strong>, <strong>shader variants</strong>, và <strong>preallocated buffers</strong>.</li>
+</ol>
+<p>Đây đều là những <strong>ứng viên tốt để tối ưu bộ nhớ</strong>.</p>
+</div>
+<div class="col-en">
+<p><strong>Standard workflow:</strong></p>
+<ol>
+<li>Load a Memory Profiler snapshot.</li>
+<li>Go through the <strong>Tree Map view</strong> to inspect the categories, <em>ordered from largest to smallest</em> in memory footprint size.</li>
+<li>👉 <strong>Project assets are often the highest consumers of memory.</strong></li>
+<li>Using the <strong>Table view</strong>, locate: <strong>Texture</strong> objects, <strong>Meshes</strong>, <strong>AudioClips</strong>, <strong>RenderTextures</strong>, <strong>shader variants</strong>, and <strong>preallocated buffers</strong>.</li>
+</ol>
+<p>These are all <strong>good candidates for memory optimization</strong>.</p>
+</div>
+</div>
+
+### 10.5. 🕵️ Săn Memory Leak
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Memory leak thường xảy ra khi:</strong></p>
+<ul>
+<li>Một object <strong>không được giải phóng thủ công</strong> khỏi bộ nhớ qua code.</li>
+<li>Một object <strong>ở lại trong bộ nhớ vì một tham chiếu ngoài ý muốn</strong> (unintentional reference).</li>
+</ul>
+<p><strong>Công cụ:</strong> <strong>Diff view</strong> của Memory Profiler giúp tìm leak bằng cách so sánh hai snapshot trong một khoảng thời gian cụ thể.</p>
+<p>⚠️ <strong>Kịch bản leak kinh điển trong game Unity: xảy ra SAU KHI unload một scene.</strong></p>
+<p>Package Memory Profiler có sẵn một workflow hướng dẫn bạn qua quy trình phát hiện loại leak này bằng Diff view.</p>
+</div>
+<div class="col-en">
+<p><strong>A memory leak typically happens when:</strong></p>
+<ul>
+<li>An object is <strong>not released manually</strong> from memory through the code.</li>
+<li>An object <strong>stays in memory because of an unintentional reference</strong>.</li>
+</ul>
+<p><strong>The tool:</strong> The Memory Profiler <strong>Diff view</strong> can help find memory leaks by comparing two snapshots over a specific timeframe.</p>
+<p>⚠️ <strong>A common memory leak scenario in Unity games can occur after unloading a scene.</strong></p>
+<p>The Memory Profiler package has a workflow that guides you through the process of discovering these types of leaks using the Diff view.</p>
+</div>
+</div>
+
+### 10.6. 🔍 Truy tìm cấp phát lặp lại suốt vòng đời ứng dụng
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Thông qua <strong>so sánh vi phân nhiều memory snapshot</strong>, bạn xác định được nguồn gốc của các cấp phát bộ nhớ diễn ra liên tục trong suốt vòng đời ứng dụng.</p>
+<p><strong>Bốn công cụ, dùng phối hợp:</strong></p>
+</div>
+<div class="col-en">
+<p>Through <strong>differential comparison of multiple memory snapshots</strong>, you can identify the source of continuous memory allocations during application lifetime.</p>
+<p><strong>Four tools, used together:</strong></p>
+</div>
+</div>
+
+#### ① Memory Profiler module — Đường màu đỏ
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Module Memory Profiler trong Unity Profiler biểu diễn <strong>managed allocation mỗi frame bằng một đường màu đỏ</strong>.</p>
+<p>👉 <strong>Đường này phải bằng 0 hầu hết thời gian.</strong> Bất kỳ <em>spike</em> nào trên đường đó đều chỉ ra frame bạn cần điều tra về managed allocation.</p>
+<p>Chỉ số cần theo dõi: <strong>GC Allocated In Frame</strong>.</p>
+</div>
+<div class="col-en">
+<p>The Memory Profiler module in the Unity Profiler represents <strong>managed allocations per frame with a red line</strong>.</p>
+<p>👉 <strong>This should be 0 most of the time</strong>, so any <em>spikes</em> in that line indicate frames you should investigate for managed allocations.</p>
+<p>The counter to watch: <strong>GC Allocated In Frame</strong>.</p>
+</div>
+</div>
+
+#### ② Timeline view — Marker màu hồng
+
+<img src="../assets/profiler-timeline-gcalloc-pink.png" alt="GC.Alloc markers in pink in Timeline view">
+<p><em>VI: Managed allocation hiện dưới dạng marker màu hồng trong Timeline view. Tooltip cho biết <code>GC.Alloc — Total: 0.775ms (14366 Instances), Size: 40</code>. / EN: Managed allocations appear as pink-colored markers in the Timeline view.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Timeline view của module CPU Usage hiển thị các cấp phát — bao gồm managed allocation — bằng <strong>màu hồng</strong>, khiến chúng <em>rất dễ nhìn thấy</em> và khoanh vùng.</p>
+<p>👉 Trong ảnh chụp: <strong>14.366 instance</strong> của <code>GC.Alloc</code> chỉ trong một khung nhìn — CPU 640.03 ms. Đây là dấu hiệu của một vấn đề nghiêm trọng.</p>
+</div>
+<div class="col-en">
+<p>The Timeline view in the CPU Usage Profiler module shows allocations, including managed ones, in <strong>pink</strong>, making them <em>easy to see</em> and hone in on.</p>
+<p>👉 In the screenshot: <strong>14,366 instances</strong> of <code>GC.Alloc</code> in a single view — CPU 640.03 ms. That is the signature of a serious problem.</p>
+</div>
+</div>
+
+#### ③ Allocation Call Stacks — Rẻ hơn Deep Profiling
+
+<img src="../assets/allocation-call-stacks.png" alt="Allocation call stacks in Hierarchy Related Data">
+<p><em>VI: Bật Allocation call stacks cho phép lần ngược call stack về đúng nguồn gây managed allocation. Panel Related Data trong Hierarchy view cũng hiện chi tiết call stack. / EN: Enabling Allocation call stacks lets you follow the call stack back to the source for managed allocations.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Allocation call stacks là cách nhanh để phát hiện managed memory allocation trong code của bạn.</strong></p>
+<p>🎯 <strong>Ưu điểm then chốt:</strong> Chúng cung cấp chi tiết call stack bạn cần <strong>với overhead THẤP HƠN so với deep profiling</strong>, và <strong>bật được ngay lập tức (on the fly)</strong> bằng Profiler tiêu chuẩn.</p>
+<p><strong>Cách bật</strong> (mặc định <em>tắt</em>):</p>
+<ol>
+<li>Bấm nút <strong>Call Stacks</strong> trên toolbar chính của cửa sổ Profiler.</li>
+<li>Đổi <strong>Details view</strong> sang <strong>Related Data</strong>.</li>
+</ol>
+<p>Kết quả: các sample <code>GC.Alloc</code> được chọn trong <strong>Hierarchy</strong> hoặc <strong>Raw Hierarchy</strong> giờ sẽ chứa call stack của chúng. Bạn cũng thấy call stack của sample <code>GC.Alloc</code> trong <em>tooltip khi chọn</em> ở Timeline.</p>
+<p>⚠️ <strong>Lưu ý phiên bản:</strong> Nếu dùng Unity cũ (trước khi có hỗ trợ Allocation call stack), thì <em>deep profiling</em> là cách tốt để lấy full call stack nhằm tìm managed allocation.</p>
+</div>
+<div class="col-en">
+<p><strong>Allocation call stacks provide a quick way to discover managed memory allocations in your code.</strong></p>
+<p>🎯 <strong>Key advantage:</strong> They provide the call stack detail you need at <strong>LESS overhead compared to what deep profiling would normally add</strong>, and they can be <strong>enabled on the fly</strong> using the standard Profiler.</p>
+<p><strong>How to enable</strong> (disabled by default):</p>
+<ol>
+<li>Click the <strong>Call Stacks</strong> button in the main toolbar of the Profiler window.</li>
+<li>Change the <strong>Details view</strong> to <strong>Related Data</strong>.</li>
+</ol>
+<p>Result: <code>GC.Alloc</code> samples selected in the <strong>Hierarchy</strong> or <strong>Raw Hierarchy</strong> will now contain their call stacks. You can also see the call stacks of <code>GC.Alloc</code> samples in the <em>selection tooltip</em> in Timeline.</p>
+<p>⚠️ <strong>Version note:</strong> If you're using an older version of Unity (prior to Allocation call stack support), then deep profiling is a good way to get full call stacks to help find managed allocations.</p>
+</div>
+</div>
+
+#### ④ Hierarchy view — Sắp xếp theo GC Alloc
+
+<img src="../assets/hierarchy-sort-gcalloc.png" alt="Sorting Hierarchy by GC Alloc">
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Hierarchy view trong module CPU Usage cho phép <strong>bấm vào tiêu đề cột để dùng nó làm tiêu chí sắp xếp</strong>.</p>
+<p>👉 <strong>Sắp xếp theo cột <code>GC Alloc</code> là cách tuyệt vời để tập trung vào chúng.</strong></p>
+</div>
+<div class="col-en">
+<p>The Hierarchy view in the CPU Usage Profiler module lets you <strong>click on column headers to use them as the sorting criteria</strong>.</p>
+<p>👉 <strong>Sorting by <code>GC Alloc</code> is a great way to focus on those.</strong></p>
+</div>
+</div>
+
+#### ⑤ Project Auditor — Tìm cấp phát KHÔNG cần chạy game
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Project Auditor là công cụ phân tích tĩnh (static analysis) mang tính thử nghiệm.</strong></p>
+<p>Nó làm nhiều việc hữu ích, nhưng điểm đáng giá nhất ở đây: nó có thể tạo ra <strong>danh sách MỌI dòng code trong dự án gây ra managed allocation</strong> — <strong>mà không cần chạy dự án một lần nào</strong>.</p>
+<p>👉 Đây là cách <em>cực kỳ hiệu quả</em> để tìm và điều tra loại vấn đề này.</p>
+</div>
+<div class="col-en">
+<p><strong>Project Auditor is an experimental static analysis tool.</strong></p>
+<p>It does a lot of useful things, but the most valuable here: it can produce a <strong>list of every single line of code in a project which causes a managed allocation</strong> — <strong>without ever having to run the project</strong>.</p>
+<p>👉 It's a <em>very efficient way</em> to find and investigate these sorts of issues.</p>
+</div>
+</div>
+
+### 10.7. ⚠️ Bảy điều cần nhớ khi profiling bộ nhớ
+
+!!! note "Bổ sung từ bản Unity 6 — chương mới hoàn toàn"
+    **VI:** Cùng một dự án nhưng **số liệu bộ nhớ sẽ KHÁC NHAU giữa các thiết bị**. Đây là danh sách các yếu tố khiến bạn đọc sai kết quả.
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Các yếu tố làm thay đổi con số bộ nhớ giữa các thiết bị:</strong></p>
+<ol>
+<li><strong>Quality &amp; graphics settings</strong> — ảnh hưởng kích thước <em>render texture dùng cho shadow map</em>.</li>
+<li><strong>Resolution scaling</strong> — ảnh hưởng kích thước <em>screen buffer, render texture, và hiệu ứng post-processing</em>.</li>
+<li><strong>Texture settings</strong> — ảnh hưởng kích thước <em>toàn bộ texture</em>.</li>
+<li><strong>Maximum LOD</strong> — ảnh hưởng model và hơn thế nữa.</li>
+<li><strong>AssetBundle variants</strong> — nếu bạn có phiên bản <strong>HD</strong> (High Definition) và <strong>SD</strong> (Standard Definition) và chọn dùng cái nào theo cấu hình thiết bị đích, bạn sẽ nhận được <em>kích thước asset khác nhau</em> tùy thiết bị đang profile.</li>
+<li><strong>Độ phân giải màn hình</strong> của thiết bị đích — ảnh hưởng kích thước render texture dùng cho post-processing.</li>
+<li><strong>Graphics API được hỗ trợ</strong> — có thể ảnh hưởng kích thước shader, dựa trên việc thiết bị hỗ trợ (hoặc không hỗ trợ) những variant nào.</li>
+</ol>
+<p>💡 <strong>Khuyến nghị:</strong> Một <strong>hệ thống phân tier</strong> dùng quality/graphics settings khác nhau cùng với AssetBundle variant là <em>cách tuyệt vời</em> để nhắm tới dải thiết bị rộng hơn.</p>
+<p><strong>Ví dụ cụ thể:</strong> nạp bản <strong>HD</strong> của AssetBundle trên máy mobile <strong>4 GB</strong>, và bản <strong>SD</strong> trên máy <strong>2 GB</strong>. Nhưng hãy lưu ý các biến động bộ nhớ ở trên và <strong>test CẢ HAI loại thiết bị</strong>, cũng như các thiết bị có độ phân giải màn hình hoặc graphics API khác nhau.</p>
+<p>🚨 <strong>Lưu ý cực kỳ quan trọng về Editor:</strong></p>
+<blockquote>
+<p>Unity Editor <strong>nhìn chung LUÔN hiển thị memory footprint LỚN HƠN</strong>, do có thêm các object được nạp từ Editor và Profiler. Ngoài ra, <strong>memory footprint của texture cao hơn</strong> vì trong Editor <em>tất cả texture đều bị ép bật read/write</em>.</p>
+</blockquote>
+<p>👉 Đừng bao giờ báo cáo con số bộ nhớ đo trong Editor như thể đó là con số thật trên thiết bị.</p>
+</div>
+<div class="col-en">
+<p><strong>Factors that change memory figures between devices:</strong></p>
+<ol>
+<li><strong>Quality &amp; graphics settings</strong> — can affect the size of <em>render textures used for shadow maps</em>.</li>
+<li><strong>Resolution scaling</strong> — can affect the size of <em>screen buffers, render textures, and post-processing effects</em>.</li>
+<li><strong>Texture settings</strong> — can affect the size of <em>all textures</em>.</li>
+<li><strong>Maximum LOD</strong> — can affect models and more.</li>
+<li><strong>AssetBundle variants</strong> — if you have <strong>HD</strong> and <strong>SD</strong> versions and choose which to use based on target device specs, you might get <em>different asset sizes</em> depending on which device you profile on.</li>
+<li><strong>Screen resolution</strong> of your target device — affects the size of render textures used for post-processing effects.</li>
+<li><strong>Supported graphics API</strong> — might affect the size of shaders based on which variants the device supports (or doesn't).</li>
+</ol>
+<p>💡 <strong>Recommendation:</strong> A <strong>tiered system</strong> that uses different quality and graphics settings, as well as AssetBundle variants, is a <em>great way</em> to target a wider range of devices.</p>
+<p><strong>Concrete example:</strong> load an <strong>HD</strong> version of an AssetBundle on a <strong>4 GB</strong> mobile device, and an <strong>SD</strong> version on a <strong>2 GB</strong> device. However, keep the above variations in mind and make sure to <strong>test both types of devices</strong>, as well as devices with different screen resolutions or supported graphics APIs.</p>
+<p>🚨 <strong>Critical note about the Editor:</strong></p>
+<blockquote>
+<p>The Unity Editor will <strong>generally ALWAYS show a LARGER memory footprint</strong> due to additional objects loaded from the Editor and Profiler. Additionally, <strong>texture memory footprint is higher</strong> since <em>they are all forced to have read/write enabled in the Editor</em>.</p>
+</blockquote>
+<p>👉 Never report Editor-measured memory figures as if they were real on-device numbers.</p>
+</div>
+</div>
+
+---
+
+## 11. Garbage Collection — Kẻ thù số 1 của Frame Time
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -567,7 +1949,7 @@ public class EnemyAI : MonoBehaviour
 </div>
 </div>
 
-### 7.1. 🚨 5 nguồn sinh rác cần loại bỏ / 5 sources of unnecessary heap allocation
+### 11.1. 🚨 5 nguồn sinh rác cần loại bỏ / 5 sources of unnecessary heap allocation
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -721,7 +2103,7 @@ IEnumerator SpawnLoopGood()
 </div>
 </div>
 
-### 7.2. Incremental Garbage Collector
+### 11.2. Incremental Garbage Collector
 
 <img src="../assets/incremental-gc.png" alt="Incremental Garbage Collector setting">
 <p><em>VI: Bật Incremental GC để giảm GC spike. / EN: Use the Incremental Garbage Collector to reduce GC spikes.</em></p>
@@ -739,7 +2121,7 @@ IEnumerator SpawnLoopGood()
 </div>
 </div>
 
-### 7.3. Chủ động kích hoạt GC / Timing garbage collection
+### 11.3. Chủ động kích hoạt GC / Timing garbage collection
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -759,7 +2141,94 @@ Resources.UnloadUnusedAssets();   // giải phóng native assets không còn tha
 
 ---
 
-## 8. PlayerLoop & Kiến trúc Code
+## 12. Adaptive Performance — Phản ứng theo trạng thái nhiệt
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Với package <strong>Adaptive Performance</strong> (hợp tác Unity × Samsung), bạn <em>giám sát trạng thái nhiệt và điện năng của thiết bị</em> để phản ứng kịp thời.</p>
+<p>Khi người chơi chơi liên tục trong thời gian dài, bạn có thể <strong>hạ LOD bias động</strong> để game tiếp tục chạy mượt. Adaptive Performance cho phép tăng hiệu năng một cách <em>có kiểm soát</em> mà vẫn giữ được chất lượng đồ họa.</p>
+<p>Ngoài API để tinh chỉnh thủ công, package còn có <strong>chế độ tự động</strong>. Ở chế độ này, Adaptive Performance quyết định game settings dựa trên <strong>4 metric chính</strong>:</p>
+<ol>
+<li><strong>Desired frame rate</strong> — suy ra từ các frame trước đó.</li>
+<li><strong>Device temperature level</strong> — mức nhiệt độ thiết bị.</li>
+<li><strong>Device proximity to thermal event</strong> — mức độ cận kề sự kiện quá nhiệt.</li>
+<li><strong>Device bound by CPU or GPU</strong> — đang nghẽn ở CPU hay GPU.</li>
+</ol>
+<p>Bốn metric này quyết định <em>state</em> của thiết bị, và Adaptive Performance tinh chỉnh settings để giảm bottleneck. Cơ chế: cung cấp một giá trị nguyên gọi là <strong>Indexer</strong> mô tả trạng thái thiết bị.</p>
+<p>⚠️ <strong>Giới hạn quan trọng:</strong> Adaptive Performance <strong>chỉ hoạt động trên thiết bị Samsung</strong>.</p>
+<p><strong>Học thêm:</strong> xem sample tại <code>Package Manager &gt; Adaptive Performance &gt; Samples</code>. Mỗi sample tương tác với một <em>scaler</em> cụ thể, cho bạn thấy từng scaler tác động ra sao lên game.</p>
+</div>
+<div class="col-en">
+<p>With Unity and Samsung's <strong>Adaptive Performance</strong>, you can <em>monitor the device's thermal and power state</em> to ensure that you're ready to react appropriately.</p>
+<p>When users play for an extended period of time, you can <strong>reduce your LOD bias dynamically</strong> to help your game continue to run smoothly. Adaptive Performance allows developers to increase performance in a <em>controlled</em> way while maintaining graphics fidelity.</p>
+<p>While you can use Adaptive Performance APIs to fine-tune your application, this package also offers <strong>automatic modes</strong>. In these modes, Adaptive Performance determines the game settings along <strong>several key metrics</strong>:</p>
+<ol>
+<li><strong>Desired frame rate</strong> based on previous frames.</li>
+<li><strong>Device temperature level.</strong></li>
+<li><strong>Device proximity to thermal event.</strong></li>
+<li><strong>Device bound by CPU or GPU.</strong></li>
+</ol>
+<p>These four metrics dictate the state of the device, and Adaptive Performance tweaks the adjusted settings to reduce the bottleneck. This is done by providing an integer value, known as an <strong>Indexer</strong>, to describe the state of the device.</p>
+<p>⚠️ <strong>Important limitation:</strong> Adaptive Performance <strong>only works for Samsung devices</strong>.</p>
+<p><strong>Learn more:</strong> view the samples in <code>Package Manager &gt; Adaptive Performance &gt; Samples</code>. Each sample interacts with a specific <em>scaler</em>, so you can see how the different scalers impact your game.</p>
+</div>
+</div>
+
+```csharp
+// Phản ứng với cảnh báo nhiệt — React to thermal warnings
+using UnityEngine;
+using UnityEngine.AdaptivePerformance;
+
+public class ThermalResponder : MonoBehaviour
+{
+    IAdaptivePerformance ap;
+
+    void Start()
+    {
+        ap = Holder.Instance;
+        if (ap == null || !ap.Active) return;
+
+        ap.ThermalStatus.ThermalEvent += OnThermalEvent;
+    }
+
+    void OnThermalEvent(ThermalMetrics ev)
+    {
+        switch (ev.WarningLevel)
+        {
+            case WarningLevel.NoWarning:
+                QualitySettings.lodBias = 1.0f;
+                Application.targetFrameRate = 60;
+                break;
+
+            case WarningLevel.ThrottlingImminent:
+                // Sắp bị throttle: hạ LOD bias trước khi OS ra tay
+                QualitySettings.lodBias = 0.75f;
+                break;
+
+            case WarningLevel.Throttling:
+                // Đã bị throttle: hy sinh chi tiết để giữ frame time ổn định
+                QualitySettings.lodBias = 0.5f;
+                Application.targetFrameRate = 30;
+                break;
+        }
+    }
+
+    void OnDestroy()
+    {
+        if (ap != null && ap.Active)
+            ap.ThermalStatus.ThermalEvent -= OnThermalEvent;
+    }
+}
+```
+
+!!! warning "Test trên máy min-spec / Test on a min-spec device"
+    **VI:** Dải thiết bị iOS và Android cực rộng. Hãy test dự án trên **cấu hình tối thiểu** mà bạn muốn ứng dụng hỗ trợ — không phải trên flagship trong túi bạn.
+
+    **EN:** There is a wide range of iOS and Android devices. Test your project on the **minimum device specifications** that you want your application to support.
+
+---
+
+## 13. PlayerLoop & Kiến trúc Code
 
 <img src="../assets/playerloop-profiler.png" alt="PlayerLoop in Profiler">
 <p><em>VI: Profiler hiển thị script, settings và graphics của bạn trong bối cảnh thực thi của toàn engine. / EN: The Profiler shows your custom scripts, settings, and graphics in the context of the entire engine's execution.</em></p>
@@ -777,7 +2246,7 @@ Resources.UnloadUnusedAssets();   // giải phóng native assets không còn tha
 </div>
 </div>
 
-### 8.1. Time Slicing — Giảm code chạy mỗi frame
+### 13.1. Time Slicing — Giảm code chạy mỗi frame
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -806,7 +2275,7 @@ void Update()
 }
 ```
 
-### 8.2. Caching — Không bao giờ GetComponent trong Update
+### 13.2. Caching — Không bao giờ GetComponent trong Update
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -856,7 +2325,7 @@ public class CachedBehaviour : MonoBehaviour
 }
 ```
 
-### 8.3. Awake / Start — Tránh logic nặng
+### 13.3. Awake / Start — Tránh logic nặng
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -869,7 +2338,7 @@ public class CachedBehaviour : MonoBehaviour
 </div>
 </div>
 
-### 8.4. Xóa Unity Event rỗng & Debug.Log
+### 13.4. Xóa Unity Event rỗng & Debug.Log
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -910,7 +2379,7 @@ public static class Logging
 }
 ```
 
-### 8.5. Hash ID thay vì string parameter
+### 13.5. Hash ID thay vì string parameter
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -967,7 +2436,7 @@ public class HashedProperties : MonoBehaviour
 }
 ```
 
-### 8.6. Object Pooling
+### 13.6. Object Pooling
 
 <img src="../assets/object-pool-hierarchy.png" alt="Object pool in hierarchy">
 <p><em>VI: Pool gồm các object PlayerLaser đang tắt, sẵn sàng bắn. / EN: The pool of PlayerLaser objects is inactive and ready to shoot.</em></p>
@@ -1048,7 +2517,7 @@ public class BasicPool : MonoBehaviour
 
     **EN:** From Unity 2021, use the built-in `UnityEngine.Pool.ObjectPool<T>` — already optimized, with `actionOnGet` / `actionOnRelease` / `actionOnDestroy` callbacks.
 
-### 8.7. ScriptableObject & AddComponent
+### 13.7. ScriptableObject & AddComponent
 
 <img src="../assets/scriptableobject-inventory.png" alt="ScriptableObject Inventory">
 <p><em>VI: ScriptableObject tên "Inventory" lưu settings cho nhiều GameObject. / EN: A ScriptableObject called Inventory holds settings for various GameObjects.</em></p>
@@ -1070,13 +2539,416 @@ public class BasicPool : MonoBehaviour
 
 ---
 
-## 9. Checklist Fresher — Bỏ túi
+## 14. Deep Profiling — Dùng đúng lúc, đúng cách
+
+<img src="../assets/deep-profiling-call-tree.png" alt="Deep profiling call tree">
+<p><em>VI: Deep profiling hé lộ nhiều thông tin hơn hẳn về hiệu năng và thời gian của code — nó hiển thị toàn bộ cây gọi method, giúp đào tới nơi managed allocation đang xảy ra. / EN: Deep profiling reveals much more information about the performance and timing of your application code. It shows the full method call tree, helping you dig into where managed allocations are happening.</em></p>
+
+### 14.1. Khi nào nên bật Deep Profiling
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Chỉ bật Deep Profile SAU KHI</strong> bạn đã xác định được <em>phần cụ thể</em> của ứng dụng hoặc managed code cần soi kỹ hơn.</p>
+<p>⚠️ Deep profiling <strong>ngốn tài nguyên và tiêu tốn rất nhiều bộ nhớ</strong>. Ứng dụng của bạn sẽ <strong>chạy chậm hơn</strong> khi bật.</p>
+<p>Đổi lại, deep profiling cho phép bạn đi xuống cây gọi (call tree) một cách chi tiết và phát hiện những chỗ kém hiệu quả hoặc lỗi trong code.</p>
+<p>📌 <strong>Lưu ý phiên bản:</strong> Hỗ trợ Deep Profiling cho <strong>cả hai backend Mono và IL2CPP</strong> được thêm từ <strong>Unity 2019.3</strong> trở đi — tin tốt cho các nền tảng bắt buộc dùng IL2CPP như <strong>iOS</strong>.</p>
+</div>
+<div class="col-en">
+<p><strong>You should only enable the Deep Profile setting once</strong> you have identified the <em>specific part</em> of your application or managed code that needs to be examined in greater detail.</p>
+<p>⚠️ Deep profiling is <strong>resource-intensive and consumes a lot of memory</strong>. Your application will <strong>run slower</strong> when it's enabled.</p>
+<p>In exchange, deep profiling allows you to traverse down the call tree in detail and spot inefficiencies or problems in your code.</p>
+<p>📌 <strong>Version note:</strong> Support for Deep Profiling in <strong>both the Mono and IL2CPP backends</strong> was added from <strong>Unity 2019.3</strong> onward — great news for platforms where IL2CPP is mandatory, such as <strong>iOS</strong>.</p>
+</div>
+</div>
+
+### 14.2. Cách bật Deep Profiling cho player build
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Để dùng deep profiling với player build, bật tại: <code>File &gt; Build Settings &gt; <strong>Deep Profiling Support</strong></code>.</p>
+<p>Sau khi bật hỗ trợ, bạn có thể <strong>bật/tắt Deep Profiling bất cứ lúc nào</strong> ngay trong cửa sổ Profiler.</p>
+<p>💡 <strong>Mẹo chẩn đoán:</strong> Nếu nút <strong>Deep Profile bị mờ đi</strong> khi đã attach vào player, điều đó có nghĩa <em>Deep Profiling Support chưa được bật cho build đó</em>.</p>
+</div>
+<div class="col-en">
+<p>To use deep profiling with player builds, enable it via <code>File &gt; Build Settings &gt; <strong>Deep Profiling Support</strong></code>.</p>
+<p>Once support is enabled, you can easily <strong>toggle Deep Profiling on or off</strong> for your build whenever you want in the Profiler window.</p>
+<p>💡 <strong>Diagnostic tip:</strong> A Deep Profile button that's <strong>faded out</strong> when attached to the player indicates that <em>Deep Profiling Support was not enabled</em> for your build.</p>
+</div>
+</div>
+
+### 14.3. Bốn mẹo Deep Profiling
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>① Cách tiếp cận từ trên xuống (Top-to-bottom)</strong></p>
+<p>Bắt đầu ở mức cao và cố định vị các vùng có thể cải thiện <strong>mà không cần</strong> deep profiling. Khi cần thêm thông tin, mới bật Deep Profiling để đào ở mức chi tiết hơn.</p>
+<p>👉 Cách này giữ lượng thông tin hiển thị trong Profiler Hierarchy ở mức <strong>tối thiểu</strong>, cho phép bạn tập trung vào mục tiêu.</p>
+<p><em>Quy trình đầy đủ:</em> Trước tiên thu thập call stack cho marker <code>GC.Alloc</code>. Nếu call stack báo cáo <strong>chưa đủ chi tiết</strong> để truy ra nguồn cấp phát hoặc nguyên nhân chậm, <em>lúc đó</em> mới chạy phiên profiling thứ hai với Deep Profiling bật.</p>
+<p>⚠️ Khi ghi chú các "thủ phạm" frame time, hãy ghi lại <strong>tương quan của chúng so với phần còn lại của frame</strong> — vì tác động tương đối này <em>sẽ bị ảnh hưởng</em> khi bật Deep Profiling.</p>
+<p><strong>② Chỉ deep profile khi THỰC SỰ cần thiết</strong></p>
+<p>Để cờ Deep Profiling bật sẵn cho build <strong>không</strong> ảnh hưởng hiệu năng nếu bạn không thực sự toggle nó lên. Nhưng khi đã bật, ứng dụng sẽ chạy chậm.</p>
+<p>💡 Nếu bạn <em>chỉ</em> quan tâm tới việc tìm nguồn managed allocation: từ <strong>Unity 2019.3</strong> trở đi bạn làm được điều đó <strong>mà không cần bật Deep Profiling</strong> — dùng toggle <strong>Call Stacks</strong> và dropdown <strong>Calls</strong> trong Profiler.</p>
+<p><strong>③ Deep profiling trong quy trình tự động</strong></p>
+<p>Để bật Deep Profiling khi profile từ dòng lệnh, thêm tham số <code>-deepprofiling</code> vào build executable.</p>
+<p><strong>④ Deep profiling trên phần cứng cấu hình thấp</strong></p>
+<p>Phần cứng yếu có bộ nhớ và hiệu năng hạn chế, ảnh hưởng tới khả năng deep profile. Profiler sample của Unity lưu trong một <strong>ring buffer</strong>, và buffer này <strong>có thể đầy</strong> khi dùng Deep Profile trên thiết bị chậm — Unity sẽ báo lỗi.</p>
+<p>🔧 <strong>Giải pháp:</strong> Cấp thêm bộ nhớ cho Profiler bằng thuộc tính <code>Profiler.maxUsedMemory</code> (đơn vị byte).</p>
+<p>📊 <strong>Giá trị mặc định: 128 MB cho Player và 512 MB cho Editor.</strong> Tăng lên khi cần trên build Player của thiết bị chậm.</p>
+<p>💡 <strong>Phương án thay thế:</strong> Nếu cần profile code chi tiết hơn trên phần cứng chạy quá chậm (hoặc không chạy nổi) do overhead của deep profiling, hãy <strong>profile sâu bằng marker của chính bạn</strong> — thay vì bật Deep Profile, thêm Profiler marker vào đúng những vùng quan tâm trong code. Các marker này sẽ xuất hiện trong Timeline hoặc Hierarchy của module CPU Usage.</p>
+</div>
+<div class="col-en">
+<p><strong>① Top-to-bottom approach</strong></p>
+<p>Start at a high level and try to locate areas where performance can be improved <strong>without using</strong> deep profiling. As you need more information, enable Deep Profiling to dig in at a more granular level.</p>
+<p>👉 This keeps the level of information displayed in the Profiler Hierarchy to a <strong>minimum</strong>, allowing you to focus on the goal at hand.</p>
+<p><em>Full workflow:</em> You'll need to first gather call stacks for <code>GC.Alloc</code> markers. If the reported call stacks are <strong>not detailed enough</strong> to track down the source of the allocations or other slowdowns, you can <em>then</em> perform a second profiling session with Deep Profiling enabled.</p>
+<p>⚠️ When collecting notes on the frame time 'offenders,' be sure to note <strong>how they compare relative to the rest of the frame</strong> — this relative impact <em>will be affected</em> by turning on Deep Profiling.</p>
+<p><strong>② Deep profile only when absolutely necessary</strong></p>
+<p>Leaving the Deep Profiling flag enabled for builds will <strong>not</strong> affect performance without actually toggling the feature on. But when it is enabled, it causes your application to run slowly.</p>
+<p>💡 If you are <em>only</em> interested in finding the source of managed allocations, remember that <strong>Unity 2019.3</strong> and onward allows you to do this <strong>without enabling Deep Profiling</strong> — use the <strong>Call Stacks</strong> toggle and <strong>Calls</strong> dropdown in the Profiler.</p>
+<p><strong>③ Deep profiling in automated processes</strong></p>
+<p>To toggle Deep Profiling on when profiling from the command line, add the <code>-deepprofiling</code> argument to your build executable.</p>
+<p><strong>④ Deep profiling on low-spec hardware</strong></p>
+<p>Lower-spec hardware has limited memory and performance that can affect your ability to use deep profiling. Unity's Profiler samples are stored in a <strong>ring buffer</strong>, which <strong>can fill up</strong> when using Deep Profile on slower devices. If this happens, Unity will display an error message.</p>
+<p>🔧 <strong>Fix:</strong> Allocate more memory to the Profiler for this buffering data by setting the <code>Profiler.maxUsedMemory</code> property (bytes).</p>
+<p>📊 <strong>The default is 128 MB for Players and 512 MB for the Editor.</strong> Increase this as required on slower-device Player builds.</p>
+<p>💡 <strong>Alternative:</strong> If you need to profile code in higher detail on hardware that runs too slowly (or not at all) due to deep profiling overhead, <strong>profile deeper with your own markers</strong> — instead of enabling Deep Profile, add Profiler markers to the specific areas of interest in your code. These will appear in the Profiler Timeline or Hierarchy when viewing the CPU Usage module.</p>
+</div>
+</div>
+
+```bash
+# Bật deep profiling từ dòng lệnh — Enable deep profiling from the command line
+MyGame.exe -deepprofiling
+
+# Android / Mono scripting backend
+adb shell am start -n com.company.game/com.unity3d.player.UnityPlayerActivity \
+    -e 'unity' '-deepprofiling'
+```
+
+```csharp
+// Tăng ring buffer của Profiler trên thiết bị cấu hình thấp
+// Increase the Profiler ring buffer on low-spec devices
+// Mặc định: 128 MB (Player) / 512 MB (Editor)
+using UnityEngine.Profiling;
+
+void Awake()
+{
+    Profiler.maxUsedMemory = 256 * 1024 * 1024;   // 256 MB
+}
+```
+
+<img src="../assets/profiler-markers-custom.png" alt="Custom Profiler markers">
+<p><em>VI: Thêm Profiler marker để profile các tầng code sâu hơn khi deep profiling gây quá nhiều overhead. / EN: Add Profiler markers to profile deeper layers of code when deep profiling adds too much overhead.</em></p>
+
+### 14.4. Domain Reload — Tăng tốc vòng lặp Editor
+
+!!! note "Bổ sung từ bản Unity 6"
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Unity Editor cho phép cấu hình việc vào Play mode. Bạn thường có thể <strong>tăng tốc đáng kể thời gian lặp trong Editor bằng cách TẮT Domain Reload</strong>.</p>
+<p>⚠️ <strong>Nhưng có cái giá:</strong> khi tắt, Unity sẽ <strong>không còn reset trạng thái scripting mỗi lần vào Play mode</strong> — bạn <em>phải tự làm việc đó thủ công trong code</em> (reset biến static, event handler, singleton…).</p>
+<p><strong>Cách làm đúng (best practice):</strong></p>
+<ol>
+<li>Mở <strong>Project Auditor</strong>, vào khu vực <strong>Code</strong> — nó phân tích script trong dự án để tìm mọi nơi bạn cần reset biến.</li>
+<li>Để có dữ liệu cho view này, bật setting <strong>Use Roslyn Analyzers</strong> trong cửa sổ <em>Preferences</em>.</li>
+<li>Chạy qua danh sách vấn đề trong <strong>Domain Reload view</strong>, sửa theo hướng dẫn trong manual.</li>
+<li><strong>Sau khi sửa hết</strong> mới tắt Domain Reload khi vào Play mode.</li>
+</ol>
+<p>👉 Được coi là <em>best practice</em>: sửa hết vấn đề hiển thị trong Domain Reload view <strong>rồi mới</strong> tắt domain reload.</p>
+</div>
+<div class="col-en">
+<p>The Unity Editor allows you to configure settings about entering Play mode. You can often <strong>speed up your Editor iteration time by disabling Domain Reload</strong>.</p>
+<p>⚠️ <strong>But there's a cost:</strong> this will <strong>no longer reset your scripting state every time you enter Play mode</strong> — you <em>have to do this manually in your code</em> (reset statics, event handlers, singletons…).</p>
+<p><strong>The correct approach (best practice):</strong></p>
+<ol>
+<li>Open <strong>Project Auditor</strong>, go to the <strong>Code</strong> area — it analyzes the scripts in your project to help you find anywhere you need to reset your script variables.</li>
+<li>To populate this view with data, enable the <strong>Use Roslyn Analyzers</strong> setting in the <em>Preferences</em> window.</li>
+<li>Run through the list of issues in the <strong>Domain Reload view</strong>, following the instructions in the manual to fix them.</li>
+<li><strong>Once they're all addressed</strong>, disable Domain Reload when entering Play mode.</li>
+</ol>
+<p>👉 It's considered <em>best practice</em> to fix all the issues displayed in the Domain Reload view <strong>and then</strong> disable domain reload.</p>
+</div>
+</div>
+
+---
+
+## 15. Dùng công cụ nào, khi nào? / Which tool, when?
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Profiling mang lại lợi ích lớn nhất khi bắt đầu từ đầu vòng đời dự án.</strong> Bắt đầu sớm giúp bạn thiết lập các <em>baseline</em> hữu ích để so sánh tại các mốc kiểm tra sau này.</p>
+<p>Điều quan trọng là biết chọn công cụ nào từ <em>"thắt lưng đồ nghề profiling"</em> và <strong>chọn khi nào</strong>.</p>
+</div>
+<div class="col-en">
+<p><strong>Profiling provides the best benefit when started at the beginning of a project lifecycle.</strong> By starting early, you can establish <em>baselines</em> useful for comparisons at checkpoints further into development.</p>
+<p>It's important to know which tool to select from the <em>"profiling tool belt"</em> and <strong>when</strong>.</p>
+</div>
+</div>
+
+### 15.1. Ba mốc kiểm tra trong vòng đời dự án
+
+| Mốc / Checkpoint | Việc cần làm / What to do |
+|---|---|
+| **① Prototyping**<br>*Nguyên mẫu* | **VI:** Profiling quan trọng để **giảm rủi ro** ở giai đoạn prototype. Nếu tài liệu thiết kế game yêu cầu **10.000 kẻ địch trên màn hình**, bạn phải build và profile được một prototype **chứng minh điều đó khả thi** trên nền tảng đích. Nếu không khả thi → **bạn phải đổi thiết kế.**<br>**EN:** Profiling is important to reduce risk at the prototype stage. If the game design document calls for 10,000 enemies on-screen, you need to build and profile a prototype that proves such a thing is possible on the target platform. If it's not, **you need to change the design.** |
+| **② Early stages**<br>*Giai đoạn đầu* | **VI:** Thiết lập **baseline** hiệu năng trên một tập phần cứng đích. Nắm ý niệm sơ bộ về mức dùng bộ nhớ bằng **Memory Profiler**, và đảm bảo kế hoạch về phạm vi dự án **không đang trượt về hướng** khiến giới hạn bộ nhớ trên phần cứng đích trở thành vấn đề về sau.<br>**EN:** Establish a baseline for project performance across a selection of target device hardware. Get a rough idea of memory usage using the Memory Profiler, and ensure plans for the project's scope are not trending toward a point where memory limits will become an issue. |
+| **③ End of sprint**<br>*Cuối sprint* | **VI:** Nếu làm theo sprint kiểu Agile, **release candidate (RC) cuối sprint** là điểm tuyệt vời để chạy một **bộ công cụ profiling chuẩn hóa**. Đảm bảo có **định dạng chuẩn để ghi lại kết quả và metric** — ví dụ trong database hoặc spreadsheet.<br>**EN:** If you're working in sprints on an Agile team, the end-of-sprint release candidate is a great point to run a standardized suite of profiling tools. Ensure you have a standard format to record results and metrics, in a database or spreadsheet, for example. |
+
+### 15.2. Bộ chỉ số cần ghi lại mỗi sprint
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Thu thập bằng Unity Profiler:</strong></p>
+<ul>
+<li>CPU Usage</li>
+<li>GPU Usage</li>
+<li>Memory Usage</li>
+<li>Rendering</li>
+<li>Physics</li>
+</ul>
+<p><strong>Đào sâu hơn và ghi lại chỉ số chênh lệch then chốt</strong> (so với các bản release trước):</p>
+<ul>
+<li><strong>Profile Analyzer</strong> — nạp dữ liệu profiling của bản release trước, so sánh và ghi lại khác biệt.</li>
+<li><strong>Memory Profiler</strong> — so sánh memory snapshot của bản RC trước, ghi lại mức tăng/giảm bộ nhớ.</li>
+</ul>
+</div>
+<div class="col-en">
+<p><strong>Capture with the Unity Profiler:</strong></p>
+<ul>
+<li>CPU Usage</li>
+<li>GPU Usage</li>
+<li>Memory Usage</li>
+<li>Rendering</li>
+<li>Physics</li>
+</ul>
+<p><strong>Go deeper and record key difference metrics</strong> (differential against prior sprint releases):</p>
+<ul>
+<li><strong>Profile Analyzer</strong> — load previous release profiling data captures, compare and record differences.</li>
+<li><strong>Memory Profiler</strong> — compare prior release candidate build memory snapshots and record the difference in memory increase or reduction.</li>
+</ul>
+</div>
+</div>
+
+---
+
+## 16. Tự động hóa quy trình Profiling
+
+<img src="../assets/grafana-profiling-dashboard.png" alt="Grafana profiling dashboard">
+<p><em>VI: Dữ liệu profiling build hàng tuần được thu thập tự động và trực quan hóa trên dashboard Grafana. Nhìn biểu đồ phải: có vẻ ai đó đã để lọt một bug tạo physics object vào build (spike ở 06/20). / EN: Automated weekly build profiling data captured and visualized in a Grafana dashboard. It looks like someone let a physics object creation bug creep into the build.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Nâng tầm việc profiling dự án bằng cách tự động hóa các tác vụ lặp lại.</strong> Việc này tiết kiệm thời gian và cho bạn các metric <em>luôn được cập nhật</em>.</p>
+<p>Metric có thể vẽ thành biểu đồ và đưa lên dashboard dự án, để cả team thấy được <strong>chỗ nào hiệu năng lao dốc</strong> (một tính năng mới hoặc bug vừa thêm vào), hoặc <strong>chỗ nào đã cải thiện</strong> sau một sprint tối ưu và sửa lỗi.</p>
+<p>💡 <strong>Ý tưởng hay:</strong> Vẽ biểu đồ mức dùng bộ nhớ tổng thể của dự án <em>qua tất cả các level</em> theo thời gian. Bằng cách chụp memory snapshot với Memory Profiler và <strong>lấy trung bình qua mọi level</strong>, bạn ghi lại được <em>memory footprint theo từng thiết bị/nền tảng, từng sprint, hoặc từng chu kỳ release</em>.</p>
+<p><strong>Công cụ:</strong> Dùng <code>ProfilerRecorder</code> để ghi các chỉ số cấp cao như <strong>Total Reserved Memory</strong> hoặc <strong>System Used Memory</strong>, xuất ra CI (Continuous Integration), rồi đẩy sang công cụ vẽ biểu đồ như <strong>Grafana</strong>.</p>
+<p>Dùng công cụ Unity DevOps như <strong>Cloud Build</strong> để tự động hóa việc tạo release build và tích hợp quy trình này với luồng profiling thiết bị tự động.</p>
+</div>
+<div class="col-en">
+<p><strong>Level up your project profiling and data capture by automating common and recurring tasks.</strong> This saves time, and you benefit from metrics that are <em>always up to date</em>.</p>
+<p>Metrics can be graphed and added to a project dashboard, allowing the team to see <strong>where performance has taken a nosedive</strong> (a newly added feature or bug, for example), or <strong>where things have improved</strong> after an optimization and bug-fixing sprint.</p>
+<p>💡 <strong>Good idea:</strong> Chart a project's overall memory usage profile <em>across all levels</em> of the game over time. By capturing memory snapshots with the Memory Profiler and <strong>averaging the figures out across all levels</strong>, you can record a <em>memory footprint per target device/platform, sprint, or release cycle</em>.</p>
+<p><strong>Tooling:</strong> Use a <code>ProfilerRecorder</code> to record metrics such as <strong>Total Reserved Memory</strong> or <strong>System Used Memory</strong> and output these to a CI, directing them to a chart or graphing tool such as <strong>Grafana</strong>.</p>
+<p>Use Unity DevOps tools such as <strong>Cloud Build</strong> to automate the creation of release builds and integrate this process with an automated device profiling workflow.</p>
+</div>
+</div>
+
+### 16.1. Pipeline profiling tự động — Ví dụ đầy đủ
+
+<img src="../assets/unity-cloud-build.png" alt="Unity Cloud Build dashboard">
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Vì sao cần tự động hóa:</strong> Nó đảm bảo team gặt được lợi ích của việc profile build <em>mà không lo quy trình này bị hạ ưu tiên do sức ép thời gian</em>.</p>
+<p><strong>Luồng công việc 5 bước:</strong></p>
+<ol>
+<li>Dùng <strong>Unity Cloud Build</strong> để tạo các bản release tự động.</li>
+<li>Sau mỗi release, dùng script khởi chạy player đã build và <strong>bắt dữ liệu profiling thô qua 2000 frame</strong>.</li>
+<li>Dữ liệu được bắt vào file <code>profile1.raw</code>, giờ có thể parse để lấy metric.</li>
+<li>Dùng <strong>ProfileReader</strong> (công cụ parse và chuyển dữ liệu profile thô sang CSV) để chuyển sang định dạng dễ đọc hơn.</li>
+<li>Với dữ liệu đã parse từ CSV, pipeline tự động <strong>upload dữ liệu</strong> cho các bản release hằng đêm/hằng tuần/theo sprint lên công cụ như <strong>Grafana</strong> để trực quan hóa.</li>
+</ol>
+<p>💡 <strong>Phương án khác cho bước 2:</strong> Dùng script để chuyển sang file log mới (<code>profile_&lt;N+1&gt;.raw</code>) mỗi <strong>300–2000 frame</strong>, hoặc profile tại các điểm then chốt trong chu kỳ test (checkpoint trong một lượt chơi tự động). Dữ liệu lưu trữ này có thể tra cứu lại nếu sau đó phát hiện vùng có vấn đề trên biểu đồ dashboard.</p>
+<p>👉 <strong>Kết quả:</strong> Với dữ liệu được trực quan hóa và cập nhật tự động, team dễ dàng phát hiện khi biểu đồ vọt lên để xác định vấn đề nhanh hơn. Họ cũng xem được kết quả của một task tối ưu hiệu năng, hoặc kết quả của việc team level design chạy một lượt tối ưu bộ nhớ qua các level.</p>
+</div>
+<div class="col-en">
+<p><strong>Why automate:</strong> It helps ensure your team realizes the benefits of profiling builds <em>without the worry that this process will be deprioritized due to time constraints</em>.</p>
+<p><strong>The 5-step workflow:</strong></p>
+<ol>
+<li>Use <strong>Unity Cloud Build</strong> to create automated build releases.</li>
+<li>After each release, use a script to start a built player and <strong>capture raw profiling data over 2000 frames</strong>.</li>
+<li>Profiling data is captured in the <code>profile1.raw</code> file and can now be parsed for interesting metrics.</li>
+<li>Use <strong>ProfileReader</strong> (a tool for parsing and converting raw profile data to CSV format) to convert to a more readable format.</li>
+<li>With data parsed from CSV, the automated pipeline <strong>uploads data</strong> for your nightly, weekly, or sprint releases to a tool such as <strong>Grafana</strong> for visualization.</li>
+</ol>
+<p>💡 <strong>Alternative for step 2:</strong> Use a script to switch to a new log file (<code>profile_&lt;N+1&gt;.raw</code>) every <strong>300–2000 frames</strong>, or to profile key points in an application's test cycle (checkpoints in an automated level playthrough). This stored data can then be referenced if problem areas are spotted in dashboard graphs later on.</p>
+<p>👉 <strong>Result:</strong> With data visualized and updated automatically, your team can easily spot when graphs spike to identify issues more quickly. They can also view the results of a performance optimization task, or of the level design team doing a memory optimization pass across various levels.</p>
+</div>
+</div>
+
+```bash
+# Bước 2 — Bắt 2000 frame dữ liệu profiling thô
+# Step 2 — Capture raw profiling data over 2000 frames
+AngryBots2.exe -profiler-enable \
+               -profiler-log-file profile1.raw \
+               -profiler-capture-frame-count 2000
+```
+
+```bash
+# Bước 4 — Chuyển .raw sang CSV bằng ProfileReader
+# Step 4 — Convert .raw to CSV with ProfileReader
+Unity.exe -batchMode \
+          -projectPath "AngryBots2" \
+          -logFile .\Editor.log \
+          -executeMethod UTJ.ProfilerReader.CUIInterface.ProfilerToCsv \
+          -PH.inputFile "profile1.raw" \
+          -PH.timeout 2400 \
+          -PH.log
+```
+
+```csharp
+// ProfilerRecorder — ghi metric cấp cao để đẩy lên CI/Grafana
+// ProfilerRecorder — record high-level metrics to push to CI/Grafana
+using Unity.Profiling;
+using UnityEngine;
+
+public class MemoryMetricsLogger : MonoBehaviour
+{
+    ProfilerRecorder totalReservedMemoryRecorder;
+    ProfilerRecorder systemUsedMemoryRecorder;
+
+    void OnEnable()
+    {
+        totalReservedMemoryRecorder =
+            ProfilerRecorder.StartNew(ProfilerCategory.Memory, "Total Reserved Memory");
+        systemUsedMemoryRecorder =
+            ProfilerRecorder.StartNew(ProfilerCategory.Memory, "System Used Memory");
+    }
+
+    void OnDisable()
+    {
+        totalReservedMemoryRecorder.Dispose();
+        systemUsedMemoryRecorder.Dispose();
+    }
+
+    void Update()
+    {
+        if (totalReservedMemoryRecorder.Valid)
+            Debug.Log($"Total Reserved: {totalReservedMemoryRecorder.LastValue / (1024 * 1024)} MB");
+    }
+}
+```
+
+### 16.2. Performance Testing Package for Unity Test Framework
+
+!!! note "Bổ sung từ bản Unity 6"
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Unity Performance Testing Package</strong> mở rộng <strong>Unity Test Framework</strong> bằng cách thêm công cụ dành cho <em>performance testing</em>.</p>
+<p><strong>Nó cung cấp:</strong></p>
+<ul>
+<li><strong>API và test decorator</strong> cho phép bạn bắt sample từ <em>Unity Profiler marker</em> và các <em>metric hiệu năng tùy biến</em> — <strong>cả trong Editor lẫn trong built player</strong>.</li>
+<li>Ngoài khả năng đo lường, package còn <strong>thu thập metadata cấu hình</strong> như build settings và chi tiết phần cứng — giúp <em>so sánh kết quả giữa các môi trường khác nhau</em> dễ hơn nhiều.</li>
+</ul>
+<p>⚠️ <strong>Điều kiện:</strong> Package này thiết kế để chạy <em>cùng với</em> Unity Test Framework. Muốn dùng hiệu quả, bạn cần quen với việc tạo và chạy test theo tài liệu Unity Test Framework.</p>
+<p>👉 Đây chính là mảnh ghép để đưa profiling vào <strong>CI/CD</strong> một cách chính quy — thay vì chạy script dòng lệnh thủ công như §16.1.</p>
+</div>
+<div class="col-en">
+<p>The <strong>Unity Performance Testing Package</strong> enhances the <strong>Unity Test Framework</strong> by adding tools for <em>performance testing</em>.</p>
+<p><strong>It provides:</strong></p>
+<ul>
+<li><strong>APIs and test decorators</strong> that allow you to capture samples from <em>Unity Profiler markers</em> and <em>custom performance metrics</em> — <strong>both in the Editor and in built players</strong>.</li>
+<li>In addition to measurement capabilities, the package <strong>collects configuration metadata</strong> such as build settings and hardware details, making it much easier to <em>compare results across different environments</em>.</li>
+</ul>
+<p>⚠️ <strong>Prerequisite:</strong> This package is designed to work <em>alongside</em> the Unity Test Framework. To use it effectively, you should be familiar with creating and running tests as outlined in the Unity Test Framework documentation.</p>
+<p>👉 This is the piece that makes profiling a first-class part of <strong>CI/CD</strong> — rather than the manual command-line scripting of §16.1.</p>
+</div>
+</div>
+
+---
+
+## 17. 📇 Index công cụ Profiling & Debugging
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Bắt đầu bằng công cụ của Unity</strong>, và nếu cần chi tiết hơn, hãy với tới các <strong>profiler và debugging tool native</strong> có sẵn cho nền tảng đích của bạn.</p>
+</div>
+<div class="col-en">
+<p><strong>Start your profiling with Unity's tools</strong>, and if you need greater detail, reach for the <strong>native profilers and debugging tools</strong> available for your target platform.</p>
+</div>
+</div>
+
+### 17.1. Native profiling tools
+
+| Nền tảng | Công cụ | Mô tả / Description |
+|---|---|---|
+| **Android / Arm** | **Android Studio** | Android Profiler mới (thay thế Android Monitor cũ) — thu thập dữ liệu thời gian thực về tài nguyên phần cứng trên thiết bị Android |
+| | **Arm Mobile Studio** → đổi tên thành **Arm Performance Studio** (bản Unity 6) | Bộ công cụ profile & debug chi tiết, dành cho thiết bị chạy phần cứng Arm |
+| | **Snapdragon Profiler** | **Chỉ cho chipset Snapdragon.** Phân tích CPU, GPU, DSP, bộ nhớ, điện năng, nhiệt, và dữ liệu mạng |
+| **Intel** | **Intel VTune** | Tìm và sửa bottleneck trên nền tảng Intel. **Chỉ cho vi xử lý Intel** |
+| | **Intel GPA suite** | Bộ công cụ tập trung vào đồ họa, nhanh chóng khoanh vùng vấn đề |
+| **Xbox / PC** | **PIX** | Công cụ tinh chỉnh hiệu năng và debug cho Windows/Xbox dùng **DirectX 12**. Gồm công cụ phân tích CPU & GPU + theo dõi performance counter thời gian thực |
+| **PC / Universal** | **AMD μProf** | Phân tích hiệu năng cho ứng dụng chạy trên phần cứng AMD |
+| | **NVIDIA NSight** | Build, debug, profile và phát triển phần mềm với phần cứng NVIDIA mới nhất |
+| | **Superluminal** | Profiler tần số cao, hiệu năng cao — hỗ trợ Windows, Xbox One, PlayStation; viết bằng C++, Rust, .NET. ⚠️ **Sản phẩm trả phí, cần license** |
+| **PlayStation** | CPU profiler tools | Cần là **registered PlayStation® developer** mới truy cập được |
+| **iOS** | **Xcode Instruments** + **Xcode Frame Debugger** | Công cụ phân tích hiệu năng và kiểm thử mạnh mẽ, linh hoạt — thuộc bộ Xcode |
+| **WebGL** | **Firefox Profiler** | Đào vào call stack và xem flame graph cho build Unity WebGL. Có cả **công cụ so sánh** để xem 2 capture cạnh nhau |
+| | **Chrome DevTools Performance** | Công cụ trình duyệt khác dùng để profile build Unity WebGL |
+
+### 17.2. GPU debugging & profiling tools
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Trong khi <strong>Unity Frame Debug tool bắt và minh họa các draw call GỬI ĐI TỪ CPU</strong>, các công cụ dưới đây giúp bạn thấy <strong>GPU làm gì KHI NHẬN ĐƯỢC những lệnh đó</strong>.</p>
+<p>Một số công cụ đặc thù nền tảng và tích hợp sâu hơn với nền tảng đó.</p>
+</div>
+<div class="col-en">
+<p>While the <strong>Unity Frame Debug tool captures and illustrates draw calls that are sent FROM the CPU</strong>, the following tools help show you <strong>what the GPU does WHEN IT RECEIVES those commands</strong>.</p>
+<p>Some are platform-specific and offer closer platform integration.</p>
+</div>
+</div>
+
+| Công cụ / Tool | Phạm vi / Scope |
+|---|---|
+| **Arm Graphics Analyzer** | Thuộc bộ Arm Mobile Studio |
+| **RenderDoc** | GPU debugger cho nền tảng desktop **và mobile** |
+| **Intel GPA** | Graphics profiling cho nền tảng nền Intel |
+| **Apple Frame Capture Debugging Tools** | GPU debugging cho nền tảng Apple |
+| **Visual Studio Graphics Diagnostics** | Chọn cái này và/hoặc PIX cho nền tảng nền DirectX (Windows, Xbox) |
+| **NVIDIA Nsight Frame Debugger** | Frame debugger nền OpenGL cho GPU NVIDIA |
+| **AMD Radeon Developer Tool Suite** | GPU profiler cho GPU AMD |
+| **Xcode frame debugger** | Cho iOS và macOS |
+
+!!! tip "Physics Debugger"
+    **VI:** Ngoài Frame Debugger, Unity còn có **Physics Debugger** tại `Window > Analysis > Physics Debugger` — trực quan hóa collider, layer, và collision matrix. Rất hữu ích khi chẩn đoán vấn đề physics (sẽ đi sâu ở **Module 2**).
+
+    **EN:** Besides the Frame Debugger, Unity also ships a **Physics Debugger** at `Window > Analysis > Physics Debugger` — it visualizes colliders, layers, and the collision matrix. Very useful for diagnosing physics issues (covered in depth in **Module 2**).
+
+---
+
+## 18. Checklist Fresher — Bỏ túi
 
 <div class="bilingual-row">
 <div class="col-vi">
 <ul>
-<li>☑️ Đo bằng <strong>ms</strong>, không đo bằng FPS.</li>
-<li>☑️ Biết ngân sách: 30 FPS → 22 ms; 60 FPS → 11 ms (mobile).</li>
+<li>☑️ Đo bằng <strong>ms</strong>, không đo bằng FPS (1.111 ms ở 900fps ≠ cảm giác, = ở 60fps).</li>
+<li>☑️ Biết ngân sách: 30 FPS → 22 ms; 60 FPS → 11 ms (mobile, chừa <strong>35% idle</strong>).</li>
+<li>☑️ Thuộc <strong>sơ đồ chẩn đoán bottleneck</strong>: in-budget? → main/job/render thread? → GPU?</li>
+<li>☑️ Phân biệt 3 thread: <strong>main / render / job worker</strong>.</li>
+<li>☑️ Hiểu <strong>render state</strong> — chuẩn bị draw call đắt hơn chính draw call.</li>
+<li>☑️ Biết dùng <strong>Frame Debugger</strong> (<code>Window &gt; Analysis</code>) để soi draw call & overdraw.</li>
+<li>☑️ Autoconnect Profiler cộng <strong>tới 10s</strong> startup — chỉ bật khi cần profile scene đầu.</li>
+<li>☑️ Tắt mạng di động, giữ WiFi khi profile thiết bị.</li>
+<li>☑️ Lập <strong>ngân sách bộ nhớ</strong> (~80% RAM vật lý) và <strong>hardware tiers</strong>.</li>
+<li>☑️ Hiểu <strong>pipeline CPU/GPU</strong>: GPU render frame N trong khi CPU làm frame N+1.</li>
+<li>☑️ Thuộc <strong>7 cạm bẫy main thread</strong> / <strong>3 cạm bẫy render thread</strong> / <strong>4 cạm bẫy worker thread</strong>.</li>
+<li>☑️ Biết <strong>6 hệ thống batching</strong> và khi nào dùng cái nào.</li>
+<li>☑️ Dùng <code>Allocation Call Stacks</code> thay Deep Profiling (rẻ hơn nhiều).</li>
+<li>☑️ So sánh <strong>frame trung vị vs frame dài nhất</strong> trong Profile Analyzer để săn spike.</li>
+<li>☑️ Nhớ: <strong>Editor LUÔN báo bộ nhớ cao hơn thiết bị thật</strong> (texture bị ép read/write).</li>
+<li>☑️ <code>System Used Memory = 0</code> nghĩa là counter chưa hỗ trợ nền tảng, KHÔNG phải app dùng 0 byte.</li>
+<li>☑️ LPDDR4: <strong>~100 picojoule/byte</strong> — giảm truy cập bộ nhớ = giảm nhiệt + pin.</li>
 <li>☑️ Luôn build <strong>Development Build + Autoconnect Profiler</strong>.</li>
 <li>☑️ Profile trên <strong>thiết bị thật</strong>, cả máy mạnh lẫn máy yếu.</li>
 <li>☑️ Xác định <code>Gfx.WaitForCommands</code> (CPU-bound) hay <code>Gfx.WaitForPresent</code> (GPU-bound) TRƯỚC khi tối ưu.</li>
@@ -1092,8 +2964,23 @@ public class BasicPool : MonoBehaviour
 </div>
 <div class="col-en">
 <ul>
-<li>☑️ Measure in <strong>ms</strong>, not FPS.</li>
-<li>☑️ Know the budget: 30 FPS → 22 ms; 60 FPS → 11 ms (mobile).</li>
+<li>☑️ Measure in <strong>ms</strong>, not FPS (1.111 ms feels catastrophic at 900fps, trivial at 60fps).</li>
+<li>☑️ Know the budget: 30 FPS → 22 ms; 60 FPS → 11 ms (mobile, leave <strong>35% idle</strong>).</li>
+<li>☑️ Know the <strong>bottleneck flowchart</strong>: in budget? → main/job/render thread? → GPU?</li>
+<li>☑️ Distinguish the three threads: <strong>main / render / job worker</strong>.</li>
+<li>☑️ Understand <strong>render state</strong> — draw call preparation costs more than the call itself.</li>
+<li>☑️ Know the <strong>Frame Debugger</strong> (<code>Window &gt; Analysis</code>) for draw calls & overdraw.</li>
+<li>☑️ Autoconnect Profiler adds <strong>up to 10s</strong> startup — enable only to profile the first scene.</li>
+<li>☑️ Disable mobile data, keep WiFi on when profiling a device.</li>
+<li>☑️ Set a <strong>memory budget</strong> (~80% of physical RAM) and <strong>hardware tiers</strong>.</li>
+<li>☑️ Understand the <strong>CPU/GPU pipeline</strong>: the GPU renders frame N while the CPU works on N+1.</li>
+<li>☑️ Know the <strong>7 main-thread</strong> / <strong>3 render-thread</strong> / <strong>4 worker-thread</strong> pitfalls.</li>
+<li>☑️ Know the <strong>6 batching systems</strong> and when each applies.</li>
+<li>☑️ Use <code>Allocation Call Stacks</code> instead of Deep Profiling (far cheaper).</li>
+<li>☑️ Compare the <strong>median vs longest frame</strong> in Profile Analyzer to hunt spikes.</li>
+<li>☑️ Remember: <strong>the Editor ALWAYS reports higher memory</strong> than a real device (textures forced read/write).</li>
+<li>☑️ <code>System Used Memory = 0</code> means the counter isn't implemented on that platform, NOT that the app uses zero.</li>
+<li>☑️ LPDDR4: <strong>~100 picojoules/byte</strong> — fewer memory accesses = less heat + battery.</li>
 <li>☑️ Always build with <strong>Development Build + Autoconnect Profiler</strong>.</li>
 <li>☑️ Profile on <strong>real devices</strong>, both highest- and lowest-spec.</li>
 <li>☑️ Determine <code>Gfx.WaitForCommands</code> (CPU-bound) vs <code>Gfx.WaitForPresent</code> (GPU-bound) BEFORE optimizing.</li>

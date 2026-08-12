@@ -1,0 +1,1386 @@
+
+<!doctype html>
+<html lang="vi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Hệ thống Đào tạo & Tối ưu hóa Unity">
+      
+      
+      
+      
+        <link rel="prev" href="index.html">
+      
+      
+        <link rel="next" href="01-fresher/01-ultimate-guide-to-profiling.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>📋 Bảng kiểm nguồn dữ liệu - Unity Training Hub</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/custom.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#bang-kiem-nguon-du-lieu-source-coverage-tracker" class="md-skip">
+          Bỏ qua
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Đầu trang">
+    <a href="index.html" title="Unity Training Hub" class="md-header__button md-logo" aria-label="Unity Training Hub" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Unity Training Hub
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              📋 Bảng kiểm nguồn dữ liệu
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Chuyển sang Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Chuyển sang Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Chuyển sang Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Chuyển sang Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Tìm kiếm" placeholder="Tìm kiếm" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Tìm kiếm">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Xoá" aria-label="Xoá" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  🏠 Trang chủ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="00-nguon-du-lieu.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  📋 Bảng kiểm nguồn dữ liệu
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="01-fresher/01-ultimate-guide-to-profiling.html" class="md-tabs__link">
+          
+  
+  
+  🌱 1. Fresher
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="." class="md-tabs__link">
+        
+  
+  
+    
+  
+  🚀 2. Junior
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="." class="md-tabs__link">
+        
+  
+  
+    
+  
+  ⚔️ 3. Senior
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="." class="md-tabs__link">
+        
+  
+  
+    
+  
+  👑 4. Tech Lead
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Thanh điều hướng" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Unity Training Hub" class="md-nav__button md-logo" aria-label="Unity Training Hub" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Unity Training Hub
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🏠 Trang chủ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📋 Bảng kiểm nguồn dữ liệu
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="00-nguon-du-lieu.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📋 Bảng kiểm nguồn dữ liệu
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#module-1-fresher-ultimate-guide-to-profiling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🌱 MODULE 1 — Fresher: Ultimate Guide to Profiling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-2-junior-ui-physics-deep-dive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 MODULE 2 — Junior: UI &amp; Physics Deep Dive
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-3-senior-memory-addressables-networking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚔️ MODULE 3 — Senior: Memory, Addressables &amp; Networking
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-4-tech-lead-gpu-urp-advanced-rendering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        👑 MODULE 4 — Tech Lead: GPU, URP &amp; Advanced Rendering
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-5-tech-lead-cyberagent-bible-sentry-anr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        👑 MODULE 5 — Tech Lead: CyberAgent Bible &amp; Sentry ANR
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ngoai-pham-vi-5-module-luu-e-tham-khao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ➖ Ngoài phạm vi 5 Module (lưu để tham khảo)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tong-ket-tien-o-progress-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 Tổng kết tiến độ / Progress summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🌱 1. Fresher
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🌱 1. Fresher
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="01-fresher/01-ultimate-guide-to-profiling.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 1 — Ultimate Guide to Profiling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🚀 2. Junior
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ⚔️ 3. Senior
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    👑 4. Tech Lead
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#module-1-fresher-ultimate-guide-to-profiling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🌱 MODULE 1 — Fresher: Ultimate Guide to Profiling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-2-junior-ui-physics-deep-dive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 MODULE 2 — Junior: UI &amp; Physics Deep Dive
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-3-senior-memory-addressables-networking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚔️ MODULE 3 — Senior: Memory, Addressables &amp; Networking
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-4-tech-lead-gpu-urp-advanced-rendering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        👑 MODULE 4 — Tech Lead: GPU, URP &amp; Advanced Rendering
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-5-tech-lead-cyberagent-bible-sentry-anr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        👑 MODULE 5 — Tech Lead: CyberAgent Bible &amp; Sentry ANR
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ngoai-pham-vi-5-module-luu-e-tham-khao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ➖ Ngoài phạm vi 5 Module (lưu để tham khảo)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tong-ket-tien-o-progress-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 Tổng kết tiến độ / Progress summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="bang-kiem-nguon-du-lieu-source-coverage-tracker">📋 Bảng kiểm nguồn dữ liệu — Source Coverage Tracker<a class="headerlink" href="#bang-kiem-nguon-du-lieu-source-coverage-tracker" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>Toàn bộ <strong>55 URL duy nhất</strong> được trích từ <code>src/raw-optimization-data.txt</code>, ánh xạ vào từng Module và theo dõi trạng thái cào dữ liệu.</p>
+</blockquote>
+<p><strong>Chú giải trạng thái / Status legend</strong></p>
+<table>
+<thead>
+<tr>
+<th>Ký hiệu</th>
+<th>Ý nghĩa / Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✅</td>
+<td>Đã cào &amp; bóc tách vào nội dung / Scraped &amp; synthesized</td>
+</tr>
+<tr>
+<td>🟡</td>
+<td>Đã tải về, chờ Module tương ứng / Downloaded, pending its module</td>
+</tr>
+<tr>
+<td>⏳</td>
+<td>Nằm trong plan, chưa tới lượt / Planned, not yet due</td>
+</tr>
+<tr>
+<td>⚠️</td>
+<td>Cào lỗi — xem ghi chú / Fetch failed — see note</td>
+</tr>
+<tr>
+<td>➖</td>
+<td>Ngoài phạm vi 5 Module (tham khảo) / Out of scope (reference only)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="module-1-fresher-ultimate-guide-to-profiling">🌱 MODULE 1 — Fresher: Ultimate Guide to Profiling<a class="headerlink" href="#module-1-fresher-ultimate-guide-to-profiling" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Nguồn / Source</th>
+<th>Trạng thái</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>📕 <a href="https://content.cdntwrk.com/files/aT0xMzg4ODYxJnY9MSZpc3N1ZU5hbWU9dW5pdHktZS1ib29rLW9wdGltaXplLXlvdXItbW9iaWxlLWdhbWUtcGVyZm9ybWFuY2UmY21kPWQmc2lnPWU3NWYzMDQxZjdkNTk4ZDc4NjVhMjZiZTVmM2E1ODQ4"><strong>E-book PDF</strong> — Optimize Your Mobile Game Performance (52 tr.)</a></td>
+<td>✅ ch. Profiling / Memory / Adaptive Performance / Code architecture</td>
+</tr>
+<tr>
+<td>2</td>
+<td>📗 <a href="https://cdn.bfldr.com/S5BC9Y64/at/jmv8gbjf4gc35jptsnmrrsz/Ultimate_Guide_to_Profiling_Unity_Games.pdf"><strong>E-book PDF</strong> — Ultimate Guide to Profiling Unity Games (<strong>75 tr.</strong>)</a></td>
+<td>✅ ⭐ <strong>Nguồn chính</strong> — toàn văn + 11 ảnh trích từ PDF</td>
+</tr>
+<tr>
+<td>3</td>
+<td>📗 <a href="https://cdn.bfldr.com/S5BC9Y64/at/8t9r5hwz38rrbrw4x8zcq2c/Ultimate_Guide_to_Profiling_Games_e-book_-_Unity_6_edition.pdf"><strong>E-book PDF</strong> — Ultimate Guide to Profiling Games, Unity 6 ed. (<strong>93 tr.</strong>)</a></td>
+<td>✅ <strong>Đã đối chiếu 100%</strong> — 13 mục riêng của bản này đã bóc tách hết</td>
+</tr>
+<tr>
+<td>4</td>
+<td><a href="https://unity.com/resources/ultimate-guide-to-profiling-unity-games">unity.com — Ultimate guide to profiling (landing page)</a> · <a href="https://unity.com/resources/ultimate-guide-to-profiling-unity-games-unity-6">bản Unity 6</a></td>
+<td>✅ Trang landing <strong>không có nội dung</strong> (JS-rendered + form gate) — giá trị duy nhất là chứa link PDF ở #2/#3</td>
+</tr>
+<tr>
+<td>4b</td>
+<td><a href="https://resources.unity.com/games/ultimate-guide-to-profiling-unity-games">resources.unity.com — Ultimate Guide to Profiling</a></td>
+<td>✅ Trùng #4</td>
+</tr>
+<tr>
+<td>5</td>
+<td><a href="https://blog.unity.com/technology/optimize-your-mobile-game-performance-tips-on-profiling-memory-and-code-architecture">Unity Blog — Tips on profiling, memory, and code architecture</a></td>
+<td>✅</td>
+</tr>
+<tr>
+<td>6</td>
+<td><a href="https://blog.unity.com/technology/everything-you-need-to-know-about-memory-profiler">Unity Blog — Everything about Memory Profiler 1.0.0</a></td>
+<td>✅</td>
+</tr>
+<tr>
+<td>7</td>
+<td><a href="https://makaka.org/unity-tutorials/optimization">makaka.org — Optimization of Unity Game</a></td>
+<td>✅</td>
+</tr>
+<tr>
+<td>8</td>
+<td><a href="https://awesometuts.com/blog/optimize-unity-game/">awesometuts.com — Optimize Unity Game</a></td>
+<td>✅</td>
+</tr>
+<tr>
+<td>9</td>
+<td><a href="https://unity.com/resources/unity-e-book-optimize-your-mobile-game-performance">unity.com — E-book: Optimize Your Mobile Game Performance (landing)</a></td>
+<td>✅ (PDF ở #1)</td>
+</tr>
+<tr>
+<td>10</td>
+<td><a href="https://learn.unity.com/tutorial/profiling-applications-made-with-unity">learn.unity.com — Profiling Applications Made with Unity</a></td>
+<td>⚠️ <strong>HTTP 404</strong> — Unity Learn đã tái cấu trúc, tutorial không còn tồn tại</td>
+</tr>
+<tr>
+<td>11</td>
+<td><a href="https://cgcookie.com/posts/maximizing-your-unity-games-performance">cgcookie.com — Maximizing your Unity game's performance</a></td>
+<td>⚠️ Chặn bởi <strong>Cloudflare JS challenge</strong> (trả về 5.7 KB "Enable JavaScript")</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="module-2-junior-ui-physics-deep-dive">🚀 MODULE 2 — Junior: UI &amp; Physics Deep Dive<a class="headerlink" href="#module-2-junior-ui-physics-deep-dive" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Nguồn / Source</th>
+<th>Trạng thái</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>12</td>
+<td><a href="https://learn.unity.com/tutorial/optimizing-unity-ui">learn.unity.com — Optimizing Unity UI</a></td>
+<td>⏳ Canvas separation, Graphic Raycaster, Rich Text</td>
+</tr>
+<tr>
+<td>13</td>
+<td><a href="https://learn.unity.com/tutorial/physics-best-practices">learn.unity.com — Physics Best Practices</a></td>
+<td>⏳ RaycastNonAlloc, Collision Matrix, Fixed Timestep</td>
+</tr>
+<tr>
+<td>14</td>
+<td><a href="https://tvd12.com/solid/">tvd12.com — S.O.L.I.D</a></td>
+<td>⏳ 5 nguyên lý SOLID (tiếng Việt)</td>
+</tr>
+<tr>
+<td>15</td>
+<td><a href="https://www.kodeco.com/9454-introduction-to-unity-unit-testing">kodeco.com — Introduction to Unity Unit Testing</a></td>
+<td>⏳</td>
+</tr>
+<tr>
+<td>16</td>
+<td><a href="https://www.jacksondunstan.com/articles/3335">jacksondunstan.com — C# event vs UnityEvent</a></td>
+<td>⏳ Benchmark chi phí</td>
+</tr>
+<tr>
+<td>17</td>
+<td><a href="https://github.com/thefuntastic/Unity3d-Finite-State-Machine">GitHub — thefuntastic/Unity3d-Finite-State-Machine</a></td>
+<td>⏳</td>
+</tr>
+<tr>
+<td>18</td>
+<td><a href="https://gamedevbeginner.com/state-machines-in-unity-how-and-when-to-use-them/">gamedevbeginner.com — State Machines in Unity</a></td>
+<td>⏳</td>
+</tr>
+<tr>
+<td>19</td>
+<td><a href="https://github.com/aniketrajnish/Unity-Collider-Optimizer">GitHub — aniketrajnish/Unity-Collider-Optimizer</a></td>
+<td>⏳ Tối ưu mesh collider</td>
+</tr>
+<tr>
+<td>20</td>
+<td><a href="https://github.com/QianMo/Unity-Design-Pattern">GitHub — QianMo/Unity-Design-Pattern</a></td>
+<td>⏳ (dùng chung với Module 3)</td>
+</tr>
+<tr>
+<td>21</td>
+<td>📕 E-book Mobile Perf — ch. <em>User interface</em> (tr.37–40), <em>Physics</em> (tr.45–47), <em>Animation</em> (tr.43–44)</td>
+<td>🟡 PDF đã tải</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="module-3-senior-memory-addressables-networking">⚔️ MODULE 3 — Senior: Memory, Addressables &amp; Networking<a class="headerlink" href="#module-3-senior-memory-addressables-networking" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Nguồn / Source</th>
+<th>Trạng thái</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>22</td>
+<td><a href="https://discussions.unity.com/t/effective-asset-management-in-unity-with-addressables/1621379">discussions.unity.com — Effective Asset Management with Addressables</a></td>
+<td>⏳ <strong>"Requested Assets and Dependencies"</strong></td>
+</tr>
+<tr>
+<td>23</td>
+<td><a href="https://www.educba.com/protobuf-vs-json/">educba.com — Protobuf vs JSON</a></td>
+<td>⏳</td>
+</tr>
+<tr>
+<td>24</td>
+<td><a href="https://docs.colyseus.io/colyseus/">docs.colyseus.io</a></td>
+<td>⏳ Realtime multiplayer server</td>
+</tr>
+<tr>
+<td>25</td>
+<td><a href="https://learn.unity.com/tutorial/memory-management-in-unity">learn.unity.com — Memory Management in Unity</a></td>
+<td>⏳ Audio: Streaming, Force to mono, Decompress On Load</td>
+</tr>
+<tr>
+<td>26</td>
+<td><a href="https://codelearn.io/sharing/su-dung-reflection-trong-csharp">codelearn.io — Sử dụng Reflection trong C#</a></td>
+<td>⏳</td>
+</tr>
+<tr>
+<td>27</td>
+<td><a href="https://gucheng0712.github.io/unity/csharp/2019/04/19/C-Reflection-in-Unity-copy.html">gucheng0712.github.io — C# Reflection in Unity</a></td>
+<td>⏳</td>
+</tr>
+<tr>
+<td>28</td>
+<td>📕 E-book Mobile Perf — ch. <em>Assets</em> (tr.24–28), <em>Audio</em> (tr.41–42)</td>
+<td>🟡 PDF đã tải</td>
+</tr>
+<tr>
+<td>—</td>
+<td><em>Bổ sung từ ghi chú raw (không có URL):</em> Service Locator, WebSocket Lock-step, Wei = 10⁻¹⁸, MLAPI/Mirror, Android plugin, UnityWebRequest</td>
+<td>⏳</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="module-4-tech-lead-gpu-urp-advanced-rendering">👑 MODULE 4 — Tech Lead: GPU, URP &amp; Advanced Rendering<a class="headerlink" href="#module-4-tech-lead-gpu-urp-advanced-rendering" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Nguồn / Source</th>
+<th>Trạng thái</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>29</td>
+<td><a href="https://blog.unity.com/technology/animation-instancing-instancing-for-skinnedmeshrenderer">Unity Blog — Animation Instancing for SkinnedMeshRenderer</a></td>
+<td>⏳</td>
+</tr>
+<tr>
+<td>30</td>
+<td><a href="https://github.com/Unity-Technologies/Animation-Instancing">GitHub — Unity-Technologies/Animation-Instancing</a></td>
+<td>⏳ VertexCache</td>
+</tr>
+<tr>
+<td>31</td>
+<td><a href="https://docs.unity3d.com/Manual/GPUInstancing.html">docs.unity3d.com — GPU Instancing</a></td>
+<td>⏳</td>
+</tr>
+<tr>
+<td>32</td>
+<td><a href="https://blogs.unity3d.com/2018/10/08/optimizing-loading-performance-understanding-the-async-upload-pipeline/">Unity Blog — Understanding the Async Upload Pipeline (AUP)</a></td>
+<td>⏳ <strong>TimeSlice=4, BufferSize=16, PersistentBuffer=true</strong></td>
+</tr>
+<tr>
+<td>33</td>
+<td><a href="https://www.ronja-tutorials.com/">ronja-tutorials.com</a></td>
+<td>⏳ Raymarching / shader</td>
+</tr>
+<tr>
+<td>34</td>
+<td><a href="https://www.theslidefactory.com/post/see-through-objects-with-stencil-buffers-using-unity-urp">theslidefactory.com — See-through objects with Stencil Buffers (URP)</a></td>
+<td>⏳ URP Stencil Mask</td>
+</tr>
+<tr>
+<td>35</td>
+<td><a href="https://blog.unity.com/technology/optimize-your-mobile-game-performance-expert-tips-on-graphics-and-assets">Unity Blog — Expert tips on graphics and assets</a></td>
+<td>⏳</td>
+</tr>
+<tr>
+<td>36</td>
+<td><a href="https://learn.unity.com/tutorial/optimizing-graphics-in-unity">learn.unity.com — Optimizing Graphics in Unity</a></td>
+<td>⏳ Camera Clear Flags, Render Texture</td>
+</tr>
+<tr>
+<td>37</td>
+<td><a href="https://docs.unity3d.com/Manual/LightMode-Baked.html">docs.unity3d.com — Baked Light Mode</a></td>
+<td>⏳</td>
+</tr>
+<tr>
+<td>38</td>
+<td><a href="https://www.gamedev.net/articles/programming/graphics/gpu-performance-for-game-artists-r4632/">gamedev.net — GPU Performance for Game Artists</a></td>
+<td>⏳</td>
+</tr>
+<tr>
+<td>39</td>
+<td><a href="https://thegamedev.guru/blog">thegamedev.guru/blog</a></td>
+<td>⏳ Draw call batching, Overdraw, PSO</td>
+</tr>
+<tr>
+<td>40</td>
+<td><a href="https://forum.unity.com/threads/new-free-e-book-introduction-to-the-universal-render-pipeline-for-advanced-unity-creators.1323774/">forum.unity.com — URP e-book for advanced creators</a></td>
+<td>⏳</td>
+</tr>
+<tr>
+<td>41</td>
+<td><a href="https://resources.unity.com/games/introduction-universal-render-pipeline-for-advanced-unity-creators?UNGATED=TRUE">resources.unity.com — Introduction to URP for advanced creators</a></td>
+<td>⏳</td>
+</tr>
+<tr>
+<td>42</td>
+<td><a href="https://www.youtube.com/watch?v=T-HXmQAMhG0">YouTube — T-HXmQAMhG0</a></td>
+<td>⏳</td>
+</tr>
+<tr>
+<td>43</td>
+<td>📕 <a href="https://content.cdntwrk.com/files/aT0xNDI0NjkzJnY9MSZpc3N1ZU5hbWU9b3B0aW1pemUteW91ci1jb25zb2xlLWFuZC1wYy1nYW1lLXBlcmZvcm1hbmNlJmNtZD1kJnNpZz1hYjFkYjE2OTRhZWZhNzI4OTFkM2FiZjIyNTIyNTkyMQ%253D%253D"><strong>E-book PDF</strong> — Optimize your console and PC game performance</a></td>
+<td>🟡 Đã tải (<code>_ebooks/</code>)</td>
+</tr>
+<tr>
+<td>44</td>
+<td><a href="https://unity.com/resources/optimize-your-console-and-pc-game-performance">unity.com — Optimize your console and PC game performance (landing)</a></td>
+<td>⏳</td>
+</tr>
+<tr>
+<td>45</td>
+<td>📕 E-book Mobile Perf — ch. <em>Graphics and GPU optimization</em> (tr.29–36)</td>
+<td>🟡 PDF đã tải</td>
+</tr>
+<tr>
+<td>46</td>
+<td><a href="https://resources.unity.com/games/hdrp-guide">resources.unity.com — HDRP Definitive Guide to Lighting (2020 LTS)</a></td>
+<td>⏳</td>
+</tr>
+<tr>
+<td>47</td>
+<td><a href="https://resources.unity.com/games/the-definitive-guide-to-lighting-in-the-high-definition-render-pipeline-unity-2021-lts-edition">resources.unity.com — HDRP Lighting (2021 LTS)</a></td>
+<td>⏳</td>
+</tr>
+<tr>
+<td>48</td>
+<td><a href="https://resources.unity.com/games/definitive-guide-to-creating-visual-effects?ungated=true">resources.unity.com — Definitive Guide to Creating VFX</a></td>
+<td>⏳</td>
+</tr>
+<tr>
+<td>49</td>
+<td><a href="https://create.unity3d.com/tech-artists-key-toolsets">create.unity3d.com — Unity for Technical Artists</a></td>
+<td>⏳</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="module-5-tech-lead-cyberagent-bible-sentry-anr">👑 MODULE 5 — Tech Lead: CyberAgent Bible &amp; Sentry ANR<a class="headerlink" href="#module-5-tech-lead-cyberagent-bible-sentry-anr" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Nguồn / Source</th>
+<th>Trạng thái</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>50</td>
+<td><a href="https://github.com/CyberAgentGameEntertainment/UnityPerformanceTuningBible/releases/tag/v1.0.5">GitHub — CyberAgent Unity Performance Tuning Bible v1.0.5</a></td>
+<td>⏳</td>
+</tr>
+<tr>
+<td>51</td>
+<td><a href="https://blog.sentry.io/fixing-unity-anrs-with-sentry-amanotes/">blog.sentry.io — Fixing Unity ANRs with Sentry (Amanotes)</a></td>
+<td>⏳ <strong>Deadlock Main Thread</strong></td>
+</tr>
+<tr>
+<td>52</td>
+<td>📕 <a href="https://content.cdntwrk.com/files/aT0xNDMwNzIwJnY9MSZpc3N1ZU5hbWU9dW5pdHktZ2FtZS1kZXYtZmllbGQtZ3VpZGUmY21kPWQmc2lnPTJmNGI2NGQzMzEyNDU4ODA1ODA0MWFiOTAwOTU3M2Qz"><strong>E-book PDF</strong> — Unity Gamedev Field Guide (79 tr.)</a></td>
+<td>🟡 Đã tải — ch. Version control, Project organization</td>
+</tr>
+<tr>
+<td>53</td>
+<td><a href="https://resources.unity.com/games/version-control-project-organization-best-practices-ebook">resources.unity.com — Version control &amp; project organization best practices</a></td>
+<td>⏳</td>
+</tr>
+<tr>
+<td>54</td>
+<td><a href="https://create.unity3d.com/ebook-improve-workflow">create.unity3d.com — 70+ tips to improve workflow</a></td>
+<td>⏳</td>
+</tr>
+<tr>
+<td>55</td>
+<td>📕 E-book Mobile Perf — ch. <em>Project configuration</em> (tr.22–23), <em>Workflow and collaboration</em> (tr.48–49)</td>
+<td>🟡 PDF đã tải</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="ngoai-pham-vi-5-module-luu-e-tham-khao">➖ Ngoài phạm vi 5 Module (lưu để tham khảo)<a class="headerlink" href="#ngoai-pham-vi-5-module-luu-e-tham-khao" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Nguồn</th>
+<th>Ghi chú</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://resources.unity.com/games/game-designer-playbook">resources.unity.com — Game Designer Playbook</a></td>
+<td>Game design, không phải tối ưu hóa</td>
+</tr>
+<tr>
+<td><a href="https://resources.unity.com/games/2d-game-art-animation-lighting-for-artists-ebook">resources.unity.com — 2D Game Art, Animation &amp; Lighting</a></td>
+<td>Nội dung dành cho artist 2D</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="tong-ket-tien-o-progress-summary">📊 Tổng kết tiến độ / Progress summary<a class="headerlink" href="#tong-ket-tien-o-progress-summary" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Đã cào ✅</th>
+<th>Đã tải 🟡</th>
+<th>Chờ ⏳</th>
+<th>Lỗi ⚠️</th>
+<th>Tổng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>M1 — Fresher</strong></td>
+<td>10</td>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+<td><strong>12</strong></td>
+</tr>
+<tr>
+<td><strong>M2 — Junior</strong></td>
+<td>0</td>
+<td>1</td>
+<td>9</td>
+<td>0</td>
+<td><strong>10</strong></td>
+</tr>
+<tr>
+<td><strong>M3 — Senior</strong></td>
+<td>0</td>
+<td>1</td>
+<td>6</td>
+<td>0</td>
+<td><strong>7</strong></td>
+</tr>
+<tr>
+<td><strong>M4 — Tech Lead</strong></td>
+<td>0</td>
+<td>1</td>
+<td>20</td>
+<td>0</td>
+<td><strong>21</strong></td>
+</tr>
+<tr>
+<td><strong>M5 — Tech Lead</strong></td>
+<td>0</td>
+<td>2</td>
+<td>4</td>
+<td>0</td>
+<td><strong>6</strong></td>
+</tr>
+<tr>
+<td>Tham khảo ➖</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td><strong>2</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Ghi chú về e-book PDF</p>
+<p>3 file PDF trên <code>content.cdntwrk.com</code> là <strong>tài liệu gốc đầy đủ</strong>, giá trị cao hơn hẳn các trang landing page (vốn chỉ có form đăng ký). Cả 3 đã tải thành công và bóc tách được toàn văn bằng <code>pdftotext -layout</code>. Vì mỗi e-book trải nội dung qua nhiều Module, chúng được đánh dấu 🟡 và sẽ được khai thác dần theo từng Module.</p>
+<p><strong>Đã lưu trữ trong repo tại <code>_ebooks/</code></strong> (kèm bản <code>.txt</code> đã bóc tách sẵn, đã thêm vào <code>.gitignore</code> để không đẩy 22 MB binary lên Git):</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Dung lượng</th>
+<th>Số trang</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>unity-optimize-mobile-game-performance.pdf</code></td>
+<td>9.2 MB</td>
+<td>52</td>
+</tr>
+<tr>
+<td><code>unity-gamedev-field-guide.pdf</code></td>
+<td>6.4 MB</td>
+<td>79</td>
+</tr>
+<tr>
+<td><code>unity-optimize-console-pc-performance.pdf</code></td>
+<td>6.9 MB</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Trở lại mục lục
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0110\u00e3 sao ch\u00e9p", "clipboard.copy": "Sao ch\u00e9p v\u00e0o b\u1ed9 nh\u1edb t\u1ea1m", "search.result.more.one": "1 t\u1eeb kh\u00e1c trong trang", "search.result.more.other": "# t\u1eeb kh\u00e1c trong trang", "search.result.none": "Kh\u00f4ng t\u00ecm th\u1ea5y t\u00e0i li\u1ec7u li\u00ean quan", "search.result.one": "1 t\u00e0i li\u1ec7u li\u00ean quan", "search.result.other": "# t\u00e0i li\u1ec7u li\u00ean quan", "search.result.placeholder": "Nh\u1eadp \u0111\u1ec3 b\u1eaft \u0111\u1ea7u t\u00ecm ki\u1ebfm", "search.result.term.missing": "Kh\u00f4ng", "select.version": "Ch\u1ecdn phi\u00ean b\u1ea3n"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
