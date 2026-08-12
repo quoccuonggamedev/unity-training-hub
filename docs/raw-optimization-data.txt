@@ -1,0 +1,246 @@
+
+===================================OPTIMIZE=============================
+Useful and essential Unity Profiling and Optimization materials! 
+ 
+Hay
+https://github.com/CyberAgentGameEntertainment/UnityPerformanceTuningBible/releases/tag/v1.0.5
+
+
+
+
+===================================SUM=============================
+
+
+Unity profiler
+https://unity.com/resources/ultimate-guide-to-profiling-unity-games
+https://unity.com/resources/ultimate-guide-to-profiling-unity-games-unity-6
+
+
+================================================================
+
+1. Ultimate guide to profiling Unity games, by Unity team.
+https://unity.com/resources/ultimate-guide-to-profiling-unity-games
+
+This is the most essential and must-read book about Unity profiling and optimization. This book will teach you about processes of profiling - how to create and integrate them into your development process. It reveals questions how, what and when to measure and optimize. It will save you a lot of time - this is only 75 page book so you can read it in one-sitting instead of wasting time on discovering what are the most appropriate and effective processes of optimizing by yourself. If you are still using FPS as the main metric of your perfomance, wasting time on making profiling builds by yourself on your local machine, trying to find perfomance drops using your perception, and optimizing random stuff based on assumptions hoping for improvement then you must read this book!
+2. Optimize your console and PC game performance, by Unity team.
+https://unity.com/resources/optimize-your-console-and-pc-game-performance
+
+This book will teach you about main techniques and tips to optimize your project, such as culling, draw call batching, LODs, lightning optimization and baking, mipmaps, overdraw reduction and more. It covers how to optimize your rendering, particles, UI, assets, physics, animations, project configurations in general.
+3. Optimize Your Mobile Game Performance, by Unity team.
+https://unity.com/resources/unity-e-book-optimize-your-mobile-game-performance
+
+This book has a lot in common with the previous one, but it goes deeper and deeper into optimization techniques, as on mobile devices, optimization is especially important in resource-constrained environments. For example, for more powerful devices, you can have over 300 draw calls at the time, GPU-heavy effects and particles, large textures, etc., but on mobile devices, this is killer. This book goes into more detail about how you can get the most out of these devices, as well as the sacrifices and compromises you need to make in order to create a comfortable gaming experience.
+4. TheGameDevGuru resource, by Ruben.
+https://thegamedev.guru/blog
+
+Ruben is known in the Unity Community as a very knowledgeable person in the field of optimization. On his website you can find even more optimization techniques, various checklists of an optimized project, tables and step-by-step optimization schemes, performance cost tables for standard unity shaders and a lot of other useful information. Here you can find a lot of free information, but there is also a subscription if you want to become the best in optimization and take your project to the next level! 
+
+https://makaka.org/unity-tutorials/optimization
+https://cgcookie.com/posts/maximizing-your-unity-games-performance
+https://blog.unity.com/technology/optimize-your-mobile-game-performance-tips-on-profiling-memory-and-code-architecture
+https://blog.unity.com/technology/optimize-your-mobile-game-performance-expert-tips-on-graphics-and-assets
+https://awesometuts.com/blog/optimize-unity-game/
+Memory: https://blog.unity.com/technology/everything-you-need-to-know-about-memory-profiler
+Design pattern: S.O.L.I.D https://tvd12.com/solid/
+uGUi:  https://learn.unity.com/tutorial/optimizing-unity-ui#5c7f8528edbc2a002053b59f
+
+
+Device hot: FPS 60 -> Idle 30
+
+
+State Machine
+https://github.com/thefuntastic/Unity3d-Finite-State-Machine
+https://gamedevbeginner.com/state-machines-in-unity-how-and-when-to-use-them/
+
+
+Addressable:
+https://discussions.unity.com/t/effective-asset-management-in-unity-with-addressables/1621379
+=> In most cases it’s better to leave it to the default “Requested Assets and Dependencies”
+
+===============================================
+https://forum.unity.com/threads/new-free-e-book-introduction-to-the-universal-render-pipeline-for-advanced-unity-creators.1323774/
+
+1.Optimize your game performance for mobile
+https://content.cdntwrk.com/files/aT0xMzg4ODYxJnY9MSZpc3N1ZU5hbWU9dW5pdHktZS1ib29rLW9wdGltaXplLXlvdXItbW9iaWxlLWdhbWUtcGVyZm9ybWFuY2UmY21kPWQmc2lnPWU3NWYzMDQxZjdkNTk4ZDc4NjVhMjZiZTVmM2E1ODQ4
+
+2.Console/PC game perf. optimization guide
+https://content.cdntwrk.com/files/aT0xNDI0NjkzJnY9MSZpc3N1ZU5hbWU9b3B0aW1pemUteW91ci1jb25zb2xlLWFuZC1wYy1nYW1lLXBlcmZvcm1hbmNlJmNtZD1kJnNpZz1hYjFkYjE2OTRhZWZhNzI4OTFkM2FiZjIyNTIyNTkyMQ%253D%253D
+
+3.Unity Gamedev Field Guide
+https://content.cdntwrk.com/files/aT0xNDMwNzIwJnY9MSZpc3N1ZU5hbWU9dW5pdHktZ2FtZS1kZXYtZmllbGQtZ3VpZGUmY21kPWQmc2lnPTJmNGI2NGQzMzEyNDU4ODA1ODA0MWFiOTAwOTU3M2Qz
+
+4.Optimize Your Mobile Game Performance
+https://forum.unity.com/threads/new-free-e-book-introduction-to-the-universal-render-pipeline-for-advanced-unity-creators.1323774/#:~:text=Optimize%20Your%20Mobile%20Game%20Performance
+
+5.Version control and project organization best practices for game developers
+https://resources.unity.com/games/version-control-project-organization-best-practices-ebook?_gl=1*ma715v*_gcl_aw*R0NMLjE2NDMzMTI2NjUuQ2owS0NRaUFvc21QQmhDUEFSSXNBSE9lbi1NVTdIbnh2aUQxVkdEMGxGc2RXYkpyM1FSQ2RFNVBxdzZVU2d4RWl4RU5aWlZmdFFHbXN5d2FBdEh0RUFMd193Y0I.*_gcl_dc*R0NMLjE2NDMzMTI2NjUuQ2owS0NRaUFvc21QQmhDUEFSSXNBSE9lbi1NVTdIbnh2aUQxVkdEMGxGc2RXYkpyM1FSQ2RFNVBxdzZVU2d4RWl4RU5aWlZmdFFHbXN5d2FBdEh0RUFMd193Y0I.
+
+6.Unity for Technical Artists: key toolsets and workflows
+https://create.unity3d.com/tech-artists-key-toolsets?utm_source=twitter&utm_medium=cpc&utm_campaign=gaming_emea_acquisition_2021-08-gmg-ebook23&utm_content=GMGBK23_02-GMG_INTKW_ARTENGINE-TW_B-all
+
+7.70+ tips to increase productivity with Unity LTS 2020 (2020 LTS edition, 21 LTS ed. coming out soon)
+https://create.unity3d.com/ebook-improve-workflow
+
+8.HDRP Definitive Guide to Lighting (2020 LTS edition)
+https://resources.unity.com/games/hdrp-guide
+
+9.Game Designer Playbook
+https://resources.unity.com/games/game-designer-playbook
+
+10.2D Game Art , Lighting and Animation
+https://resources.unity.com/games/2d-game-art-animation-lighting-for-artists-ebook
+
+11.Ultimate Guide to Profiling
+https://resources.unity.com/games/ultimate-guide-to-profiling-unity-games
+
+12.HDRP Definitive Guide to Lighting (2021 LTS edition)
+https://resources.unity.com/games/the-definitive-guide-to-lighting-in-the-high-definition-render-pipeline-unity-2021-lts-edition
+
+13.Introduction to the Universal Render Pipeline for advanced Unity creators
+https://resources.unity.com/games/introduction-universal-render-pipeline-for-advanced-unity-creators?UNGATED=TRUE
+
+14.VFX
+https://resources.unity.com/games/definitive-guide-to-creating-visual-effects?ungated=true&elqTrackId=250dcc20c78f4136a7535a18173d0e2e&elqaid=4215&elqat=2
+==========================================
+
++ Profiling tìm nguyên nhân bị drop FPS: CPU, GPU, UI, AI behavior, physic, animator, network
+-Optimize build size: remove unsed file in resources folder, tiền xứ lý optimize sound bằng format factory, texture bằng png tiny, optimize animation arttist +animator, 
++ GPU: static batching, dynamic batching, occlusion culling, streaming city, optimize shader, compute shader trên render texture, animation intancing,
++ CPU: optimize script,cache component, hạn chế tối đa có thể update/ fixed update, những màn hình idle hoặc khi user ít tương tác thì hạ FPS để giảm nóng cho phone, sử dụng design pattern: object pool, observer, service locator, addresable, atlas
++ Physics: Hạn chế đến mức ít nhất rigidbody, các hàm cast thì sd nonallocation tránh rác.
++ Network: 
+
++ Protobufs is a set of tools made for the purpose of serializing and communicating data between applications, usually in a client/server configuration. (Line Puzzle_ String Art_1.4.52 offline)
+https://www.educba.com/protobuf-vs-json/
+Protobuf là dạng serialize data (google): small size, data binary, yêu cầu shema (.proto file) - json (java script-json): rộng rãi, ko cần chema, data lớn hơn, thân thiện human
++ Service locator: Thay vì phải sử dụng nhiều singleton với monobehavior, khó quản lý, define ra ServiceLocator, xem các manger class kia như service và quản lý nó: Provide (register) và Resolver
++Reflection C#:  https://codelearn.io/sharing/su-dung-reflection-trong-csharp, https://gucheng0712.github.io/unity/csharp/2019/04/19/C-Reflection-in-Unity-copy.html
+ Reflection có nghĩa là cách thức để truy cập tới metadata, tại thời điểm chương trình đang chạy làm cách nào chúng ta có thể xác định được metadata của một đối tượng như namespace, thuộc tính của lớp - hàm, hàm khởi tạo, phương thức, thuộc tính, cách khởi tạo đối tượng, gọi hàm...
++ Unit test: https://www.kodeco.com/9454-introduction-to-unity-unit-testing
++ Số wei, đơn vị nhỏ nhất của etherum: 1^18 => số fixed để tránh sai số
++ Android plugin: UnityPlayerActivity.java, AndroidJavaClass và AndroidJavaObject trên C#
++ UnityWebRequest: post (param url), get (data body), put (confirm)
++ Realtime: Block-step (use websocket) : Client A,B gửi command (pos, rot) lên server, server tổng hợp gửi cho các client (vd FPS20 -gửi 20 packet/giây), kiểm tra syn bằng hash (pos, rot) => Các Client nhận info từ server thay đổi pos, rot => Nếu mất đồng bộ (server tự simulate xem ai đúng hoặc hủy match)
+ MLAPI, Mirror
++Colysyus: https://docs.colyseus.io/colyseus/
++ Cinemamachine
++ NavMesh, A*
++ Static Batching occurs during application initialization, whereas Dynamic Batching takes place at runtime
+* Static batching: For static GameObjects Unity combines them and renders them together.
+* Dynamic batching: For small enough meshes, this transforms their vertices on the CPU, groups similar vertices together, and renders them in one draw call. => ví dụ combine nhiều mesh nhỏ thành mesh lớn. 
+
+Optimize build size: using build report tool
++ Remove unused res, unused resource
++ Use prefabs
++ Compress texture
+- Size minimal, mipmap
+- Type: ASTC 4x4 RGBA, ASTC 4x4 RGB, PVRTC 4bits RGBA,  PVRTC 4bits RGB.
++ Compress Mesh: high
++ Compress Animation: Optimial
++ Player setting:
+- Script Runtime Version: .NET 2.0 Standard
+- Vertex Compression: Everything 
+- Optimize Mesh Data: checked (ex: 0.3Mb)
+- Use Incremental GC
+
+Json data:
+Save: encrypt
+
+c# event vs Unity event https://www.jacksondunstan.com/articles/3335
+https://www.jacksondunstan.com/articles/3335
+
+Optimize performance UI
+- remove the “Graphic Raycaster”
+- less Canvases as possible
+- disable “Rich Text”
+- Turning off pixel perfect  
++Texture: Advanced - Generate Mip Maps
++Never use renderer.material.xxx at runtime, this will clone the material and break batching too.
+ + Use MaterialPropertyBlock to change thuộc tính material
++ Edit > Project Settings > Quality: Very low
++ Shader: Mobile/Diffuse or Unlit
++Lighting:
+- Window/Rendering/Lighting:
+    - Environment Lighting/Source: white Color
+    - Environment Reflections Source: custom 
+- Use Directional Light
+- use Baked Lighting (https://docs.unity3d.com/Manual/LightMode-Baked.html)
+- Shadow projector
++Script:
+-Resources.UnloadUnusedAssets() after the Scene has been unloaded.
+
++Animation Instancing - Instancing for SkinnedMeshRenderer
+GPU Intancing: https://docs.unity3d.com/Manual/GPUInstancing.html => check Enable GPU Instancing (material) => drawcall Mesh và texture
+https://blog.unity.com/technology/animation-instancing-instancing-for-skinnedmeshrenderer
+https://github.com/Unity-Technologies/Animation-Instancing
+SkinnedMeshRenderer (for example characters), we can’t use instancing, because the skinning is calculated on the CPU, and submitted to the GPU one by one. In general, we can’t draw all characters through one submission. When there are lots of SkinnedMeshRenderers in the scene, this results in lots of draw calls and animation calculations.
+=> Tổng hợp velocity pos, velocity angle, trigger  => VertexCache của các skeleton (cùng loại hoặc khác loại)=> verticle gửi 1 lần qua GPU
+
++ Audio: https://learn.unity.com/tutorial/memory-management-in-unity#5c7f8528edbc2a002053b59c
+- Larger AudioClips should be set to Streaming
+- Enable Force to mono
+- Compressed into Memory
+- Use Decompress On Load only if you have plenty of memory but are constrained by CPU performance
+- Audio Mixer
+
++Qualify setting: Textures/Model that are not read/write-enabled are uploaded through the AUP.
+https://blogs.unity3d.com/2018/10/08/optimizing-loading-performance-understanding-the-async-upload-pipeline/
+QualitySettings.asyncUploadTimeSlice = 4
+QualitySettings.asyncUploadBufferSize = 16
+QualitySettings.asyncUploadPersistentBuffer = true
+
++Camera: https://learn.unity.com/tutorial/optimizing-graphics-in-unity#5c7f8528edbc2a002053b5ab
+- avoid using the "Don’t Clear" flag when targeting mobile devices.
+- Window > Lighting > Settings, remove the Skybox Material, and set the Ambient Source to Color.
+- Render texture.
+
++ Android: https://learn.unity.com/tutorial/memory-management-in-unity#5c7f8528edbc2a002053b59e
+https://learn.unity.com/tutorial/profiling-applications-made-with-unity#5c7f8528edbc2a002053b5b8
+
++Dotween : Setting -> Preferences
+- Log behavior:  Error Only
+- Update type: late
+- Recycle tweens
+
+
+
+
++Physics: https://learn.unity.com/tutorial/physics-best-practices#5c7f8528edbc2a002053b5b4
+Optimize mesh collider: https://github.com/aniketrajnish/Unity-Collider-Optimizer
+-Filter Layers and Collision Matrix
+- Don’t use use Raycasts inside a FixedUpdate() function, sometimes even inside an Update() may be an overkill,  Raycasting against a mesh collider is really expensive, If in dire need of using mesh colliders, then at least make them convex.
+-Try to have the least dynamic Rigibodies as possible
+-Use simple primitive Modcolliders instead of mesh colliders
+-Try to keep the “Collision Detectione” on “Discrete” if possible
+- Tweak the “Fixed Timestep” 0.02 value in Edit > Project Settings > Time
+ - OverlapSphereNonAlloc is generally a better solution than OverlapSphere
++ Mark static non moving object.
++To avoid affecting performance, set autoSyncTransforms to false
++ Player setting:
+* Static batching & Dynamic batching
+
++ Window > Analysis > Frame Debugger/ Physic Debugger
++ Install package Profiler Analysis’
++Shader: https://www.ronja-tutorials.com/
+https://www.youtube.com/watch?v=T-HXmQAMhG0
+
+Raymarching or MarchingCubes.
+
+
+
+*Texture2D.ReadPixels
+If you are working in linear color space, images may appear darker when read with ReadPixels due to gamma correction. Ensure that you're handling the color space properly:
+* You can switch between linear and gamma color space by going to Edit > Project Settings > Player > Other Settings > Color Space.
+
+
+============
+Mask URP
+https://www.theslidefactory.com/post/see-through-objects-with-stencil-buffers-using-unity-urp
+
+
+===================================DESIGN PATTERN=============================
+https://github.com/QianMo/Unity-Design-Pattern.git
+https://www.gamedev.net/articles/programming/graphics/gpu-performance-for-game-artists-r4632/
+
+
+Optimize Đỗ Thế Thuận https://blog.sentry.io/fixing-unity-anrs-with-sentry-amanotes/
