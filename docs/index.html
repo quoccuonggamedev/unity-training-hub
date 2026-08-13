@@ -51,6 +51,8 @@
     
       <link rel="stylesheet" href="stylesheets/custom.css">
     
+      <link rel="stylesheet" href="stylesheets/tts.css">
+    
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -427,6 +429,17 @@
     <span class="md-ellipsis">
       
         Lộ trình / Roadmap
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nghe-thay-vi-oc-listen-instead-of-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔊 Nghe thay vì đọc / Listen instead of reading
       
     </span>
   </a>
@@ -893,6 +906,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#nghe-thay-vi-oc-listen-instead-of-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔊 Nghe thay vì đọc / Listen instead of reading
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cach-oc-how-to-read" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -958,10 +982,60 @@
 <tr>
 <td>👑 <strong>Tech Lead</strong></td>
 <td><a href="05-tech-lead/01-cyberagent-bible-anr.html">Module 5 — CyberAgent Bible &amp; Sentry ANR</a></td>
-<td>✅ Hoàn thành — 10 phần (A–J), 67 chương · 149 mục · 346 khối song ngữ · 72 bảng · 126 ảnh</td>
+<td>✅ Hoàn thành + <strong>audit 2 lần</strong> — 10 phần (A–J), 67 chương · 149 mục · 346 khối song ngữ · 72 bảng · 177 ảnh</td>
 </tr>
 </tbody>
 </table>
+<h2 id="nghe-thay-vi-oc-listen-instead-of-reading">🔊 Nghe thay vì đọc / Listen instead of reading<a class="headerlink" href="#nghe-thay-vi-oc-listen-instead-of-reading" title="Permanent link">&para;</a></h2>
+<p>Góc <strong>trên bên phải</strong> mỗi trang có bảng <strong>🔊 Đọc tiếng Việt</strong>. Nó dùng thẳng <strong>engine text-to-speech của hệ điều hành</strong> (macOS/iOS · Windows · Android) qua Web Speech API — không cần cài gì thêm, không gửi dữ liệu ra ngoài.</p>
+<table>
+<thead>
+<tr>
+<th>Điều khiển</th>
+<th>Tác dụng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>⏮ / ⏭</td>
+<td>Lùi / tiến <strong>một đoạn</strong></td>
+</tr>
+<tr>
+<td>▶ / ⏸</td>
+<td>Phát / tạm dừng (phím <strong>Space</strong>)</td>
+</tr>
+<tr>
+<td>⏹</td>
+<td>Dừng hẳn (phím <strong>Esc</strong>)</td>
+</tr>
+<tr>
+<td>Ô chọn giọng</td>
+<td>Liệt kê <strong>mọi giọng tiếng Việt máy bạn có</strong>; giọng <strong>miền Nam</strong> được ưu tiên xếp đầu nếu hệ điều hành cung cấp</td>
+</tr>
+<tr>
+<td>Ô tốc độ</td>
+<td>0.8× → 1.75×</td>
+</tr>
+<tr>
+<td><strong>Nháy đúp</strong> vào một đoạn</td>
+<td>Đọc <strong>bắt đầu từ đúng đoạn đó</strong></td>
+</tr>
+<tr>
+<td>Phím <strong>A</strong></td>
+<td>Thu gọn / mở lại bảng điều khiển</td>
+</tr>
+</tbody>
+</table>
+<p>Trình đọc <strong>chỉ đọc cột tiếng Việt</strong> — bỏ qua cột English, code block và bảng. Đoạn đang đọc được <strong>tô sáng kèm thanh tiến độ chạy theo lời</strong>, và trang <strong>tự cuộn theo</strong>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Chưa nghe thấy gì? Máy chưa có giọng tiếng Việt</p>
+<ul>
+<li><strong>macOS</strong>: <em>Cài đặt hệ thống › Trợ năng › Nội dung nói › Giọng nói hệ thống › Quản lý giọng nói</em> → tải <strong>Tiếng Việt</strong>.</li>
+<li><strong>Windows</strong>: <em>Settings › Time &amp; language › Speech › Manage voices › Add voices</em> → <strong>Vietnamese</strong>.</li>
+<li><strong>Android</strong>: cài <strong>Google Text-to-speech</strong> rồi tải gói giọng <strong>Tiếng Việt</strong>.</li>
+<li><strong>iOS</strong>: <em>Cài đặt › Trợ năng › Nội dung nói › Giọng nói</em> → tải <strong>Tiếng Việt</strong>.</li>
+</ul>
+</div>
 <h2 id="cach-oc-how-to-read">Cách đọc / How to read<a class="headerlink" href="#cach-oc-how-to-read" title="Permanent link">&para;</a></h2>
 <p>Mỗi mục kiến thức được trình bày <strong>2 cột</strong>: cột trái là bản tiếng Việt đã biên dịch &amp; chú giải, cột phải là nguyên văn tiếng Anh từ tài liệu gốc — để bạn vừa hiểu nhanh vừa nắm chuẩn thuật ngữ quốc tế.</p>
 <div class="bilingual-row">
@@ -1031,6 +1105,8 @@
     
     
       <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="javascripts/tts-reader.js"></script>
       
     
   </body>

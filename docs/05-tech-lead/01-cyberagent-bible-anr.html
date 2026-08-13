@@ -51,6 +51,8 @@
     
       <link rel="stylesheet" href="../stylesheets/custom.css">
     
+      <link rel="stylesheet" href="../stylesheets/tts.css">
+    
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -2496,6 +2498,9 @@
 </div>
 <hr />
 <h2 id="13-rendering-goc-nhin-cyberagent">13. 🖼️ Rendering — Góc nhìn CyberAgent<a class="headerlink" href="#13-rendering-goc-nhin-cyberagent" title="Permanent link">&para;</a></h2>
+<p><img src="../assets/ca-calc-position-color.png" alt="Figure 2.13 — Calculating Position and Color."></p>
+<p><em>VI: <strong>▲ Figure 2.13</strong> — GPU tính <strong>VỊ TRÍ trên màn hình</strong> (từ model 3D) rồi tính <strong>MÀU của từng pixel</strong> (từ đèn). / EN: Figure 2.13 — Calculating Position and Color.</em></p>
+
 <p><img src="../assets/ca-rendering-pipeline.png" alt="Rendering pipeline"></p>
 <p><em>VI: <strong>▲ Figure 2.12 — Rendering Pipeline.</strong> / EN: Figure 2.12 — Rendering Pipeline.</em></p>
 
@@ -2605,6 +2610,9 @@
 <hr />
 <h2 id="14-bieu-dien-du-lieu-tinh-tay-dung-luong-asset">14. 🔢 Biểu diễn DỮ LIỆU — Tính TAY dung lượng asset<a class="headerlink" href="#14-bieu-dien-du-lieu-tinh-tay-dung-luong-asset" title="Permanent link">&para;</a></h2>
 <h3 id="141-bit-byte-va-bai-toan-texture-4-mb">14.1. Bit, Byte và bài toán TEXTURE 4 MB<a class="headerlink" href="#141-bit-byte-va-bai-toan-texture-4-mb" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/ca-color-32bits.png" alt="Figure 2.21 — Amount of information per color."></p>
+<p><em>VI: <strong>▲ Figure 2.21</strong> — <strong>1 màu = 32 bit</strong>, gồm 4 kênh <strong>R · G · B · A</strong>, mỗi kênh 8 bit. / EN: Figure 2.21 — Amount of information per color.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p><strong>Chuỗi suy luận NGUYÊN VĂN của sách — từ 1 bit tới 4 MB:</strong></p>
@@ -3434,6 +3442,9 @@
 </code></pre></div>
 <hr />
 <h2 id="17-thuat-toan-o-phuc-tap-tinh-toan">17. 📐 Thuật toán &amp; Độ phức tạp tính toán<a class="headerlink" href="#17-thuat-toan-o-phuc-tap-tinh-toan" title="Permanent link">&para;</a></h2>
+<p><img src="../assets/ca-complexity-graph.png" alt="Figure 2.36 — Comparison of performance differences in logarithmic rep"></p>
+<p><em>VI: <strong>▲ Figure 2.36</strong> — so sánh <strong>O(log n) · O(n) · O(n log n) · O(n²) · O(n³)</strong> trên trục <strong>logarit</strong>; khoảng cách giữa các đường GIÃN RẤT NHANH khi n tăng. / EN: Figure 2.36 — Comparison of performance differences in logarithmic representation.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <blockquote>
@@ -3885,6 +3896,9 @@
 </div></p>
 </div>
 <h3 id="194-cpu-usage-hierarchy-vs-raw-hierarchy-vs-timeline">19.4. CPU Usage — Hierarchy vs Raw Hierarchy vs Timeline<a class="headerlink" href="#194-cpu-usage-hierarchy-vs-raw-hierarchy-vs-timeline" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/ca-deep-profile-testmethod.png" alt="Deep Profile revealing Test Method at 336.30 ms, total 895.63 ms acros"></p>
+<p><em>VI: <strong>Deep Profile</strong> phơi bày tận cùng: <code>Test Method</code> <strong>336.30 ms</strong>, tổng <strong>895.63 ms (2 Instances)</strong>, bên dưới là <code>LogStringToConsole</code> <strong>98.8%</strong>. / EN: Deep Profile revealing Test Method at 336.30 ms, total 895.63 ms across 2 instances.</em></p>
+
 <p><img src="../assets/ca-cpu-usage-timeline.png" alt="Module CPU Usage với đồ thị và Timeline"></p>
 <p><em>VI: Module <strong>CPU Usage</strong> — 9 hạng mục màu (Scripts / Rendering / Physics / Animation / GarbageCollector / VSync / Global Illumination / UI / Others). Frame đang chọn: <strong>CPU 33.40ms</strong>; timeline dưới hiện <code>PlayerLoop (33.36ms)</code>, <code>FixedUpdate.PhysicsFixedUpdate (0.43ms)</code>, <code>Physics.Processing (0.37ms)</code>, <code>BehaviourUpdate (0.44ms)</code>, <code>SampleScript.Update() (0.27ms)</code>. / EN: The CPU Usage module — colour-coded categories plus the per-thread Timeline underneath.</em></p>
 
@@ -4331,6 +4345,9 @@
 </div>
 
 <h3 id="204-frame-summary-boxplot-histogram">20.4. Frame Summary — Boxplot &amp; Histogram<a class="headerlink" href="#204-frame-summary-boxplot-histogram" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/ca-frame-summary-stats.png" alt="Frame Summary: Max 33.56 ms, Median 16.79, Mean 19.30, Min 4.76."></p>
+<p><em>VI: <strong>Frame Summary</strong> — <strong>Frame Count 199</strong> · <strong>Max 33.56 ms</strong> (frame 101) · <strong>Upper Quartile 17.31</strong> · <strong>Median 16.79</strong> (frame 10) · <strong>Mean 19.30</strong> · <strong>Lower Quartile 16.48</strong> · <strong>Min 4.76</strong> (frame 119). <strong>Mean CAO HƠN Median</strong> ⇒ có vài frame ĐỘT BIẾN kéo trung bình lên. / EN: Frame Summary: Max 33.56 ms, Median 16.79, Mean 19.30, Min 4.76.</em></p>
+
 <p><strong>Bảng 3.5 — Tứ phân vị (Quartiles):</strong></p>
 <table>
 <thead>
@@ -4461,6 +4478,12 @@
 <hr />
 <h2 id="22-memory-profiler-heap-explorer">22. 🧬 Memory Profiler &amp; 🗺️ Heap Explorer<a class="headerlink" href="#22-memory-profiler-heap-explorer" title="Permanent link">&para;</a></h2>
 <h3 id="221-memory-profiler-hon-memory-module-o-ba-iem">22.1. Memory Profiler — hơn Memory module ở BA điểm<a class="headerlink" href="#221-memory-profiler-hon-memory-module-o-ba-iem" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/ca-memory-breakdowns-bars.png" alt="Memory Breakdowns bars with System Used 135.0 MB and Empty Fragmented "></p>
+<p><em>VI: <strong>Memory Breakdowns</strong> — <strong>System Used 135.0 MB / Total 239.8 MB</strong>; <strong>Graphics &amp; Graphics Driver 75.3 MB</strong> · <strong>Executable &amp; DLLs 48.0/50.0 MB</strong> · <strong>Managed Heap 0.9/1.0 MB</strong> · <strong>Empty Fragmented Heap Space 0.6 MB</strong> (dấu hiệu PHÂN MẢNH). / EN: Memory Breakdowns bars with System Used 135.0 MB and Empty Fragmented Heap Space.</em></p>
+
+<p><img src="../assets/ca-selection-details-texture2d.png" alt="Selection Details for a dynamically created Texture2D requiring explic"></p>
+<p><em>VI: <strong>Selection Details</strong> của một <code>Texture2D</code> <strong>8.0 MB (8.0 MB Native + 24 B Managed)</strong>, trạng thái <strong>"Referenced dynamically &amp; run-time created Asset"</strong> — panel Help ghi rõ: object tạo bằng <code>new UnityEngine.Texture2D()</code> <strong>PHẢI được giải phóng TƯỜNG MINH bằng <code>Destroy()</code></strong> hoặc <code>Resources.UnloadUnusedAssets()</code>. / EN: Selection Details for a dynamically created Texture2D requiring explicit Destroy().</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>🥇 <em>"Memory Profiler là công cụ CHÍNH THỨC do Unity cung cấp dưới dạng <strong>Preview Package</strong>. So với Memory module của Unity Profiler, nó VƯỢT TRỘI ở các điểm chính sau:"</em></p>
@@ -4596,6 +4619,9 @@
 </div>
 
 <h3 id="222-heap-explorer-cong-cu-oc-nhat-cua-cuon-sach-nay">22.2. 🗺️ Heap Explorer — công cụ ĐỘC NHẤT của cuốn sách này<a class="headerlink" href="#222-heap-explorer-cong-cu-oc-nhat-cua-cuon-sach-nay" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/ca-heap-explorer-cpp-objects.png" alt="Heap Explorer's C++ Objects table with DDoL and Persistent columns."></p>
+<p><em>VI: Bảng <strong>C++ Objects</strong> của Heap Explorer — <strong>RenderTexture 44.7 MB / 5 cái</strong> · <strong>Shader 21.5 MB / 35</strong> · <strong>Texture2D 5.7 MB / 63</strong> (trong đó <code>rock</code> 2.7 MB). Chú ý hai cột <strong>DDoL</strong> và <strong>Persistent</strong>. / EN: Heap Explorer's C++ Objects table with DDoL and Persistent columns.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>🧑‍💻 <em>"Heap Explorer là công cụ <strong>MÃ NGUỒN MỞ</strong> của nhà phát triển cá nhân <strong>Peter77</strong>. Giống Memory Profiler, công cụ này <strong>thường dùng để ĐIỀU TRA BỘ NHỚ</strong>."</em></p>
@@ -4726,6 +4752,9 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 </div>
 
 <h3 id="232-debug-navigator-6-gauge-mien-phi-chi-bang-cach-chay-app">23.2. Debug Navigator — 6 gauge, MIỄN PHÍ chỉ bằng cách chạy app<a class="headerlink" href="#232-debug-navigator-6-gauge-mien-phi-chi-bang-cach-chay-app" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/ca-xcode-memory-gauge.png" alt="Xcode Memory Gauge showing 226 MB (7.9%), high 227.7 MB."></p>
+<p><em>VI: <strong>Memory Gauge</strong> — <strong>226 MB (7.9%)</strong>, đỉnh <strong>227.7 MB</strong> trong 52 giây; vòng tròn bên phải cho biết <strong>Other Processes 1.94 GB · Free 628.9 MB</strong>. / EN: Xcode Memory Gauge showing 226 MB (7.9%), high 227.7 MB.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>📟 <em>"Debug Navigator cho phép bạn <strong>kiểm tra các đồng hồ debug như CPU và Memory CHỈ BẰNG CÁCH chạy app từ Xcode. SÁU mục hiển thị</strong> khi bấm biểu tượng bình xịt sau khi chạy app. Hoặc mở bằng <strong>"View → Navigators → Debug"</strong>."</em></p>
@@ -4793,6 +4822,15 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 <p><em>VI: <strong>FPS Gauge</strong> — thứ Unity Profiler KHÔNG cho bạn: <strong>Frames Per Second 60</strong>; <strong>Utilization: VERTEX 90%, FRAGMENT 89%, DEVICE 90%</strong>; <strong>Frame Time: CPU 16.7 ms vs GPU 15 ms</strong>. 🔑 Đây là cách nhanh nhất để kết luận bạn đang <strong>GPU-bound hay CPU-bound</strong>. / EN: The FPS Gauge — not only FPS but shader-stage utilisation and separate CPU/GPU frame times.</em></p>
 
 <h3 id="233-gpu-frame-capture-frame-debugger-cap-metal">23.3. 🎮 GPU Frame Capture — frame debugger cấp Metal<a class="headerlink" href="#233-gpu-frame-capture-frame-debugger-cap-metal" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/ca-xcode-frame-by-call-vs-pipeline.png" alt="View Frame By Call vs View Frame By Pipeline State."></p>
+<p><em>VI: <strong>View Frame By Call</strong> (trái, theo THỨ TỰ GỌI) và <strong>View Frame By Pipeline State</strong> (phải, GOM theo shader/pipeline) — cách thứ hai giúp thấy ngay <strong>shader nào được dùng bao nhiêu lần</strong>. / EN: View Frame By Call vs View Frame By Pipeline State.</em></p>
+
+<p><img src="../assets/ca-xcode-pipeline-timings.png" alt="GPU timings per pipeline state."></p>
+<p><em>VI: Thời gian theo <strong>pipeline state</strong>: <strong>Blit 541.92 µs</strong> · <strong>Universal Render Pipeline/Lit 437.30 µs</strong> · <strong>Skybox/Procedural 398.49 µs</strong> · <strong>CopyDepth 296.52 µs</strong>. / EN: GPU timings per pipeline state.</em></p>
+
+<p><img src="../assets/ca-xcode-bound-resources.png" alt="Bound Resources listing UnityWhite 4x4 and TempBuffer 2048x2048."></p>
+<p><em>VI: <strong>Bound Resources</strong> của một draw call — phần Fragment cho thấy <strong><code>UnityWhite</code> 4×4 RGBA8Unorm</strong> và <strong><code>TempBuffer 1</code> 2048×2048 Depth32Float</strong>; phần Vertex liệt kê <strong>ScratchBuffer 4 MB ×3</strong>. / EN: Bound Resources listing UnityWhite 4x4 and TempBuffer 2048x2048.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>🔬 <em>"GPU Frame Capture là công cụ cho phép <strong>frame debugging TRÊN Xcode</strong>. Tương tự Frame Debugger của Unity, bạn kiểm tra được tiến trình cho tới khi render hoàn tất. <strong>So với Unity, có NHIỀU THÔNG TIN HƠN ở TỪNG SHADER STAGE, nên có thể hữu ích để phân tích và cải thiện bottleneck.</strong>"</em></p>
@@ -4847,6 +4885,12 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 </div>
 
 <h3 id="234-memory-graph-o-uoc-ca-thu-unity-khong-o-uoc">23.4. 🧠 Memory Graph — đo được cả thứ Unity KHÔNG đo được<a class="headerlink" href="#234-memory-graph-o-uoc-ca-thu-unity-khong-o-uoc" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/ca-xcode-memory-graph-list.png" alt="Xcode Memory Graph listing per-resource allocations."></p>
+<p><em>VI: <strong>Memory Graph</strong> — <strong>Textures 66.0 MB · Buffers 24.3 MB · Non-Volatile 78.9 MB · Shared 90.3 MB</strong>; danh sách chi tiết có <code>_CameraColorTexture</code> <strong>5.7 MB</strong>, <code>_CameraDepthAttachment</code> <strong>7.3 MB</strong>, <code>_CameraDepthTexture</code> <strong>7.3 MB</strong>. / EN: Xcode Memory Graph listing per-resource allocations.</em></p>
+
+<p><img src="../assets/ca-xcode-malloc-backtrace.png" alt="Malloc Stack Logging backtrace up to UnityAppController startUnity."></p>
+<p><em>VI: <strong>Backtrace</strong> khi bật <strong>Malloc Stack Logging</strong> — truy ngược tới tận <code>-[UnityAppController startUnity:]</code>, qua <code>InitializeGfxDevice</code> và <code>GfxDeviceClient::AllocCommandQueue</code>. / EN: Malloc Stack Logging backtrace up to UnityAppController startUnity.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>🏆 <em>"Công cụ này cho phép <strong>phân tích tình trạng bộ nhớ TẠI THỜI ĐIỂM CAPTURE. Khu vực Navigator bên trái hiển thị INSTANCE, và khi chọn một instance, QUAN HỆ THAM CHIẾU được hiển thị dưới dạng ĐỒ THỊ.</strong> Khu vực Inspector bên phải hiển thị thông tin CHI TIẾT về instance."</em></p>
@@ -4894,6 +4938,9 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 </div>
 
 <h3 id="241-time-profiler-phan-tich-theo-oan-khong-theo-frame">24.1. Time Profiler — phân tích theo ĐOẠN, không theo frame<a class="headerlink" href="#241-time-profiler-phan-tich-theo-oan-khong-theo-frame" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/ca-instruments-symbol-names.png" alt="Time Profiler symbol names in the class_method_hash form."></p>
+<p><em>VI: Tên symbol trong Time Profiler theo dạng <strong><code>class_method_hash</code></strong>: <code>SampleScript_TestMethod_m390D7F0A04D12D51B91D3A4D94835D6D77DA194F</code> — KHÁC với tên trong Unity Profiler. / EN: Time Profiler symbol names in the class_method_hash form.</em></p>
+
 <p><img src="../assets/ca-instruments-time-profiler.png" alt="Kết quả đo của Time Profiler trong Instruments"></p>
 <p><em>VI: <strong>Time Profiler</strong> — Tree View của <code>BibleSample (26180)</code> tổng <strong>2.96 s (100.0%)</strong>. Trong đó <strong><code>GfxDeviceWorker::RunExt</code> 1.32 s (44.5%)</strong> và <strong>Main Thread 1.25 s (42.1%)</strong>; đi sâu: <code>runUIApplicationMainWithArgc:argv:</code> <strong>1.25 s, self 99.00 ms</strong> → <code>repaintDisplayLink</code> <strong>1.13 s (38.2%)</strong> → <code>UnityRepaint</code> <strong>1.11 s (37.6%)</strong> → <code>PlayerLoop()</code> <strong>1.09 s (36.8%)</strong> → <code>ExecutePlayerLoop(NativePlayerLoopSystem*)</code> <strong>1.09 s, self 3.00 ms</strong>. / EN: Time Profiler tree view — note that GfxDeviceWorker (the render thread) eats 44.5% of the sampled window.</em></p>
 
@@ -4916,6 +4963,9 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 <p><strong>EN:</strong> <em>"The symbol names in the Time Profiler differ from those in the Unity Profiler, but they are still the same: </em><em><code>class_name_function_name_random_string</code></em><em>."</em></p>
 </div>
 <h3 id="242-allocations-va-option-discard-events-for-freed-memory">24.2. 🧯 Allocations — và option "Discard events for freed memory"<a class="headerlink" href="#242-allocations-va-option-discard-events-for-freed-memory" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/ca-instruments-allocations-stats.png" alt="Instruments Allocations statistics."></p>
+<p><em>VI: Thống kê Allocations — <strong>All Heap &amp; Anonymous VM 207.73 MiB</strong> (97.432 lần, 222.469 transient, <strong>tổng 428.90 MiB</strong>) và <strong>All Heap Allocations 82.82 MiB</strong>. / EN: Instruments Allocations statistics.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>🧯 <em>"Allocations là công cụ đo <strong>MỨC DÙNG BỘ NHỚ</strong>. Nó dùng để cải thiện <strong>RÒ RỈ bộ nhớ và mức sử dụng</strong>."</em></p>
@@ -4970,6 +5020,12 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 
 <hr />
 <h2 id="25-android-studio-cpu-memory">25. 🤖 Android Studio — CPU &amp; Memory<a class="headerlink" href="#25-android-studio-cpu-memory" title="Permanent link">&para;</a></h2>
+<p><img src="../assets/ca-android-cpu-threads.png" alt="Android Studio CPU profiler"></p>
+<p><em>VI: <strong>CPU Profiler</strong> — <strong>App 17% · Others 17% · Threads 67</strong>, hàng <strong>UnityMain</strong> được chọn (chính là main thread của Unity). / EN: Android Studio CPU profiler with 67 threads and UnityMain selected.</em></p>
+
+<p><img src="../assets/ca-android-memory-breakdown.png" alt="Android memory breakdown"></p>
+<p><em>VI: Phân rã bộ nhớ Android tại mốc <strong>00:08:10.505</strong> — <strong>Others 82.6 MB · Code 23.8 MB · Stack 0.04 MB · Graphics 59.9 MB · Native 33 MB · Java 11.2 MB</strong> ⇒ <strong>Tổng 210.5 MB</strong>. / EN: Android memory breakdown totalling 210.5 MB.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>🤖 <em>"Android Studio là IDE cho Android. Công cụ này cho phép <strong>đo trạng thái ứng dụng của bạn. Có BỐN mục profile được: CPU, Memory, Network, và Energy.</strong>"</em></p>
@@ -5088,6 +5144,9 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 </div>
 
 <h3 id="262-pipeline-state-9-stage-cua-pipeline">26.2. Pipeline State — 9 stage của pipeline<a class="headerlink" href="#262-pipeline-state-9-stage-cua-pipeline" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/ca-renderdoc-pipeline-stages.png" alt="RenderDoc's nine pipeline stages with bound resources."></p>
+<p><em>VI: Thanh <strong>9 stage</strong> của RenderDoc: <strong>VTX → VS → TCS → TES → GS → RS → FS → FB → CS</strong> (đang chọn <strong>FS</strong>). Bên dưới là Resources: <strong><code>rock</code> 2048×2048 ETC2_RGB8_UNORM</strong> và Uniform Buffer <strong>1293888–1293904</strong>. / EN: RenderDoc's nine pipeline stages with bound resources.</em></p>
+
 <p><img src="../assets/ca-renderdoc-pipeline-state.png" alt="Pipeline State của RenderDoc ở stage VTX"></p>
 <p><em>VI: <strong>Pipeline State</strong> với chuỗi stage <strong>VTX → VS → TCS → TES → GS → RS → FS → FB</strong> (và <strong>CS</strong> tách riêng). Stage <strong>VTX</strong> đang chọn: 3 attribute — <code>_input0</code> <strong>R32G32B32_FLOAT</strong> (offset 0), <code>_input1</code> <strong>R8G8B8A8_UNORM</strong> (offset 12), <code>_input2</code> <strong>R32G32B32A32_FLOAT</strong> (offset 16); Buffer <strong>1176, Rate Vertex, Stride 32</strong>; Primitive Topology <strong>Triangle List</strong>. / EN: The RenderDoc Pipeline State bar with the VTX stage selected — vertex attribute formats, stride and topology.</em></p>
 
@@ -5154,6 +5213,9 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 </div>
 
 <h3 id="263-mesh-viewer-xem-mesh-truoc-va-sau-bien-oi-toa-o">26.3. Mesh Viewer — xem mesh TRƯỚC và SAU biến đổi toạ độ<a class="headerlink" href="#263-mesh-viewer-xem-mesh-truoc-va-sau-bien-oi-toa-o" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/ca-renderdoc-vs-in-out.png" alt="VS In vs VS Out after coordinate transformation."></p>
+<p><em>VI: <strong>VS In → VS Out</strong>: cùng một mesh TRƯỚC và SAU <strong>coordinate transformation</strong> của vertex shader. / EN: VS In vs VS Out after coordinate transformation.</em></p>
+
 <p><img src="../assets/ca-renderdoc-mesh-viewer.png" alt="Mesh Viewer của RenderDoc"></p>
 <p><em>VI: <strong>Mesh Viewer</strong> — bảng trên chia <strong>VS Input</strong> (VTX 0 → IDX 177, <code>_input0</code> = <strong>0.192, −0.45026…</strong>) và <strong>VS Output</strong> (cùng VTX/IDX, <code>_sig409._child0</code> = <strong>5.95286, −2.51193…</strong>) — tức TOẠ ĐỘ TRƯỚC và SAU vertex shader. Preview dưới cho phép xoay camera (Arcball) quanh mesh wireframe của một quả cầu. / EN: The Mesh Viewer — vertex data before and after the vertex shader, plus an interactive preview.</em></p>
 
@@ -5199,6 +5261,12 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 </div>
 
 <h3 id="271-texture">27.1. 🖼️ Texture<a class="headerlink" href="#271-texture" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/ca-texture-import-settings.png" alt="The full Texture 2D Import Settings panel."></p>
+<p><em>VI: <strong>Texture 2D Import Settings</strong> đầy đủ — <strong>sRGB ✓ · Non-Power of 2: ToNearest · Read/Write Enabled ✗ · Streaming Mipmaps ✗ · Generate Mip Maps ✓ · Mip Map Filtering: Box · Wrap Mode: Repeat · Filter Mode: Bilinear · Aniso Level: 1</strong>. / EN: The full Texture 2D Import Settings panel.</em></p>
+
+<p><img src="../assets/ca-quality-aniso-textures.png" alt="Quality Settings' Anisotropic Textures options."></p>
+<p><em>VI: <code>Quality Settings &gt; Anisotropic Textures</code> — ba lựa chọn <strong>Disabled · Per Texture (mặc định) · Forced On</strong>. / EN: Quality Settings' Anisotropic Textures options.</em></p>
+
 <p>👉 <em>Xem thêm <a href="../02-junior/01-ui-physics-deep-dive.html">Module 2</a> về import settings cơ bản. Dưới đây là các điểm CyberAgent nhấn mạnh cùng CON SỐ cụ thể.</em></p>
 <table>
 <thead>
@@ -5368,6 +5436,9 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 </div></p>
 </div>
 <h3 id="273-material-chi-oc-property-cung-a-nhan-ban">27.3. 🎨 Material — CHỈ ĐỌC property cũng đã NHÂN BẢN<a class="headerlink" href="#273-material-chi-oc-property-cung-a-nhan-ban" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/ca-material-instance-leak.png" alt="How an unloaded AssetBundle leaves a material instance that is not reu"></p>
+<p><em>VI: Vòng đời gây RÒ RỈ: <strong>①Unload AssetBundle → ②Unlinking</strong> ⇒ Material Instance <strong>KHÔNG được tái sử dụng</strong>; <strong>③Load lại → ④Instantiate</strong> ⇒ sinh ra <strong>MỘT instance KHÁC</strong> của cùng material. / EN: How an unloaded AssetBundle leaves a material instance that is not reused.</em></p>
+
 <div class="admonition danger">
 <p class="admonition-title">💀 BẪY SỐ MỘT về Material — "CHỈ TRUY CẬP một tham số là nó đã NHÂN BẢN"</p>
 <p><div class="bilingual-row">
@@ -5429,6 +5500,15 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 <p>✅ <em>"</em><em>Material NÊN được <code>Destroy</code> khi dùng xong (<code>OnDestroy</code>). Hãy <code>Destroy</code> material vào THỜI ĐIỂM PHÙ HỢP theo QUY TẮC và ĐẶC TẢ của project.</em><em>"</em> / <em>"Materials should be destroyed when they are finished being used (<code>OnDestroy</code>). Destroy materials at the appropriate timing according to the rules and specifications of the project."</em></p>
 </blockquote>
 <h3 id="274-animation-skinweight-keyframe-reduction-culling-mode">27.4. 🕺 Animation — SkinWeight, Keyframe Reduction, Culling Mode<a class="headerlink" href="#274-animation-skinweight-keyframe-reduction-culling-mode" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/ca-skin-weights.png" alt="Quality Settings' Skin Weights options."></p>
+<p><em>VI: <code>Quality Settings &gt; Skin Weights</code> — <strong>1 Bone · 2 Bones · 4 Bones (đang chọn) · Unlimited</strong>. Càng NHIỀU bone, chi phí skinning càng CAO. / EN: Quality Settings' Skin Weights options.</em></p>
+
+<p><img src="../assets/ca-anim-compression.png" alt="The Anim. Compression import options."></p>
+<p><em>VI: <strong>Anim. Compression</strong> khi import model — <strong>Off · Keyframe Reduction (đang chọn) · Optimal</strong>. / EN: The Anim. Compression import options.</em></p>
+
+<p><img src="../assets/ca-animator-culling-mode.png" alt="The Animator Culling Mode options."></p>
+<p><em>VI: <strong>Animator Culling Mode</strong> — <strong>Always Animate (mặc định) · Cull Update Transforms · Cull Completely</strong>. Đổi sang hai chế độ sau để NGỪNG tính animation khi KHÔNG nhìn thấy. / EN: The Animator Culling Mode options.</em></p>
+
 <p><strong>a) Điều chỉnh SỐ SKIN WEIGHT</strong></p>
 <div class="bilingual-row">
 <div class="col-vi">
@@ -5543,6 +5623,9 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 </div>
 
 <h3 id="275-particle-system-hai-ieu-quan-trong">27.5. ✨ Particle System — hai điều QUAN TRỌNG<a class="headerlink" href="#275-particle-system-hai-ieu-quan-trong" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/ca-particle-noise-settings.png" alt="The Particle System Noise module with Quality set to High (3D)."></p>
+<p><em>VI: Module <strong>Noise</strong> — <strong>Quality: High (3D)</strong> là mức ĐẮT NHẤT; các tham số Strength 1 · Frequency 0.5 · Octaves 1 và ô Preview bên phải. / EN: The Particle System Noise module with Quality set to High (3D).</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>🎆 <em>"Hiệu ứng game là THIẾT YẾU cho phần trình bày, và Unity thường dùng Particle System. Có <strong>HAI điểm QUAN TRỌNG:</strong>"</em></p>
@@ -5597,6 +5680,12 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 </div>
 
 <h3 id="276-audio-load-type-compression-format-sample-rate-force-to-mono">27.6. 🔊 Audio — Load Type, Compression Format, Sample Rate, Force To Mono<a class="headerlink" href="#276-audio-load-type-compression-format-sample-rate-force-to-mono" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/ca-audio-compression-format.png" alt="The AudioClip Compression Format options."></p>
+<p><em>VI: <strong>Compression Format</strong> — <strong>PCM · Vorbis (đang chọn) · ADPCM</strong>. / EN: The AudioClip Compression Format options.</em></p>
+
+<p><img src="../assets/ca-audio-force-to-mono.png" alt="Force To Mono and Normalize on an AudioClip."></p>
+<p><em>VI: <strong>Force To Mono ✓</strong> và <strong>Normalize ✓</strong> trên AudioClip — cắt một nửa dữ liệu cho hiệu ứng KHÔNG cần stereo. / EN: Force To Mono and Normalize on an AudioClip.</em></p>
+
 <p><img src="../assets/ca-audio-load-type.png" alt="Audio Load Type dropdown"></p>
 <p><em>VI: Dropdown <strong>Load Type</strong> của AudioClip — ba lựa chọn: <strong><code>Decompress On Load</code></strong> (đang chọn) · <strong><code>Compressed In Memory</code></strong> · <strong><code>Streaming</code></strong>. / EN: The AudioClip Load Type dropdown.</em></p>
 
@@ -5993,6 +6082,9 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 </div>
 
 <h3 id="286-fixed-timestep-maximum-allowed-timestep-vong-xoay-tieu-cuc">28.6. ⏲️ Fixed Timestep, Maximum Allowed Timestep &amp; "VÒNG XOÁY TIÊU CỰC"<a class="headerlink" href="#286-fixed-timestep-maximum-allowed-timestep-vong-xoay-tieu-cuc" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/ca-time-fixed-timestep.png" alt="Project Settings > Time with Fixed Timestep 0.02."&gt;</p>
+<p><em>VI: <code>Project Settings &gt; Time</code> — <strong>Fixed Timestep 0.02</strong> (50 Hz) · <strong>Maximum Allowed Timestep 0.3333333</strong> · <strong>Time Scale 1</strong> · <strong>Maximum Particle Timestep 0.03</strong>. / EN: Project Settings > Time with Fixed Timestep 0.02.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>⏱️ <em>"<code>FixedUpdate</code> của MonoBehaviour chạy ở <strong>THỜI GIAN CỐ ĐỊNH</strong>, khác <code>Update</code>. <strong>Physics engine GỌI FixedUpdate NHIỀU LẦN trong MỘT FRAME để KHỚP thời gian trôi qua trong thế giới GAME với thời gian trong thế giới PHYSICS ENGINE. Do đó, giá trị Fixed Timestep CÀNG NHỎ thì FixedUpdate CÀNG ĐƯỢC GỌI NHIỀU LẦN, gây TẢI.</strong>"</em></p>
@@ -6024,6 +6116,9 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 </div></p>
 </div>
 <h3 id="287-collision-shape-collision-matrix">28.7. 🔺 Collision Shape &amp; Collision Matrix<a class="headerlink" href="#287-collision-shape-collision-matrix" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/ca-layer-collision-matrix.png" alt="The Layer Collision Matrix in Physics settings."></p>
+<p><em>VI: <strong>Layer Collision Matrix</strong> — bỏ tick các cặp layer KHÔNG cần va chạm; layer bị bỏ tick <strong>CŨNG BỊ LOẠI khỏi BROAD PHASE</strong>. / EN: The Layer Collision Matrix in Physics settings.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>💰 <em>"Chi phí xử lý phát hiện va chạm <strong>PHỤ THUỘC vào HÌNH DẠNG collision và TÌNH HUỐNG của nó. Dù KHÓ nói CHÍNH XÁC nó tốn bao nhiêu, một QUY TẮC KINH NGHIỆM ĐÁNG NHỚ là các loại collision sau xếp theo chi phí GIẢM DẦN:</strong>"</em></p>
@@ -6254,6 +6349,12 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 </tbody>
 </table>
 <h3 id="2811-hai-project-setting-anh-huong-lon">28.11. ⚙️ Hai project setting ẢNH HƯỞNG LỚN<a class="headerlink" href="#2811-hai-project-setting-anh-huong-lon" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/ca-physics-settings.png" alt="Project Settings > Physics with Sleep Threshold 0.005."&gt;</p>
+<p><em>VI: <code>Project Settings &gt; Physics</code> — <strong>Sleep Threshold 0.005</strong> · Default Contact Offset 0.01 · <strong>Default Solver Iterations 6</strong> · Default Solver Velocity Iterations 1 · <strong>Auto Simulation ✓ · Auto Sync Transforms ✓</strong> · Contacts Generation: Persistent Contact Manifold. / EN: Project Settings > Physics with Sleep Threshold 0.005.</em></p>
+
+<p><img src="../assets/ca-physics-profiler-counts.png" alt="The Physics Profiler module counters."></p>
+<p><em>VI: <strong>Physics module</strong> của Profiler — <strong>Active Dynamic 457 · Active Kinematic 0 · Static Colliders 100 · Rigidbody 500 · Trigger Overlaps 0 · Active Constraints 20.88k · Contacts 804</strong>. / EN: The Physics Profiler module counters.</em></p>
+
 <div class="admonition warning">
 <p class="admonition-title">⚠️ <code>Physics.autoSyncTransforms</code> — thủ phạm gây SPIKE ở project cũ</p>
 <p><div class="bilingual-row">
@@ -6288,6 +6389,12 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 <h2 id="29-graphics-chuong-7-ui-chuong-8">29. 🎨 GRAPHICS (Chương 7) &amp; 🖱️ UI (Chương 8)<a class="headerlink" href="#29-graphics-chuong-7-ui-chuong-8" title="Permanent link">&para;</a></h2>
 <p>👉 <em>Nhiều mục dưới đây ĐÃ được phủ ở <a href="../03-senior/01-memory-addressables-networking.html">Module 3</a> và <a href="../04-tech-lead/01-gpu-urp-advanced-rendering.html">Module 4</a>. Ở đây giữ lại các ĐIỀU KIỆN, CON SỐ và CẢNH BÁO riêng của CyberAgent.</em></p>
 <h3 id="291-resolution-tuning-cach-re-nhat-e-cuu-fragment-shader">29.1. 📐 Resolution Tuning — cách RẺ NHẤT để cứu fragment shader<a class="headerlink" href="#291-resolution-tuning-cach-re-nhat-e-cuu-fragment-shader" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/ca-resolution-scaling-dpi.png" alt="Player Settings' Resolution Scaling Mode set to Fixed DPI 300."></p>
+<p><em>VI: <code>Player Settings &gt; Resolution Scaling</code> — <strong>Resolution Scaling Mode: Fixed DPI</strong>, <strong>Target DPI: 300</strong>. / EN: Player Settings' Resolution Scaling Mode set to Fixed DPI 300.</em></p>
+
+<p><img src="../assets/ca-quality-dpi-factor.png" alt="Quality Settings with Resolution Scaling Fixed DPI Factor 0.8."></p>
+<p><em>VI: <code>Quality Settings</code> — <strong>Resolution Scaling Fixed DPI Factor 0.8</strong>, cùng <strong>Pixel Light Count 4 · Texture Quality Full Res · Anisotropic Textures Forced On · Anti Aliasing 2x Multi Sampling</strong>. / EN: Quality Settings with Resolution Scaling Fixed DPI Factor 0.8.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>🔑 <em>"Trong rendering pipeline, <strong>CHI PHÍ của fragment shader TĂNG TỈ LỆ THUẬN với ĐỘ PHÂN GIẢI mà chúng được render. ĐẶC BIỆT với độ phân giải màn hình CAO của thiết bị di động ngày nay, CẦN THIẾT phải điều chỉnh độ phân giải render về giá trị PHÙ HỢP.</strong>"</em></p>
@@ -6358,6 +6465,12 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 <p><strong>EN:</strong> <em>"The Universal Render Pipeline supports the Scene Debug View Modes implemented in the Universal Render Pipeline since Unity 2021.2."</em></p>
 </div>
 <h3 id="293-giam-draw-call-4-co-che-va-ieu-kien-cua-chung">29.3. 🧮 Giảm DRAW CALL — 4 cơ chế và ĐIỀU KIỆN của chúng<a class="headerlink" href="#293-giam-draw-call-4-co-che-va-ieu-kien-cua-chung" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/ca-material-gpu-instancing.png" alt="A Material with Enable GPU Instancing ticked."></p>
+<p><em>VI: Material Inspector — <strong>Enable GPU Instancing ✓</strong>, Render Queue <strong>From Shader 2000</strong>. / EN: A Material with Enable GPU Instancing ticked.</em></p>
+
+<p><img src="../assets/ca-urp-srp-batcher-toggle.png" alt="The URP Asset Advanced section with SRP Batcher enabled."></p>
+<p><em>VI: URP Asset mục <strong>Advanced</strong> — <strong>SRP Batcher ✓</strong>, <strong>Dynamic Batching ✗</strong>, Shader Variant Log Level: Disabled. / EN: The URP Asset Advanced section with SRP Batcher enabled.</em></p>
+
 <p><img src="../assets/ca-player-static-batching.png" alt="Player Settings Other Settings rendering flags"></p>
 <p><em>VI: <code>Player Settings &gt; Other Settings &gt; Rendering</code> — <strong>Static Batching ✓</strong> (khung vàng), <strong>Dynamic Batching ✗</strong>, cùng <strong>Multithreaded Rendering ✓ · Compute Skinning ✓ · Graphics Jobs (Experimental) ✗ · Color Space: Gamma · Normal Map Encoding: XYZ · Lightmap Encoding: Low Quality</strong>. / EN: The Rendering flags under Player Settings &gt; Other Settings.</em></p>
 
@@ -6525,6 +6638,9 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 <a id="__codelineno-25-12" name="__codelineno-25-12" href="#__codelineno-25-12"></a><span class="n">CBUFFER_END</span>
 </code></pre></div>
 <h3 id="294-spriteatlas">29.4. 🧩 SpriteAtlas<a class="headerlink" href="#294-spriteatlas" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/ca-spriteatlas-objects.png" alt="A Sprite Atlas with its Objects for Packing list."></p>
+<p><em>VI: <strong>Sprite Atlas</strong> — danh sách <strong>Objects for Packing</strong> (thư mục <code>Atlas</code> và sprite <code>Square</code>); phía trên là Texture settings <strong>RGBA Compressed PVRTC 4 bit</strong>, <strong>Max Texture Size 2048</strong>. / EN: A Sprite Atlas with its Objects for Packing list.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>🎯 <em>"Game 2D và UI thường dùng <strong>NHIỀU sprite để dựng màn hình</strong>. Trong trường hợp đó, chức năng để TRÁNH sinh ra một số lượng lớn draw call là <strong>SpriteAtlas — GIẢM draw call bằng cách GỘP NHIỀU SPRITE vào MỘT TEXTURE DUY NHẤT.</strong>"</em></p>
@@ -6556,6 +6672,9 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 <p>⚠️ <em>"Mục này viết cho </em><em>SpriteAtlas V1. SpriteAtlas V2 có thể có THAY ĐỔI ĐÁNG KỂ về vận hành, chẳng hạn KHÔNG THỂ chỉ định THƯ MỤC của sprite cần atlas hoá."</em> / "This section targets SpriteAtlas V1. SpriteAtlas V2 may have significant changes, such as not being able to specify the folder of the sprite to be atlased."*</p>
 </div>
 <h3 id="295-culling-ba-tang">29.5. ✂️ Culling — ba tầng<a class="headerlink" href="#295-culling-ba-tang" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/ca-occlusion-window-bake.png" alt="The Occlusion window showing Occluder/Occludee Static and a 2.7 KB dat"></p>
+<p><em>VI: Cửa sổ <strong>Occlusion</strong> tab <strong>Object</strong> — <strong>Occluder Static ✓ · Occludee Static ✓</strong> cho Cube; dòng cuối cho biết <strong>Occlusion data size 2.7 KB</strong> (dữ liệu bake NẰM TRONG BỘ NHỚ). / EN: The Occlusion window showing Occluder/Occludee Static and a 2.7 KB data size.</em></p>
+
 <table>
 <thead>
 <tr>
@@ -6642,6 +6761,9 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 <p><strong>EN:</strong> <em>"</em><em>Only the object rendering process is reduced by occlusion culling, while processes such as REAL-TIME SHADOW RENDERING REMAIN UNCHANGED.</em><em>"</em></p>
 </div>
 <h3 id="296-shaders-bon-ky-thuat">29.6. 💻 Shaders — bốn kỹ thuật<a class="headerlink" href="#296-shaders-bon-ky-thuat" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/ca-shader-variant-collection.png" alt="A Shader Variant Collection listing three recorded variants."></p>
+<p><em>VI: <strong>Shader Variant Collection</strong> — ba variant của Standard đã được ghi lại: <strong>ForwardBase DIRECTIONAL</strong> · <strong>DIRECTIONAL LIGHTMAP_ON</strong> · <strong>DIRECTIONAL DYNAMICLIGHTMAP_ON</strong>. / EN: A Shader Variant Collection listing three recorded variants.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>① <strong>GIẢM ĐỘ CHÍNH XÁC dấu phẩy động</strong> — <em>"<strong>GPU (ĐẶC BIỆT trên nền tảng MOBILE) tính TOÁN NHANH HƠN với kiểu dữ liệu NHỎ HƠN.</strong> Do đó, <strong>thay kiểu <code>float</code> (32bit) bằng kiểu <code>half</code> (16bit) là HIỆU QUẢ khi có thể thay được.</strong>"</em></p>
@@ -6745,6 +6867,18 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 <a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a><span class="p">}</span>
 </code></pre></div>
 <h3 id="297-lighting-real-time-shadow-pseudo-shadow-lightmap">29.7. 💡 Lighting — real-time shadow, pseudo shadow &amp; lightmap<a class="headerlink" href="#297-lighting-real-time-shadow-pseudo-shadow-lightmap" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/ca-light-mode-dropdown.png" alt="The Light Mode dropdown."></p>
+<p><em>VI: <strong>Light Mode</strong> — <strong>Realtime · Mixed (đang chọn) · Baked</strong>. / EN: The Light Mode dropdown.</em></p>
+
+<p><img src="../assets/ca-shadow-distance-cascades.png" alt="Quality Shadows with Shadow Distance 150 and four cascade splits."></p>
+<p><em>VI: <code>Quality &gt; Shadows</code> — <strong>Shadow Distance 150</strong> · Shadow Resolution: High · Shadow Projection: Stable Fit · <strong>Four Cascades</strong> với tỷ lệ <strong>6.7% / 13.3% / 26.7% / 53.3%</strong>. / EN: Quality Shadows with Shadow Distance 150 and four cascade splits.</em></p>
+
+<p><img src="../assets/ca-lightmapping-settings.png" alt="The Lightmapping Settings panel."></p>
+<p><em>VI: <strong>Lightmapping Settings</strong> — Lightmapper <strong>Progressive CPU</strong> · <strong>Direct Samples 32 · Indirect Samples 512 · Environment Samples 256</strong> · Max Bounces 2 · <strong>Lightmap Resolution 40 texels/unit</strong> · <strong>Max Lightmap Size 1024</strong> · Compress Lightmaps ✓. / EN: The Lightmapping Settings panel.</em></p>
+
+<p><img src="../assets/ca-lighting-generated-assets.png" alt="The assets generated by a lighting bake."></p>
+<p><em>VI: Asset SINH RA sau khi bake — <strong>LightingData · Lightmap-0_comp_dir · Lightmap-0_comp_light · Lightmap-0_comp_shadowmask · ReflectionProbe-0</strong>. Tất cả đều CHIẾM DUNG LƯỢNG build và bộ nhớ. / EN: The assets generated by a lighting bake.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>🚨 <em>"<strong>Sinh bóng real-time TIÊU TỐN MỘT LƯỢNG LỚN DRAW CALL và FILL RATE. Do đó, PHẢI cân nhắc KỸ các cài đặt khi dùng real-time shadow.</strong>"</em></p>
@@ -6807,6 +6941,15 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 </div>
 
 <h3 id="298-lod-texture-streaming">29.8. 🔭 LOD &amp; Texture Streaming<a class="headerlink" href="#298-lod-texture-streaming" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/ca-lod-group-settings.png" alt="An LOD Group with LOD 0/1/2 and Culled thresholds."></p>
+<p><em>VI: <strong>LOD Group</strong> — <strong>LOD 0: 100% → LOD 1: 25% → LOD 2: 14% → Culled: 5%</strong>, con trỏ ở <strong>34%</strong>. Cảnh báo: <em>"Active LOD bias is 2.0. Distances are adjusted accordingly."</em> / EN: An LOD Group with LOD 0/1/2 and Culled thresholds.</em></p>
+
+<p><img src="../assets/ca-quality-texture-streaming.png" alt="Quality Settings' Texture Streaming parameters."></p>
+<p><em>VI: <code>Quality &gt; Texture Streaming ✓</code> — <strong>Memory Budget 512</strong> · <strong>Renderers Per Frame 512</strong> · <strong>Max Level Reduction 2</strong> · <strong>Max IO Requests 1024</strong>. / EN: Quality Settings' Texture Streaming parameters.</em></p>
+
+<p><img src="../assets/ca-texture-streaming-mipmaps.png" alt="Per-texture Streaming Mipmaps and Mip Map Priority."></p>
+<p><em>VI: Trên TỪNG texture — <strong>Streaming Mipmaps ✓</strong> và <strong>Mip Map Priority 0</strong>. / EN: Per-texture Streaming Mipmaps and Mip Map Priority.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>🔭 <strong>Level of Detail:</strong> <em>"<strong>KHÔNG HIỆU QUẢ khi render các object XA CAMERA ở dạng ĐA GIÁC CAO, ĐỘ CHI TIẾT CAO.</strong> Phương pháp LOD dùng để <strong>GIẢM mức độ chi tiết của object TUỲ theo KHOẢNG CÁCH tới camera.</strong> Trong Unity, object được gán component <strong><code>LOD Group</code></strong>."</em></p>
@@ -6835,6 +6978,9 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 
 <hr />
 <h3 id="299-ui-chia-nho-canvas">29.9. 🖱️ UI — CHIA NHỎ Canvas<a class="headerlink" href="#299-ui-chia-nho-canvas" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/ca-canvas-render-mode.png" alt="A Canvas component in Screen Space - Overlay mode."></p>
+<p><em>VI: Component <strong>Canvas</strong> — <strong>Render Mode: Screen Space - Overlay</strong> · Pixel Perfect ✗ · Sort Order 0. / EN: A Canvas component in Screen Space - Overlay mode.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>💀 <em>"Trong uGUI, <strong>khi có THAY ĐỔI ở một phần tử trong Canvas, một tiến trình (REBUILD) chạy để DỰNG LẠI TOÀN BỘ UI MESH của Canvas. "Thay đổi" là BẤT KỲ thay đổi nào — như BẬT/TẮT active, DI CHUYỂN hay ĐỔI KÍCH THƯỚC — từ thay đổi LỚN về diện mạo tới thay đổi NHỎ mà thoạt nhìn KHÔNG THẤY RÕ.</strong>"</em></p>
@@ -6864,6 +7010,9 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 </div></p>
 </div>
 <h3 id="2910-unitywhite-tien-loi-nhung-ngat-batch">29.10. ⬜ UnityWhite — tiện lợi nhưng NGẮT BATCH<a class="headerlink" href="#2910-unitywhite-tien-loi-nhung-ngat-batch" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/ca-frame-debugger-unitywhite-props.png" alt="Frame Debugger ShaderProperties showing _BaseMap bound to UnityWhite."></p>
+<p><em>VI: <strong>ShaderProperties</strong> trong Frame Debugger — <code>_BaseMap</code> trỏ tới <strong><code>UnityWhite</code></strong>, còn <code>_MainLightShadowmapTexture</code> là <strong>TempBuffer 1 2048×2048</strong>. Đây là cách XÁC MINH một draw call có dùng UnityWhite hay không. / EN: Frame Debugger ShaderProperties showing _BaseMap bound to UnityWhite.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>🤍 <em>"Khi phát triển UI, ta thường muốn hiển thị <strong>object hình CHỮ NHẬT ĐƠN GIẢN</strong>. Đây là lúc <strong>UnityWhite</strong> phát huy tác dụng. <strong>UnityWhite là một texture TÍCH HỢP SẴN của Unity, được dùng khi component `Image` hoặc `RawImage` KHÔNG CHỈ ĐỊNH ảnh cần dùng.</strong> Bạn thấy UnityWhite được dùng thế nào trong <strong>Frame Debugger</strong>. Cơ chế này dùng để vẽ HÌNH CHỮ NHẬT TRẮNG, nên <strong>hiển thị kiểu chữ nhật đơn giản đạt được bằng cách KẾT HỢP nó với MÀU NHÂN.</strong>"</em></p>
@@ -6881,6 +7030,9 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 <p><em>VI: Bằng chứng trong <strong>Frame Debugger</strong> — tab <strong>ShaderProperties</strong> của một draw call UI cho thấy <strong>Textures → <code>_MainTex</code> = "UnityWhite"</strong> (ô texture TRẮNG TRƠN). 🔑 Chỉ cần THẤY tên này trong Frame Debugger là bạn biết batch UI ĐANG BỊ NGẮT ở đó. / EN: Seeing `_MainTex = UnityWhite` in the Frame Debugger is the tell-tale sign that a UI batch was broken.</em></p>
 
 <h3 id="2911-layout-component-raycast-target-masks">29.11. 📏 Layout component, Raycast Target &amp; Masks<a class="headerlink" href="#2911-layout-component-raycast-target-masks" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/ca-ui-raycast-target.png" alt="A UI Image with Raycast Target enabled by default."></p>
+<p><em>VI: Component <strong>Image</strong> — <strong>Raycast Target ✓</strong> là MẶC ĐỊNH; TẮT nó ở mọi ảnh KHÔNG cần nhận input. / EN: A UI Image with Raycast Target enabled by default.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>📏 <em>"uGUI cung cấp <strong>Layout component</strong> cho phép căn chỉnh object gọn gàng — ví dụ <strong><code>VerticalLayoutGroup</code></strong> cho căn dọc và <strong><code>GridLayoutGroup</code></strong> cho căn theo lưới."</em></p>
@@ -6959,6 +7111,9 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 <p>📌 <em>Giả định <code>label</code> là biến kiểu <code>TMP_Text</code> (hoặc kế thừa từ nó) và <code>number</code> là kiểu <code>float</code>.</em></p>
 </blockquote>
 <h3 id="2913-chuyen-oi-hien-thi-ui-bang-o-32379ms-vs-364ms">29.13. 🏆 CHUYỂN ĐỔI HIỂN THỊ UI — bảng đo 323.79ms vs 3.64ms<a class="headerlink" href="#2913-chuyen-oi-hien-thi-ui-bang-o-32379ms-vs-364ms" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/ca-canvasgroup-alpha.png" alt="A Canvas Group with Alpha set to 0."></p>
+<p><em>VI: <strong>Canvas Group</strong> với <strong>Alpha = 0</strong> — cách ẨN UI RẺ NHẤT: KHÔNG kích hoạt lại rebuild như <code>SetActive</code>. / EN: A Canvas Group with Alpha set to 0.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>💀 <em>"Các component uGUI có ĐẶC ĐIỂM là <strong>CHI PHÍ CAO của việc CHUYỂN ĐỔI ACTIVE của object bằng <code>SetActive</code>. Điều này là do <code>OnEnable</code> ĐẶT CỜ DIRTY cho các loại rebuild và thực hiện KHỞI TẠO liên quan tới MASK. Do đó, điều QUAN TRỌNG là cân nhắc các PHƯƠNG ÁN THAY THẾ cho <code>SetActive</code> khi chuyển đổi hiển thị UI.</strong>"</em></p>
@@ -11436,6 +11591,8 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
     
     
       <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../javascripts/tts-reader.js"></script>
       
     
   </body>

@@ -58,7 +58,9 @@ src/                              # docs_dir — nguồn Markdown
 ├── 03-senior/                    # Module 3
 ├── 04-tech-lead/                 # Module 4 & 5
 ├── assets/                       # ảnh local (.png)
-└── stylesheets/custom.css        # định nghĩa .bilingual-row / .col-vi / .col-en
+├── stylesheets/custom.css        # định nghĩa .bilingual-row / .col-vi / .col-en
+├── stylesheets/tts.css           # bảng điều khiển + highlight của trình đọc
+└── javascripts/tts-reader.js     # 🔊 trình đọc tiếng Việt (Web Speech API → TTS của OS)
 
 docs/                             # site_dir — HTML build ra, đẩy lên GitHub Pages
 _ebooks/                          # PDF gốc + bản .txt đã bóc tách (gitignored)
@@ -81,6 +83,23 @@ _ebooks/                          # PDF gốc + bản .txt đã bóc tách (giti
 - Cột VI **trước**, cột EN **sau** (khớp thứ tự trong `custom.css`).
 - Bên trong dùng HTML thô (`<p>`, `<ul>`, `<code>`) — **không** dùng cú pháp Markdown, vì `md_in_html` không xử lý trừ khi có `markdown="1"`.
 - Code block C# đặt **ngoài** `bilingual-row`, dùng fenced ```` ```csharp ```` để có syntax highlight + nút copy.
+
+### 🔊 Trình đọc tiếng Việt (`src/javascripts/tts-reader.js`)
+
+Dùng **Web Speech API** — API này gọi thẳng engine TTS của **hệ điều hành** (macOS/iOS `AVSpeechSynthesizer`, Windows SAPI/OneCore, Android `TextToSpeech`), nên **không** cần thư viện ngoài và **không** gửi dữ liệu ra mạng.
+
+Bộ gom nội dung chỉ lấy **tiếng Việt**, theo thứ tự tài liệu:
+
+| Lấy | Bỏ |
+|---|---|
+| `.col-vi` (mọi `<p>` / `<li>` bên trong) | `.col-en` |
+| `<h1>`–`<h4>` | `<pre>`, `<table>`, `<code>` |
+| `<p>`/`<li>` dạng `VI: … / EN: …` → chỉ vế VI | đoạn bắt đầu bằng `EN:` |
+| `**Tiêu đề VI / English title**` → chỉ vế VI | emoji (bị lọc trước khi đọc) |
+
+⚠️ **Hệ quả khi viết nội dung**: mọi câu tiếng Việt PHẢI nằm trong `.col-vi`, trong heading, hoặc theo đúng mẫu `VI: … / EN: …`. Đặt tiếng Việt ở nơi khác thì trình đọc sẽ bỏ qua hoặc đọc lẫn tiếng Anh.
+
+Kiểm thử bộ gom bằng jsdom (không cần trình duyệt) — xem `test-tts.js` / `test-play.js` trong scratchpad; điều kiện phải đạt: `chunk nằm trong col-en/pre/table = 0`.
 
 ### Ảnh
 
@@ -134,6 +153,9 @@ let d='';process.stdin.on('data',c=>d+=c).on('end',()=>console.log(convert(d,{wo
 | Ảnh trong bài blog Unity | Grep HTML: `grep -oE 'https?://[^"]+\.(png|jpg)' page.html`, lọc bỏ `logo|icon|favicon|avatar|sprite`, rồi tải từ `cdn.sanity.io` (KHÔNG qua `blog.unity.com/_next/image`) |
 | `pdfimages` xuất **hàng chục ảnh rác** (smask, icon) | Lọc theo dung lượng: xoá file `< 60 KB` rồi `ls -S` để duyệt các ảnh lớn nhất trước |
 | Anchor `#tên-mục` bị vỡ trong tiếng Việt | MkDocs **BỎ ký tự `đ`/`Đ`** khi slugify (`đ` → rỗng): `19. Shadow — Point Light tốn GẤP 6 LẦN` → `#19-shadow-point-light-ton-gap-6-lan`. **Luôn verify bằng script**: đối chiếu `href="#..."` trong `.md` với `id="..."` trong `docs/*.html` |
+| Trình đọc TTS đọc lẫn tiếng Anh | Câu tiếng Việt bị đặt NGOÀI `.col-vi` và không theo mẫu `VI: … / EN: …`. Chạy lại test jsdom, kiểm tra danh sách "NGHI tiếng Anh" |
+| Chrome tự tắt tiếng sau ~15 giây | Bug đã biết của Chrome/Edge. `tts-reader.js` xử lý bằng CẢ HAI: cắt câu ≤180 ký tự **và** nhịp `pause()`/`resume()` mỗi 10 s (bỏ qua trên Safari/iOS vì gây giật) |
+| Không thấy giọng tiếng Việt trong ô chọn | Giọng do HỆ ĐIỀU HÀNH cấp, không phải web. Phải cài gói giọng trong cài đặt máy — bảng điều khiển tự hiện hướng dẫn khi `getVoices()` rỗng |
 | Chèn phần mới vào GIỮA tài liệu làm **lệch số chương** | Tách file tại tiêu đề mốc, renumber phần đuôi bằng regex qua **token trung gian** (31→A→33) để tránh va chạm, rồi sửa các anchor trỏ tới phần đuôi |
 | Trích ảnh PDF ra **SAI trang** | E-book có **đánh số trang RIÊNG khác số trang PDF** (do trang bìa/mục lục). **Tính OFFSET trước**: tìm một hình đã biết trang sách → dò ra trang PDF. *(CyberAgent Bible: PDF = trang sách + 12)* |
 | Nhãn hiển thị `§NN` **lệch** so với anchor sau khi renumber | Anchor được sửa nhưng **chữ hiển thị thì không**. Viết script đối chiếu `href="#..."` với **số ở đầu tiêu đề trong HTML build**, rồi sửa nhãn theo tiêu đề thật |

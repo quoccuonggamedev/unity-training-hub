@@ -200,7 +200,7 @@ https://learn.unity.com/tutorial/profiling-applications-made-with-unity#5c7f8528
 +Dotween : Setting -> Preferences
 - Log behavior:  Error Only
 - Update type: late
-- Recycle tweens
+- Recycle tweens    
 
 
 

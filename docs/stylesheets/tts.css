@@ -1,0 +1,125 @@
+/* =============================================================================
+ * tts.css — giao diện trình đọc tiếng Việt (xem src/javascripts/tts-reader.js)
+ * ========================================================================== */
+
+:root {
+  --tts-accent: #7c4dff;
+  --tts-bg: rgba(255, 255, 255, .96);
+  --tts-fg: #37474f;
+  --tts-border: rgba(0, 0, 0, .12);
+  --tts-hl: rgba(124, 77, 255, .28);
+  --tts-hl-weak: rgba(124, 77, 255, .10);
+}
+
+[data-md-color-scheme="slate"] {
+  --tts-bg: rgba(32, 34, 48, .96);
+  --tts-fg: #e0e0e0;
+  --tts-border: rgba(255, 255, 255, .16);
+  --tts-hl: rgba(179, 136, 255, .34);
+  --tts-hl-weak: rgba(179, 136, 255, .12);
+}
+
+/* ------------------------------------------------------------- bảng điều khiển */
+.tts-panel {
+  position: fixed;
+  top: 3.4rem;
+  right: .8rem;
+  z-index: 12;
+  width: 13.6rem;
+  padding: .45rem;
+  border: 1px solid var(--tts-border);
+  border-radius: .5rem;
+  background: var(--tts-bg);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 .2rem .8rem rgba(0, 0, 0, .18);
+  font-size: .62rem;
+  color: var(--tts-fg);
+  transition: width .18s ease, padding .18s ease;
+}
+
+.tts-head { display: flex; }
+
+.tts-toggle {
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+  width: 100%;
+  padding: .1rem .15rem;
+  border: 0;
+  background: none;
+  color: var(--tts-accent);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tts-toggle svg { width: .95rem; height: .95rem; fill: currentColor; flex: 0 0 auto; }
+.tts-toggle span { white-space: nowrap; overflow: hidden; }
+
+.tts-panel.tts-collapsed { width: 2rem; padding: .35rem; }
+.tts-panel.tts-collapsed .tts-body,
+.tts-panel.tts-collapsed .tts-toggle span { display: none; }
+
+.tts-body { margin-top: .4rem; display: flex; flex-direction: column; gap: .35rem; }
+
+.tts-row { display: flex; gap: .25rem; }
+
+.tts-btn {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.7rem;
+  border: 1px solid var(--tts-border);
+  border-radius: .35rem;
+  background: transparent;
+  color: var(--tts-fg);
+  cursor: pointer;
+  transition: background .12s ease, color .12s ease;
+}
+
+.tts-btn svg { width: 1rem; height: 1rem; fill: currentColor; }
+.tts-btn:hover { background: var(--tts-hl-weak); color: var(--tts-accent); }
+
+.tts-btn.tts-main { flex: 1.5 1 0; background: var(--tts-accent); border-color: var(--tts-accent); color: #fff; }
+.tts-btn.tts-main:hover { filter: brightness(1.1); background: var(--tts-accent); color: #fff; }
+
+.tts-sel {
+  width: 100%;
+  padding: .2rem .25rem;
+  border: 1px solid var(--tts-border);
+  border-radius: .3rem;
+  background: transparent;
+  color: var(--tts-fg);
+  font: inherit;
+  font-size: .58rem;
+}
+
+.tts-pos { font-size: .55rem; opacity: .7; text-align: center; }
+.tts-warn { font-size: .52rem; line-height: 1.35; opacity: .72; }
+.tts-warn b { color: var(--tts-accent); }
+
+.tts-panel.tts-playing { border-color: var(--tts-accent); }
+
+/* -------------------------------------------------- đoạn đang được đọc ----- */
+.tts-active {
+  border-radius: .25rem;
+  box-shadow: -.25rem 0 0 0 var(--tts-accent);
+  /* lớp 1: thanh tiến độ chạy theo lời đọc — lớp 2: nền mờ của cả đoạn */
+  background-image:
+    linear-gradient(90deg, var(--tts-hl) 0, var(--tts-hl) var(--tts-progress, 0%), transparent var(--tts-progress, 0%)),
+    linear-gradient(var(--tts-hl-weak), var(--tts-hl-weak));
+  scroll-margin-top: 4rem;
+}
+
+.tts-chunk { cursor: default; }
+
+/* ------------------------------------------------------------- màn hình nhỏ */
+@media screen and (max-width: 76.1875em) {
+  .tts-panel { top: auto; bottom: .8rem; right: .8rem; }
+}
+
+@media print {
+  .tts-panel { display: none; }
+  .tts-active { background-image: none; box-shadow: none; }
+}

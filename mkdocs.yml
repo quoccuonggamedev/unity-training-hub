@@ -30,6 +30,10 @@ theme:
 
 extra_css:
   - stylesheets/custom.css
+  - stylesheets/tts.css
+
+extra_javascript:
+  - javascripts/tts-reader.js
 
 markdown_extensions:
   - pymdownx.highlight:
