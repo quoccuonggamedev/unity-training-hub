@@ -22,10 +22,18 @@ Góc **trên bên phải** mỗi trang có một thanh nhỏ **⏮ ▶ ⏭ ⚙**
 |---|---|
 | ⏮ / ⏭ | Lùi / tiến **một đoạn** (phím **←** / **→**) |
 | ▶ / ⏸ | Phát / tạm dừng (phím **Space**) |
-| ⚙ | Mở khay chọn **giọng**, **tốc độ** (0.8×–1.75×) và nút **Dừng** (phím **Esc**) |
+| ⚙ | Mở khay chọn **giọng**, **tốc độ** (0.9×–2×, mặc định **1.5×**) và nút **Dừng** (phím **Esc**) |
 | **Nháy đúp** vào một đoạn | Đọc **bắt đầu từ đúng đoạn đó** |
 
 Trình đọc **chỉ đọc cột tiếng Việt** — bỏ qua cột English, code block và bảng. Đoạn đang đọc được **tô sáng kèm thanh tiến độ chạy theo lời**, và trang **tự cuộn theo**.
+
+!!! tip "Nghe máy móc? Đổi GIỌNG là cách cải thiện lớn nhất — và miễn phí"
+    Chất lượng phát âm do **giọng của hệ điều hành** quyết định, không phải trang web. Giọng *compact* cài sẵn nghe rất máy móc; bản **nâng cao / neural** tự nhiên hơn hẳn và đều **tải miễn phí**:
+
+    - **macOS**: *Cài đặt hệ thống › Trợ năng › Nội dung nói › Giọng nói hệ thống › Quản lý giọng nói* → Tiếng Việt → chọn bản **"Nâng cao" (Enhanced/Premium)**, KHÔNG phải bản mặc định.
+    - **Chrome (mọi hệ)**: thường có sẵn **"Google Tiếng Việt"** — giọng mạng, tự nhiên hơn giọng hệ thống. Trình đọc **tự ưu tiên** giọng mạng nếu có.
+    - **Windows 11**: *Settings › Accessibility › Narrator › Add natural voices*.
+    - **Android**: *Cài đặt › Ngôn ngữ › Văn bản sang lời nói › Google TTS* → tải gói **Tiếng Việt**, bật *"Sử dụng giọng nói chất lượng cao"*.
 
 !!! tip "Chưa nghe thấy gì? Máy chưa có giọng tiếng Việt"
     - **macOS**: *Cài đặt hệ thống › Trợ năng › Nội dung nói › Giọng nói hệ thống › Quản lý giọng nói* → tải **Tiếng Việt**.

@@ -19,22 +19,25 @@
   if (!synth || !Utterance) return;         // trình duyệt không hỗ trợ
 
   var LS = 'uth-tts';
-  var MAX_LEN = 180;                        // cắt câu ngắn → tránh bug Chrome dừng ~15s
-  var isApple = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) ||
-                /iPad|iPhone|iPod/.test(navigator.userAgent);
-
+  // Độ dài tối đa MỘT utterance. Dài quá thì Chrome tự tắt tiếng sau ~15 s;
+  // ngắn quá thì nghe VẤP vì mỗi lần ngắt utterance là một khoảng lặng.
+  // ⇒ tính theo tốc độ đọc để mọi utterance đều rơi vào khoảng ~10 s.
+  function maxLen() { return Math.max(160, Math.min(320, Math.round(170 * (prefs.rate || 1)))); }
   var chunks = [];        // [{el, text}]
   var idx = -1;           // chunk đang đọc
   var queue = [];         // các câu của chunk hiện tại
   var qi = 0;
   var playing = false;
   var voices = [];
-  var prefs = { voiceURI: '', rate: 1 };
+  var prefs = { v: 2, voiceURI: '', rate: 1.5 };
   var charDone = 0, charTotal = 1, rafId = null, tStart = 0, gotBoundary = false;
-  var keepAlive = null;
 
   /* ---------------------------------------------------------------- prefs -- */
-  try { Object.assign(prefs, JSON.parse(localStorage.getItem(LS) || '{}')); } catch (e) {}
+  try {
+    var saved = JSON.parse(localStorage.getItem(LS) || '{}');
+    if (saved.v === 2) Object.assign(prefs, saved);       // bản cũ → lấy lại mặc định mới
+    else if (saved.voiceURI) prefs.voiceURI = saved.voiceURI;
+  } catch (e) {}
   function savePrefs() { try { localStorage.setItem(LS, JSON.stringify(prefs)); } catch (e) {} }
 
   /* ------------------------------------------------------- gom nội dung VI -- */
@@ -44,12 +47,18 @@
     return t
       .replace(/¶/g, ' ')                                   // permalink ¶
       .replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE00}-\u{FE0F}\u{1F1E6}-\u{1F1FF}]/gu, ' ')
+      .replace(/[\u25A0-\u25FF]/g, ' ')                     // ▲ ▼ ● ○ ■ □ …
       .replace(/✓/g, ' bật ').replace(/✗|✘/g, ' tắt ')
       .replace(/§\s*/g, ' mục ')                            // § → "mục"
-      .replace(/[→⇒➔]/g, ' , ')                   // → ⇒
-      .replace(/[—–]/g, ' , ')                         // — –
-      .replace(/·/g, ' , ')                                 // ·
+      .replace(/(\d)\s*×\s*(\d)/g, '$1 nhân $2')           // 1920×1080
       .replace(/µs/g, ' micro giây')
+      // các dấu phân cách → MỘT dấu phẩy DÍNH vào từ trước (đọc mượt hơn " , ")
+      .replace(/\s*[—–]\s*/g, ', ')
+      .replace(/\s*[·•]\s*/g, ', ')
+      .replace(/\s*[→⇒➔]\s*/g, ', ')
+      .replace(/\s*,(\s*,)+/g, ',')                         // gộp dấu phẩy trùng
+      .replace(/\s*,\s*([.!?;:])/g, '$1')                   // ", ." → "."
+      .replace(/^[\s,;:]+/, '')                              // bỏ dấu câu mở đầu
       .replace(/\s+/g, ' ')
       .trim();
   }
@@ -122,6 +131,9 @@
       var sa = SOUTH.some(function (k) { return (a.name || '').toLowerCase().indexOf(k) >= 0; });
       var sb = SOUTH.some(function (k) { return (b.name || '').toLowerCase().indexOf(k) >= 0; });
       if (sa !== sb) return sa ? -1 : 1;
+      // Giọng MẠNG (localService === false) thường là bản neural, nghe tự nhiên
+      // hơn hẳn giọng "compact" cài sẵn ⇒ để lên trước làm mặc định.
+      if (!!a.localService !== !!b.localService) return a.localService ? 1 : -1;
       return (a.name || '').localeCompare(b.name || '');
     });
     return voices;
@@ -135,14 +147,25 @@
 
   /* ------------------------------------------------------------ tách câu --- */
   function splitSentences(text) {
-    var parts = text.match(/[^.!?;:]+[.!?;:]*\s*/g) || [text];
+    var LIM = maxLen();
+    // Ngắt ở dấu KẾT CÂU thật sự. Dấu ; và : KHÔNG còn ngắt utterance —
+    // engine tự xử lý ngữ điệu ở đó, ngắt tay chỉ làm giọng bị vấp.
+    var parts = text.match(/[^.!?…]+[.!?…]*\s*/g) || [text];
     var out = [], buf = '';
+
+    function hardWrap(p) {                    // câu quá dài: ngắt ở ; rồi tới ,
+      var seg = p.split(/(?<=[;])\s+/);
+      seg.forEach(function (x) {
+        if (x.length <= LIM) { out.push(x.trim()); return; }
+        (x.match(new RegExp('[\\s\\S]{1,' + LIM + '}(,\\s|\\s|$)', 'g')) || [x])
+          .forEach(function (y) { if (y.trim()) out.push(y.trim()); });
+      });
+    }
+
     parts.forEach(function (p) {
-      if ((buf + p).length > MAX_LEN && buf) { out.push(buf.trim()); buf = ''; }
-      if (p.length > MAX_LEN) {                       // câu quá dài → cắt theo dấu phẩy
-        (p.match(new RegExp('[\\s\\S]{1,' + MAX_LEN + '}(,|\\s|$)', 'g')) || [p])
-          .forEach(function (s) { if (s.trim()) out.push(s.trim()); });
-      } else buf += p;
+      if (p.length > LIM) { if (buf.trim()) { out.push(buf.trim()); buf = ''; } hardWrap(p); return; }
+      if ((buf + p).length > LIM && buf.trim()) { out.push(buf.trim()); buf = ''; }
+      buf += p;
     });
     if (buf.trim()) out.push(buf.trim());
     return out.filter(Boolean);
@@ -175,79 +198,123 @@
   // Ước lượng tiến độ theo thời gian; nếu event `boundary` chạy thì nhường cho nó.
   function tickFallback() {
     if (!playing || gotBoundary) { rafId = null; return; }
-    var est = (charTotal / (12 * (prefs.rate || 1))) * 1000;      // ~12 ký tự/giây
+    var est = (charTotal / (13 * (prefs.rate || 1))) * 1000;      // ~13 ký tự/giây
     var pct = ((performance.now() - tStart) / est) * 100;
     setProgress(pct);
     rafId = requestAnimationFrame(tickFallback);
   }
 
   /* --------------------------------------------------------------- phát --- */
-  function speakSentence() {
-    if (qi >= queue.length) { next(true); return; }
-    var u = new Utterance(queue[qi]);
+  /* Bí quyết đọc MƯỢT: KHÔNG chờ utterance này kết thúc rồi mới speak() cái sau —
+     làm vậy là mỗi câu có một khoảng lặng. Thay vào đó ĐẨY CẢ ĐOẠN vào hàng đợi
+     của engine cùng lúc, và đẩy tiếp đoạn KẾ khi câu cuối của đoạn này BẮT ĐẦU đọc.
+     Nhờ vậy engine luôn có sẵn nội dung để nối, không bị hụt hơi giữa các đoạn. */
+
+  var queuedUpTo = -1;
+  var buffered = 0;          // số ký tự đang NẰM SẴN trong hàng đợi của engine
+  var BUFFER = 600;          // luôn giữ ~600 ký tự (~15 s) đã nạp trước
+
+  function makeUtterance(text, chunkIdx, off, isLast) {
+    var u = new Utterance(text);
     var v = currentVoice();
     if (v) { u.voice = v; u.lang = v.lang; } else { u.lang = 'vi-VN'; }
     u.rate = prefs.rate || 1;
     u.pitch = 1;
 
+    u.onstart = function () {
+      if (!playing) return;
+      if (idx !== chunkIdx) {                 // sang đoạn mới → chuyển highlight
+        idx = chunkIdx;
+        charTotal = chunks[idx].text.length || 1;
+        charDone = 0; gotBoundary = false; tStart = performance.now();
+        highlight(idx); render();
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(tickFallback);
+      }
+      fillQueue();                            // luôn giữ đủ nội dung nạp trước
+    };
     u.onboundary = function (e) {
-      if (typeof e.charIndex !== 'number') return;
+      if (typeof e.charIndex !== 'number' || idx !== chunkIdx) return;
       gotBoundary = true;
-      setProgress(((charDone + e.charIndex) / charTotal) * 100);
+      setProgress(((off + e.charIndex) / charTotal) * 100);
     };
     u.onend = function () {
+      buffered -= text.length;
       if (!playing) return;
-      charDone += queue[qi].length + 1;
-      qi++;
-      setProgress((charDone / charTotal) * 100);
-      speakSentence();
+      if (idx === chunkIdx) {
+        charDone = off + text.length;
+        setProgress((charDone / charTotal) * 100);
+      }
+      if (isLast && chunkIdx >= chunks.length - 1) stop();   // hết tài liệu
+      else fillQueue();
     };
     u.onerror = function (e) {
+      buffered -= text.length;
       if (e && (e.error === 'interrupted' || e.error === 'canceled')) return;
-      if (!playing) return;
-      charDone += queue[qi].length + 1; qi++; speakSentence();
+      if (playing) fillQueue();
     };
-    synth.speak(u);
+    return u;
+  }
+
+  function queueChunk(i) {
+    if (i <= queuedUpTo || i < 0 || i >= chunks.length) return;
+    queuedUpTo = i;
+    var sents = splitSentences(chunks[i].text);
+    var off = 0;
+    sents.forEach(function (t, k) {
+      synth.speak(makeUtterance(t, i, off, k === sents.length - 1));
+      buffered += t.length;
+      off += t.length + 1;
+    });
+  }
+
+  // Nạp trước nhiều ĐOẠN cho tới khi đủ BUFFER ký tự. Đây là thứ khử tiếng vấp
+  // ở các danh sách gạch đầu dòng ngắn — mỗi mục chỉ vài chữ nên nếu chỉ nạp
+  // từng đoạn một thì engine hụt nội dung liên tục.
+  function fillQueue() {
+    var guard = 0;
+    while (playing && buffered < BUFFER && queuedUpTo + 1 < chunks.length && guard++ < 40) {
+      queueChunk(queuedUpTo + 1);
+    }
   }
 
   function playChunk(i) {
     if (i < 0 || i >= chunks.length) { stop(); return; }
     synth.cancel();
-    idx = i;
-    queue = splitSentences(chunks[i].text);
-    qi = 0; charDone = 0; charTotal = chunks[i].text.length || 1;
+    queuedUpTo = i - 1;
+    idx = -1;                                  // để onstart kích hoạt highlight
+    charDone = 0; charTotal = chunks[i].text.length || 1;
     gotBoundary = false; tStart = performance.now();
-    playing = true;
-    highlight(i);
-    render();
+    playing = true; buffered = 0;
+    idx = i; highlight(i); render();
+    idx = -1;
     if (rafId) cancelAnimationFrame(rafId);
     rafId = requestAnimationFrame(tickFallback);
-    speakSentence();
+    fillQueue();
   }
 
   function play() {
     if (!chunks.length) build();
     if (!voices.length) loadVoices();
-    if (synth.paused && idx >= 0) { synth.resume(); playing = true; startKeepAlive(); render(); return; }
+    if (synth.paused && idx >= 0) { synth.resume(); playing = true; render(); return; }
     playChunk(idx >= 0 ? idx : nearestChunkToViewport());
-    startKeepAlive();
   }
 
   function pause() {
     playing = false;
     try { synth.pause(); } catch (e) { synth.cancel(); }
-    stopKeepAlive();
     if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
     render();
   }
 
   function stop() {
-    playing = false; synth.cancel(); stopKeepAlive(); clearHighlight(); render();
+    playing = false; queuedUpTo = -1; idx = -1; buffered = 0;
+    synth.cancel(); clearHighlight(); render();
   }
 
   function next(auto) {
-    if (idx + 1 >= chunks.length) { stop(); idx = -1; return; }
-    if (playing || !auto) playChunk(idx + 1); else { idx++; highlight(idx); }
+    if (idx + 1 >= chunks.length) { stop(); return; }
+    playChunk(idx + 1);
   }
 
   function prev() {
@@ -261,15 +328,6 @@
     }
     return 0;
   }
-
-  /* Chrome/Edge cắt tiếng sau ~15 s — nhịp pause/resume giữ cho engine sống. */
-  function startKeepAlive() {
-    if (isApple || keepAlive) return;
-    keepAlive = setInterval(function () {
-      if (playing && synth.speaking && !synth.paused) { synth.pause(); synth.resume(); }
-    }, 10000);
-  }
-  function stopKeepAlive() { if (keepAlive) { clearInterval(keepAlive); keepAlive = null; } }
 
   /* ---------------------------------------------------------------- UI ----- */
   var panel, btnPlay, selVoice, selRate, lblPos, warn;
@@ -321,7 +379,7 @@
     pop.appendChild(selVoice);
 
     selRate = el('select', 'tts-sel');
-    [['0.8', '0.8×'], ['0.9', '0.9×'], ['1', '1×'], ['1.15', '1.15×'], ['1.3', '1.3×'], ['1.5', '1.5×'], ['1.75', '1.75×']]
+    [['0.9', '0.9×'], ['1', '1×'], ['1.2', '1.2×'], ['1.35', '1.35×'], ['1.5', '1.5× (mặc định)'], ['1.7', '1.7×'], ['2', '2×']]
       .forEach(function (o) {
         var op = el('option', null, o[1]); op.value = o[0];
         if (parseFloat(o[0]) === parseFloat(prefs.rate)) op.selected = true;
@@ -360,7 +418,7 @@
     }
     selVoice.disabled = false;
     voices.forEach(function (v) {
-      var op = el('option', null, v.name + (v.localService ? '' : ' (mạng)'));
+      var op = el('option', null, v.name + (v.localService ? '' : ' · mạng'));
       op.value = v.voiceURI;
       if (v.voiceURI === prefs.voiceURI) op.selected = true;
       selVoice.appendChild(op);

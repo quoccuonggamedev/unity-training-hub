@@ -33,8 +33,8 @@
 .tts-bar {
   display: flex;
   align-items: center;
-  gap: .05rem;
-  padding: .1rem;
+  gap: .08rem;
+  padding: .15rem;
   border: 1px solid var(--tts-border);
   border-radius: 999px;
   background: var(--tts-bg);
@@ -46,8 +46,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 1.3rem;
-  height: 1.3rem;
+  width: 1.95rem;
+  height: 1.95rem;
   padding: 0;
   border: 0;
   border-radius: 50%;
@@ -58,11 +58,11 @@
   transition: opacity .12s ease, background .12s ease, color .12s ease;
 }
 
-.tts-btn svg { width: .8rem; height: .8rem; fill: currentColor; }
+.tts-btn svg { width: 1.2rem; height: 1.2rem; fill: currentColor; }
 .tts-btn:hover { opacity: 1; color: var(--tts-accent); background: var(--tts-hl-weak); }
 
 .tts-btn.tts-main { color: var(--tts-accent); opacity: 1; }
-.tts-btn.tts-gear svg { width: .72rem; height: .72rem; }
+.tts-btn.tts-gear svg { width: 1.08rem; height: 1.08rem; }
 
 .tts-panel.tts-playing .tts-main { background: var(--tts-accent); color: #fff; }
 
@@ -72,7 +72,7 @@
   position: absolute;
   top: calc(100% + .25rem);
   right: 0;
-  width: 10.5rem;
+  width: 11.5rem;
   padding: .35rem;
   border: 1px solid var(--tts-border);
   border-radius: .4rem;
