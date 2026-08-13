@@ -9,7 +9,8 @@
 
     - 🚨 [**Fixing Unity ANRs with Sentry** — blog.sentry.io (case study **Amanotes**)](https://blog.sentry.io/fixing-unity-anrs-with-sentry-amanotes/) — *Deadlock Main Thread*
     - 📗 **Unity Gamedev Field Guide** (79 tr.) — ch. *Version control*, *Project organization*
-    - 📘 [**Version control & project organization best practices**](https://resources.unity.com/games/version-control-project-organization-best-practices-ebook) · [**70+ tips to increase productivity with Unity LTS**](https://create.unity3d.com/ebook-improve-workflow)
+    - 📘 [**Version Control and Project Organization Best Practice Guide** — **52 trang**](https://cdn.bfldr.com/S5BC9Y64/at/pr233rvht6m6rwxpp8kjkn8/2022_ABMVersionControlandProjectOrganizationinUnity_EBook_Final.pdf) *(tìm được link PDF bằng cách grep landing page)*
+    - 📗 [**70+ tips to increase productivity with Unity 2020 LTS** — **62 trang**](https://create.unity3d.com/ebook-improve-workflow)
     - 📕 **Optimize Your Mobile Game Performance** — ch. *Project configuration* (tr.22–23), *Workflow and collaboration* (tr.48–49)
 
     🎯 **Vị trí của Module này:** bốn Module trước dạy **KỸ THUẬT** tối ưu. Module 5 dạy **QUY TRÌNH** — *"Performance tuning is an area where past know-how can be utilized… the WORKFLOW of performance tuning can be MOLDED."* Nó cũng bổ sung **tầng phần cứng (SoC/CPU/GPU/Memory/Storage)** và **các kỹ thuật C# nâng cao** mà các Module trước chưa chạm tới.
@@ -1015,7 +1016,7 @@ public class PerformanceOverlay : MonoBehaviour
     <p><em>"Việc một chương trình có dùng hết được nhiều nhân hay không <strong>cũng phụ thuộc vào MÔ TẢ XỬ LÝ SONG SONG của chương trình.</strong> Ví dụ, có trường hợp game engine đã <strong>tinh gọn physics engine bằng cách chạy nó trên MỘT THREAD RIÊNG</strong>, hoặc xử lý song song được tận dụng qua <strong>JobSystem của Unity</strong>.</em></p>
     <p><em>🔑 <strong>Vì BẢN THÂN vòng lặp chính của game KHÔNG THỂ song song hoá, nên hiệu năng CAO HƠN của BẢN THÂN NHÂN mới là LỢI THẾ, KỂ CẢ khi có nhiều nhân. Do đó, có một nhân HIỆU NĂNG CAO là LỢI THẾ, ngay cả với CPU đa nhân.</strong>"</em></p>
     </blockquote>
-    <p>👉 <em>Hệ quả thực chiến: khi chọn thiết bị "bảo đảm" ở <a href="#13-quyet-inh-thiet-bi-bao-am-hoat-ong">§1.3</a>, <strong>ĐỪNG so sánh theo số nhân — hãy so theo điểm SINGLE-CORE.</strong></em></p>
+    <p>👉 <em>Hệ quả thực chiến: khi chọn thiết bị "bảo đảm" ở <a href="#13-quyet-inh-3-thiet-bi-bao-am-hoat-ong">§1.3</a>, <strong>ĐỪNG so sánh theo số nhân — hãy so theo điểm SINGLE-CORE.</strong></em></p>
     </div>
     <div class="col-en">
     <blockquote>
@@ -1028,7 +1029,7 @@ public class PerformanceOverlay : MonoBehaviour
     <p><em>"Whether a program can use up multiple cores <strong>ALSO depends on the PARALLEL PROCESSING DESCRIPTION of the program.</strong> For example, there are cases where the game engine has <strong>streamlined the physics engine by running it in a SEPARATE THREAD</strong>, or parallel processing is utilized through <strong>Unity's JobSystem</strong>.</em></p>
     <p><em>🔑 <strong>Since the operation of the game's MAIN LOOP ITSELF CANNOT be parallelized, the HIGHER PERFORMANCE OF THE CORE ITSELF is advantageous EVEN WITH multiple cores. Therefore, it is ADVANTAGEOUS to have a HIGH-PERFORMANCE CORE itself, even if it is multi-core.</strong>"</em></p>
     </blockquote>
-    <p>👉 <em>The practical consequence: when choosing your "guaranteed" device in <a href="#13-quyet-inh-thiet-bi-bao-am-hoat-ong">§1.3</a>, <strong>do NOT compare by core count — compare by SINGLE-CORE score.</strong></em></p>
+    <p>👉 <em>The practical consequence: when choosing your "guaranteed" device in <a href="#13-quyet-inh-3-thiet-bi-bao-am-hoat-ong">§1.3</a>, <strong>do NOT compare by core count — compare by SINGLE-CORE score.</strong></em></p>
     </div>
     </div>
 
@@ -1206,7 +1207,7 @@ public class PerformanceOverlay : MonoBehaviour
     <p><em>"Trong một số trường hợp như iOS, <strong>nó được KIỂM SOÁT sao cho KHÔNG QUÁ MỘT TỶ LỆ NHẤT ĐỊNH của bộ nhớ vật lý được dùng bởi MỘT tiến trình. Do đó, CÓ GIỚI HẠN cho lượng bộ nhớ có thể cấp phát.</strong></em></p>
     <p><em>📊 <strong>Tính tới 2022, giới hạn cho thiết bị iOS có 3 GB RAM (dung lượng RAM phổ biến) sẽ là 1.3–1.4 GB, nên đây có lẽ là NGƯỠNG TRÊN khi làm game.</strong>"</em></p>
     </blockquote>
-    <p>👉 <em>Con số này KHỚP CHÍNH XÁC với kết quả đo thực nghiệm ở <a href="#12-quyet-inh-biet-nguong-crash-bo-nho-cua-thiet-bi">§1.2</a> — <strong>1.3 GB</strong>. Hai nguồn độc lập, cùng một con số.</em></p>
+    <p>👉 <em>Con số này KHỚP CHÍNH XÁC với kết quả đo thực nghiệm ở <a href="#12-quyet-inh-2-biet-nguong-crash-bo-nho-cua-thiet-bi">§1.2</a> — <strong>1.3 GB</strong>. Hai nguồn độc lập, cùng một con số.</em></p>
     </div>
     <div class="col-en">
     <blockquote>
@@ -1221,7 +1222,7 @@ public class PerformanceOverlay : MonoBehaviour
     <p><em>"In some cases, such as iOS, <strong>it is CONTROLLED so that NO MORE THAN a CERTAIN PERCENTAGE of the physical memory can be used by a SINGLE process. Therefore, there is a LIMIT to the amount of memory that can be allocated.</strong></em></p>
     <p><em>📊 <strong>As of 2022, the limit for an iOS device with 3 GB of RAM, which is a major RAM capacity, will be 1.3–1.4 GB, so this is likely to be the UPPER LIMIT for creating games.</strong>"</em></p>
     </blockquote>
-    <p>👉 <em>This number MATCHES the empirical measurement in <a href="#12-quyet-inh-biet-nguong-crash-bo-nho-cua-thiet-bi">§1.2</a> EXACTLY — <strong>1.3 GB</strong>. Two independent sources, the same number.</em></p>
+    <p>👉 <em>This number MATCHES the empirical measurement in <a href="#12-quyet-inh-2-biet-nguong-crash-bo-nho-cua-thiet-bi">§1.2</a> EXACTLY — <strong>1.3 GB</strong>. Two independent sources, the same number.</em></p>
     </div>
     </div>
 
@@ -2454,5 +2455,6747 @@ private void HogeMethod(ref MyClass myClass)
 </div>
 <div class="col-en">
 <p>🎯 <em>"Of course, <strong>it is POSSIBLE to implement the same process using ONLY <code>List&lt;T&gt;</code> (an array), but by SELECTING a MORE SUITABLE collection class, it is possible to OPTIMIZE the amount of computation.</strong> <strong>By SIMPLY implementing methods with an AWARENESS of the amount of computation, HEAVY PROCESSING can be AVOIDED.</strong>"</em></p>
+</div>
+</div>
+---
+
+# PHẦN C — CÔNG CỤ PROFILING & THỰC HÀNH TUNING (Chương 3–8)
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🎯 <strong>Chương 3 mở đầu bằng một câu định vị toàn bộ Phần C:</strong></p>
+<blockquote>
+<p><em>"Công cụ profiling được dùng để <strong>THU THẬP và PHÂN TÍCH dữ liệu, XÁC ĐỊNH bottleneck, và QUYẾT ĐỊNH các chỉ số hiệu năng</strong>. Có vài công cụ như vậy do <strong>riêng engine Unity</strong> cung cấp. Các công cụ khác gồm <strong>công cụ native như Xcode và Android Studio</strong>, và <strong>công cụ chuyên GPU như RenderDoc</strong>. Do đó, <strong>điều QUAN TRỌNG là HIỂU đặc tính của TỪNG công cụ và CHỌN cho phù hợp.</strong>"</em></p>
+</blockquote>
+</div>
+<div class="col-en">
+<p>🎯 <strong>Chapter 3 opens with the sentence that frames all of Part C:</strong></p>
+<blockquote>
+<p><em>"Profiling tools are used to <strong>collect and analyze data, identify bottlenecks, and determine performance metrics</strong>. There are several of these tools provided by <strong>the Unity engine alone</strong>. Other tools include <strong>native-compliant tools such as Xcode and Android Studio</strong>, and <strong>GPU-specific tools such as RenderDoc</strong>. Therefore, <strong>it is important to understand the features of each tool and choose appropriately.</strong>"</em></p>
+</blockquote>
+</div>
+</div>
+
+---
+
+## 18. 🧭 Nguyên tắc ĐO — Editor hay Thiết bị THẬT?
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🔑 <strong>Unity chạy được cả trên editor lẫn device, nên phải hiểu đặc tính của TỪNG môi trường trước khi tin vào con số.</strong></p>
+<p>✅ <em>"Ưu điểm LỚN NHẤT của việc dùng editor là nó cho phép <strong>thử–sai NHANH</strong>."</em></p>
+<p>⚠️ <em>"Tuy nhiên, vì <strong>tải xử lý của BẢN THÂN editor và vùng nhớ mà editor dùng CŨNG bị đo</strong>, nên sẽ có <strong>RẤT NHIỀU NHIỄU</strong> trong kết quả đo. Ngoài ra, vì <strong>cấu hình HOÀN TOÀN KHÁC</strong> so với thiết bị thật, nên <strong>KHÓ xác định bottleneck và kết quả có thể KHÁC.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🔑 <strong>Unity runs on both editor and device, so you must know each environment's characteristics before trusting the numbers.</strong></p>
+<p>✅ <em>"The greatest advantage of using the editor is that it allows for <strong>quick trial and error</strong>."</em></p>
+<p>⚠️ <em>"However, since <strong>the processing load of the editor itself and the memory area used by the editor are ALSO measured</strong>, there will be <strong>a lot of NOISE</strong> in the measurement results. Also, since the <strong>specifications are COMPLETELY DIFFERENT</strong> from those of the actual equipment, <strong>it is difficult to identify bottlenecks and the results may differ.</strong>"</em></p>
+</div>
+</div>
+
+!!! success "✅ QUY TRÌNH 3 BƯỚC do CyberAgent khuyến nghị"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p>1️⃣ <strong>XÁC NHẬN hiện tượng TRÊN THIẾT BỊ THẬT trước.</strong><br>
+    2️⃣ <strong>XÁC NHẬN vấn đề TÁI HIỆN được trong editor</strong>, rồi <strong>SỬA trong editor</strong> (rẻ hơn nhiều).<br>
+    3️⃣ <strong>Cuối cùng, LUÔN kiểm tra bản sửa TRÊN THIẾT BỊ THẬT.</strong></p>
+    <p>🚨 <em>"Đa số trường hợp vấn đề tái hiện ở CẢ HAI môi trường, nhưng <strong>trong vài trường hợp HIẾM, nó chỉ tái hiện ở MỘT trong hai.</strong>"</em></p>
+    </div>
+    <div class="col-en">
+    <p>1️⃣ <strong>First confirm the phenomenon on the ACTUAL DEVICE.</strong><br>
+    2️⃣ <strong>Next, confirm the problem reproduces in the editor</strong>, then <strong>correct it in the editor</strong> (much cheaper).<br>
+    3️⃣ <strong>Of course, be sure to check the correction on the actual device at the end.</strong></p>
+    <p>🚨 <em>"Most of the time the problem is reproduced in both environments, but <strong>in RARE cases it may only be reproduced in ONE of the environments.</strong>"</em></p>
+    </div>
+    </div>
+
+---
+
+## 19. 📊 Unity Profiler — Từ kết nối tới đọc số
+
+👉 *Xem thêm [Module 1 — Ultimate Guide to Profiling](../01-fresher/01-ultimate-guide-to-profiling.md) để nắm phần cơ bản; mục này bổ sung góc nhìn thực chiến của CyberAgent.*
+
+### 19.1. Danh sách Profiler Module — 14 module ở Unity 2020
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><em>"Unity Profiler là công cụ profiling <strong>tích hợp SẴN trong Unity Editor</strong>. Công cụ này thu thập thông tin <strong>theo TỪNG FRAME</strong>. Có rất nhiều mục đo được, mỗi mục gọi là một <strong>profiler module</strong>, và ở bản <strong>Unity 2020 có 14 module</strong>. Module này vẫn đang được cập nhật, và ở <strong>Unity 2021.2 đã thêm module mới về Asset và về File I/O.</strong>"</em></p>
+<p>🚨 <strong>Bẫy quan trọng:</strong> <em>"Các module này có thể được cấu hình HIỂN THỊ hay KHÔNG trên profiler. <strong>Tuy nhiên, module KHÔNG hiển thị thì KHÔNG được đo. Ngược lại, nếu bật HẾT tất cả, editor sẽ bị QUÁ TẢI.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p><em>"The Unity Profiler is a profiling tool <strong>built into the Unity Editor</strong>. This tool can collect information <strong>on a frame-by-frame basis</strong>. There is a wide range of items that can be measured, each called a <strong>profiler module</strong>, and in the <strong>Unity 2020 version there are 14 of them</strong>. This module is still being updated, and in <strong>Unity 2021.2, a new module on Asset and a new module on File I/O have been added.</strong>"</em></p>
+<p>🚨 <strong>Key trap:</strong> <em>"These modules can be configured to be displayed or not on the profiler. <strong>However, modules that are not displayed are not measured. Conversely, if all of them are displayed, the editor will be overloaded.</strong>"</em></p>
+</div>
+</div>
+
+<img src="../assets/ca-profiler-modules-list.png" alt="Danh sách Profiler Modules của Unity">
+
+<p><em>VI: Bảng toàn bộ Profiler Module — CPU Usage, GPU Usage, Rendering (SetPass & Batching), Memory, Audio, Video, Physics, Physics2D, Network Messages/Operations (deprecated), UI, UI Details (số batch & vertex của UI), Global Illumination, Virtual Texturing, và hai module mới từ 2021.2: Asset Loading + File Access. / EN: The full Profiler Module table — including the two modules added in 2021.2: Asset Loading (texture/mesh load timing & size) and File Access (time spent on I/O).</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🧰 <strong>Hai chức năng dùng chung của toàn bộ Profiler:</strong></p>
+<p>① <em>"Mục <strong>'Profiler Modules'</strong> liệt kê các item mà mỗi module đang đo. <strong>Bấm vào item để BẬT/TẮT hiển thị trên timeline bên phải. Chỉ hiện item CẦN THIẾT sẽ giúp DỄ ĐỌC hơn. Bạn cũng có thể KÉO THẢ để ĐỔI THỨ TỰ item</strong>, và đồ thị bên phải sẽ hiển thị theo thứ tự đó."</em></p>
+<p>② <em>"Chức năng <strong>LƯU và NẠP dữ liệu đã đo</strong>. Khuyến nghị lưu lại kết quả đo nếu cần. <strong>CHỈ dữ liệu đang HIỂN THỊ trên profiler mới được lưu.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🧰 <strong>Two functions common to the entire Profiler tool:</strong></p>
+<p>① <em>"In the <strong>'Profiler Modules'</strong> section, ① lists the items that each module is measuring. <strong>By clicking on this item, you can switch between display and non-display on the timeline on the right. Displaying only the necessary items will make the view easier to read. You can also reorder the items by dragging them</strong>, and the graph on the right side will be displayed in that order."</em></p>
+<p>② <em>"A function for <strong>saving and loading the measured data</strong>. It is recommended to save the measurement results if necessary. <strong>Only the data displayed on the profiler can be saved.</strong>"</em></p>
+</div>
+</div>
+
+### 19.2. Việc phải làm TRƯỚC khi build — Development Build & Deep Profile
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>✅ <em>"Việc phải làm trước khi build là <strong>BẬT setting 'Development Build'. Một khi bật, kết nối tới profiler mới có thể thiết lập được.</strong>"</em></p>
+<p>🔬 <em>"Ta cũng cần bật tuỳ chọn <strong>Deep Profile</strong> để đo CHI TIẾT hơn. <strong>Khi bật, thời gian xử lý của TẤT CẢ lời gọi hàm được ghi lại, giúp DỄ xác định hàm bottleneck.</strong>"</em></p>
+<p>💀 <em>"Nhược điểm là <strong>bản thân việc đo đòi hỏi OVERHEAD RẤT LỚN, khiến nó CHẬM và TỐN BỘ NHỚ. Lưu ý rằng tiến trình có thể TRÔNG như tốn RẤT LÂU, nhưng ở profile thường thì KHÔNG đến vậy.</strong> Về cơ bản, nó <strong>CHỈ dùng khi profile thường KHÔNG cung cấp đủ thông tin.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>✅ <em>"The work to be done before building is to enable the <strong>'Development Build' setting. Once this is activated, a connection to the profiler can be established.</strong>"</em></p>
+<p>🔬 <em>"Also, we will need to enable the <strong>Deep Profile</strong> option for more detailed measurement. <strong>When this option is enabled, the processing time of ALL function calls is recorded, making it easier to identify bottleneck functions.</strong>"</em></p>
+<p>💀 <em>"The disadvantage is that <strong>the measurement itself requires a VERY LARGE overhead, making it slow and memory intensive. Note that the process may APPEAR to take a very long time, but not so much in the normal profile.</strong> Basically, it is <strong>used only when the normal profile does not provide enough information.</strong>"</em></p>
+</div>
+</div>
+
+!!! danger "💀 Deep Profile có thể KHÔNG ĐO ĐƯỢC ở project lớn"
+    **VI:** *"Nếu Deep Profile dùng NHIỀU bộ nhớ, ví dụ trong một project LỚN, có thể **KHÔNG THỂ đo được do THIẾU bộ nhớ. Trong trường hợp đó, bạn KHÔNG CÒN LỰA CHỌN nào ngoài việc TỰ THÊM tiến trình đo của riêng mình** — tham chiếu mục Sampler ở §19.5."*
+
+    **EN:** *"If Deep Profile uses a lot of memory, such as in a large project, it may **not be possible to make measurements due to insufficient memory. In that case, you have no choice but to add your own measurement process** by referring to 'Supplement: About Sampler'."*
+
+**Cấu hình từ SCRIPT (List 3.1):**
+
+```csharp
+BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
+/* Scene and build target settings are omitted. */
+
+buildPlayerOptions.options |= BuildOptions.Development;
+// Add only if you want to enable Deep Profile mode
+buildPlayerOptions.options |= BuildOptions.EnableDeepProfilingSupport;
+
+BuildReport report = BuildPipeline.BuildPlayer(buildPlayerOptions);
+```
+
+### 19.3. Việc phải làm SAU khi app khởi động — Wired connection
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🔌 <em>"Có hai cách kết nối với Unity Profiler sau khi app khởi động: <strong>'Remote Connection' và 'Wired (USB) Connection'</strong>. <strong>Remote connection có NHIỀU HẠN CHẾ MÔI TRƯỜNG hơn wired, và profile có thể KHÔNG chạy như mong đợi.</strong> Ví dụ: có thể phải cùng mạng Wifi, <strong>riêng Android có thể phải TẮT kết nối di động</strong>, và có thể phải giải phóng port khác."</em></p>
+<p>🎯 <strong>Vì vậy sách tập trung vào WIRED — "đơn giản và ĐÁNG TIN CẬY hơn để profile".</strong></p>
+</div>
+<div class="col-en">
+<p>🔌 <em>"There are two ways to connect with Unity Profiler after application startup: <strong>'Remote Connection' and 'Wired (USB) Connection'</strong>. <strong>The remote connection has MORE ENVIRONMENTAL RESTRICTIONS than the wired connection, and the profile may NOT work as expected.</strong> For example, connection to the same Wifi network may be required, <strong>mobile communication may need to be disabled for Android only</strong>, and other ports may need to be freed."</em></p>
+<p>🎯 <strong>So the book focuses on wired connections, "which are simpler and more reliable to profile".</strong></p>
+</div>
+</div>
+
+| Bước | 🍎 **iOS** | 🤖 **Android** |
+|---|---|---|
+| 1 | Đổi Target Platform → **iOS** trong Build Settings | Đổi Target Platform → **Android** |
+| 2 | Cắm máy vào PC & chạy app **Development Build** | Cắm máy vào PC & chạy app **Development Build** |
+| 3 | Chọn thiết bị trong Unity Profiler | ⚠️ **Gõ lệnh `adb forward`** (bước THÊM so với iOS) |
+| 4 | **Start Record** | Chọn thiết bị trong Unity Profiler |
+| 5 | — | **Start Record** |
+
+**Lệnh `adb forward` (List 3.2) — cần Package Name, ví dụ `jp.co.sample.app`:**
+
+```bash
+adb forward tcp:34999 localabstract:Unity-jp.co.sample.app
+```
+
+!!! tip "🧰 Checklist khi KHÔNG kết nối được"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p><strong>Chung cho cả hai:</strong> có dấu <strong>"Development Build"</strong> ở góc dưới bên PHẢI của app đang chạy không?</p>
+    <p><strong>Riêng Android:</strong> ⓐ <strong>USB debugging</strong> đã bật trên máy chưa? ⓑ package name trong lệnh <code>adb forward</code> có ĐÚNG không? ⓒ lệnh <code>adb devices</code> có nhận đúng máy không?</p>
+    <p>💡 <em>"Nếu bạn chạy app trực tiếp bằng <strong>Build And Run</strong>, lệnh <code>adb forward</code> nói trên sẽ được thực hiện NGẦM BÊN TRONG. Do đó KHÔNG cần gõ lệnh."</em></p>
+    <p>💡 <em>"Unity Editor dùng để đo <strong>KHÔNG NHẤT THIẾT phải là project bạn đã build</strong>. Khuyến nghị <strong>tạo project MỚI để đo, vì nó NHẸ.</strong>"</em></p>
+    </div>
+    <div class="col-en">
+    <p><strong>Common to both devices:</strong> Is there a <strong>"Development Build"</strong> sign in the lower right corner of the executed application?</p>
+    <p><strong>Android only:</strong> ⓐ Is <strong>USB debugging</strong> enabled on the device? ⓑ Is the package name entered in the <code>adb forward</code> command correct? ⓒ Is the device properly recognized by <code>adb devices</code>?</p>
+    <p>💡 <em>"If you run the application directly in <strong>Build And Run</strong>, the <code>adb forward</code> command described above will be performed INTERNALLY. Therefore, no command input is required."</em></p>
+    <p>💡 <em>"The Unity Editor for measurement <strong>does NOT have to be the project you built</strong>. It is recommended to <strong>create a NEW project for the measurement, as it is lightweight.</strong>"</em></p>
+    </div>
+    </div>
+
+!!! warning "⚠️ Autoconnect Profiler — cái tên GÂY HIỂU LẦM"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p><em>"Đây là chức năng <strong>tự động kết nối tới profiler của editor khi app khởi động. Do đó nó KHÔNG PHẢI setting BẮT BUỘC để profiling.</strong> Điều này cũng đúng với remote profiling. <strong>CHỈ WebGL là không profile được nếu thiếu option này</strong>, nhưng nó không phải option hữu ích lắm cho mobile."</em></p>
+    <p>💀 <em>"Đi sâu hơn: nếu option này BẬT, <strong>địa chỉ IP của editor sẽ được GHI VÀO BINARY lúc build</strong>, và app sẽ thử kết nối tới địa chỉ đó lúc khởi động. Nếu bạn build trên <strong>máy build chuyên dụng</strong>, điều này KHÔNG cần thiết — <strong>bạn sẽ chỉ phải CHỜ LÂU HƠN (khoảng 8 GIÂY) để kết nối tự động TIMEOUT khi app khởi động.</strong>"</em></p>
+    <p>🚨 <em>"Từ script, tên option là <code>BuildOptions.ConnectWithProfiler</code> — <strong>rất DỄ bị NHẦM là BẮT BUỘC.</strong>"</em></p>
+    </div>
+    <div class="col-en">
+    <p><em>"This option is a function to <strong>automatically connect to the editor's profiler when the application is launched. Therefore, it is NOT a required setting for profiling.</strong> The same applies to remote profiling. <strong>Only WebGL cannot be profiled without this option</strong>, but it is not a very useful option for mobile."</em></p>
+    <p>💀 <em>"To take this a bit further, if this option is enabled, <strong>the IP address of the editor will be written to the binary at build time</strong>, and an attempt will be made to connect to that address at startup. If you are building on a <strong>dedicated build machine</strong>, this is not necessary — <strong>rather, you will just have to wait longer (about 8 SECONDS) for the automatic connection to time out when the application starts.</strong>"</em></p>
+    <p>🚨 <em>"Note that from the script, the option name is <code>BuildOptions.ConnectWithProfiler</code>, <strong>which can easily be mistaken for mandatory.</strong>"</em></p>
+    </div>
+    </div>
+
+### 19.4. CPU Usage — Hierarchy vs Raw Hierarchy vs Timeline
+
+<img src="../assets/ca-cpu-usage-timeline.png" alt="Module CPU Usage với đồ thị và Timeline">
+
+<p><em>VI: Module <strong>CPU Usage</strong> — 9 hạng mục màu (Scripts / Rendering / Physics / Animation / GarbageCollector / VSync / Global Illumination / UI / Others). Frame đang chọn: <strong>CPU 33.40ms</strong>; timeline dưới hiện <code>PlayerLoop (33.36ms)</code>, <code>FixedUpdate.PhysicsFixedUpdate (0.43ms)</code>, <code>Physics.Processing (0.37ms)</code>, <code>BehaviourUpdate (0.44ms)</code>, <code>SampleScript.Update() (0.27ms)</code>. / EN: The CPU Usage module — colour-coded categories plus the per-thread Timeline underneath.</em></p>
+
+**1️⃣ Hierarchy View — dùng để SẮP XẾP và TÌM bottleneck**
+
+<img src="../assets/ca-hierarchy-view.png" alt="Hierarchy View của Unity Profiler">
+
+<p><em>VI: Hierarchy View — <code>PlayerLoop</code> <strong>99.8% / 33.42ms</strong>, trong đó <code>WaitForTargetFPS</code> chiếm <strong>88.5% (29.63ms)</strong> (đang chờ VSync ⇒ máy còn dư sức), <code>PostLateUpdate.FinishFrameRendering</code> <strong>7.7% (2.59ms)</strong>, và <code>SampleScript.Update()</code> <strong>2 Calls, 2.4 KB GC Alloc</strong>. / EN: Hierarchy View — sortable list; note the GC Alloc column showing 2.4 KB from SampleScript.Update().</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>⚠️ <strong>Giới hạn của Hierarchy:</strong> <em>"Thông tin hiển thị là <strong>chỉ báo thời gian tiêu tốn TRONG THREAD ĐANG CHỌN</strong>. Ví dụ, <strong>nếu bạn dùng Job System hoặc multi-threaded rendering, thời gian xử lý ở thread KHÁC KHÔNG được tính vào.</strong>"</em> — muốn xem thì phải <strong>chọn thread</strong>.</p>
+</div>
+<div class="col-en">
+<p>⚠️ <strong>Hierarchy's limitation:</strong> <em>"The information displayed is an indication of <strong>the time spent in the SELECTED THREAD</strong>. For example, <strong>if you are using Job System or multi-threaded rendering, the processing time in another thread is NOT included.</strong>"</em> — you must <strong>select the thread</strong> to see it.</p>
+</div>
+</div>
+
+**Bảng 3.1 — Ý nghĩa các cột header của Hierarchy:**
+
+| Header | Ý nghĩa (VI) | Meaning (EN) |
+|---|---|---|
+| **Overview** | Tên sample | Sample name |
+| **Total** | **TỔNG** thời gian xử lý hàm này (**%**) | Total time spent processing this function (%) |
+| **Self** | Thời gian của **CHÍNH hàm** — ⚠️ **KHÔNG gồm hàm con** (%) | Processing time of this function itself; subfunction time is NOT included (%) |
+| **Calls** | Số lần gọi **trong MỘT frame** | Number of calls made in one frame |
+| **GC Alloc** | 💀 **Heap memory hàm này cấp phát** | Heap memory allocated by this function |
+| **Time ms** | Total tính bằng **ms** | Total in ms |
+| **Self ms** | Self tính bằng **ms** | Self in ms |
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🔍 <strong>Raw Hierarchy — khi nào cần?</strong> <em>"<code>Calls</code> DỄ NHÌN hơn vì nó <strong>GỘP nhiều lời gọi hàm thành MỘT item</strong>. Tuy nhiên, <strong>KHÔNG RÕ liệu TẤT CẢ chúng có thời gian xử lý BẰNG NHAU, hay CHỈ MỘT trong số đó có thời gian xử lý DÀI.</strong> Trong trường hợp đó, dùng <strong>Raw Hierarchy View</strong> — khác Hierarchy ở chỗ <strong><code>Calls</code> LUÔN CỐ ĐỊNH = 1.</strong>"</em></p>
+<p>🎯 <strong>Hierarchy dùng để:</strong> ① <em>Xác định & tối ưu bottleneck (Time ms, Self ms)</em>; ② <em>Xác định & tối ưu GC allocation (GC Alloc)</em>. <em>"<strong>Khi làm việc này, khuyến nghị SẮP XẾP GIẢM DẦN theo cột mong muốn trước khi kiểm tra.</strong>"</em></p>
+<p>💡 <em>"Khi mở một item, thường có <strong>PHÂN CẤP RẤT SÂU</strong>. Bạn có thể <strong>mở TOÀN BỘ các cấp bằng cách giữ phím <code>Option</code> trên Mac (<code>Alt</code> trên Windows)</strong>. Ngược lại, đóng item khi giữ phím sẽ đóng MỌI THỨ bên dưới."</em></p>
+</div>
+<div class="col-en">
+<p>🔍 <strong>Raw Hierarchy — when do you need it?</strong> <em>"<code>Calls</code> is easier to see as a view because it <strong>combines multiple function calls into a single item</strong>. However, <strong>it is not clear whether ALL of them have equal processing time or only ONE of them has a long processing time.</strong> In such cases, the <strong>Raw Hierarchy View</strong> is used — it differs in that <strong><code>Calls</code> is always FIXED at 1.</strong>"</em></p>
+<p>🎯 <strong>Hierarchy is used for:</strong> ① <em>Identify and optimize bottlenecks (Time ms, Self ms)</em>; ② <em>Identify and optimize GC allocations</em>. <em>"<strong>When performing these tasks, it is recommended to sort each desired item in DESCENDING order before checking it.</strong>"</em></p>
+<p>💡 <em>"When opening an item, it is often the case that there is a <strong>DEEP hierarchy</strong>. In this case, <strong>you can open all levels of the hierarchy by holding down the <code>Option</code> key on a Mac (<code>Alt</code> key on Windows)</strong>. Conversely, closing an item while holding down the key will close everything below."</em></p>
+</div>
+</div>
+
+**2️⃣ Timeline View — dùng để NHÌN TOÀN CẢNH và xem THEO THREAD**
+
+<img src="../assets/ca-timeline-view-threads.png" alt="Timeline View hiển thị Main Thread và Render Thread">
+
+<p><em>VI: Timeline View — <strong>Main Thread</strong> và <strong>Render Thread</strong> hiển thị ĐỒNG THỜI, không cần chuyển thread. Tooltip cho biết <code>SampleScript.Update()</code> <strong>0.126ms</strong>, <strong>Total 0.419ms (2 Instances)</strong>; Render Thread đang <code>Gfx.WaitForGfxCommandsFromMainThread</code> và <code>Semaphore.WaitForSignal (0.87ms)</code>. / EN: Timeline View — all threads shown at once; hovering a box gives its own time and the total across instances.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>✅ <em>"Ở timeline view, các item trong hierarchy được <strong>TRỰC QUAN HOÁ thành các HỘP</strong>, nên bạn <strong>thấy NGAY tải nằm ở đâu chỉ bằng một cái liếc</strong> khi nhìn toàn cảnh. Và vì <strong>thao tác được bằng CHUỘT, kể cả phân cấp SÂU cũng nắm được chỉ bằng cách KÉO</strong>. Ngoài ra, với timeline <strong>KHÔNG cần CHUYỂN THREAD — TẤT CẢ thread đều hiển thị.</strong>"</em></p>
+<p>🎯 <strong>Timeline dùng để:</strong> ① <em>nhìn TOÀN CẢNH tải xử lý</em>; ② <em>hiểu và tune tải của TỪNG THREAD</em>.</p>
+<p>❌ <em>"<strong>Timeline KHÔNG PHÙ HỢP cho thao tác SẮP XẾP để xác định thứ tự xử lý nặng, hay để kiểm tra TỔNG lượng allocation. Do đó, Hierarchy View phù hợp hơn để tune allocation.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>✅ <em>"In the timeline view, items in the hierarchy view are <strong>visualized as BOXES</strong>, so you can <strong>intuitively see where the load is at a glance</strong> when viewing the entire view. And because it is <strong>mouse-accessible, even deep hierarchies can be grasped simply by DRAGGING</strong>. In addition, with timelines, <strong>there is NO need to switch threads; ALL threads are displayed.</strong>"</em></p>
+<p>🎯 <strong>Timeline is used for:</strong> ① <em>to get a bird's eye view of the overall processing load</em>; ② <em>to understand and tune the processing load of each thread</em>.</p>
+<p>❌ <em>"<strong>Timeline is NOT suited for sorting operations to determine the order of heavy processing, or for checking the total amount of allocations. Therefore, the Hierarchy View is better suited for tuning allocations.</strong>"</em></p>
+</div>
+</div>
+
+### 19.5. 🔧 Sampler — tự nhúng điểm đo vào code
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><em>"Có <strong>HAI cách</strong> đo thời gian xử lý theo hàm. Một là <strong>Deep Profile</strong>. Cách kia là <strong>NHÚNG TRỰC TIẾP vào script.</strong>"</em></p>
+<p>🏆 <strong>Đặc tính VÀNG của Sampler:</strong> <em>"Có một tính năng NỮA đáng nhắc tới. <strong>Nếu code profiling KHÔNG phải Development Build, thì phía GỌI bị VÔ HIỆU HOÁ, nên overhead bằng KHÔNG (zero overhead).</strong> Có thể là ý hay khi <strong>đặt SẴN nó vào những vùng mà tải xử lý CÓ KHẢ NĂNG TĂNG trong tương lai.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p><em>"There are <strong>TWO ways</strong> to measure processing time per function. One is <strong>Deep Profile</strong> mode. The other is to <strong>embed it directly in the script.</strong>"</em></p>
+<p>🏆 <strong>The golden property of Sampler:</strong> <em>"There is one more feature worth mentioning. <strong>If the profiling code is not a Development Build, the caller is disabled, so there is ZERO OVERHEAD.</strong> It may be a good idea to <strong>put this in place in advance in areas where the processing load is likely to increase in the future.</strong>"</em></p>
+</div>
+</div>
+
+**List 3.3 — `Profiler.BeginSample` / `EndSample` (static, dùng ngay):**
+
+```csharp
+using UnityEngine.Profiling;
+/* ... Omitted...*/
+private void TestMethod()
+{
+    for (int i = 0; i < 10000; i++)
+    {
+        Debug.Log("Test");
+    }
+}
+
+private void OnClickedButton()
+{
+    Profiler.BeginSample("Test Method")
+    TestMethod();
+    Profiler.EndSample()
+}
+```
+
+**List 3.4 — `CustomSampler` (từ Unity 2017, overhead THẤP HƠN, đo CHÍNH XÁC HƠN):**
+
+```csharp
+using UnityEngine.Profiling;
+/* ... Omitted...*/
+private CustomSampler _samplerTest = CustomSampler.Create("Test");
+
+private void TestMethod()
+{
+    for (int i = 0; i < 10000; i++)
+    {
+        Debug.Log("Test");
+    }
+}
+
+private void OnClickedButton()
+{
+    _samplerTest.Begin();
+    TestMethod();
+    _samplerTest.End();
+}
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>⚖️ <em>"Khác biệt là <strong>phải TẠO instance TRƯỚC</strong>. Một đặc điểm khác của <code>CustomSampler</code> là <strong>thời gian đo CÓ THỂ LẤY ĐƯỢC TRONG SCRIPT sau khi đo. Nếu bạn cần ĐỘ CHÍNH XÁC CAO HƠN hoặc muốn PHÁT CẢNH BÁO dựa trên thời gian xử lý, <code>CustomSampler</code> là lựa chọn tốt.</strong>"</em></p>
+<p>💡 Sample đã nhúng sẽ <strong>hiển thị ở CẢ Hierarchy lẫn Timeline view</strong>.</p>
+</div>
+<div class="col-en">
+<p>⚖️ <em>"The difference is that <strong>an instance must be created in advance</strong>. Another feature of <code>CustomSampler</code> is that <strong>the measurement time can be obtained in the script after the measurement. If you need more accuracy or want to issue warnings based on processing time, <code>CustomSampler</code> is a good choice.</strong>"</em></p>
+<p>💡 The embedded sample will be displayed in <strong>both the Hierarchy and Timeline views</strong>.</p>
+</div>
+</div>
+
+### 19.6. Memory module — Simple view
+
+<img src="../assets/ca-memory-simple-view.png" alt="Simple View của Memory module">
+
+<p><em>VI: Simple View (Unity 2020) — <strong>Total Used Memory 85.9 MB</strong> (GC 164.0 KB, Gfx 24.6 MB, Audio 1.1 MB, Video 1.0 KB, <strong>Profiler 32.5 MB</strong>), <strong>Total Reserved Memory 101.2 MB</strong>, <strong>System Used Memory 102.0 MB</strong>; Textures <strong>23 / 0.6 MB</strong>, Meshes 0, Materials <strong>9 / 13.2 KB</strong>. / EN: Simple View — note how much of the total is the Profiler itself (32.5 MB).</em></p>
+
+**Ba con số "Total" — dễ nhầm nhất:**
+
+| Mục | VI | EN |
+|---|---|---|
+| **Total Used Memory** | Tổng bộ nhớ Unity **đã cấp phát (đang dùng)** | Total amount of memory allocated (in use) by Unity |
+| **Total Reserved Memory** | Tổng bộ nhớ Unity **ĐANG GIỮ CHỖ**. *"Một lượng vùng nhớ LIÊN TỤC nhất định được **OS giữ trước làm POOL**, và được cấp khi cần. **Khi pool THIẾU, nó lại được YÊU CẦU từ phía OS để MỞ RỘNG.**"* | *"A certain amount of contiguous memory space is reserved in advance by the OS as a pool… When the pool area becomes insufficient, it is requested again from the OS side for expansion."* |
+| **System Used Memory** | 🚨 Tổng bộ nhớ **ứng dụng** dùng. *"Mục này CŨNG đo các mục (**plug-in**, v.v.) KHÔNG được đo trong Total Reserved. **Tuy nhiên nó VẪN KHÔNG theo dõi hết mọi allocation. Để có bức tranh CHÍNH XÁC, bạn sẽ cần công cụ profiling NATIVE như Xcode.**"* | *"However, it still does not track all memory allocations. To get an accurate picture, you will need to use a native-compliant profiling tool such as Xcode."* |
+
+**Bảng 3.2 — thuật ngữ bên phải Total Used Memory:**
+
+| Thuật ngữ | Giải thích |
+|---|---|
+| **GC** | Lượng bộ nhớ dùng ở **vùng heap**. *"**GC Alloc và các yếu tố khác LÀM TĂNG con số này.**"* |
+| **Gfx** | Bộ nhớ cấp cho **Texture, Shader, Mesh…** |
+| **Audio** | Bộ nhớ dùng cho **phát âm thanh** |
+| **Video** | Bộ nhớ dùng cho **phát video** |
+| **Profiler** | ⚠️ Bộ nhớ dùng cho **CHÍNH việc profiling** |
+
+> 📌 *"Về tên gọi: **từ Unity 2019.2, 'Mono' đã đổi thành 'GC' và 'FMOD' đã đổi thành 'Audio'."* / *"Starting with Unity 2019.2, 'Mono' has been changed to 'GC' and 'FMOD' has been changed to 'Audio'."*
+
+**Các bộ đếm đối tượng — vũ khí PHÁT HIỆN RÒ RỈ:**
+
+| Counter | VI | EN |
+|---|---|---|
+| **Asset Count** | Tổng số asset đã nạp | Total number of assets loaded |
+| **Game Object Count** | Số GameObject trong scene | Number of game objects in the scene |
+| **Scene Object Count** | Tổng số **component + GameObject** trong scene | Total number of components and game objects in the scene |
+| **Object Count** | 💀 Tổng **MỌI** object app tạo/nạp. *"**Nếu giá trị này ĐANG TĂNG, RẤT CÓ KHẢ NĂNG một số object đang RÒ RỈ.**"* | *"If this value is increasing, it is likely that some objects are leaking."* |
+| **GC Allocation in Frame** | Số LẦN allocation xảy ra trong 1 frame và TỔNG lượng | The number of times an Allocation has occurred in a frame and the total amount |
+
+> 🎯 **Simple view dùng để:** ① *hiểu & giám sát vùng heap và THỜI ĐIỂM Reserved mở rộng*; ② *kiểm tra rò rỉ asset/object*; ③ *giám sát GC Allocation*.
+
+<img src="../assets/ca-memory-simple-2021.png" alt="Simple View của Memory module từ Unity 2021">
+
+<p><em>VI: Simple View <strong>từ Unity 2021</strong> — UI cải thiện lớn: <strong>Total Committed Memory 247.0 MB</strong> (Tracked <strong>74.0 / 200.4 MB</strong>, <strong>Untracked 46.6 MB</strong>); breakdown: <strong>Managed Heap 392.0 KB / 0.5 MB</strong>, Graphics &amp; Graphics Driver <strong>0.8 MB</strong>, Audio <strong>0.9 MB</strong>, Other <strong>38.3 / 149.2 MB</strong>, Profiler <strong>33.6 / 49.0 MB</strong>. 🚨 Lưu ý <strong>"GC" đã đổi tên thành "Managed Heap"</strong>. / EN: The 2021+ Simple View — same content, greatly improved UI; note "GC" was renamed "Managed Heap".</em></p>
+
+### 19.7. Memory module — Detailed view & bốn node "Others" phải biết
+
+<img src="../assets/ca-memory-detailed-view.png" alt="Detailed view của Memory module với cột Referenced By">
+
+<p><em>VI: Detailed view — snapshot sau khi bấm <strong>Take Sample</strong>. <code>Other (81)</code> <strong>44.9 MB</strong>, <code>Assets (420)</code> <strong>1.5 MB</strong>, trong đó <code>Shader (7)</code> <strong>233.3 KB</strong> và <code>MonoScript (396)</code> <strong>135.9 KB</strong>. Panel <strong>"Referenced By"</strong> bên phải cho biết <code>Sprites/Default</code> (32.2 KB, Ref count 3) đang bị <code>SplashScreen-Foreground(Material)</code>, <code>GraphicsSettings</code> và <code>Sprites-Default(Material)</code> giữ. / EN: Detailed view — snapshot-based, with the Referenced By panel that resolves who is holding a leaking asset.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📸 <em>"Kết quả của view này lấy được bằng cách bấm nút <strong>'Take Sample'</strong> để chụp snapshot bộ nhớ tại thời điểm đó. <strong>KHÁC Simple view, view này KHÔNG cập nhật thời gian thực</strong>, nên muốn làm mới phải Take Sample LẠI."</em></p>
+<p>🔍 <em>"Bên phải nút Sample có mục <strong>'Referenced By'</strong> — hiển thị các object đang THAM CHIẾU object đang chọn. <strong>Nếu có asset nào đang RÒ RỈ, thông tin tham chiếu của object có thể giúp GIẢI QUYẾT vấn đề.</strong> Hiển thị này CHỈ hiện khi <strong>'Gather object references'</strong> được bật. <strong>Bật nó sẽ TĂNG thời gian xử lý lúc Take Sample, nhưng về cơ bản KHUYẾN NGHỊ để BẬT.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📸 <em>"The result of this view can be obtained by clicking the <strong>'Take Sample'</strong> button to take a snapshot of the memory at that point in time. <strong>Unlike the Simple view, this view is NOT updated in real time</strong>, so if you want to refresh the view, you need to Take Sample again."</em></p>
+<p>🔍 <em>"On the right side of the 'Sample' button, there is an item called <strong>'Referenced By'</strong>. This shows the objects that reference the currently selected object. <strong>If there are any assets that are leaking, the information of the object's references may help to solve the problem.</strong> This display is only shown if <strong>'Gather object references'</strong> is enabled. <strong>Enabling this feature will increase the processing time during Take Sample, but it is basically recommended to leave it enabled.</strong>"</em></p>
+</div>
+</div>
+
+!!! tip "💡 `ManagedStaticReferences()` — dấu hiệu bị `static` giữ"
+    **VI:** *"Trong Referenced By, bạn có thể thấy ký hiệu `ManagedStaticReferences()`. **Nó có nghĩa là object đang bị THAM CHIẾU bởi MỘT OBJECT `static` NÀO ĐÓ.** Nếu bạn quen thuộc với project, thông tin này có thể đã đủ để bạn hình dung. Nếu không, **chúng tôi khuyến nghị dùng "3.5 Heap Explorer"** (xem §22.2)."*
+
+    **EN:** *"In Referenced By, you may see the notation `ManagedStaticReferences()`. **This means that it is referenced by some `static` object.** If you are familiar with the project, this information may be enough to give you some idea. If not, we recommend using '3.5 Heap Explorer'."*
+
+**Bảng 3.3 — Bốn node GỐC của Detailed view:**
+
+| Node | VI | EN |
+|---|---|---|
+| **Assets** | Asset đã nạp **KHÔNG nằm trong scene** | Loaded assets not included in the scene |
+| **Not Saved** | Asset **sinh ra lúc runtime bằng code** — ví dụ object tạo bởi `new Material()` | Assets generated at runtime by code, e.g. `new Material()` |
+| **Scene Memory** | Asset **nằm trong scene đã nạp** | Assets contained in the loaded scene |
+| **Others** | Mọi thứ còn lại — **cấp phát cho các hệ thống Unity dùng** | Assignments to the various systems used by Unity |
+
+**Bốn mục trong `Others` mà bạn BẮT BUỘC phải biết:**
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📦 <strong><code>System.ExecutableAndDlls</code></strong> — <em>"Chỉ lượng allocation dùng cho <strong>binary, DLL</strong>… Tuỳ nền tảng/máy, có thể KHÔNG lấy được, khi đó nó bằng <strong>0B</strong>. <strong>Tải bộ nhớ cho project KHÔNG LỚN như con số liệt kê, vì nó có thể được CHIA SẺ với ứng dụng khác dùng chung framework.</strong> ✅ <strong>TỐT HƠN là cải thiện Asset còn hơn vội vàng giảm mục này.</strong> Cách hiệu quả nhất là <strong>GIẢM DLL và script KHÔNG cần thiết</strong>. Cách dễ nhất là <strong>đổi Stripping Level</strong> — 💀 <strong>nhưng có RỦI RO THIẾU type/method lúc runtime, nên phải debug CẨN THẬN.</strong>"</em></p>
+<p>📄 <strong><code>SerializedFile</code></strong> — <em>"Chỉ <strong>meta-information như BẢNG OBJECT trong AssetBundle và Type Tree đóng vai trò thông tin kiểu</strong>. Có thể giải phóng bằng <code>AssetBundle.Unload(true hoặc false)</code>. <strong><code>Unload(false)</code> — chỉ giải phóng meta-information SAU KHI asset đã nạp — là cách HIỆU QUẢ NHẤT.</strong> 💀 <strong>Lưu ý: nếu THỜI ĐIỂM giải phóng và việc quản lý tham chiếu tài nguyên KHÔNG cẩn thận, tài nguyên có thể bị NẠP HAI LẦN và RẤT DỄ rò rỉ bộ nhớ.</strong>"</em></p>
+<p>🗺️ <strong><code>PersistentManager.Remapper</code></strong> — <em>"Remapper <strong>quản lý quan hệ giữa object TRONG BỘ NHỚ và TRÊN ĐĨA. CẨN THẬN đừng để nó MỞ RỘNG QUÁ MỨC.</strong> Cụ thể, <strong>nếu MỘT LƯỢNG LỚN AssetBundle được nạp, vùng mapping sẽ KHÔNG ĐỦ và bị MỞ RỘNG.</strong> ✅ Vì vậy nên <strong>unload các AssetBundle không cần thiết để giảm số file nạp đồng thời.</strong> Ngoài ra, <strong>nếu MỘT AssetBundle chứa RẤT NHIỀU asset không cần ngay, nên CHIA NHỎ nó ra.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📦 <strong><code>System.ExecutableAndDlls</code></strong> — <em>"Indicates the amount of allocations used for <strong>binaries, DLLs</strong>, and so on. Depending on the platform or terminal, it may not be obtainable, in which case it is treated as <strong>0B</strong>. <strong>The memory load for the project is not as large as the listed values, as it may be SHARED with other applications using a common framework.</strong> ✅ <strong>It is better to improve Asset than to rush to reduce this item.</strong> The most effective way is to <strong>reduce DLLs and unnecessary scripts</strong>. The easiest way is to <strong>change the Stripping Level</strong>. 💀 <strong>However, there is a risk of missing types and methods at runtime, so debug carefully.</strong>"</em></p>
+<p>📄 <strong><code>SerializedFile</code></strong> — <em>"Indicates <strong>meta-information such as the table of objects in the AssetBundle and the Type Tree that serves as type information</strong>. This can be released by <code>AssetBundle.Unload(true or false)</code>. <strong><code>Unload(false)</code>, which releases only this meta-information after the asset is loaded, is the MOST EFFICIENT way.</strong> 💀 <strong>Note that if the release timing and resource reference management are not done carefully, resources can be DOUBLE-LOADED and memory leaks can easily occur.</strong>"</em></p>
+<p>🗺️ <strong><code>PersistentManager.Remapper</code></strong> — <em>"Remapper <strong>manages the relationship between objects in memory and on disk. Be careful not to OVER-EXPAND.</strong> Specifically, <strong>if a large number of AssetBundles are loaded, the mapping area will not be sufficient and will be expanded.</strong> ✅ Therefore, <strong>it is a good idea to unload unnecessary AssetBundles to reduce the number of files loaded at the same time.</strong> Also, <strong>if a single AssetBundle contains a large number of assets that are not needed on the fly, it is a good idea to split it up.</strong>"</em></p>
+</div>
+</div>
+
+> 🎯 **Detailed view dùng để:** ① *hiểu & tune bộ nhớ CHI TIẾT tại một THỜI ĐIỂM cụ thể — kiểm tra asset KHÔNG cần thiết hoặc BẤT NGỜ*; ② *ĐIỀU TRA rò rỉ bộ nhớ*.
+
+---
+
+## 20. 📈 Profile Analyzer — Thống kê thay vì "nhìn MỘT frame"
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🎯 <em>"Profile Analyzer là công cụ <strong>phân tích CHI TIẾT HƠN dữ liệu lấy từ CPU Usage của Profiler</strong>. Trong khi <strong>Unity Profiler CHỈ nhìn được dữ liệu THEO TỪNG FRAME</strong>, Profile Analyzer <strong>lấy được TRUNG BÌNH (average), TRUNG VỊ (median), NHỎ NHẤT và LỚN NHẤT dựa trên một KHOẢNG FRAME chỉ định.</strong>"</em></p>
+<p>✅ <em>"Điều này cho phép <strong>XỬ LÝ ĐÚNG dữ liệu BIẾN THIÊN từ frame này sang frame khác, giúp thể hiện RÕ RÀNG HƠN hiệu quả của việc cải thiện khi tối ưu. Nó cũng là công cụ RẤT hữu ích để SO SÁNH và TRỰC QUAN HOÁ kết quả tối ưu, vì có chức năng SO SÁNH dữ liệu đo — điều mà CPU Usage KHÔNG làm được.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🎯 <em>"Profile Analyzer is a tool for <strong>more detailed analysis of data obtained from the Profiler's CPU Usage</strong>. While the <strong>Unity Profiler can ONLY look at data PER FRAME</strong>, the Profile Analyzer <strong>can obtain average, median, minimum, and maximum values based on a SPECIFIED FRAME INTERVAL.</strong>"</em></p>
+<p>✅ <em>"This allows for <strong>appropriate handling of data that varies from frame to frame, making it possible to more clearly show the effects of improvement when optimization is performed. It is also a very useful tool for comparing and visualizing the results of optimization because it has a function for comparing measurement data, which CPU Usage CANNOT do.</strong>"</em></p>
+</div>
+</div>
+
+<img src="../assets/ca-profile-analyzer-single.png" alt="Giao diện Profile Analyzer ở Single mode">
+
+<p><em>VI: Profile Analyzer (Single mode) — <strong>304 of 329 markers, 1 of 34 threads</strong>, Frame Count <strong>200</strong>. Frame Summary: <strong>Max 33.56ms (frame 101)</strong>, <strong>Upper Quartile 17.31</strong>, <strong>Median 16.79 (frame 192)</strong>, <strong>Mean 19.23</strong>, <strong>Lower Quartile 16.48</strong>, <strong>Min 4.76 (frame 119)</strong>. Dải "Top 10 markers on median frame" cho thấy <code>PlayerLoop</code> chiếm phần lớn <strong>78.8ms</strong>. / EN: Profile Analyzer in Single mode with the Frame Summary quartiles on the right.</em></p>
+
+### 20.1. Cài đặt & hai chế độ
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📥 <em>"Công cụ này cài từ <strong>Package Manager</strong>. Vì được <strong>Unity HỖ TRỢ CHÍNH THỨC</strong>, đổi Packages sang <strong>Unity Registry</strong> và gõ <strong>"Profile"</strong> trong ô tìm kiếm. Sau khi cài, mở bằng <strong>"Window → Analysis → Profile Analyzer"</strong>."</em></p>
+<p>🔀 <em>"Có <strong>HAI chế độ: 'Single' và 'Compare'</strong>. Single dùng để phân tích MỘT bộ dữ liệu đo; Compare dùng để SO SÁNH HAI bộ dữ liệu."</em></p>
+<p>💾 <em>"<strong>'Pull Data'</strong> cho phép phân tích dữ liệu đo bằng Unity Profiler và hiển thị kết quả. <strong>'Save' và 'Load'</strong> cho phép lưu/nạp dữ liệu đã phân tích. Tất nhiên KHÔNG có vấn đề gì nếu bạn chỉ giữ dữ liệu Unity Profiler — <strong>khi đó bạn phải nạp dữ liệu vào Unity Profiler và làm Pull Data trong Profile Analyzer MỖI LẦN. Nếu thấy phiền, tốt hơn là lưu thành dữ liệu chuyên dụng.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📥 <em>"This tool can be installed from the <strong>Package Manager</strong>. Since it is <strong>officially supported by Unity</strong>, change Packages to <strong>Unity Registry</strong> and type <strong>"Profile"</strong> in the search box. After installation, start the tool via <strong>"Window → Analysis → Profile Analyzer"</strong>."</em></p>
+<p>🔀 <em>"There are <strong>TWO modes of functionality: 'Single' and 'Compare'</strong>. Single mode is used to analyze a single measurement data, while Compare mode is used to compare two measurement data."</em></p>
+<p>💾 <em>"<strong>'Pull Data'</strong> allows you to analyze the data measured in the Unity Profiler and display the results. <strong>'Save' and 'Load'</strong> allow you to save and load the data analyzed by Profile Analyzer. Of course, there is no problem if you keep only the Unity Profiler data. <strong>In that case, you need to load the data in Unity Profiler and do Pull Data in Profile Analyzer each time. If this procedure is troublesome, it is better to save the data as a dedicated data.</strong>"</em></p>
+</div>
+</div>
+
+### 20.2. Bộ lọc — và mẹo `Depth Slice = 2~3`
+
+**Bảng 3.4 — Các mục của bộ lọc:**
+
+| Mục | Mô tả (VI) | Description (EN) |
+|---|---|---|
+| **Name Filter** | Lọc theo TÊN tiến trình muốn tìm | Filter by the name of the process you want to search |
+| **Exclude Filter** | Lọc theo tên tiến trình muốn LOẠI khỏi tìm kiếm | Filter by the name of the process to exclude |
+| **Thread** | Thread được chọn sẽ hiện trong kết quả. *"Nếu cần thông tin thread khác, THÊM chúng vào."* | The selected threads will be displayed; add others if needed |
+| **Depth Slice** | Số **lớp** trong Hierarchy của CPU Usage. *"Ví dụ nếu Depth là **3**, lớp thứ **3** được hiển thị."* | The number of slices in the Hierarchy. If Depth is 3, the third hierarchy is displayed |
+| **Analysis Type** | Chuyển giữa **Total** và **Self** — giống header của CPU Usage | Total and Self can be switched |
+| **Units** | Đổi hiển thị thời gian sang **millisecond** hoặc **microsecond** | Time display can be changed to ms or µs |
+| **Marker Columns** | Đổi hiển thị header của kết quả phân tích | Change the header display of analysis results |
+
+!!! tip "💡 Mẹo VÀNG: đừng để Depth Slice = All"
+    **VI:** *"Khi Depth Slice đặt là **All**, node gốc `PlayerLoop` được hiển thị, hoặc **các LỚP KHÁC NHAU của CÙNG MỘT tiến trình được hiển thị — RẤT KHÓ NHÌN.** Trong trường hợp đó, **khuyến nghị CỐ ĐỊNH Depth ở 2~3 và đặt sao cho các SUBSYSTEM như rendering, animation và physics được hiển thị.**"*
+
+    **EN:** *"When Depth Slice is set to **All**, the top node called `PlayerLoop` is displayed, or **different layers of the same process are displayed, which can be difficult to see.** In such cases, **it is recommended to fix Depth to 2~3 and set it so that subsystems such as rendering, animation, and physics are displayed.**"*
+
+<img src="../assets/ca-profile-analyzer-markers.png" alt="Bảng Marker Details của Profile Analyzer">
+
+<p><em>VI: Marker Details — mỗi marker có <strong>Depth, Median, Mean, Min, Max, Range, Count</strong>. <code>PlayerLoop</code> Median <strong>16.71</strong> / Mean <strong>19.24</strong> / Max <strong>33.54</strong> / Range <strong>28.98</strong> (Count 199); <code>PostLateUpdate.FinishFrameRendering</code> Median <strong>14.93</strong>, Count <strong>247</strong>; <code>Camera.Render</code> <strong>0.90</strong>; <code>Culling</code> <strong>0.50</strong>; <code>SceneCulling</code> <strong>0.35</strong>. / EN: Per-marker statistics — median, mean, min, max, range and call count across the selected frame interval.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>💡 <em>"Nên phân tích tiến trình cần cải thiện dựa trên <strong>tên tiến trình ở Marker Name và các giá trị Median và Mean</strong>. <strong>Nếu bạn di chuột lên một header, mô tả của mục đó sẽ hiện ra</strong> — hãy tham khảo nếu chưa hiểu."</em></p>
+<p>📊 <em>"Màn hình <strong>'Top 10 Median Marker Values'</strong> CHỈ hiện 10 marker đầu bảng sắp theo <strong>thời gian xử lý TRUNG VỊ</strong> của mỗi marker. Bạn thấy NGAY mỗi marker trong top 10 chiếm bao nhiêu thời gian."</em></p>
+</div>
+<div class="col-en">
+<p>💡 <em>"It is a good idea to analyze the process that should be improved based on <strong>the process name listed in Marker Name and the values of Median and Mean</strong>. <strong>If you move the mouse pointer over a header item, a description of the item will be displayed</strong>, so please refer to it if you do not understand."</em></p>
+<p>📊 <em>"The <strong>'Top 10 Median Marker Values'</strong> screen shows only the top 10 markers sorted by <strong>the MEDIAN processing time</strong> for each marker. You can see at a glance how much processing time each of the top 10 markers occupies."</em></p>
+</div>
+</div>
+
+### 20.3. 📐 Mean vs Median — con số nào ĐÁNG TIN?
+
+<img src="../assets/ca-median-vs-mean.png" alt="Ví dụ minh hoạ chênh lệch giữa trung bình và trung vị">
+
+<p><em>VI: Ví dụ KINH ĐIỂN của sách — 6 mẫu thời gian <strong>27, 28, 29, 30, 33, 3200 ms</strong>. <strong>Trung bình (Average) = 557.833…ms</strong> nhưng <strong>Trung vị (Median) = 29.5ms</strong>. 💀 Một spike DUY NHẤT đã kéo trung bình lệch <strong>gần 19 LẦN</strong> so với thực tế. / EN: The book's classic example — one 3200 ms spike drags the mean to 557.8 ms while the median stays at 29.5 ms.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"<strong>Trung bình</strong> là giá trị có được bằng cách CỘNG tất cả rồi CHIA cho số dữ liệu. <strong>Trung vị</strong>, ngược lại, là giá trị NẰM GIỮA của dữ liệu đã sắp xếp. Trường hợp số dữ liệu CHẴN, lấy TRUNG BÌNH của hai giá trị trước và sau vị trí giữa."</em></p>
+<p>🚨 <em>"<strong>Trung bình có tính chất là NHẠY CẢM với dữ liệu có giá trị CÁCH BIỆT CỰC LỚN. NẾU spike XẢY RA THƯỜNG XUYÊN hoặc SỐ MẪU KHÔNG ĐỦ, TỐT HƠN là tham chiếu TRUNG VỊ.</strong>"</em></p>
+<p>🎯 <em>"Hãy <strong>phân tích dữ liệu SAU KHI đã biết đặc tính của HAI giá trị này.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"The <strong>mean</strong> is the value obtained by adding all values together and dividing by the number of data. The <strong>median</strong>, on the other hand, is the value that lies in the middle of the sorted data. In the case of an even number of data, the average value is taken from the data before and after the median."</em></p>
+<p>🚨 <em>"<strong>The average has the property that it is SUSCEPTIBLE to data with values that are EXTREMELY FAR APART. If there are FREQUENT SPIKES or the SAMPLING NUMBER is NOT SUFFICIENT, it may be better to refer to the MEDIAN.</strong>"</em></p>
+<p>🎯 <em>"<strong>Analyze your data after knowing the characteristics of these two values.</strong>"</em></p>
+</div>
+</div>
+
+### 20.4. Frame Summary — Boxplot & Histogram
+
+**Bảng 3.5 — Tứ phân vị (Quartiles):**
+
+| Tên | Mô tả |
+|---|---|
+| **Minimum value (Min)** | Giá trị nhỏ nhất |
+| **Lower Quartile** | Giá trị ở vị trí **25%** tính từ min |
+| **Median** | Giá trị ở vị trí **50%** tính từ min |
+| **Upper Quartile** | Giá trị ở vị trí **75%** tính từ min |
+| **Maximum Value (Max)** | Giá trị lớn nhất |
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📦 <em>"<strong>Khoảng giữa 25% và 75% được ĐÓNG HỘP</strong> — gọi là <strong>đồ thị hộp-và-râu (box-and-whisker)</strong>."</em></p>
+<p>📊 <em>"<strong>Histogram</strong> có <strong>trục NGANG là thời gian xử lý, trục DỌC là SỐ LƯỢNG dữ liệu</strong> — cũng hữu ích để xem PHÂN BỐ dữ liệu. Trong frame summary, bạn có thể kiểm tra khoảng và số frame bằng cách <strong>di chuột lên chúng</strong>."</em></p>
+<p>🧵 <strong>Thread Summary</strong> — <em>"hiển thị thống kê cho thread đã chọn. Bạn thấy được <strong>một biểu đồ hộp-và-râu cho MỖI THREAD.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📦 <em>"<strong>The interval between 25% and 75% is BOXED</strong>, which is called a <strong>box-and-whisker graph</strong>."</em></p>
+<p>📊 <em>"The <strong>histogram</strong> shows <strong>processing time on the horizontal axis and the number of data on the vertical axis</strong>, which is also useful for viewing data distribution. In the frame summary, you can check the interval and the number of frames by <strong>hovering the cursor over them</strong>."</em></p>
+<p>🧵 <strong>Thread Summary</strong> — <em>"shows statistics for the selected thread. You can see <strong>a box-and-whisker diagram for EACH THREAD.</strong>"</em></p>
+</div>
+</div>
+
+### 20.5. Compare mode — bằng chứng tuning CÓ hay KHÔNG hiệu quả
+
+<img src="../assets/ca-profile-analyzer-compare.png" alt="Bảng Marker Comparison trong Compare mode">
+
+<p><em>VI: Marker Comparison — cột <strong>Left Median</strong> vs <strong>Right Median</strong> kèm <strong>Diff</strong>. <code>Gfx.WaitForGfxCommandsFromMainThread</code> tăng từ <strong>0.66 → 31.85</strong> (<strong>Diff +31.19</strong>), <code>WaitForTargetFPS</code> <strong>13.90 → 32.44</strong> (<strong>+18.55</strong>), <code>PlayerLoop</code> <strong>16.70 → 33.29</strong> (<strong>+16.59</strong>); ngược lại <code>PostLateUpdate.FinishFrameRendering</code> <strong>15.18 → 0.40</strong> (<strong>−14.78</strong>). / EN: Marker Comparison — orange bars mean the right dataset is slower, blue means faster.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🔀 <em>"Ở chế độ này <strong>HAI bộ dữ liệu có thể được SO SÁNH. Khoảng phân tích có thể đặt RIÊNG cho dữ liệu TRÊN và DƯỚI.</strong> Cách dùng màn hình gần như GIỐNG Single mode, nhưng <strong>các từ 'Left' và 'Right' xuất hiện ở nhiều màn hình</strong> — cho biết dữ liệu nào là dữ liệu nào, và <strong>KHỚP với MÀU hiển thị ở phần cài đặt so sánh. Left là dữ liệu TRÊN, Right là dữ liệu DƯỚI.</strong>"</em></p>
+<p>🏆 <em>"<strong>Chế độ này sẽ giúp DỄ DÀNG phân tích kết quả tuning là TỐT hay XẤU.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🔀 <em>"In this mode, <strong>two sets of data can be compared. The interval to be analyzed can be set for EACH of the upper and lower data.</strong> The usage of the screen is almost the same as Single mode, but <strong>the words 'Left' and 'Right' appear in various screens</strong> — this shows which data is which, and <strong>matches the colour shown in the comparison settings. Left is the TOP data and Right is the BOTTOM data.</strong>"</em></p>
+<p>🏆 <em>"<strong>This mode will make it easier to analyze whether the tuning results are good or bad.</strong>"</em></p>
+</div>
+</div>
+
+---
+
+## 21. 🖼️ Frame Debugger — "Vì sao draw call này KHÔNG batch được?"
+
+👉 *Xem thêm [Module 4 — GPU & URP Advanced Rendering](../04-tech-lead/01-gpu-urp-advanced-rendering.md) về batching. Mục này tập trung vào NĂNG LỰC CHẨN ĐOÁN của Frame Debugger.*
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🔧 <em>"Frame Debugger là công cụ cho phép <strong>phân tích màn hình đang hiển thị được RENDER RA NHƯ THẾ NÀO</strong>. Công cụ này <strong>cài SẴN trong editor</strong>, mở bằng <strong>"Window → Analysis → Frame Debugger"</strong>."</em></p>
+<p>📱 <em>"Nó dùng được <strong>trong editor HOẶC trên THIẾT BỊ THẬT. Khi dùng trên thiết bị thật, cần binary build với 'Development Build', GIỐNG như Unity Profiler.</strong> Khởi động app, chọn kết nối thiết bị, và bấm <strong>'Enable'</strong> để hiển thị lệnh vẽ."</em></p>
+</div>
+<div class="col-en">
+<p>🔧 <em>"The Frame Debugger is a tool that allows you to <strong>analyze how the currently displayed screen is RENDERED</strong>. This tool is <strong>installed by default in the editor</strong> and can be opened via <strong>"Window → Analysis → Frame Debugger"</strong>."</em></p>
+<p>📱 <em>"It can be used <strong>in the editor or on the ACTUAL DEVICE. When using it on an actual device, a binary built with 'Development Build' is required, as is the Unity Profiler.</strong> Start the application, select the device connection, and press <strong>'Enable'</strong> to display the drawing instruction."</em></p>
+</div>
+</div>
+
+<img src="../assets/ca-frame-debugger-capture.png" alt="Màn hình capture của Frame Debugger">
+
+<p><em>VI: Frame Debugger — khung TRÁI liệt kê <strong>lệnh vẽ theo THỨ TỰ từ trên xuống</strong> (<code>UniversalRenderPipeline.RenderSingleCamera</code> → <code>MainLightShadow</code> → <code>DrawOpaqueObjects</code> → <code>CopyDepth</code> → <code>Camera.RenderSkybox</code> → <code>CopyColor</code> → <code>FinalBlit</code>); khung PHẢI là chi tiết <strong>Event #9: Draw Dynamic</strong>, RenderTarget <strong>256x256 R8G8B8A8_UNorm</strong>, Shader <code>Hidden/Universal Render Pipeline/Blit</code>, Blend <strong>One Zero</strong>, ZTest <strong>Always</strong>, ZWrite <strong>Off</strong>, Cull <strong>Off</strong>. / EN: Frame Debugger — the ordered draw-call list on the left, per-event shader/render-state detail on the right.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🎯 <strong>Bốn câu hỏi phải tự đặt khi nhìn màn hình này:</strong></p>
+<p>① <em>"Có lệnh nào <strong>KHÔNG CẦN THIẾT</strong> không?"</em><br>
+② <em>"<strong>Batching có ĐANG HOẠT ĐỘNG ĐÚNG</strong> hay không?"</em><br>
+③ <em>"<strong>ĐỘ PHÂN GIẢI của drawing target có QUÁ CAO</strong> không?"</em><br>
+④ <em>"Có <strong>Shader NGOÀI Ý ĐỊNH</strong> đang được dùng không?"</em></p>
+</div>
+<div class="col-en">
+<p>🎯 <strong>Four questions to ask while looking at this screen:</strong></p>
+<p>① <em>"Are there any <strong>UNNECESSARY instructions</strong>?"</em><br>
+② <em>"Whether <strong>drawing batching is working PROPERLY</strong> or not"</em><br>
+③ <em>"Is the <strong>RESOLUTION of the drawing target TOO HIGH</strong>?"</em><br>
+④ <em>"Is an <strong>UNINTENDED Shader</strong> being used?"</em></p>
+</div>
+</div>
+
+### 21.1. Operation Panel — RT0, Channels, Levels
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🎛️ <em>"Phần đánh dấu <strong>'RT0'</strong> có thể ĐỔI khi có <strong>NHIỀU render target</strong>. Điều này <strong>ĐẶC BIỆT hữu ích khi dùng multiple render targets để kiểm tra trạng thái render của TỪNG target</strong>."</em></p>
+<p>🌈 <em>"<strong>Channels</strong> có thể đổi để hiển thị TOÀN BỘ RGBA hoặc CHỈ MỘT kênh. <strong>Levels</strong> là thanh trượt cho phép <strong>chỉnh ĐỘ SÁNG của kết quả render</strong> — hữu ích ví dụ để <strong>chỉnh sáng một cảnh render TỐI như ambient hoặc indirect lighting để DỄ NHÌN HƠN.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🎛️ <em>"The part marked <strong>'RT0'</strong> can be changed when there are <strong>multiple render targets</strong>. This is <strong>especially useful when using multiple render targets to check the rendering status of each target</strong>."</em></p>
+<p>🌈 <em>"<strong>Channels</strong> can be changed to display all RGBA or only one of the channels. <strong>Levels</strong> is a slider that allows you to <strong>adjust the BRIGHTNESS of the resulting rendering</strong>. This is useful, for example, to <strong>adjust the brightness of a DARK rendering, such as ambient or indirect lighting, to make it easier to see.</strong>"</em></p>
+</div>
+</div>
+
+### 21.2. 🏆 "Why this draw call can't be batched with the previous one"
+
+<img src="../assets/ca-frame-debugger-why-not-batched.png" alt="Frame Debugger giải thích lý do không batch được">
+
+<p><em>VI: Tính năng CHẨN ĐOÁN đắt giá nhất — <strong>Event #13: SRP Batch</strong>, RT <strong>824x1210 B10G11R11_UFloatPack32</strong>, <strong>Draw Calls 3</strong>, Shader <code>Universal Render Pipeline/Lit</code>, Pass <code>ForwardLit (UniversalForward)</code>, Keywords <strong><code>_MAIN_LIGHT_SHADOWS</code></strong>, ZTest <strong>LessEqual</strong>, ZWrite <strong>On</strong>, Cull <strong>Back</strong>. Dòng cuối: <strong>"Why this draw call can't be batched with the previous one — SRP: First call from ScriptableRenderLoopJob"</strong>. / EN: The single most valuable diagnostic in the Frame Debugger — it names the exact reason batching failed.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📋 <strong>Drawing Overview:</strong> <em>"Khu vực này cung cấp thông tin về <strong>ĐỘ PHÂN GIẢI và FORMAT của đích render</strong>. Rõ ràng bạn sẽ <strong>NHẬN RA NGAY nếu có drawing destination với độ phân giải CAO HƠN.</strong> Các thông tin khác như <strong>tên Shader dùng, cài đặt Pass như Cull, và các keyword được dùng</strong> cũng tìm thấy ở đây."</em></p>
+<p>🏆 <em>"Câu <strong>'Why this~'</strong> liệt kê ở dưới cùng <strong>MÔ TẢ VÌ SAO drawing KHÔNG THỂ batching.</strong> Trong ví dụ, nó nói rằng <strong>drawing call ĐẦU TIÊN đã được chọn nên KHÔNG THỂ batching. Vì NGUYÊN NHÂN được mô tả CHI TIẾT như vậy, bạn có thể DỰA VÀO thông tin này để điều chỉnh nếu muốn nghĩ cách batching.</strong>"</em></p>
+<p>🎨 <strong>Shader property detail:</strong> <em>"Khu vực này mô tả thông tin property của Shader đang vẽ — <strong>hữu ích để debug.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📋 <strong>Drawing Overview:</strong> <em>"This area provides information on the <strong>RESOLUTION and FORMAT of the destination</strong>. Obviously, you will be able to <strong>notice IMMEDIATELY if there is a drawing destination with a HIGHER resolution.</strong> Other information such as the <strong>Shader name used, Pass settings such as Cull, and keywords used</strong> can also be found."</em></p>
+<p>🏆 <em>"The sentence <strong>'Why this~'</strong> listed at the bottom <strong>describes WHY the drawing could NOT be batched.</strong> In the case shown, it states that <strong>the first drawing call was selected and therefore batching was not possible. Since the causes are described in such detail, you can RELY on this information to make adjustments if you want to devise batching.</strong>"</em></p>
+<p>🎨 <strong>Shader property detail:</strong> <em>"This area describes the property information of the Shader being drawn. This is <strong>useful for debugging.</strong>"</em></p>
+</div>
+</div>
+
+!!! tip "💡 Phóng to preview Texture2D"
+    **VI:** *"Đôi khi cần kiểm tra CHI TIẾT trạng thái của `Texture2D` hiển thị trong thông tin property. Để làm vậy, **bấm vào ảnh trong khi giữ phím `Command` trên Mac (`Control` trên Windows) để PHÓNG TO ảnh.**"*
+
+    **EN:** *"Sometimes it is necessary to check in detail the state of `Texture2D` displayed in the property information. To do so, **click on the image while holding down the `Command` key on a Mac (`Control` key on Windows) to enlarge the image.**"*
+
+---
+
+## 22. 🧬 Memory Profiler & 🗺️ Heap Explorer
+
+### 22.1. Memory Profiler — hơn Memory module ở BA điểm
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🥇 <em>"Memory Profiler là công cụ CHÍNH THỨC do Unity cung cấp dưới dạng <strong>Preview Package</strong>. So với Memory module của Unity Profiler, nó VƯỢT TRỘI ở các điểm chính sau:"</em></p>
+<p>① <em>"<strong>Dữ liệu capture được LƯU CỤC BỘ kèm ẢNH CHỤP MÀN HÌNH</strong>"</em><br>
+② <em>"<strong>Lượng bộ nhớ mỗi CATEGORY chiếm được TRỰC QUAN HOÁ và DỄ HIỂU</strong>"</em><br>
+③ <em>"<strong>Dữ liệu có thể SO SÁNH được</strong>"</em></p>
+<p>⚠️ <em>"UI của Memory Profiler <strong>THAY ĐỔI ĐÁNG KỂ giữa v0.4 và các bản sau</strong>. Sách này dùng <strong>v0.5</strong>. Với <strong>v0.4 trở lên cần Unity 2020.3.12f1 trở lên</strong> để dùng đủ tính năng. Ngoài ra, <strong>v0.4 và v0.5 THOẠT NHÌN GIỐNG NHAU, nhưng v0.5 đã được cập nhật ĐÁNG KỂ — đặc biệt việc THEO DÕI THAM CHIẾU object giờ DỄ HƠN NHIỀU</strong>, nên về cơ bản khuyến nghị <strong>dùng v0.5 trở lên</strong>."</em></p>
+</div>
+<div class="col-en">
+<p>🥇 <em>"Memory Profiler is an official tool provided by Unity as a <strong>Preview Package</strong>. Compared to the Memory module of the Unity Profiler, it is superior in the following main points:"</em></p>
+<p>① <em>"<strong>Captured data is saved locally WITH SCREENSHOTS</strong>"</em><br>
+② <em>"<strong>The amount of memory occupied by each category is visualized and easy to understand</strong>"</em><br>
+③ <em>"<strong>Data can be compared</strong>"</em></p>
+<p>⚠️ <em>"The UI of the Memory Profiler has <strong>changed significantly between v0.4 and later versions</strong>. This book uses <strong>v0.5</strong>. For v0.4 or later, <strong>Unity 2020.3.12f1 or later is required</strong> to use all features. In addition, <strong>v0.4 and v0.5 look the same at first glance, but v0.5 has been significantly updated. In particular, object references are now MUCH EASIER to follow</strong>, so we basically recommend <strong>using v0.5 or later</strong>."</em></p>
+</div>
+</div>
+
+**Cài đặt:**
+
+| Unity | Cách cài |
+|---|---|
+| **Unity 2020** | Bật **"Enable Preview Packages"** trong *Project Settings → Package Manager*, rồi cài Memory Profiler từ **Unity Registry** |
+| **Unity 2021+** | *"Cách thêm package đã ĐỔI. Bấm **"Add Package by Name"** và nhập **`com.unity.memoryprofiler`**"* |
+
+> Mở bằng **"Window → Analysis → Memory Profiler"**.
+
+<img src="../assets/ca-memory-profiler-full.png" alt="Toàn cảnh cửa sổ Memory Profiler v0.5">
+
+<p><em>VI: Toàn cảnh Memory Profiler — <strong>Snapshot Panel</strong> (trái, gom theo SESSION, mỗi snapshot kèm ẢNH CHỤP MÀN HÌNH, ví dụ <strong>Total Used 115.0 MB / Hardware Resources 2.78 GB</strong>), <strong>Measurement Results</strong> (giữa: Memory Usage Overview + Tree Map + Tree Map Table, <strong>Count 3,083 / Total Size 54.9 MB</strong>), và <strong>Detail Panel</strong> (phải: Referenced By + Selection Details với mục <strong>Help</strong>). Dưới cùng có <strong>Top Issues</strong>: <em>"System Allocator is used. It is generally advised to use the Dynamic Heap Allocator instead."</em> / EN: The full Memory Profiler layout — snapshot panel, tree map, and the reference/detail panel.</em></p>
+
+!!! danger "💀 BẪY ĐO: bộ nhớ dùng để ĐO sẽ KHÔNG được giải phóng"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p><em>"Có một điểm QUAN TRỌNG cần lưu ý về việc đo. <strong>Bộ nhớ cần cho việc ĐO được cấp phát MỚI và sẽ KHÔNG được giải phóng lại. Tuy nhiên, nó KHÔNG TĂNG VÔ HẠN và cuối cùng sẽ ỔN ĐỊNH sau vài lần đo.</strong> Lượng bộ nhớ cấp lúc đo <strong>phụ thuộc vào ĐỘ PHỨC TẠP của project.</strong>"</em></p>
+    <p>🚨 <em>"<strong>Nếu bạn KHÔNG biết giả định này, hãy CẨN THẬN vì bạn có thể LẦM TƯỞNG là có rò rỉ khi thấy lượng bộ nhớ PHÌNH LÊN.</strong>"</em></p>
+    </div>
+    <div class="col-en">
+    <p><em>"One thing to note about measurement is that <strong>the memory required for measurement is NEWLY ALLOCATED and will NOT be released again. However, it does not increase infinitely and will eventually settle down after several measurements.</strong> The amount of memory allocated at measurement time will <strong>depend on the complexity of the project.</strong>"</em></p>
+    <p>🚨 <em>"<strong>If you do not know this assumption, be careful because you may MISTAKENLY THINK there is a LEAK when you see the amount of memory usage BALLOONING.</strong>"</em></p>
+    </div>
+    </div>
+
+<img src="../assets/ca-memory-usage-overview.png" alt="Memory Usage Overview trong Memory Profiler">
+
+<p><em>VI: Memory Usage Overview — <strong>System Used Memory 115.0 MB</strong>, <strong>Total 201.6 MB</strong>. Breakdown: <strong>Managed Heap 0.9 / 1.0 MB</strong>, Virtual Machine (IL2CPP) <strong>0 B</strong>, <strong>Graphics &amp; Graphics Driver 75.3 MB</strong>, Audio <strong>1.1 MB</strong>, <strong>Other Native Memory 50.9 / 73.2 MB</strong>, Profiler <strong>1.0 / 1.0 MB</strong>, <strong>Executable &amp; DLLs 50.0 MB</strong>; <strong>Tracked Memory 179.2 / 201.6 MB</strong>. Khối Managed Memory dưới: Objects <strong>122.5 KB</strong>, Empty Active Heap Space <strong>98.0 KB</strong>, 💀 <strong>Empty FRAGMENTED Heap Space 0.6 MB</strong>. / EN: Memory Usage Overview — note the Empty Fragmented Heap Space, the direct evidence of managed-heap fragmentation.</em></p>
+
+<img src="../assets/ca-memory-treemap.png" alt="Tree Map của Memory Profiler">
+
+<p><em>VI: <strong>Tree Map</strong> — diện tích ô TỈ LỆ với bộ nhớ. <code>RenderTexture (5)</code> chiếm <strong>170.1 MB</strong> (áp đảo), <code>MonoScript (3208)</code> <strong>25.5 MB</strong>, <code>Shader (120)</code> <strong>9.3 MB</strong>, <code>"rock" &lt;Texture2D&gt;</code> <strong>24.0 MB</strong>, <code>"GizmoIconAtlas_pix32"</code> <strong>21.3 MB</strong>, và hàng chục <code>Snapshot-*.png</code> mỗi cái <strong>11.3 MB</strong> (chính là ảnh chụp màn hình do Memory Profiler tạo!). / EN: Tree Map — box area is proportional to memory; here RenderTexture dominates at 170.1 MB.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🗂️ <em>"Khu vực tiếp theo gọi là <strong>Tree Map</strong>, hiển thị ĐỒ HOẠ mức dùng bộ nhớ cho <strong>TỪNG CATEGORY object</strong>. Chọn từng category để kiểm tra object bên trong."</em></p>
+<p>📋 <em>"Phần dưới cùng gọi là <strong>Tree Map Table</strong> — danh sách object ở dạng BẢNG. <strong>Các mục hiển thị có thể GOM NHÓM, SẮP XẾP và LỌC bằng cách bấm header. ĐẶC BIỆT, gom nhóm theo Type khiến việc phân tích DỄ HƠN — hãy dùng CHỦ ĐỘNG.</strong>"</em></p>
+<p>🔍 <em>"Khi chọn một category trong Tree Map, <strong>bộ lọc được TỰ ĐỘNG đặt để chỉ hiện object của category đó.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🗂️ <em>"The next area of the screen is called the <strong>Tree Map</strong>, which graphically displays memory usage for <strong>EACH CATEGORY of objects</strong>. By selecting each category, you can check the objects within the category."</em></p>
+<p>📋 <em>"The bottom part is called <strong>Tree Map Table</strong>. Here, the list of objects is arranged in a table format. <strong>The displayed items can be grouped, sorted, and filtered by pressing the header. Especially, grouping the Types makes it EASIER to analyze, so please use it PROACTIVELY.</strong>"</em></p>
+<p>🔍 <em>"When a category is selected in the Tree Map, <strong>a filter is AUTOMATICALLY set to display only objects in that category.</strong>"</em></p>
+</div>
+</div>
+
+**Bảng 3.6 — Cột `Diff` trong Compare Snapshots:**
+
+| Diff | Nghĩa (VI) | Meaning (EN) |
+|---|---|---|
+| **Same** | A, B **CÙNG** object | A, B same object |
+| **Not in A (Deleted)** | Object có ở A nhưng **KHÔNG** ở B | Object in A but not in B |
+| **Not in B (New)** | Object **KHÔNG** ở A nhưng có ở B | Object not in A but in B |
+
+> 💡 *"Bằng cách nhìn thông tin này, có thể kiểm tra **bộ nhớ đang TĂNG hay GIẢM.**"* / *"By looking at this information, it is possible to check whether memory is increasing or decreasing."*
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🔗 <strong>Detail Panel</strong> — <em>"Panel này dùng khi bạn muốn <strong>THEO DÕI quan hệ THAM CHIẾU của object đã chọn. Bằng cách kiểm tra 'Referenced By', bạn sẽ tìm ra được CÁI GÌ đang GIỮ tham chiếu.</strong>"</em></p>
+<p>🆘 <em>"Phần dưới, <strong>Selection Details</strong>, chứa thông tin chi tiết về object. Trong đó, <strong>mục 'Help' chứa LỜI KHUYÊN về cách GIẢI PHÓNG nó. Bạn nên đọc nếu chưa chắc phải làm gì.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🔗 <strong>Detail Panel</strong> — <em>"This panel is used when you want to <strong>track the reference relationship of the selected object. By checking this 'Referenced By', you will be able to figure out WHAT is causing the continued reference grabbing.</strong>"</em></p>
+<p>🆘 <em>"The bottom section, <strong>Selection Details</strong>, contains detailed information about the object. Among them, <strong>the 'Help' section contains ADVICE on how to RELEASE it. You may want to read it if you are not sure what to do.</strong>"</em></p>
+</div>
+</div>
+
+<img src="../assets/ca-memory-fragmentation.png" alt="Tab Fragmentation của Memory Profiler">
+
+<p><em>VI: Tab <strong>Fragmentation</strong> — trực quan hoá trạng thái VIRTUAL MEMORY theo địa chỉ (<code>0x000000109800000</code>, <code>0x00000010D800000</code>…), phân biệt Virtual Machine / Managed Heap / Managed Object / Native Memory (Reserved) / Native Memory (Allocated). Bảng dưới: <code>Stack Allocator: ALLOC_TEMP_THREAD: Virtual Memory Block</code> <strong>8.0 MB</strong>, <code>Memory Block</code> <strong>4.0 MB</strong>. ⚠️ Sách cảnh báo view này <strong>"KHÓ dùng vì chứa NHIỀU thông tin KHÔNG TRỰC QUAN như địa chỉ bộ nhớ"</strong>. / EN: The Fragmentation tab visualises virtual memory; the book warns it is hard to use because of the raw addresses.</em></p>
+
+<img src="../assets/ca-memory-breakdowns.png" alt="Tab Memory Breakdowns mới từ v0.6">
+
+<p><em>VI: <strong>Memory Breakdowns</strong> — tính năng MỚI từ <strong>v0.6</strong> (cần <strong>Unity 2022.1+</strong>). Ba chế độ: <strong>Unity Objects / Potential Duplicates / All Tracked Memory</strong>. Bảng: <strong>Total Memory In Table 2.2 MB</strong> vs <strong>Total Memory In Snapshot 207.0 MB</strong>; AudioManager <strong>0.9 MB (1 Object)</strong>, Cubemap <strong>321.1 KB (3)</strong>, MonoScript <strong>313.0 KB (1203)</strong>, Texture2D <strong>246.3 KB (16)</strong>, Shader <strong>211.0 KB (10)</strong>. 🏆 Chế độ <strong>"Potential Duplicates"</strong> giúp phát hiện object bị TRÙNG LẶP. / EN: Memory Breakdowns (v0.6+) — list-view tree maps plus a "Potential Duplicates" mode.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📊 <em>"<strong>'Objects and Allocations'</strong> KHÁC Summary ở chỗ <strong>thông tin CHI TIẾT HƠN như allocation có thể xem ở dạng BẢNG.</strong>"</em></p>
+<p>🧩 <em>"<strong>'Fragmentation'</strong> trực quan hoá trạng thái virtual memory và dùng để ĐIỀU TRA phân mảnh. <strong>Tuy nhiên, có thể KHÓ dùng vì chứa RẤT NHIỀU thông tin KHÔNG TRỰC QUAN như ĐỊA CHỈ BỘ NHỚ.</strong>"</em></p>
+<p>🆕 <em>"Tính năng mới <strong>'Memory Breakdowns'</strong> được thêm từ <strong>v0.6</strong>. Cần <strong>Unity 2022.1 trở lên</strong>, nhưng giờ có thể <strong>xem TreeMap ở dạng LIST VIEW và thông tin object như Unity Subsystems.</strong> Các tính năng mới khác gồm <strong>khả năng kiểm tra object có thể bị TRÙNG LẶP.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📊 <em>"<strong>'Objects and Allocations'</strong> differs from Summary in that <strong>more detailed information such as allocations can be viewed in TABLE format.</strong>"</em></p>
+<p>🧩 <em>"<strong>'Fragmentation'</strong> visualizes the virtual memory status and can be used to investigate fragmentation. <strong>However, it may be DIFFICULT to use because it contains a lot of NON-INTUITIVE information such as MEMORY ADDRESSES.</strong>"</em></p>
+<p>🆕 <em>"A new feature called <strong>'Memory Breakdowns'</strong> has been added since <strong>v0.6</strong>. <strong>Unity 2022.1 or later is required</strong>, but it is now possible to <strong>view TreeMaps in LIST VIEW and object information such as Unity Subsystems.</strong> Other new features include <strong>the ability to check for POSSIBLE DUPLICATE objects.</strong>"</em></p>
+</div>
+</div>
+
+### 22.2. 🗺️ Heap Explorer — công cụ ĐỘC NHẤT của cuốn sách này
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🧑‍💻 <em>"Heap Explorer là công cụ <strong>MÃ NGUỒN MỞ</strong> của nhà phát triển cá nhân <strong>Peter77</strong>. Giống Memory Profiler, công cụ này <strong>thường dùng để ĐIỀU TRA BỘ NHỚ</strong>."</em></p>
+<p>📜 <strong>Lý do sách vẫn đưa nó vào:</strong> <em>"Memory Profiler <strong>RẤT TỐN CÔNG</strong> để truy vết tham chiếu ở các bản <strong>TRƯỚC 0.4</strong> vì chúng KHÔNG hiển thị dạng danh sách. Dù đã cải thiện ở <strong>0.5</strong> trở lên, <strong>vẫn có người dùng phiên bản Unity KHÔNG được hỗ trợ. Nó VẪN RẤT GIÁ TRỊ như một công cụ THAY THẾ trong các trường hợp đó.</strong>"</em></p>
+<p>📥 <strong>Cài đặt:</strong> <em>"Copy Package URL liệt kê trong repository GitHub (<code>github.com/pschraut/UnityHeapExplorer</code>) và thêm bằng <strong>Add Package from Git url</strong> trong Package Manager."</em></p>
+</div>
+<div class="col-en">
+<p>🧑‍💻 <em>"Heap Explorer is an <strong>open source</strong> tool from private developer <strong>Peter77</strong>. Like Memory Profiler, this tool is often used to <strong>investigate memory</strong>."</em></p>
+<p>📜 <strong>Why the book still covers it:</strong> <em>"Memory Profiler was <strong>very LABOR INTENSIVE</strong> to track down references in versions <strong>PRIOR to 0.4</strong> because they were not displayed in a list format. Although this has been improved in <strong>0.5</strong> and later, <strong>there may be some who use a version of Unity that is NOT SUPPORTED. It is still VERY VALUABLE as an alternative tool in such cases.</strong>"</em></p>
+<p>📥 <strong>Install:</strong> <em>"Copy the Package URLs listed in the GitHub repository (<code>github.com/pschraut/UnityHeapExplorer</code>) and add it from <strong>Add Package from Git url</strong> in the Package Manager."</em></p>
+</div>
+</div>
+
+**Thanh toolbar — 4 nhóm chức năng:**
+
+| Nhóm | VI | EN |
+|---|---|---|
+| **Mũi tên trái/phải** | Đi **LÙI/TIẾN** trong thao tác. *"**ĐẶC BIỆT hữu ích để TRUY VẾT THAM CHIẾU.**"* | *"Especially useful for tracking references."* |
+| **File** | Lưu/nạp file đo — đuôi **`.heap`** | Saved with a `.heap` extension |
+| **View** | Chuyển giữa các màn hình hiển thị | Switch between different display screens |
+| **Capture** | 💀 *"**KHÔNG THỂ đổi ĐỐI TƯỢNG đo TRONG Heap Explorer. Phải đổi ở Unity Profiler hoặc công cụ khác của Unity.** **Save** lưu vào file rồi hiện kết quả; **Analyze** hiện kết quả mà KHÔNG lưu. Lưu ý: giống Memory Profiler, **bộ nhớ cấp phát lúc đo KHÔNG được giải phóng.**"* | *"The measurement target CANNOT be changed in Heap Explorer… memory allocated during measurement is not released."* |
+
+<img src="../assets/ca-heap-explorer-overview.png" alt="Màn hình Brief Overview của Heap Explorer">
+
+<p><em>VI: Heap Explorer — <strong>Brief Overview</strong>. Hai khung viền VÀNG là hai category sách bảo phải chú ý: <strong>Top 20 Native Memory Usage</strong> (RenderTexture <strong>44.7 MB / 60.00%</strong>, Shader <strong>21.5 MB / 28.80%</strong>, Texture2D <strong>5.7 MB / 7.68%</strong>, AudioManager <strong>1.1 MB</strong> — <strong>Total 74.5 MB</strong>) và <strong>Top 20 Managed Memory Usage</strong> (<code>System.String</code> <strong>14.1 KB / 9.99%</strong>, <code>UnityEngine.UIVertex[]</code> <strong>13.8 KB</strong>, <code>Vector4[]</code> <strong>8.7 KB</strong> — <strong>Total 140.8 KB</strong>). Bên phải: <strong>Top 20 Static Memory Usage — Total 74.1 KB</strong>; dưới: <strong>GC handles 3.7 KB</strong>, và <strong>Virtual Machine Information</strong> (Pointer Size <strong>8 B</strong>, Object Header <strong>16 B</strong>, Array Header <strong>32 B</strong>). / EN: Heap Explorer's Brief Overview — the green-lined Native and Managed Memory Usage categories are the ones to investigate.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🎯 <em>"Trong Overview, các category ĐÁNG QUAN TÂM ĐẶC BIỆT là <strong>Native Memory Usage và Managed Memory Usage</strong>, được đánh dấu bằng ĐƯỜNG XANH LÁ. Bấm nút <strong>'Investigate'</strong> để xem chi tiết từng category."</em></p>
+<p>🧱 <em>"Khi Investigate <strong>Native Memory</strong>, <strong>C++ Objects</strong> hiển thị ở khu vực này. Với <strong>Managed Memory</strong>, <strong>C# Objects</strong> sẽ hiển thị."</em></p>
+</div>
+<div class="col-en">
+<p>🎯 <em>"In the Overview, the categories of particular concern are <strong>Native Memory Usage and Managed Memory Usage</strong>, which are indicated by GREEN lines. Click the <strong>'Investigate'</strong> button to see the details of each category."</em></p>
+<p>🧱 <em>"When Native Memory is investigated, <strong>C++ Objects</strong> are displayed in this area. In case of <strong>Managed Memory</strong>, <strong>C# Objects</strong> will be displayed."</em></p>
+</div>
+</div>
+
+**Hai cột header LẠ trong Object display area:**
+
+| Cột | VI | EN |
+|---|---|---|
+| **DDoL** | 🔑 Viết tắt của **"Don't Destroy On Load"**. *"Bạn thấy được object có được **chỉ định là object KHÔNG BỊ HUỶ sau khi chuyển scene** hay không."* | *"You can see if the object is designated as an object that will not be destroyed after a scene transition."* |
+| **Persistent** | *"Cho biết object có phải **persistent object** hay không. Đây là **object Unity TỰ ĐỘNG tạo lúc khởi động.**"* | *"This is an object that is automatically created by Unity at startup."* |
+
+**Ba khung TRUY VẾT THAM CHIẾU — vũ khí chống rò rỉ:**
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>⬅️ <strong>Referenced by</strong> — <em>"Hiển thị object mà object đích ĐANG ĐƯỢC THAM CHIẾU TỪ."</em></p>
+<p>➡️ <strong>References to</strong> — <em>"Hiển thị object ĐƯỢC THAM CHIẾU BỞI object đích."</em></p>
+<p>🏆 <strong>Path to Root</strong> — <em>"Hiển thị các <strong>ROOT OBJECT đang tham chiếu tới object đích. RẤT hữu ích khi ĐIỀU TRA RÒ RỈ BỘ NHỚ, vì nó cho bạn thấy CÁI GÌ ĐANG GIỮ tham chiếu.</strong>"</em></p>
+<p>🏁 <em>"Như đã giới thiệu, <strong>Heap Explorer cung cấp BỘ CHỨC NĂNG ĐẦY ĐỦ cần thiết để điều tra rò rỉ bộ nhớ và bộ nhớ nói chung. Nó cũng RẤT NHẸ</strong>, nên hãy cân nhắc dùng. Nếu bạn thích, <strong>hãy thêm một Star như một lời cảm ơn.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>⬅️ <strong>Referenced by</strong> — <em>"The object from which the target object is referenced is displayed."</em></p>
+<p>➡️ <strong>References to</strong> — <em>"Displays objects that are referenced by the target object."</em></p>
+<p>🏆 <strong>Path to Root</strong> — <em>"Displays the <strong>ROOT OBJECTS that reference the target object. This is useful when investigating memory leaks, as it allows you to see WHAT IS HOLDING the reference.</strong>"</em></p>
+<p>🏁 <em>"Heap Explorer provides <strong>a complete set of functions necessary for investigating memory leaks and memory. It is also very lightweight</strong>, so please consider using this tool. If you like it, <strong>it would be better if you add a Star as a token of your appreciation.</strong>"</em></p>
+</div>
+</div>
+
+<img src="../assets/ca-heap-explorer-path-to-root.png" alt="Khung Path to Root của Heap Explorer">
+
+<p><em>VI: <strong>Path to Root</strong> — "2 Path(s) to Root". Đường thứ nhất bắt đầu từ <strong><code>UnityEngine.Rendering.RenderPipelineManager</code> → static <code>s_CurrentPipelineAsset</code> (Depth 6)</strong> đi qua <code>UniversalRenderPipelineAsset</code> → <code>ForwardRendererData</code> → <code>PostProcessData</code> → <code>Texture2D "Large01"</code>. Đường thứ hai từ <code>GraphicsSettings</code> (Depth 5). 🔑 Đây CHÍNH LÀ cách truy ra ai đang GIỮ một texture 
+không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPipelineAsset` is what keeps the `Large01` texture alive.</em></p>
+
+<img src="../assets/ca-reference-relationship.png" alt="Sơ đồ minh hoạ Referenced By, References to và Path to Root">
+
+<p><em>VI: Sơ đồ TỔNG KẾT ba khung — với <strong>Object C</strong> đang được chọn: <strong>"Referenced By"</strong> (mũi tên XANH LÁ) chỉ NGƯỢC lên <strong>Object B</strong>; <strong>"References to"</strong> (mũi tên ĐỎ) chỉ XUỐNG <strong>Object D</strong>; <strong>"Path to Root"</strong> (mũi tên CAM) chạy SUỐT chuỗi từ D lên tận <strong>Object A</strong>. / EN: The summary diagram of the three reference panels around the selected object.</em></p>
+
+---
+
+## 23. 🍎 Xcode — Debug Navigator, GPU Frame Capture, Memory Graph
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🔑 <em>"Xcode là công cụ IDE do Apple cung cấp. <strong>Khi bạn đặt target platform là iOS trong Unity, kết quả build sẽ là một Xcode project.</strong> 🏆 <strong>KHUYẾN NGHỊ dùng Xcode cho việc KIỂM CHỨNG NGHIÊM NGẶT, vì nó cung cấp giá trị CHÍNH XÁC HƠN Unity.</strong> Trong mục này ta sẽ chạm tới BA công cụ profiling: <strong>Debug Navigator, GPU Frame Capture, và Memory Graph.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🔑 <em>"Xcode is an integrated development environment tool provided by Apple. <strong>When you set the target platform as iOS in Unity, the build result will be an Xcode project.</strong> 🏆 <strong>It is recommended to use Xcode for RIGOROUS VERIFICATION, as it provides MORE ACCURATE values than Unity.</strong> In this section, we will touch on three profiling tools: <strong>Debug Navigator, GPU Frame Capture, and Memory Graph.</strong>"</em></p>
+</div>
+</div>
+
+### 23.1. Hai cách profile từ Xcode
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>1️⃣ <em>"<strong>Build và chạy app TRỰC TIẾP từ Xcode</strong> rồi chạy nó trên máy. (Cài đặt như chứng chỉ khi build được BỎ QUA trong tài liệu này.)"</em></p>
+<p>2️⃣ <em>"<strong>ATTACH app đang chạy vào debugger của Xcode.</strong> Có thể profile bằng cách <strong>chọn process đang chạy từ 'Debug → Attach to Process'</strong> trong menu Xcode sau khi chạy app."</em></p>
+<p>🚨 <em>"<strong>TUY NHIÊN, chứng chỉ lúc build PHẢI là loại DEVELOPER (Apple Development). Lưu ý chứng chỉ Ad Hoc hoặc Enterprise KHÔNG THỂ dùng để attach.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>1️⃣ <em>"<strong>Build and run the application directly from Xcode</strong> and run it on the terminal. (Settings such as certificates when performing a build are omitted.)"</em></p>
+<p>2️⃣ <em>"<strong>ATTACH the running application to the Xcode debugger.</strong> This can be profiled by <strong>selecting the running process from 'Debug → Attach to Process'</strong> in the Xcode menu after running the application."</em></p>
+<p>🚨 <em>"<strong>However, the certificate at build time MUST be for developer (Apple Development). Note that Ad Hoc or Enterprise certificates CANNOT be used to attach.</strong>"</em></p>
+</div>
+</div>
+
+### 23.2. Debug Navigator — 6 gauge, MIỄN PHÍ chỉ bằng cách chạy app
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📟 <em>"Debug Navigator cho phép bạn <strong>kiểm tra các đồng hồ debug như CPU và Memory CHỈ BẰNG CÁCH chạy app từ Xcode. SÁU mục hiển thị</strong> khi bấm biểu tượng bình xịt sau khi chạy app. Hoặc mở bằng <strong>"View → Navigators → Debug"</strong>."</em></p>
+</div>
+<div class="col-en">
+<p>📟 <em>"Debug Navigator allows you to <strong>check debugging gauges such as CPU and Memory JUST BY running the application from Xcode. SIX items are displayed</strong> by pressing the spray mark after running the application. Alternatively, open it from <strong>"View → Navigators → Debug"</strong>."</em></p>
+</div>
+</div>
+
+<img src="../assets/ca-xcode-debug-gauges.png" alt="Debug Navigator của Xcode với 6 gauge">
+
+<p><em>VI: Debug Navigator — process <strong>BibleSample PID 1038</strong>: <strong>CPU 23%</strong>, <strong>Memory 234.5 MB</strong>, 🚨 <strong>Energy Impact "Very High"</strong>, <strong>Disk Zero KB/s</strong>, <strong>Network 196 bytes/s</strong>, <strong>FPS 30</strong>. / EN: Xcode's Debug Navigator gauges — CPU, Memory, Energy Impact, Disk, Network and FPS at a glance.</em></p>
+
+| # | Gauge | VI | EN |
+|---|---|---|---|
+| 1 | **CPU** | Xem CPU dùng bao nhiêu — **cả TỈ LỆ của TỪNG THREAD** | *"You can also see the usage rate of each thread."* |
+| 2 | **Memory** | Tổng quan tiêu thụ bộ nhớ. ⚠️ **KHÔNG có phân tích chi tiết như breakdown** | *"Detailed analysis such as breakdown is NOT available."* |
+| 3 | **Energy** | Tổng quan **tiêu thụ ĐIỆN NĂNG** — có breakdown **CPU, GPU, Network** | *"You can get a breakdown of CPU, GPU, Network, etc. usage."* |
+| 4 | **Disk** | Tổng quan **File I/O**. *"Hữu ích để kiểm tra file có bị ĐỌC/GHI vào những THỜI ĐIỂM BẤT NGỜ không."* | *"Useful to check if files are being read or written at unexpected times."* |
+| 5 | **Network** | Tổng quan giao tiếp mạng — *"hữu ích để kiểm tra giao tiếp BẤT NGỜ."* | *"Useful for checking for unexpected communication."* |
+| 6 | **FPS** | ⚠️ **KHÔNG hiện mặc định** — *"nó hiện khi **GPU Frame Capture được BẬT**."* | *"It is displayed when GPU Frame Capture is enabled."* |
+
+<img src="../assets/ca-xcode-energy-gauge.png" alt="Energy Gauge của Xcode">
+
+<p><em>VI: <strong>Energy Gauge</strong> — <strong>Average Energy Impact: "High"</strong>. Biểu đồ tròn <strong>Average Component Utilization</strong> cho thấy <strong>CPU 100%</strong>, còn <strong>Overhead 0%, Network 0%, Location 0%, GPU 0%</strong> ⇒ toàn bộ điện năng bị đốt bởi CPU. / EN: The Energy Gauge — here 100% of the component utilisation is CPU, so the app is purely CPU-bound.</em></p>
+
+<img src="../assets/ca-xcode-fps-gauge.png" alt="FPS Gauge của Xcode với tỉ lệ shader stage">
+
+<p><em>VI: <strong>FPS Gauge</strong> — thứ Unity Profiler KHÔNG cho bạn: <strong>Frames Per Second 60</strong>; <strong>Utilization: VERTEX 90%, FRAGMENT 89%, DEVICE 90%</strong>; <strong>Frame Time: CPU 16.7 ms vs GPU 15 ms</strong>. 🔑 Đây là cách nhanh nhất để kết luận bạn đang <strong>GPU-bound hay CPU-bound</strong>. / EN: The FPS Gauge — not only FPS but shader-stage utilisation and separate CPU/GPU frame times.</em></p>
+
+### 23.3. 🎮 GPU Frame Capture — frame debugger cấp Metal
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🔬 <em>"GPU Frame Capture là công cụ cho phép <strong>frame debugging TRÊN Xcode</strong>. Tương tự Frame Debugger của Unity, bạn kiểm tra được tiến trình cho tới khi render hoàn tất. <strong>So với Unity, có NHIỀU THÔNG TIN HƠN ở TỪNG SHADER STAGE, nên có thể hữu ích để phân tích và cải thiện bottleneck.</strong>"</em></p>
+<p>⚙️ <strong>Chuẩn bị — 3 bước sửa scheme:</strong><br>
+① <em>Mở "Product → Scheme → Edit Scheme"</em><br>
+② <em>Tab <strong>"Options"</strong> → đổi <strong>GPU Frame Capture thành "Metal"</strong></em><br>
+③ <em>Tab <strong>"Diagnostics"</strong> → bật <strong>"Api Validation" cho Metal</strong></em></p>
+<p>📸 <em>"Capture bằng cách <strong>bấm biểu tượng MÁY ẢNH</strong> từ debug bar khi đang chạy. <strong>Tuỳ độ phức tạp của scene, lần capture ĐẦU có thể mất một lúc — hãy KIÊN NHẪN. Lưu ý ở Xcode 13 trở lên, icon đã đổi thành icon Metal.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🔬 <em>"GPU Frame Capture is a tool that allows <strong>frame debugging ON Xcode</strong>. Similar to Unity's Frame Debugger, you can check the process until rendering is completed. <strong>Compared to Unity, there is MORE INFORMATION at each shader stage, so it may be useful for analyzing and improving bottlenecks.</strong>"</em></p>
+<p>⚙️ <strong>Preparation — 3 scheme edits:</strong><br>
+① <em>Open "Product → Scheme → Edit Scheme"</em><br>
+② <em><strong>"Options"</strong> tab → change <strong>GPU Frame Capture to "Metal"</strong></em><br>
+③ <em><strong>"Diagnostics"</strong> tab → enable <strong>"Api Validation" for Metal</strong></em></p>
+<p>📸 <em>"Capture is performed by <strong>pressing the CAMERA symbol</strong> from the debug bar during execution. <strong>Depending on the complexity of the scene, the first capture may take some time, so please be patient. Note that in Xcode 13 or later, the icon has been changed to the Metal icon.</strong>"</em></p>
+</div>
+</div>
+
+<img src="../assets/ca-xcode-gpu-capture-summary.png" alt="Màn hình Summary của GPU Frame Capture">
+
+<p><em>VI: Summary của GPU Frame Capture — <strong>Overview: Command Buffers 1, Render Encoders 6, Blit Encoders 0, Compute Encoders 0, Draw Calls 15, Dispatch Calls 0</strong>. <strong>Memory: Textures 61.4 MB, Buffers 26 MB</strong>. Frame render ở <strong>828×1792, BGRA8Unorm</strong>. Panel <strong>Insights</strong> dưới chỉ ra tiết kiệm được: <code>_CameraOpaqueTexture</code> <strong>1.6 MB</strong>, <code>Texture 0x10ee762c0</code> <strong>7.6 MB</strong>, <code>_CameraDepthTexture</code> <strong>7.6 MB</strong> — tất cả do <strong>"Storage Mode"</strong>; tổng <strong>Memory 16.8 MB / Bandwidth 25.2 MB / API 4 Insights</strong>. / EN: The GPU Frame Capture Summary — with the Insights panel naming concrete memory savings per texture.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🔀 <strong>Hai kiểu duyệt lệnh — "View Frame By Call" vs "View Frame By Pipeline State":</strong></p>
+<p><em>"Ở view <strong>By Call</strong>, TẤT CẢ lệnh vẽ được liệt kê theo THỨ TỰ GỌI, <strong>bao gồm cả cài đặt buffer và các chuẩn bị khác cho việc vẽ, nên MỘT SỐ LƯỢNG LỚN lệnh xếp hàng.</strong> Ngược lại, <strong>By Pipeline State CHỈ liệt kê lệnh vẽ liên quan tới GEOMETRY được vẽ bởi TỪNG SHADER. Khuyến nghị CHUYỂN view tuỳ theo thứ bạn muốn điều tra.</strong>"</em></p>
+<p>🔍 <em>"Bấm bất kỳ lệnh vẽ nào trong Navigator để kiểm tra <strong>property dùng cho lệnh đó: texture, buffer, sampler, shader function, và geometry. Mỗi property có thể DOUBLE-CLICK để xem chi tiết</strong> — ví dụ bạn xem được <strong>CHÍNH CODE SHADER, sampler là Repeat hay Clamp</strong>, v.v."</em></p>
+<p>🧊 <em>"Property <strong>Geometry</strong> không chỉ hiển thị thông tin đỉnh dạng BẢNG mà còn <strong>cho phép DI CHUYỂN CAMERA để xem HÌNH DẠNG của geometry.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🔀 <strong>Two navigation modes — "View Frame By Call" vs "View Frame By Pipeline State":</strong></p>
+<p><em>"In the <strong>By Call</strong> view, all drawing commands are listed in the order in which they were invoked, <strong>which includes buffer settings and other preparations for drawing, so that a LARGE NUMBER of commands are lined up.</strong> On the other hand, <strong>By Pipeline State lists ONLY the drawing commands related to the geometry drawn by each shader. It is recommended to switch the display according to what you want to investigate.</strong>"</em></p>
+<p>🔍 <em>"By pressing any of the drawing commands in the Navigator area, you can check <strong>the properties used for that command: texture, buffer, sampler, shader functions, and geometry. Each property can be double-clicked to see the details</strong> — for example, you can see <strong>the shader code itself, whether the sampler is Repeat or Clamp</strong>, and so on."</em></p>
+<p>🧊 <em>"Geometry properties not only display vertex information in a table format, but also <strong>allow you to MOVE THE CAMERA to see the SHAPE of the geometry.</strong>"</em></p>
+</div>
+</div>
+
+<img src="../assets/ca-xcode-gpu-counters.png" alt="Màn hình Counters của GPU Frame Capture">
+
+<p><em>VI: Màn hình <strong>Counters</strong> (mở sau khi bấm <strong>Profile</strong> ở cột Performance) — mỗi cột là một Command, mỗi hàng là một bộ đếm GPU: <strong>GPU Time</strong> (cam), <strong>Texture L1 Bytes Read</strong> (Memory), <strong>Vertices</strong>, <strong>Vertex Stage Time</strong> (Vertex Shader), <strong>Primitives</strong>, <strong>Pixels Rasterized</strong> (Pre-Fragment Stage). Có thể lọc theo <strong>Memory / Vertices / Vertex Shader / Primitives / Pre-Fragment Stage / Fragment Shader / Post-Fragment Stage / Compute Kernel / Texture</strong>. / EN: The Counters screen — per-draw GPU time broken down by pipeline stage.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>⏱️ <em>"Tiếp theo là <strong>'Profile'</strong> ở cột Performance của màn hình Summary. <strong>Bấm nút này bắt đầu một phân tích CHI TIẾT HƠN. Khi phân tích xong, THỜI GIAN cho việc vẽ sẽ hiển thị ở khu vực Navigator.</strong> Kết quả xem chi tiết hơn ở màn hình <strong>'Counters'</strong> — nơi bạn thấy ĐỒ THỊ thời gian xử lý cho từng khâu vẽ như <strong>Vertex, Rasterized, Fragment</strong>."</em></p>
+<p>💾 <em>"<strong>'Show Memory'</strong> ở cột Memory đưa bạn tới màn hình <strong>kiểm tra tài nguyên GPU đang dùng — chủ yếu là TEXTURE và BUFFER. Nên kiểm tra xem có mục nào KHÔNG CẦN THIẾT không.</strong>"</em></p>
+<p>🕸️ <em>"<strong>'Show Dependencies'</strong> ở phần Overview hiển thị <strong>PHỤ THUỘC cho TỪNG RENDER PASS. Khi xem, bấm nút có mũi tên hướng RA NGOÀI để mở thêm phụ thuộc bên dưới cấp đó.</strong> Dùng màn hình này khi bạn muốn biết <strong>bản vẽ nào PHỤ THUỘC vào cái gì.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>⏱️ <em>"Next, <strong>'Profile'</strong> in the Performance column of the Summary screen. <strong>Clicking this button starts a MORE DETAILED analysis. When the analysis is finished, the TIME taken for drawing will be displayed in the Navigator area.</strong> The results can be viewed in more detail in the <strong>'Counters'</strong> screen — where you can graphically see the processing time for each drawing such as <strong>Vertex, Rasterized, Fragment</strong>."</em></p>
+<p>💾 <em>"<strong>'Show Memory'</strong> in the Memory column takes you to a screen where you can <strong>check the resources used by the GPU. The information displayed is mainly TEXTURES and BUFFERS. It is a good idea to check if there are any unnecessary items.</strong>"</em></p>
+<p>🕸️ <em>"<strong>'Show Dependencies'</strong> in the Overview section <strong>displays the dependencies for EACH RENDER PASS. When viewing the dependencies, click the button with the arrow pointing OUTWARD to open more dependencies below that level.</strong> Use this screen when you want to see <strong>which drawings depend on what.</strong>"</em></p>
+</div>
+</div>
+
+### 23.4. 🧠 Memory Graph — đo được cả thứ Unity KHÔNG đo được
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🏆 <em>"Công cụ này cho phép <strong>phân tích tình trạng bộ nhớ TẠI THỜI ĐIỂM CAPTURE. Khu vực Navigator bên trái hiển thị INSTANCE, và khi chọn một instance, QUAN HỆ THAM CHIẾU được hiển thị dưới dạng ĐỒ THỊ.</strong> Khu vực Inspector bên phải hiển thị thông tin CHI TIẾT về instance."</em></p>
+<p>🔑 <strong>Giá trị ĐỘC NHẤT:</strong> <em>"Công cụ này dùng để <strong>ĐIỀU TRA mức dùng bộ nhớ của các object KHÔNG THỂ ĐO ĐƯỢC TRONG UNITY, chẳng hạn PLUG-IN.</strong>"</em></p>
+<p>⚙️ <strong>Chuẩn bị:</strong> <em>"Để lấy được thông tin HỮU ÍCH từ Memory Graph, cần sửa scheme. Mở "Product → Scheme → Edit Scheme", rồi <strong>bật "Malloc Stack Logging" từ tab "Diagnostics". Bằng cách bật cái này, BACKTRACE sẽ hiển thị trong Inspector và bạn thấy được nó ĐÃ ĐƯỢC CẤP PHÁT NHƯ THẾ NÀO.</strong>"</em></p>
+<p>📸 <em>"Capture bằng cách <strong>bấm icon HÌNH NHÁNH CÂY</strong> từ debug bar khi app đang chạy."</em></p>
+</div>
+<div class="col-en">
+<p>🏆 <em>"This tool allows you to <strong>analyze the memory situation AT THE TIME OF CAPTURE. The Navigator area on the left displays INSTANCES, and by selecting an instance, the REFERENCE RELATIONSHIPS are displayed in a GRAPH.</strong> The Inspector area on the right displays detailed information about the instance."</em></p>
+<p>🔑 <strong>Its unique value:</strong> <em>"This tool can be used to <strong>investigate memory usage of objects that CANNOT BE MEASURED IN UNITY, such as PLUG-INS.</strong>"</em></p>
+<p>⚙️ <strong>Preparation:</strong> <em>"In order to obtain useful information from Memory Graph, it is necessary to edit the scheme. Open "Product → Scheme → Edit Scheme". Then, <strong>enable "Malloc Stack Logging" from the "Diagnostics" tab. By enabling this, BACKTRACE will be displayed in Inspector and you can see HOW it was allocated.</strong>"</em></p>
+<p>📸 <em>"Capture is performed by <strong>pressing the BRANCH-LIKE icon</strong> from the debug bar while the application is running."</em></p>
+</div>
+</div>
+
+<img src="../assets/ca-xcode-memory-graph.png" alt="Màn hình capture của Memory Graph với Backtrace">
+
+<p><em>VI: <strong>Memory Graph</strong> — process <strong>BibleSample PID 21770</strong> (<strong>CPU 41%, Memory 193.8 MB</strong>). Đồ thị <strong>Root-paths</strong> hiện chuỗi <code>VM: VM_ALLOCATE → malloc&lt;432&gt; → malloc&lt;240&gt; → malloc&lt;16793600&gt;</code>. Inspector phải: <strong>Size 16,793,600 bytes</strong>, Malloc Zone <code>MallocStackLoggingLiteZone</code>, và ⭐ <strong>BACKTRACE đầy đủ</strong>: <code>LowLevelAllocator::Malloc</code> → <code>MemoryManager::Allocate</code> → <code>QueueAllocator</code> → <code>AsyncUploadManager::ScheduleAsyncRead</code> → … → <code>GfxDeviceWorker::RunCommand</code>. 🔑 Nhờ Malloc Stack Logging, bạn truy được <strong>CHÍNH XÁC dòng code native đã cấp 16 MB đó</strong>. / EN: Memory Graph with Malloc Stack Logging on — the full native backtrace for a single 16.79 MB allocation.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>💾 <em>"Memory Graph có thể <strong>LƯU THÀNH FILE</strong> bằng <strong>"File → Export MemoryGraph"</strong>. Bạn có thể dùng <strong>lệnh <code>vmmap</code>, lệnh <code>heap</code>, và lệnh <code>malloc_history</code></strong> để điều tra SÂU HƠN file này."</em></p>
+</div>
+<div class="col-en">
+<p>💾 <em>"Memory Graph can be <strong>saved as a FILE</strong> by clicking <strong>"File → Export MemoryGraph"</strong>. You can use the <strong><code>vmmap</code> command, the <code>heap</code> command, and the <code>malloc_history</code> command</strong> to further investigate this file."</em></p>
+</div>
+</div>
+
+**List 3.5 — lệnh `vmmap` tóm tắt:**
+
+```bash
+vmmap --summary hoge.memgraph
+```
+
+<img src="../assets/ca-xcode-vmmap-summary.png" alt="Kết quả lệnh vmmap --summary">
+
+<p><em>VI: Kết quả <code>vmmap --summary</code> — bảng theo REGION TYPE với VIRTUAL / RESIDENT / DIRTY / SWAPPED / NONVOL / EMPTY SIZE. Nổi bật: <strong>IOAccelerator 99.2M virtual / 78.4M resident / 78.4M dirty (98 regions)</strong>, <strong>IOSurface 17.1M</strong>, <strong>MALLOC_LARGE 69.8M virtual / 23.7M resident / 27.0M SWAPPED — 1215 regions</strong>, <strong>MALLOC_NANO 512.0M virtual nhưng chỉ 304K resident</strong>, <strong>MALLOC_TINY 19.0M / 8320K</strong>. 🚨 <strong>TOTAL: 1.6G virtual, 355.9M resident, 143.5M dirty, 41.6M swapped, 4362 regions.</strong> Sách nói đây là cách <strong>"nắm được BỨC TRANH TỔNG THỂ mà lệnh MemoryGraph KHÓ nắm được"</strong>. / EN: `vmmap --summary` output — the whole-process picture that the MemoryGraph UI struggles to give.</em></p>
+
+---
+
+## 24. 🔬 Instruments — Time Profiler, Allocations & Generations
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🧪 <em>"Xcode có công cụ tên <strong>Instruments</strong> CHUYÊN về đo và phân tích CHI TIẾT. Để build cho Instruments, chọn <strong>"Product → Analyze"</strong>. Khi xong, màn hình chọn <strong>TEMPLATE</strong> cho các mục đo sẽ mở ra."</em></p>
+<p>🎯 <em>"Như bạn thấy từ SỐ LƯỢNG LỚN template, Instruments phân tích được RẤT NHIỀU nội dung khác nhau. Trong mục này, ta tập trung vào <strong>'Time Profiler' và 'Allocations'</strong>, là hai cái được dùng THƯỜNG XUYÊN."</em></p>
+</div>
+<div class="col-en">
+<p>🧪 <em>"Xcode has a tool called <strong>Instruments</strong> that specializes in detailed measurement and analysis. To build Instruments, select <strong>"Product → Analyze"</strong>. Once completed, a screen will open to select a <strong>TEMPLATE</strong> for the measurement items."</em></p>
+<p>🎯 <em>"As you can see from the LARGE NUMBER of templates, Instruments can analyze a wide variety of content. In this section, we will focus on <strong>'Time Profiler' and 'Allocations'</strong>, which are frequently used."</em></p>
+</div>
+</div>
+
+### 24.1. Time Profiler — phân tích theo ĐOẠN, không theo frame
+
+<img src="../assets/ca-instruments-time-profiler.png" alt="Kết quả đo của Time Profiler trong Instruments">
+
+<p><em>VI: <strong>Time Profiler</strong> — Tree View của <code>BibleSample (26180)</code> tổng <strong>2.96 s (100.0%)</strong>. Trong đó <strong><code>GfxDeviceWorker::RunExt</code> 1.32 s (44.5%)</strong> và <strong>Main Thread 1.25 s (42.1%)</strong>; đi sâu: <code>runUIApplicationMainWithArgc:argv:</code> <strong>1.25 s, self 99.00 ms</strong> → <code>repaintDisplayLink</code> <strong>1.13 s (38.2%)</strong> → <code>UnityRepaint</code> <strong>1.11 s (37.6%)</strong> → <code>PlayerLoop()</code> <strong>1.09 s (36.8%)</strong> → <code>ExecutePlayerLoop(NativePlayerLoopSystem*)</code> <strong>1.09 s, self 3.00 ms</strong>. / EN: Time Profiler tree view — note that GfxDeviceWorker (the render thread) eats 44.5% of the sampled window.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>⏱️ <em>"Time Profiler là công cụ đo <strong>THỜI GIAN THỰC THI CODE</strong>. Giống module CPU trong Unity Profiler, nó dùng để cải thiện thời gian xử lý. Để bắt đầu đo, bấm nút <strong>record hình TRÒN ĐỎ</strong> trên toolbar."</em></p>
+<p>🔑 <strong>Điểm KHÁC BIỆT cốt lõi:</strong> <em>"<strong>KHÁC Unity Profiler, ta sẽ phân tích KHÔNG theo FRAME mà theo ĐOẠN (segment). Tree View bên dưới hiển thị thời gian xử lý TRONG KHOẢNG đó.</strong> Khi tối ưu thời gian xử lý của game logic, <strong>khuyến nghị phân tích phần BÊN DƯỚI <code>PlayerLoop</code> trong Tree View.</strong>"</em></p>
+<p>👁️ <em>"Để Tree View DỄ ĐỌC hơn, bạn nên đặt cài đặt <strong>Call Trees</strong> ở dưới cùng Xcode. <strong>ĐẶC BIỆT, tick ô "Hide System Libraries" sẽ ẨN code hệ thống KHÔNG truy cập được, khiến việc điều tra DỄ HƠN.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>⏱️ <em>"The Time Profiler is a tool for measuring <strong>CODE EXECUTION TIME</strong>. Like the CPU module in the Unity Profiler, it is used to improve processing time. To start the measurement, you need to click on the <strong>RED CIRCLE record button</strong> in the toolbar."</em></p>
+<p>🔑 <strong>The core difference:</strong> <em>"<strong>Unlike the Unity Profiler, we will be analyzing NOT in FRAMES, but in SEGMENTS. The Tree View at the bottom shows the processing time WITHIN THE INTERVAL.</strong> When optimizing the processing time of game logic, <strong>it is recommended to analyze the processing BELOW the <code>PlayerLoop</code> in the Tree View.</strong>"</em></p>
+<p>👁️ <em>"To make the Tree View display easier to read, you should set the <strong>Call Trees</strong> setting at the bottom of Xcode. <strong>In particular, checking the "Hide System Libraries" checkbox HIDES INACCESSIBLE system code, making it easier to investigate.</strong>"</em></p>
+</div>
+</div>
+
+!!! warning "⚠️ Tên SYMBOL trong Time Profiler KHÁC Unity Profiler"
+    **VI:** *"**Tên symbol trong Time Profiler KHÁC với tên trong Unity Profiler**, nhưng chúng vẫn là một: theo dạng **`class_name_function_name_random_string`**."*
+
+    **EN:** *"The symbol names in the Time Profiler differ from those in the Unity Profiler, but they are still the same: **`class_name_function_name_random_string`**."*
+
+### 24.2. 🧯 Allocations — và option "Discard events for freed memory"
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🧯 <em>"Allocations là công cụ đo <strong>MỨC DÙNG BỘ NHỚ</strong>. Nó dùng để cải thiện <strong>RÒ RỈ bộ nhớ và mức sử dụng</strong>."</em></p>
+<p>⚙️ <strong>BẮT BUỘC làm trước khi đo:</strong> <em>"Trước khi đo, mở <strong>"File → Recording Options"</strong> và tick <strong>"Discard events for freed memory"</strong>."</em></p>
+</div>
+<div class="col-en">
+<p>🧯 <em>"Allocations is a tool for measuring <strong>MEMORY USAGE</strong>. It is used to improve <strong>memory LEAKAGE and usage</strong>."</em></p>
+<p>⚙️ <strong>Do this BEFORE measuring:</strong> <em>"Before measuring, open <strong>"File → Recording Options"</strong> and check <strong>"Discard events for freed memory"</strong>."</em></p>
+</div>
+</div>
+
+<img src="../assets/ca-instruments-discard-option.png" alt="So sánh Allocations khi bật và tắt option Discard events for freed memory">
+
+<p><em>VI: Sự KHÁC BIỆT do MỘT tuỳ chọn — <strong>Option Enable</strong> (trên): chỉ còn vài VẠCH ĐỨNG rời rạc, mỗi vạch là một allocation CHƯA được giải phóng. <strong>Option Disabled</strong> (dưới): một KHỐI XANH ĐẶC leo dốc liên tục — không thể phân biệt đâu là rò rỉ. / EN: The same recording with and without "Discard events for freed memory" — with it on, a remaining line means memory that was never freed.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🔑 <em>"Nếu option này BẬT, <strong>bản ghi sẽ bị VỨT BỎ khi bộ nhớ được GIẢI PHÓNG.</strong> Như bạn thấy, <strong>giao diện THAY ĐỔI ĐÁNG KỂ khi có và không có option. Với option, các DÒNG CHỈ được ghi khi bộ nhớ được CẤP PHÁT. Và các dòng đã ghi sẽ bị VỨT BỎ khi vùng cấp phát được GIẢI PHÓNG.</strong>"</em></p>
+<p>🏆 <em>"<strong>Nói cách khác, khi đặt option này: NẾU MỘT DÒNG CÒN LẠI trong bộ nhớ, nghĩa là NÓ CHƯA ĐƯỢC GIẢI PHÓNG.</strong> Ví dụ, trong một thiết kế mà <strong>bộ nhớ được giải phóng bởi CHUYỂN SCENE, nếu NHIỀU DÒNG CÒN LẠI ở đoạn scene TRƯỚC khi chuyển, thì CÓ NGHI VẤN RÒ RỈ BỘ NHỚ.</strong> Trong trường hợp đó, dùng Tree View để lần theo chi tiết."</em></p>
+</div>
+<div class="col-en">
+<p>🔑 <em>"If this option is enabled, <strong>the recording will be DISCARDED when memory is FREED.</strong> As you can see, <strong>the appearance changes significantly with and without the option. With the option, lines are recorded ONLY when memory is ALLOCATED. Also, the recorded lines are DISCARDED when the allocated area is RELEASED.</strong>"</em></p>
+<p>🏆 <em>"<strong>In other words, by setting this option, IF A LINE REMAINS in memory, it has NOT been released from memory.</strong> For example, in a design where <strong>memory is released by SCENE TRANSITIONS, if MANY LINES REMAIN in the scene section BEFORE the transition, there is a SUSPICION OF A MEMORY LEAK.</strong> In such a case, use the Tree View to follow the details."</em></p>
+</div>
+</div>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🌳 <em>"Tree View ở dưới màn hình hiển thị CHI TIẾT của khoảng đã chỉ định, tương tự Time Profiler. Tree View có thể hiển thị theo <strong>BỐN cách khác nhau. Cách hiển thị KHUYẾN NGHỊ NHẤT là <code>Call Trees</code> — cho phép bạn LẦN THEO CODE NÀO đã gây ra allocation.</strong> Có các option Call Trees ở dưới màn hình, và bạn đặt được option như <strong>Hide System Libraries</strong> giống như ở Time Profiler."</em></p>
+</div>
+<div class="col-en">
+<p>🌳 <em>"The Tree View at the bottom of the screen displays the details of the specified range, similar to the Time Profiler. The Tree View can be displayed in <strong>FOUR different ways. The MOST RECOMMENDED display method is <code>Call Trees</code>. This allows you to FOLLOW WHICH CODE caused the allocation.</strong> There are Call Trees display options at the bottom, and you can set options such as <strong>Hide System Libraries</strong> in the same way as in the Time Profiler."</em></p>
+</div>
+</div>
+
+<img src="../assets/ca-instruments-allocations-calltree.png" alt="Call Tree của Allocations chỉ ra 12.05 MB từ SampleScript OnClicked">
+
+<p><em>VI: 🎯 Ví dụ ĐẮT GIÁ của sách — Call Tree cho thấy <strong>Main Thread 12.06 MB (49.0%)</strong>, và lần xuống tận cùng: <strong><code>SampleScript_OnClickedLeak_m9D4818A571B…</code> gây ra 12.05 MB (49.0%)</strong> allocation. Sách viết: <em>"You can see that <strong>12.05MB of allocation is generated by SampleScript's OnClicked</strong>."</em> / EN: The Allocations Call Tree pinning 12.05 MB of allocation on a single C# method.</em></p>
+
+### 24.3. 🏅 Generations — "cái gì đã làm bộ nhớ TĂNG giữa hai mốc?"
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📌 <em>"Cuối cùng, xin giới thiệu tính năng gọi là <strong>Generations</strong>. Ở dưới cùng Xcode có nút <strong>"Mark Generation"</strong>. <strong>Khi bấm nút này, bộ nhớ TẠI THỜI ĐIỂM ĐÓ được LƯU LẠI. Sau đó, bấm "Mark Generation" LẦN NỮA sẽ GHI LẠI lượng bộ nhớ MỚI được cấp phát SO VỚI dữ liệu trước.</strong>"</em></p>
+<p>🏆 <em>"<strong>MỖI Generation được hiển thị ở dạng Call Tree, để bạn LẦN THEO được NGUYÊN NHÂN LÀM TĂNG bộ nhớ.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📌 <em>"Finally, let me introduce a feature called <strong>Generations</strong>. At the bottom of Xcode, there is a button called <strong>"Mark Generation"</strong>. <strong>When this button is pressed, the memory at that timing is STORED. After that, pressing the "Mark Generation" button AGAIN will record the amount of memory NEWLY ALLOCATED COMPARED TO the previous data.</strong>"</em></p>
+<p>🏆 <em>"<strong>Each Generation is displayed in a Call Tree format so that you can follow WHAT CAUSED the memory increase.</strong>"</em></p>
+</div>
+</div>
+
+<img src="../assets/ca-instruments-generations.png" alt="Bảng Generations của Instruments">
+
+<p><em>VI: <strong>Generations</strong> — ba mốc đánh dấu: <strong>Generation A @ 00:15.602.827 — Growth 168.47 MiB, # Persistent 96,330</strong>; <strong>Generation B @ 00:20.858.176 — Growth 75.71 MiB, # Persistent 6,219</strong>; <strong>Generation C @ 00:24.390.265 — Growth 256 Bytes, # Persistent 1</strong>. 🔑 Đọc bảng này ta biết CHÍNH XÁC đoạn nào của phiên chơi làm bộ nhớ phình lên. / EN: Generations — memory growth between successive marks, here 168.47 MiB then 75.71 MiB then essentially nothing.</em></p>
+
+---
+
+## 25. 🤖 Android Studio — CPU & Memory
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🤖 <em>"Android Studio là IDE cho Android. Công cụ này cho phép <strong>đo trạng thái ứng dụng của bạn. Có BỐN mục profile được: CPU, Memory, Network, và Energy.</strong>"</em></p>
+<p>🔧 <strong>Cách 1 — Export Project:</strong> <em>"Build và profile QUA Android Studio. Trước hết <strong>EXPORT project Android Studio từ Unity: trong Build Settings, tick "Export Project" rồi build.</strong> Mở project đã export trong Android Studio. Sau đó, <strong>với máy Android đã kết nối, bấm ICON HÌNH ĐỒNG HỒ ĐO ở góc trên bên phải để bắt đầu build. Sau khi build xong, app sẽ khởi động và profile bắt đầu.</strong>"</em></p>
+<p>🔌 <strong>Cách 2 — Attach (TIỆN HƠN):</strong> <em>"Mở Android Profiler từ <strong>"View → Tool Windows → Profiler"</strong>. Bấm <strong>SESSIONS</strong> trong Profiler. <strong>Để kết nối session, app cần ĐANG CHẠY. Ngoài ra, binary PHẢI là Development Build.</strong> Khi session kết nối, profile bắt đầu."</em></p>
+<p>💡 <em>"<strong>Cách thứ hai — attach vào debugger — ĐÁNG NHỚ vì nó KHÔNG đòi hỏi export project và DỄ dùng.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🤖 <em>"Android Studio is an integrated development environment tool for Android. This tool allows you to <strong>measure the status of your application. There are FOUR profileable items: CPU, Memory, Network, and Energy.</strong>"</em></p>
+<p>🔧 <strong>Method 1 — Export Project:</strong> <em>"Build and profile via Android Studio. First <strong>export the Android Studio project from Unity: in Build Settings, check the "Export Project" checkbox and build.</strong> Next, open the exported project in Android Studio. Then, <strong>with the Android device connected, press the GAUGE-LIKE ICON in the upper right corner to start the build. After the build is complete, the application will launch and the profile will start.</strong>"</em></p>
+<p>🔌 <strong>Method 2 — Attach (more convenient):</strong> <em>"Open the Android Profiler from <strong>"View → Tool Windows → Profiler"</strong>. Click on <strong>SESSIONS</strong>. <strong>To connect a session, the application to be measured MUST be running. Also, the binary MUST be a Development Build.</strong> Once the session is connected, the profile will start."</em></p>
+<p>💡 <em>"<strong>The second method of attaching to the debugger is good to keep in mind because it does NOT require exporting the project and can be used easily.</strong>"</em></p>
+</div>
+</div>
+
+!!! info "ℹ️ Nói CHÍNH XÁC ra thì…"
+    **VI:** *"Nói NGHIÊM NGẶT, bạn cần cấu hình setting **`debuggable` và `profileable` trong `AndroidManifest.xml`**, chứ KHÔNG phải Development Build trong Unity. **Trong Unity, `debuggable` được TỰ ĐỘNG đặt thành `true` khi bạn làm Development Build.**"*
+
+    **EN:** *"Strictly speaking, you need to configure **`debuggable` and `profileable` settings in `AndroidManifest.xml`**, not Development Build in Unity. **In Unity, `debuggable` is automatically set to `true` when you do a Development Build.**"*
+
+<img src="../assets/ca-android-studio-profiler.png" alt="Màn hình Profiler của Android Studio">
+
+<p><em>VI: Android Profiler cho <code>com.unity3d.player.UnityPlayerActivity</code> — <strong>CPU 12%</strong> (thang 100%), <strong>MEMORY 245.1 MB</strong> (thang 512 MB), <strong>ENERGY: Light</strong>. Network Profiler đã được chuyển đi nơi khác. / EN: The Android Studio Profiler top screen — CPU, Memory and Energy for the Unity player activity.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🖥️ <strong>Đo CPU:</strong> <em>"Màn hình đo CPU… <strong>CHỈ màn hình này KHÔNG cho bạn biết CÁI GÌ đang tiêu tốn BAO NHIÊU thời gian xử lý. Để xem chi tiết hơn, bạn cần CHỌN THREAD muốn xem.</strong> Sau khi chọn thread, <strong>bấm nút Record để đo CALL STACK của thread đó. Có vài kiểu đo, nhưng "Callstack Sample Recording" là ổn.</strong> Bấm Stop để kết thúc và hiển thị kết quả — <strong>màn hình kết quả sẽ TRÔNG GIỐNG module CPU của Unity Profiler.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🖥️ <strong>CPU measurement:</strong> <em>"<strong>This screen ALONE does NOT tell you WHAT is consuming HOW MUCH processing time. To see more details, you need to SELECT THE THREADS you want to see in detail.</strong> After selecting a thread, <strong>press the Record button to measure the thread's CALL STACK. There are several measurement types, but "Callstack Sample Recording" will be fine.</strong> Clicking Stop will end the measurement and display the results — <strong>the result screen will look like the CPU module of the Unity Profiler.</strong>"</em></p>
+</div>
+</div>
+
+<img src="../assets/ca-android-studio-callstack.png" alt="Kết quả đo Call Stack trong Android Studio">
+
+<p><em>VI: Kết quả <strong>Callstack Sample Recording</strong> — <strong>Threads (45)</strong>, thread <code>UnityMain</code> được chọn. Tab <strong>Top Down</strong>: <code>UnityMain()</code> <strong>25,000 µs (100.00%)</strong> → <code>__start_thread()</code> / <code>run()</code> / <code>loop() (android.os.Looper)</code> <strong>21,483 µs (85.93%)</strong> → <code>dispatchMessage()</code> / <code>handleMessage()</code> <strong>20,276 µs (81.10%)</strong>. Ngoài ra <code>LocalFrame() (jni::LocalFrame)</code> <strong>1,744 µs (6.98%)</strong>, <code>UnityShaderExtPluginKeywordsEnabled()</code> <strong>917 µs (3.67%, self 3.67%)</strong>, <code>ExecuteScriptableRenderLoop()</code> <strong>675 µs (2.70%)</strong>. Timeline trái hiện <code>nativeRender → UnityPlayerLoop → PlayerLoop → ExecutePlayerLoop → PlayerRender → GfxDeviceClient::BeginFrame</code>. / EN: Android Studio's Top-Down call stack for the UnityMain thread, with per-node µs and self-time.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>💾 <strong>Đo Memory:</strong> <em>"<strong>KHÔNG thấy được breakdown bộ nhớ trên màn hình này.</strong> Nếu muốn xem breakdown, bạn cần <strong>thực hiện một phép đo BỔ SUNG. Có BA cách đo. <code>"Capture heap dump"</code> lấy thông tin bộ nhớ tại THỜI ĐIỂM bấm. Các nút khác dùng để phân tích allocation TRONG một đoạn đo.</strong>"</em></p>
+<p>⚠️ <em>"Ví dụ chúng tôi đã capture kết quả Heap Dump. <strong>ĐỘ MỊN hơi THÔ cho phân tích chi tiết, nên có thể sẽ là một THỬ THÁCH.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>💾 <strong>Memory measurement:</strong> <em>"<strong>The memory breakdown CANNOT be seen on this screen.</strong> If you want to see the breakdown, you need to <strong>perform an ADDITIONAL measurement. There are THREE measurement methods. <code>"Capture heap dump"</code> can acquire the memory information at the timing when it is pressed. Other buttons are for analyzing allocations during the measurement section.</strong>"</em></p>
+<p>⚠️ <em>"As an example, we have captured the measurement results of Heap Dump. <strong>The granularity is a bit COARSE for detailed analysis, so it may be CHALLENGING.</strong>"</em></p>
+</div>
+</div>
+
+<img src="../assets/ca-android-studio-heap-dump.png" alt="Kết quả Heap Dump của Android Studio">
+
+<p><em>VI: <strong>Heap Dump</strong> — <strong>617 Classes, 0 Leaks, 48,632 Count, Native Size 53,605, Shallow Size 3,256,122, Retained Size 3,787,319</strong>. Trong app heap: <strong><code>byte[]</code> 7,465 allocations / Retained 1,990,508</strong> (áp đảo), <code>Object[]</code> <strong>7,196 / 258,747</strong>, <code>Method (java.lang.reflect)</code> <strong>5,408 / 216,320</strong>, <code>int[]</code> <strong>2,513 / 179,120</strong>. Instance Details cho thấy <code>byte[]@377946320</code> <strong>8,744 bytes</strong> đang bị <code>keyBytes in ICUResourceBundle</code> tham chiếu. / EN: The Android Studio Heap Dump — class-level counts and retained sizes plus a per-instance reference tree.</em></p>
+
+---
+
+## 26. 🎛️ RenderDoc — Graphics debugger mã nguồn mở
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🏆 <em>"RenderDoc là công cụ <strong>graphics debugger MÃ NGUỒN MỞ, MIỄN PHÍ, CHẤT LƯỢNG CAO</strong>."</em></p>
+<p>⚠️ <strong>GIỚI HẠN NỀN TẢNG — phải biết trước:</strong><br>
+<em>"Công cụ hiện có cho <strong>Windows và Linux, KHÔNG có cho Mac</strong>. Graphics API hỗ trợ gồm <strong>Vulkan, OpenGL(ES), D3D11, và D3D12</strong>. Do đó, <strong>nó dùng được trên ANDROID, nhưng KHÔNG trên iOS.</strong>"</em></p>
+<p>🚨 <strong>Điều kiện profile Android:</strong> <em>"① <strong>Android OS 6.0 trở lên</strong> là bắt buộc. ② <strong>App cần profile PHẢI bật Debuggable</strong> — không vấn đề gì nếu chọn <strong>Development Build</strong> lúc build. Phiên bản RenderDoc dùng trong sách là <strong>v1.18</strong>."</em></p>
+</div>
+<div class="col-en">
+<p>🏆 <em>"RenderDoc is an <strong>open source, FREE, HIGH-QUALITY graphics debugger tool</strong>."</em></p>
+<p>⚠️ <strong>Platform limits — know them first:</strong><br>
+<em>"The tool is currently available for <strong>Windows and Linux, but NOT for Mac</strong>. Graphics APIs supported include <strong>Vulkan, OpenGL(ES), D3D11, and D3D12</strong>. Therefore, <strong>it can be used on ANDROID, but NOT on iOS.</strong>"</em></p>
+<p>🚨 <strong>Android profiling conditions:</strong> <em>"① <strong>Android OS version 6.0 or later</strong> is required. ② <strong>The application to be profiled MUST have Debuggable enabled</strong> — this is no problem if Development Build is selected at build time. The version of RenderDoc used is <strong>v1.18</strong>."</em></p>
+</div>
+</div>
+
+**Quy trình đo — 5 bước:**
+
+| # | Bước |
+|---|---|
+| 1 | Tải installer từ **`renderdoc.org`** và cài đặt |
+| 2 | Kết nối máy Android: **bấm biểu tượng NGÔI NHÀ ở góc dưới bên TRÁI** → chọn thiết bị từ danh sách |
+| 3 | Tab **Launch Application** bên phải → chọn app cần chạy từ **Executable Path** |
+| 4 | Cửa sổ File Browser mở ra → tìm **Package Name** và chọn **Activity** |
+| 5 | Bấm **Launch** → app khởi động trên máy, và **một tab ĐO MỚI được thêm vào RenderDoc** |
+
+> 📸 *"**"Capture Frame(s) Immediately"** sẽ capture dữ liệu frame, được liệt kê trong tab **"Capture collected"**. **Double-click** vào dữ liệu này để mở dữ liệu đã capture."*
+
+### 26.1. Timeline & Event Browser — cột `Duration` là chìa khoá
+
+<img src="../assets/ca-renderdoc-event-browser.png" alt="Event Browser của RenderDoc với cột Duration">
+
+<p><em>VI: <strong>Event Browser</strong> — bấm <strong>biểu tượng ĐỒNG HỒ</strong> (viền cam) để hiện cột <strong>Duration (µs)</strong>. Ta thấy <code>DrawOpaqueObjects</code> tổng <strong>4.53125 µs</strong>, trong đó <code>RenderLoopNewBatcher.Draw</code> <strong>3.75 µs</strong> gồm <strong>BA</strong> lệnh <code>vkCmdDrawIndexed(600, 1)</code> <strong>2.13542 µs</strong>, <code>vkCmdDrawIndexed(2304, 1)</code> <strong>0.83333 µs</strong>, <code>vkCmdDrawIndexed(36, 1)</code> <strong>0.78125 µs</strong> — và MỘT lệnh <code>vkCmdDrawIndexed(2496, 1)</code> <strong>0.78125 µs</strong> nằm NGOÀI batch, dưới <code>RenderLoop.Draw</code>. 🔑 Đúng như sách: <em>"ba lệnh được BATCH và CHỈ MỘT được vẽ NGOÀI batch"</em>. / EN: The RenderDoc Event Browser with the Duration column on — three draws batched, one drawn outside the batch.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📅 <em>"Đầu tiên, <strong>TIMELINE của các frame đã capture hiển thị ở TRÊN CÙNG màn hình. Điều này cho phép bạn nắm TRỰC QUAN THỨ TỰ mà mỗi lệnh vẽ được thực hiện.</strong>"</em></p>
+<p>📋 <em>"Tiếp theo là <strong>Event Browser</strong> — mỗi lệnh được liệt kê theo thứ tự từ trên xuống. <strong>Bấm 'biểu tượng ĐỒNG HỒ' ở đầu Event Browser để hiển thị THỜI GIAN XỬ LÝ cho MỖI lệnh trong cột 'Duration'.</strong>"</em></p>
+<p>⚠️ <em>"<strong>Thời gian xử lý THAY ĐỔI tuỳ THỜI ĐIỂM đo, nên TỐT NHẤT coi nó như một ƯỚC LƯỢNG THÔ.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📅 <em>"First, <strong>a TIMELINE of captured frames is displayed at the TOP of the screen. This allows you to visually capture the ORDER in which each drawing command was performed.</strong>"</em></p>
+<p>📋 <em>"Next is the <strong>Event Browser</strong>. Each command is listed here in order from the top. <strong>Clicking the 'CLOCK SYMBOL' at the top of the Event Browser displays the PROCESSING TIME for each command in the 'Duration' column.</strong>"</em></p>
+<p>⚠️ <em>"<strong>The processing time VARIES depending on the timing of the measurement, so it is best to consider it as a ROUGH ESTIMATE.</strong>"</em></p>
+</div>
+</div>
+
+### 26.2. Pipeline State — 9 stage của pipeline
+
+<img src="../assets/ca-renderdoc-pipeline-state.png" alt="Pipeline State của RenderDoc ở stage VTX">
+
+<p><em>VI: <strong>Pipeline State</strong> với chuỗi stage <strong>VTX → VS → TCS → TES → GS → RS → FS → FB</strong> (và <strong>CS</strong> tách riêng). Stage <strong>VTX</strong> đang chọn: 3 attribute — <code>_input0</code> <strong>R32G32B32_FLOAT</strong> (offset 0), <code>_input1</code> <strong>R8G8B8A8_UNORM</strong> (offset 12), <code>_input2</code> <strong>R32G32B32A32_FLOAT</strong> (offset 16); Buffer <strong>1176, Rate Vertex, Stride 32</strong>; Primitive Topology <strong>Triangle List</strong>. / EN: The RenderDoc Pipeline State bar with the VTX stage selected — vertex attribute formats, stride and topology.</em></p>
+
+**Bảng 3.7 — Tên VIẾT TẮT vs tên CHÍNH THỨC của các stage:**
+
+| Viết tắt | Tên chính thức |
+|---|---|
+| **VTX** | Vertex Input |
+| **VS** | Vertex Shader |
+| **TCS** | Tessellation Control Shader |
+| **TES** | Tessellation Evaluation Shader |
+| **GS** | Geometry Shader |
+| **Rasterizer** | Rasterizer |
+| **FS** | Fragment Shader |
+| **Frame Buffer** | Frame Buffer |
+| **CS** | Compute Shader |
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🔍 <em>"<strong>Pipeline State cho phép bạn xem THAM SỐ NÀO được dùng ở TỪNG SHADER STAGE trước khi object được render ra màn hình. Bạn cũng xem được SHADER dùng và NỘI DUNG của nó.</strong>"</em></p>
+<p>🖼️ <em>"Stage <strong>FB (Frame Buffer)</strong> cho phép xem chi tiết như <strong>trạng thái TEXTURE ĐÍCH và Blend State.</strong>"</em></p>
+<p>🎨 <em>"Stage <strong>FS</strong> cho phép xem <strong>texture và tham số dùng trong fragment shader</strong>. <strong>'Resources'</strong> ở giữa stage FS hiển thị <strong>texture và sampler đang dùng. 'Uniform Buffers' ở dưới hiển thị CBUFFER</strong> — chứa các property SỐ như <code>float</code> và <code>color</code>. Bên phải mỗi mục có icon mũi tên <strong>'Go'</strong>, bấm để xem chi tiết dữ liệu."</em></p>
+<p>💻 <em>"<strong>Shader được dùng hiển thị ở PHẦN TRÊN của stage FS, và CODE SHADER xem được bằng cách bấm View. KHUYẾN NGHỊ chọn Disassembly type GLSL để hiển thị DỄ HIỂU HƠN.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🔍 <em>"<strong>Pipeline State allows you to see WHAT PARAMETERS were used in EACH SHADER STAGE before the object was rendered to the screen. You can also view the shaders used and their contents.</strong>"</em></p>
+<p>🖼️ <em>"The <strong>FB (Frame Buffer)</strong> stage allows you to see details such as <strong>the state of the OUTPUT DESTINATION TEXTURE and the Blend State.</strong>"</em></p>
+<p>🎨 <em>"The <strong>FS</strong> stage shows <strong>the textures and parameters used in the fragment shader</strong>. <strong>'Resources'</strong> in the centre of the FS stage shows <strong>the textures and samplers used. 'Uniform Buffers' at the bottom shows the CBUFFER</strong>, which contains numerical properties such as <code>float</code> and colour. To the right of each item there is a <strong>'Go'</strong> arrow icon, which can be pressed to see the details of the data."</em></p>
+<p>💻 <em>"<strong>The shader used is shown in the UPPER part of the FS stage, and the SHADER CODE can be viewed by pressing View. Disassembly type GLSL is RECOMMENDED to make the display easier to understand.</strong>"</em></p>
+</div>
+</div>
+
+### 26.3. Mesh Viewer — xem mesh TRƯỚC và SAU biến đổi toạ độ
+
+<img src="../assets/ca-renderdoc-mesh-viewer.png" alt="Mesh Viewer của RenderDoc">
+
+<p><em>VI: <strong>Mesh Viewer</strong> — bảng trên chia <strong>VS Input</strong> (VTX 0 → IDX 177, <code>_input0</code> = <strong>0.192, −0.45026…</strong>) và <strong>VS Output</strong> (cùng VTX/IDX, <code>_sig409._child0</code> = <strong>5.95286, −2.51193…</strong>) — tức TOẠ ĐỘ TRƯỚC và SAU vertex shader. Preview dưới cho phép xoay camera (Arcball) quanh mesh wireframe của một quả cầu. / EN: The Mesh Viewer — vertex data before and after the vertex shader, plus an interactive preview.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🧊 <em>"Chức năng này cho phép <strong>xem TRỰC QUAN thông tin mesh, hữu ích cho TỐI ƯU và DEBUG.</strong> <strong>Phần TRÊN hiển thị thông tin ĐỈNH của mesh ở dạng BẢNG. Phần DƯỚI có màn hình PREVIEW nơi bạn DI CHUYỂN CAMERA để kiểm tra HÌNH DẠNG mesh.</strong>"</em></p>
+<p>🔄 <em>"<strong>Cả hai tab đều chia thành In và Out, nên bạn thấy được GIÁ TRỊ và DIỆN MẠO đã THAY ĐỔI THẾ NÀO TRƯỚC và SAU phép biến đổi.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🧊 <em>"This function allows you to <strong>visually view mesh information, which is useful for OPTIMIZATION and DEBUGGING.</strong> <strong>The UPPER part shows mesh vertex information in a TABLE format. The LOWER part has a PREVIEW screen where you can MOVE THE CAMERA to check the SHAPE of the mesh.</strong>"</em></p>
+<p>🔄 <em>"<strong>Both tabs are divided into In and Out tabs, so you can see HOW the values and appearance have CHANGED BEFORE and AFTER the conversion.</strong>"</em></p>
+</div>
+</div>
+
+### 26.4. 🔥 Texture Viewer & Pixel History — điều tra OVERDRAW ở cấp PIXEL
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🖼️ <em>"Màn hình này hiển thị <strong>'texture dùng để INPUT' và 'kết quả OUTPUT' của lệnh đã chọn trong Event Browser.</strong> Ở khu vực bên PHẢI bạn kiểm tra được input và output texture. <strong>Bấm vào texture hiển thị sẽ phản ánh nó sang khu vực bên TRÁI</strong> — nơi không chỉ hiển thị texture mà còn <strong>cho phép LỌC KÊNH MÀU và áp dụng cài đặt toolbar.</strong>"</em></p>
+<p>🟨 <em>"Trong ví dụ, <strong>"Wireframe Mesh" được chọn cho Overlay, nên object vẽ bởi lệnh này có WIREFRAME MÀU VÀNG — RẤT DỄ NHÌN.</strong>"</em></p>
+<p>🏆 <strong>Pixel Context — vũ khí chống OVERDRAW:</strong> <em>"Chức năng này cho phép <strong>xem LỊCH SỬ VẼ của các pixel đã chọn. Lịch sử cho biết một pixel đã bị TÔ ĐI TÔ LẠI BAO NHIÊU LẦN. Đây là tính năng HỮU ÍCH để ĐIỀU TRA và TỐI ƯU OVERDRAW.</strong>"</em></p>
+<p>⚠️ <em>"<strong>Tuy nhiên, vì nó ở cấp TỪNG PIXEL, nó KHÔNG PHÙ HỢP để điều tra overdraw trên phạm vi TOÀN CỤC.</strong> Để điều tra, <strong>right-click vào vùng muốn điều tra ở phía TRÁI</strong>, vị trí đó sẽ được phản ánh vào Pixel Context, rồi <strong>bấm nút History</strong>."</em></p>
+</div>
+<div class="col-en">
+<p>🖼️ <em>"This screen shows the <strong>'texture used for INPUT' and 'OUTPUT result' of the command selected in the Event Browser.</strong> In the area on the RIGHT side, you can check the input and output textures. <strong>Clicking on the displayed texture will reflect it in the area on the LEFT side</strong> — which not only displays the texture, but also allows you to <strong>FILTER THE COLOUR CHANNELS and apply toolbar settings.</strong>"</em></p>
+<p>🟨 <em>"In the example, <strong>"Wireframe Mesh" was selected for the Overlay, so the object drawn with this command has a YELLOW WIREFRAME display, making it easy to see visually.</strong>"</em></p>
+<p>🏆 <strong>Pixel Context — the anti-overdraw weapon:</strong> <em>"This function allows the user to <strong>view the DRAWING HISTORY of selected pixels. The history allows the user to determine HOW OFTEN a pixel has been FILLED. This is a useful feature for OVERDRAW investigation and optimization.</strong>"</em></p>
+<p>⚠️ <em>"<strong>However, since it is on a PER-PIXEL basis, it is NOT suitable for investigating overdraw on a GLOBAL basis.</strong> To investigate, <strong>right-click on the area you want to investigate on the left side</strong>, and the location will be reflected in the Pixel Context, then <strong>click the History button</strong>."</em></p>
+</div>
+</div>
+
+<img src="../assets/ca-renderdoc-pixel-history.png" alt="Pixel History của RenderDoc với 4 sự kiện vẽ">
+
+<p><em>VI: <strong>Pixel History on `_CameraColorTexture` for (195, 734)</strong> — <strong>BỐN</strong> lịch sử. 🟩 <strong>XANH LÁ = pixel VƯỢT QUA mọi test (depth test…) và ĐƯỢC TÔ</strong>: <code>EID 73 vkCmdBeginRenderPass(C=Clear, DS=Clear)</code> (Tex After R:0.19141 G:0.30078 B:0.46875) và <code>EID 101 vkCmdDrawIndexed(2496, 1)</code> dưới <code>RenderLoop.Draw</code> (Tex After <strong>0.51563</strong> ba kênh). 🟥 <strong>ĐỎ = FAIL</strong>: <code>EID 84 vkCmdDrawIndexed(600, 1)</code> — <strong>"Depth test failed"</strong>, và <code>EID 137 vkCmdDraw(5040, 1)</code> dưới <code>Camera.RenderSkybox</code> — <strong>"Depth test failed"</strong>. Đúng như sách mô tả: <em>"screen clearing và capsule drawing THÀNH CÔNG, trong khi Plane và Skybox TRƯỢT depth test"</em>. / EN: Pixel History — green rows passed all pipeline tests, red rows failed (here the depth test), giving an exact per-pixel overdraw account.</em></p>
+
+---
+
+## 27. 🗃️ THỰC HÀNH TUNING — ASSET (Chương 4)
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📦 <em>"Sản xuất game liên quan tới việc xử lý <strong>MỘT SỐ LƯỢNG LỚN các loại asset khác nhau</strong> như texture, mesh, animation và sound. Chương này cung cấp <strong>kiến thức THỰC HÀNH về các asset đó, gồm các cài đặt cần ghi nhớ khi tuning hiệu năng.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📦 <em>"Game production involves handling <strong>a large number of different types of assets</strong> such as textures, meshes, animations, and sounds. This chapter provides <strong>practical knowledge about these assets, including settings to keep in mind when tuning performance.</strong>"</em></p>
+</div>
+</div>
+
+### 27.1. 🖼️ Texture
+
+👉 *Xem thêm [Module 2](../02-junior/01-ui-physics-deep-dive.md) về import settings cơ bản. Dưới đây là các điểm CyberAgent nhấn mạnh cùng CON SỐ cụ thể.*
+
+| Setting | 💀 Chi phí nếu SAI | ✅ Khuyến nghị |
+|---|---|---|
+| **Read/Write** | *"Nếu BẬT, nó sẽ được copy **KHÔNG CHỈ vào GPU memory mà CẢ main memory, do đó **GẤP ĐÔI** mức tiêu thụ."* | *"Nếu bạn **KHÔNG dùng API như `Texture.GetPixel` hay `Texture.SetPixel`** và chỉ dùng Shader để truy cập texture, **HÃY TẮT nó.**"* |
+| **Generate Mip Maps** | *"Bật Mip Map làm **TĂNG mức dùng bộ nhớ texture khoảng **1.3 LẦN**."* | *"Nó về cơ bản **KHÔNG CẦN THIẾT cho 2D sprite và ảnh UI, nên PHẢI TẮT.**"* |
+| **Aniso Level** | *"Giá trị Aniso Level **CÀNG CAO thì lợi ích CÀNG NHIỀU, nhưng CHI PHÍ XỬ LÝ CŨNG CAO HƠN.**"* | Chỉ dùng cho *"object trải DÀI như MẶT ĐẤT hay SÀN"* |
+| **Compression** | *"Texture **PHẢI được nén trừ khi có LÝ DO CỤ THỂ để không nén.**"* | *"Nếu bạn thấy texture CHƯA nén trong project, **có thể là LỖI CON NGƯỜI hoặc THIẾU QUY ĐỊNH. Hãy kiểm tra NGAY LẬP TỨC.**"* |
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>💡 <strong>Texture sinh lúc runtime:</strong> <em>"Với texture tạo lúc runtime, đặt <code>makeNoLongerReadable</code> = <code>true</code> để TRÁNH copy vào main memory."</em></p>
+<p>🚨 <em>"Vì <strong>chuyển texture TỪ GPU memory SANG main memory là TỐN THỜI GIAN, hiệu năng được cải thiện bằng cách triển khai texture ở CẢ HAI nếu chúng readable.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>💡 <strong>Runtime-generated textures:</strong> <em>"For textures generated at runtime, set <code>makeNoLongerReadable</code> to <code>true</code> to avoid copying to main memory."</em></p>
+<p>🚨 <em>"Since <strong>transferring textures from GPU memory to main memory is TIME-CONSUMING, performance is improved by deploying textures to BOTH if they are readable.</strong>"</em></p>
+</div>
+</div>
+
+**List 4.1 — tắt readable cho texture runtime:**
+
+```csharp
+texture2D.Apply(updateMipmaps, makeNoLongerReadable: true);
+```
+
+<img src="../assets/ca-aniso-level-comparison.png" alt="So sánh AnisoLevel = 1 và AnisoLevel = 9">
+
+<p><em>VI: <strong>AnisoLevel = 1</strong> (trái) — các đường kẻ trên SÀN bị MỜ NHOÈ ở góc nhìn nông. <strong>AnisoLevel = 9</strong> (phải) — các đường vẫn SẮC NÉT tới tận đường chân trời. Đây chính là "chức năng render texture KHÔNG BỊ MỜ khi object được render ở GÓC NÔNG". / EN: AnisoLevel 1 vs 9 — the floor grid stays sharp at grazing angles with anisotropic filtering on.</em></p>
+
+!!! danger "💀 Aniso Level — ĐẶC TẢ HƠI ĐẶC BIỆT, dễ dùng SAI"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p><em>"Aniso Level đặt được <strong>từ 0 tới 16</strong>, nhưng có đặc tả hơi ĐẶC BIỆT:</p>
+    <p>• <strong>0</strong>: LUÔN TẮT bất kể project settings.<br>
+    • <strong>1</strong>: Về cơ bản TẮT. <strong>TUY NHIÊN, nếu project setting là <code>Forced On</code>, giá trị bị CLAMP về 9~16.</strong><br>
+    • <strong>Khác</strong>: đặt ở đúng giá trị đó."</em></p>
+    <p>🚨 <em>"<strong>Khi texture được import, giá trị MẶC ĐỊNH là 1. Do đó, cài đặt <code>Forced On</code> KHÔNG được khuyến nghị TRỪ KHI bạn nhắm tới thiết bị CẤU HÌNH CAO.</strong>" <code>Forced On</code> đặt từ <strong>"Anisotropic Textures" trong "Project Settings → Quality"</strong>.</em></p>
+    <p>🔬 <em>"<strong>Hiệu ứng của Aniso Level KHÔNG TUYẾN TÍNH, mà CHUYỂN THEO BẬC. Tác giả đã KIỂM CHỨNG rằng nó thay đổi qua BỐN BẬC: 0~1, 2–3, 4~7, và 8 trở lên.</strong>"</em></p>
+    </div>
+    <div class="col-en">
+    <p><em>"The Aniso Level can be set from <strong>0 to 16</strong>, but it has a slightly special specification:</p>
+    <p>• <strong>0</strong>: Always disabled regardless of project settings.<br>
+    • <strong>1</strong>: Basically disabled. <strong>However, if the project setting is <code>Forced On</code>, the value is CLAMPED to 9~16.</strong><br>
+    • <strong>Otherwise</strong>: Set at that value."</em></p>
+    <p>🚨 <em>"<strong>When textures are imported, the value is 1 by DEFAULT. Therefore, the <code>Forced On</code> setting is NOT recommended UNLESS you are targeting a high-spec device.</strong>"</em></p>
+    <p>🔬 <em>"<strong>The effect of Aniso Level is NOT LINEAR, but rather switches in STEPS. The author verified that it changes in FOUR steps: 0~1, 2-3, 4~7, and 8 or later.</strong>"</em></p>
+    </div>
+    </div>
+
+**List 4.2 — TỰ ĐỘNG HOÁ import settings bằng `AssetPostprocessor` (chống lỗi con người):**
+
+```csharp
+using UnityEditor;
+
+public class ImporterExample : AssetPostprocessor
+{
+    private void OnPreprocessTexture()
+    {
+        var importer = assetImporter as TextureImporter;
+        // Read/Write settings, etc. are also possible.
+        importer.isReadable = false;
+
+        var settings = new TextureImporterPlatformSettings();
+        // Specify Android = "Android", PC = "Standalone"
+        settings.name = "iPhone";
+        settings.overridden = true;
+        settings.textureCompression = TextureImporterCompression.Compressed;
+        // Specify compression format
+        settings.format = TextureImporterFormat.ASTC_6x6;
+        importer.SetPlatformTextureSettings(settings);
+    }
+}
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>⚖️ <em>"<strong>KHÔNG PHẢI mọi texture đều cần CÙNG một format nén.</strong> Ví dụ, trong các ảnh UI, <strong>ảnh có GRADIENT TOÀN CỤC có xu hướng lộ rõ MẤT CHẤT LƯỢNG do nén. Trong trường hợp đó, khuyến nghị đặt TỈ LỆ NÉN THẤP HƠN CHỈ cho MỘT SỐ ảnh mục tiêu.</strong> Ngược lại, với texture như <strong>model 3D, KHÓ thấy mất chất lượng, nên TỐT NHẤT là tìm cài đặt phù hợp như TỈ LỆ NÉN CAO.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>⚖️ <em>"<strong>NOT ALL textures need to be in the SAME compression format.</strong> For example, among UI images, <strong>images with overall GRADATIONS tend to show a NOTICEABLE QUALITY LOSS due to compression. In such cases, it is recommended to set a LOWER compression ratio for ONLY SOME of the target images.</strong> On the other hand, for textures such as <strong>3D models, it is DIFFICULT to see the quality loss, so it is best to find an appropriate setting such as a HIGH compression ratio.</strong>"</em></p>
+</div>
+</div>
+
+### 27.2. 🧊 Mesh — bốn setting và các XUNG ĐỘT giữa chúng
+
+<img src="../assets/ca-vertex-compression-flags.png" alt="Vertex Compression flags dropdown in Player Settings">
+<p><em>VI: <strong>Vertex Compression</strong> trong Player Settings — dropdown ở trạng thái <strong>Mixed</strong>: được TICK là <strong>Normal · Tangent · Tex Coord 0 · Tex Coord 2 · Tex Coord 3</strong>; KHÔNG tick <strong>Position</strong> và <strong>Color</strong>. Bên cạnh là <em>Optimize Mesh Data</em> và <em>Texture MipMap Stripping</em>. / EN: The Vertex Compression flags dropdown in Player Settings.</em></p>
+
+
+| Setting | Tác dụng | 💀 Bẫy |
+|---|---|---|
+| **Read/Write Enabled** | Mặc định **TẮT**. *"Nếu bạn KHÔNG cần truy cập mesh lúc runtime, **HÃY TẮT.** Cụ thể, nếu model đặt trên Unity và **chỉ dùng để phát AnimationClip, tắt Read/Write Enabled là ỔN.**"* | 💀 *"Bật Read/Write Enabled sẽ tiêu tốn **GẤP ĐÔI bộ nhớ** vì thông tin CPU truy cập được sẽ được lưu trong bộ nhớ."* |
+| **Vertex Compression** | *"Đổi ĐỘ CHÍNH XÁC của thông tin đỉnh mesh **từ `float` sang `half`. Giảm được mức dùng bộ nhớ VÀ kích thước file lúc runtime.**"* | ⚠️ Xem 3 điều kiện VÔ HIỆU HOÁ bên dưới |
+| **Mesh Compression** | *"Đổi TỈ LỆ NÉN của mesh. **Tỉ lệ nén CÀNG CAO thì file CÀNG NHỎ và CÀNG ÍT dung lượng lưu trữ.**" Bốn mức: **Off / Low / Medium / High**.* | 🚨 *"Dữ liệu nén được **GIẢI NÉN lúc runtime. Do đó, mức dùng BỘ NHỚ lúc runtime KHÔNG bị ảnh hưởng.**" (chỉ giảm STORAGE, KHÔNG giảm RAM!)* |
+| **Optimize Mesh Data** | *"**TỰ ĐỘNG XOÁ dữ liệu đỉnh KHÔNG CẦN THIẾT khỏi mesh. Dữ liệu không cần được xác định TỰ ĐỘNG dựa trên SHADER đang dùng.** Giảm CẢ bộ nhớ LẪN storage lúc runtime."* Đặt ở *"Project Settings → Player → Other"* | 💀 Xem cảnh báo bên dưới |
+
+!!! warning "⚠️ BA điều kiện làm Vertex Compression bị VÔ HIỆU HOÁ"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p>① <strong><code>Read/Write</code> được BẬT</strong><br>
+    ② <strong><code>Mesh Compression</code> được BẬT</strong><br>
+    ③ <strong>Mesh có Dynamic Batching BẬT và ĐỦ ĐIỀU KIỆN áp dụng (DƯỚI 300 đỉnh và DƯỚI 900 vertex attribute)</strong></p>
+    <p>🚨 <em>"Như đã nói ở 4.2.2, <strong>bật Mesh Compression sẽ VÔ HIỆU HOÁ Vertex Compression. ĐẶC BIỆT với các project có GIỚI HẠN BỘ NHỚ NGHIÊM NGẶT, hãy Ý THỨC về NHƯỢC ĐIỂM này TRƯỚC KHI đặt option.</strong>"</em></p>
+    </div>
+    <div class="col-en">
+    <p>① <strong><code>Read/Write</code> is enabled</strong><br>
+    ② <strong><code>Mesh Compression</code> is enabled</strong><br>
+    ③ <strong>Mesh with Dynamic Batching enabled and adaptable (less than 300 vertices and less than 900 vertex attributes)</strong></p>
+    <p>🚨 <em>"As mentioned in "4.2.2 Vertex Compression", <strong>enabling this option DISABLES Vertex Compression. Especially for projects with STRICT MEMORY USAGE LIMITATIONS, please be aware of this disadvantage BEFORE setting this option.</strong>"</em></p>
+    </div>
+    </div>
+
+!!! danger "💀 Optimize Mesh Data — TIỆN nhưng có thể gây SỰ CỐ BẤT NGỜ"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p><em>"Option này hữu ích vì nó TỰ ĐỘNG xoá dữ liệu đỉnh, nhưng <strong>hãy lưu ý rằng nó có thể gây ra VẤN ĐỀ BẤT NGỜ.</strong>"</em></p>
+    <p>💀 <em>"Ví dụ, <strong>khi CHUYỂN ĐỔI giữa Material và Shader lúc RUNTIME, các property được truy cập có thể ĐÃ BỊ XOÁ, dẫn tới KẾT QUẢ RENDER SAI.</strong>"</em></p>
+    <p>💀 <em>"<strong>Khi bundle CHỈ Mesh asset, cài đặt Material SAI có thể dẫn tới dữ liệu đỉnh KHÔNG CẦN THIẾT. Điều này PHỔ BIẾN trong các trường hợp chỉ có tham chiếu mesh được cung cấp, chẳng hạn trong Particle System.</strong>"</em></p>
+    </div>
+    <div class="col-en">
+    <p><em>"This option is useful because it automatically deletes vertex data, but <strong>be aware that it may cause UNEXPECTED PROBLEMS.</strong>"</em></p>
+    <p>💀 <em>"For example, <strong>when SWITCHING between Material and Shader at RUNTIME, the properties accessed may be DELETED, resulting in INCORRECT RENDERING RESULTS.</strong>"</em></p>
+    <p>💀 <em>"<strong>When bundling ONLY Mesh assets, the incorrect Material settings may result in unnecessary vertex data. This is COMMON in cases where only a mesh reference is provided, such as in the Particle System.</strong>"</em></p>
+    </div>
+    </div>
+
+### 27.3. 🎨 Material — CHỈ ĐỌC property cũng đã NHÂN BẢN
+
+!!! danger "💀 BẪY SỐ MỘT về Material — "CHỈ TRUY CẬP một tham số là nó đã NHÂN BẢN""
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p><em>"Material là chức năng quan trọng quyết định object được render thế nào. <strong>Dù là chức năng QUEN THUỘC, nó RẤT DỄ gây RÒ RỈ BỘ NHỚ nếu dùng SAI.</strong>"</em></p>
+    <p>🚨 <em>"<strong>Điều QUAN TRỌNG NHẤT phải nhớ về material là chúng có thể bị NHÂN BẢN CHỈ BẰNG VIỆC TRUY CẬP THAM SỐ của chúng. VÀ RẤT KHÓ ĐỂ NHẬN RA rằng nó ĐANG BỊ NHÂN BẢN.</strong>"</em></p>
+    <p>💀 <em>"<strong>Material của renderer bị NHÂN BẢN. Và object đã nhân bản PHẢI được `Destroy` một cách TƯỜNG MINH.</strong>"</em></p>
+    </div>
+    <div class="col-en">
+    <p><em>"Material is an important function that determines how an object is rendered. <strong>Although it is a familiar feature, it can EASILY cause MEMORY LEAKS if used incorrectly.</strong>"</em></p>
+    <p>🚨 <em>"<strong>The MOST IMPORTANT thing to remember about materials is that they can be DUPLICATED SIMPLY BY ACCESSING THEIR PARAMETERS. And it is HARD TO NOTICE that it is being duplicated.</strong>"</em></p>
+    <p>💀 <em>"<strong>The renderer's material is DUPLICATED. And the duplicated object MUST be explicitly `Destroy`ed.</strong>"</em></p>
+    </div>
+    </div>
+
+**List 4.3 — ❌ Code TRÔNG có vẻ vô hại nhưng ĐÃ nhân bản Material:**
+
+```csharp
+Material material;
+
+void Awake()
+{
+    material = renderer.material;   // <- ĐÃ nhân bản ở ĐÂY
+    material.color = Color.green;
+}
+```
+
+**List 4.4 — ✅ Bản SỬA: phải `Destroy` material đã nhân bản:**
+
+```csharp
+Material material;
+
+void Awake()
+{
+    material = renderer.material;
+    material.color = Color.green;
+}
+
+void OnDestroy()
+{
+    if (material != null)
+    {
+        Destroy(material);
+    }
+}
+```
+
+**List 4.5 — ✅ Material tạo ĐỘNG cũng vậy — "một nguyên nhân PHỔ BIẾN khác gây rò rỉ":**
+
+```csharp
+Material material;
+
+void Awake()
+{
+    material = new Material();    // Dynamically generated material
+}
+
+void OnDestroy()
+{
+    if (material != null)
+    {
+        Destroy(material); // Destroying a material when you have finished using it
+    }
+}
+```
+
+> ✅ *"**Material NÊN được `Destroy` khi dùng xong (`OnDestroy`). Hãy `Destroy` material vào THỜI ĐIỂM PHÙ HỢP theo QUY TẮC và ĐẶC TẢ của project.**"* / *"Materials should be destroyed when they are finished being used (`OnDestroy`). Destroy materials at the appropriate timing according to the rules and specifications of the project."*
+
+### 27.4. 🕺 Animation — SkinWeight, Keyframe Reduction, Culling Mode
+
+**a) Điều chỉnh SỐ SKIN WEIGHT**
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🦴 <em>"Bên trong, <strong>chuyển động cập nhật vị trí của TỪNG ĐỈNH bằng cách tính MỖI XƯƠNG ẢNH HƯỞNG BAO NHIÊU tới MỖI ĐỈNH. Số xương được tính đến trong phép tính vị trí gọi là SKINWEIGHT hoặc INFLUENCE COUNT. Do đó, TẢI có thể GIẢM bằng cách điều chỉnh số skin weight.</strong>"</em></p>
+<p>⚠️ <em>"<strong>TUY NHIÊN, giảm số skin weight có thể khiến DIỆN MẠO TRÔNG LẠ, nên phải KIỂM CHỨNG khi điều chỉnh.</strong>"</em></p>
+<p>💡 <em>"Cài đặt này cũng chỉnh ĐỘNG được từ script. Do đó, <strong>CÓ THỂ đặt Skin Weights = 2 cho thiết bị CẤU HÌNH THẤP và 4 cho thiết bị CẤU HÌNH CAO</strong> — tinh chỉnh."</em></p>
+<p>📍 Đặt tại: <strong>"Project Settings → Quality → Other"</strong></p>
+</div>
+<div class="col-en">
+<p>🦴 <em>"Internally, <strong>motion updates the position of EACH VERTEX by calculating HOW MUCH of EACH BONE affects each vertex. The number of bones taken into account is called the SKINWEIGHT or INFLUENCE COUNT. Therefore, the LOAD CAN BE REDUCED by adjusting the number of skin weights.</strong>"</em></p>
+<p>⚠️ <em>"<strong>However, reducing the number of skin weights may result in a STRANGE APPEARANCE, so be sure to VERIFY this when adjusting.</strong>"</em></p>
+<p>💡 <em>"This setting can also be adjusted dynamically from a script. Therefore, <strong>it is possible to set Skin Weights to 2 for LOW-SPEC devices and 4 for HIGH-SPEC devices</strong>, and so on, for fine-tuning."</em></p>
+<p>📍 Set at: <strong>"Project Settings → Quality → Other"</strong></p>
+</div>
+</div>
+
+**List 4.6 — đổi SkinWeights từ script:**
+
+```csharp
+// How to switch QualitySettings entirely
+// The argument number is the order of the QualitySettings, starting with 0.
+QualitySettings.SetQualityLevel(0);
+
+// How to change only SkinWeights
+QualitySettings.skinWeights = SkinWeights.TwoBones;
+```
+
+**b) GIẢM SỐ KEY — `Anim. Compression`**
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🔑 <em>"File animation <strong>PHỤ THUỘC vào SỐ KEY, và nó có thể LÀM CẠN cả STORAGE lẫn BỘ NHỚ lúc runtime.</strong> Một cách giảm số key là dùng tính năng <strong>Anim. Compression</strong> (tab Animation trong model import settings). <strong>Khi bật, các key KHÔNG CẦN THIẾT được TỰ ĐỘNG XOÁ trong quá trình import asset.</strong>"</em></p>
+<p>📏 <em>"<strong>Keyframe Reduction</strong> giảm key <strong>khi có ÍT THAY ĐỔI về giá trị. Cụ thể, key bị XOÁ khi chúng nằm TRONG PHẠM VI Error so với đường cong trước đó.</strong> Phạm vi sai số này ĐIỀU CHỈNH ĐƯỢC."</em></p>
+</div>
+<div class="col-en">
+<p>🔑 <em>"Animation files are <strong>DEPENDENT on the NUMBER OF KEYS, which can be a DRAIN on STORAGE and MEMORY at run-time.</strong> One way to reduce the number of keys is to use the <strong>Anim. Compression</strong> feature (Animation tab of the model import settings). <strong>When enabled, unnecessary keys are AUTOMATICALLY REMOVED during asset import.</strong>"</em></p>
+<p>📏 <em>"<strong>Keyframe Reduction</strong> reduces keys <strong>when there is LITTLE CHANGE in value. Specifically, keys are removed when they are WITHIN the Error range compared to the previous curve.</strong> This error range can be adjusted."</em></p>
+</div>
+</div>
+
+<img src="../assets/ca-anim-keyframe-error.png" alt="Cài đặt Rotation/Position/Scale Error của Keyframe Reduction">
+
+<p><em>VI: Cài đặt Error — <strong>Rotation Error 0.5</strong>, <strong>Position Error 0.5</strong>, <strong>Scale Error 0.5</strong>. 🚨 ĐƠN VỊ KHÁC NHAU: <strong>Rotation tính bằng ĐỘ (degrees)</strong>, còn <strong>Position và Scale tính bằng PHẦN TRĂM (%)</strong> — tức dung sai ở ảnh này là <strong>0.5 ĐỘ cho Rotation và 0.5% cho Position/Scale</strong>. / EN: The Error settings — rotation error is in degrees, position/scale in percent.</em></p>
+
+!!! info "🧩 `Optimal` — nó thực sự làm gì?"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p><em>"<strong><code>Optimal</code> còn KHÓ HIỂU HƠN, nhưng nó SO SÁNH HAI phương pháp giảm — định dạng DENSE CURVE và KEYFRAME REDUCTION — và DÙNG cái có DỮ LIỆU NHỎ HƠN.</strong>"</em></p>
+    <p>🔑 <em>"<strong>Điểm MẤU CHỐT phải nhớ là DENSE CURVE có KÍCH THƯỚC NHỎ HƠN Keyframe Reduction. TUY NHIÊN, nó có xu hướng bị NHIỄU, điều này có thể LÀM GIẢM CHẤT LƯỢNG animation.</strong> Sau khi hiểu đặc tính này, <strong>hãy KIỂM TRA TRỰC QUAN animation thực tế để xem có CHẤP NHẬN ĐƯỢC không.</strong>"</em></p>
+    </div>
+    <div class="col-en">
+    <p><em>"<strong><code>Optimal</code> is even more confusing, but it COMPARES TWO reduction methods, the DENSE CURVE format and KEYFRAME REDUCTION, and USES the one with the SMALLER data.</strong>"</em></p>
+    <p>🔑 <em>"<strong>The key point to keep in mind is that DENSE CURVE is SMALLER in size than Keyframe Reduction. However, it tends to be NOISY, which may DEGRADE the animation quality.</strong> After understanding this characteristic, <strong>let's visually check the actual animation to see if it is acceptable.</strong>"</em></p>
+    </div>
+    </div>
+
+**c) GIẢM TẦN SUẤT CẬP NHẬT — `Culling Mode`**
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🚨 <em>"<strong>MẶC ĐỊNH, Animator CẬP NHẬT MỖI FRAME KỂ CẢ KHI animation KHÔNG NẰM TRÊN MÀN HÌNH.</strong> Có option gọi là <strong>Culling Mode</strong> cho phép đổi cách cập nhật này."</em></p>
+</div>
+<div class="col-en">
+<p>🚨 <em>"<strong>By default, Animator updates EVERY FRAME EVEN IF the animation is NOT ON SCREEN.</strong> There is an option called <strong>Culling Mode</strong> that allows you to change this update method."</em></p>
+</div>
+</div>
+
+**Bảng 4.1 — Ba chế độ Culling Mode:**
+
+| Type | Ý nghĩa (VI) | Meaning (EN) |
+|---|---|---|
+| **Always Animate** | 💀 **LUÔN cập nhật kể cả khi ngoài màn hình (MẶC ĐỊNH)** | Always update even when off-screen (default) |
+| **Cull Update Transform** | KHÔNG ghi IK hay Transform khi ngoài màn hình. **State machine VẪN cập nhật.** | Do not write IK or Transform when off-screen; state machine updates are performed |
+| **Cull Completely** | **KHÔNG cập nhật state machine khi ngoài màn hình. Animation DỪNG HOÀN TOÀN.** | No state machine updates when off-screen; animation stops completely |
+
+!!! warning "⚠️ HAI cái bẫy của Culling Mode"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p>💀 <strong>Cull Completely + Root Motion:</strong> <em>"Ví dụ, <strong>nếu bạn có animation ĐI VÀO KHUNG HÌNH từ NGOÀI màn hình, animation sẽ DỪNG NGAY LẬP TỨC vì nó đang ở ngoài màn hình. Kết quả là animation sẽ KHÔNG BAO GIỜ đi vào khung hình.</strong>"</em></p>
+    <p>💀 <strong>Cull Update Transform + vật thể ĐUNG ĐƯA:</strong> <em>"Trông có vẻ là option RẤT hữu ích vì nó chỉ bỏ qua cập nhật transform. <strong>TUY NHIÊN, hãy CẨN THẬN nếu bạn có tiến trình phụ thuộc Transform như vật ĐUNG ĐƯA. Ví dụ, nếu một nhân vật RA KHỎI khung hình, KHÔNG cập nhật nào được thực hiện từ tư thế lúc đó. Khi nhân vật VÀO LẠI khung hình, nó sẽ được cập nhật sang tư thế MỚI, khiến vật đung đưa CHUYỂN ĐỘNG ĐỘT NGỘT MẠNH.</strong>"</em></p>
+    <p>✅ <em>"<strong>Nên HIỂU ưu và nhược điểm của TỪNG option TRƯỚC KHI đổi cài đặt.</strong>"</em></p>
+    </div>
+    <div class="col-en">
+    <p>💀 <strong>Cull Completely + Root motion:</strong> <em>"For example, <strong>if you have an animation that FRAMES IN from off-screen, the animation will STOP IMMEDIATELY because it is off-screen. As a result, the animation will NEVER frame in.</strong>"</em></p>
+    <p>💀 <strong>Cull Update Transform + shaking objects:</strong> <em>"This seems like a very useful option, since it only skips updating the transform. <strong>However, be careful if you have a SHAKING or other Transform-dependent process. For example, if a character goes OUT of frame, NO updates will be made from the pose at that time. When the character ENTERS the frame again, it will be updated to a NEW pose, which may cause the shaking object to MOVE SIGNIFICANTLY.</strong>"</em></p>
+    <p>✅ <em>"<strong>It is a good idea to understand the pros and cons of each option before changing the settings.</strong>"</em></p>
+    </div>
+    </div>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🎚️ <strong>Muốn giảm tần suất TINH TẾ HƠN?</strong> <em>"Kể cả với các cài đặt này, <strong>KHÔNG THỂ thay đổi ĐỘNG tần suất cập nhật animation một cách CHI TIẾT. Ví dụ, bạn có thể tối ưu bằng cách GIẢM MỘT NỬA tần suất cập nhật animation cho các object XA CAMERA HƠN.</strong> Trong trường hợp này, bạn cần dùng <strong><code>AnimationClipPlayable</code></strong> hoặc <strong>VÔ HIỆU HOÁ Animator và TỰ GỌI <code>Animator.Update</code></strong>. <strong>Cả hai đều đòi hỏi TỰ VIẾT SCRIPT, nhưng cách SAU DỄ CÀI ĐẶT HƠN cách trước.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🎚️ <strong>Want finer control?</strong> <em>"Even with these settings, <strong>it is NOT possible to dynamically change the frequency of animation updates in detail. For example, you can optimize by HALVING the frequency of animation updates for objects that are FARTHER from the camera.</strong> In this case, you need to use <strong><code>AnimationClipPlayable</code></strong> or <strong>deactivate Animator and call <code>Animator.Update</code> yourself</strong>. <strong>Both require writing your own scripts, but the LATTER is EASIER to implement than the former.</strong>"</em></p>
+</div>
+</div>
+
+### 27.5. ✨ Particle System — hai điều QUAN TRỌNG
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🎆 <em>"Hiệu ứng game là THIẾT YẾU cho phần trình bày, và Unity thường dùng Particle System. Có <strong>HAI điểm QUAN TRỌNG:</strong>"</em></p>
+<p>① <em><strong>"Giữ SỐ HẠT THẤP."</strong></em><br>
+② <em><strong>"Ý THỨC rằng NOISE là NẶNG."</strong></em></p>
+<p>🔑 <em>"Số hạt LIÊN QUAN tới TẢI, và vì <strong>Particle System chạy bằng SỨC CPU (CPU particles), CÀNG NHIỀU HẠT thì TẢI CPU CÀNG CAO. Là chính sách cơ bản, hãy đặt số hạt ở MỨC TỐI THIỂU CẦN THIẾT.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🎆 <em>"Game effects are essential for game presentation, and Unity often uses the Particle System. There are <strong>TWO important points:</strong>"</em></p>
+<p>① <em><strong>"Keep the number of particles LOW."</strong></em><br>
+② <em><strong>"Be AWARE that NOISE is HEAVY."</strong></em></p>
+<p>🔑 <em>"The number of particles is related to the load, and since <strong>the Particle System is CPU-POWERED (CPU particles), the MORE particles there are, the HIGHER the CPU load. As a basic policy, set the number of particles to the MINIMUM NECESSARY.</strong>"</em></p>
+</div>
+</div>
+
+**Hai cách GIỚI HẠN số hạt:**
+
+| Cách | Chi tiết |
+|---|---|
+| **Emission module** | • **`Rate over Time`**: số hạt phát ra **MỖI GIÂY**<br>• **`Bursts > Count`**: số hạt phát ra tại **THỜI ĐIỂM BURST** |
+| **Main module → `Max Particles`** | *"Trong ví dụ, **hạt VƯỢT QUÁ 1000 sẽ KHÔNG được phát ra.**"* |
+
+!!! danger "💀 Sub Emitters — thủ phạm khiến số hạt CHẠM ĐỈNH ĐỘT NGỘT"
+    **VI:** *"Module Sub Emitters **cũng phải được xem xét khi giảm số hạt.** Module Sub Emitters **sinh ra các particle system TUỲ Ý tại các THỜI ĐIỂM CỤ THỂ (lúc tạo, lúc hết đời, v.v.). 🚨 Tuỳ cài đặt Sub Emitters, SỐ HẠT có thể CHẠM ĐỈNH CÙNG MỘT LÚC, nên hãy CẨN THẬN khi dùng module này.**"*
+
+    **EN:** *"The Sub Emitters module should also be considered when reducing the number of particles. It **generates arbitrary particle systems at specific times (at creation, at the end of life, etc.) 🚨 Depending on the Sub Emitters settings, the number of particles may reach the PEAK NUMBER ALL AT ONCE, so be careful when using this module.**"*
+
+<img src="../assets/ca-particle-noise-quality.png" alt="Tuỳ chọn Quality của Noise module">
+
+<p><em>VI: Module <strong>Noise</strong> — dropdown <strong>Quality</strong> với ba mức: <strong>Low (1D) / Medium (2D) / High (3D)</strong>, mặc định trong ảnh là <strong>High (3D)</strong>. 🚨 <strong>Chiều (dimension) của Quality CÀNG CAO thì TẢI CÀNG CAO.</strong> / EN: The Noise module Quality dropdown — Low (1D), Medium (2D), High (3D); the higher the dimension, the higher the load.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🚨 <em>"<strong>Quality của module Noise RẤT DỄ bị QUÁ TẢI. Noise diễn tả được các hạt HỮU CƠ và THƯỜNG được dùng để dễ dàng NÂNG CHẤT LƯỢNG hiệu ứng. Vì là chức năng dùng THƯỜNG XUYÊN, bạn nên CẨN THẬN về hiệu năng của nó.</strong>"</em></p>
+<p>✅ <em>"<strong>Nếu bạn KHÔNG cần Noise, hãy TẮT module Noise. Nếu cần dùng noise, ĐẶT Quality ở Low TRƯỚC, rồi TĂNG Quality theo yêu cầu.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🚨 <em>"<strong>The Noise module's Quality is EASILY OVERLOADED. Noise can express ORGANIC particles and is OFTEN used to easily increase the quality of effects. Because it is a FREQUENTLY USED function, you should be careful about its performance.</strong>"</em></p>
+<p>✅ <em>"<strong>If you do NOT need Noise, TURN OFF the Noise module. If you need to use noise, set the Quality setting to Low FIRST, and then INCREASE the Quality according to your requirements.</strong>"</em></p>
+</div>
+</div>
+
+### 27.6. 🔊 Audio — Load Type, Compression Format, Sample Rate, Force To Mono
+
+<img src="../assets/ca-audio-load-type.png" alt="Audio Load Type dropdown">
+<p><em>VI: Dropdown <strong>Load Type</strong> của AudioClip — ba lựa chọn: <strong><code>Decompress On Load</code></strong> (đang chọn) · <strong><code>Compressed In Memory</code></strong> · <strong><code>Streaming</code></strong>. / EN: The AudioClip Load Type dropdown.</em></p>
+
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🎵 <em>"<strong>Trạng thái MẶC ĐỊNH với file âm thanh đã import CÓ MỘT SỐ ĐIỂM CẢI THIỆN về hiệu năng.</strong> Có BA cài đặt: <strong>Load Type, Compression Format, Force To Mono</strong>. Hãy đặt chúng PHÙ HỢP cho <strong>nhạc nền (BGM), hiệu ứng âm thanh (SFX), và giọng nói (voice)</strong> — thứ thường dùng trong phát triển game."</em></p>
+</div>
+<div class="col-en">
+<p>🎵 <em>"<strong>The DEFAULT state with sound files imported HAS SOME IMPROVEMENT POINTS in terms of performance.</strong> The following three settings are available: <strong>Load Type, Compression Format, Force To Mono</strong>. Set these appropriately for <strong>background music, sound effects, and voices</strong> that are often used in game development."</em></p>
+</div>
+</div>
+
+**a) `Load Type` — ba cách nạp AudioClip**
+
+| Load Type | Cơ chế | ⚖️ Đánh đổi | ✅ Dùng cho |
+|---|---|---|---|
+| **Decompress On Load** | *"Nạp âm thanh **CHƯA NÉN** vào bộ nhớ."* | ✅ **ÍT tốn CPU**, phát với **ÍT thời gian CHỜ**<br>💀 **DÙNG NHIỀU BỘ NHỚ** | 🔫 **Sound Effects** — *"SFX NGẮN cần phát NGAY LẬP TỨC"*. ⚠️ *"BGM và file voice DÀI dùng NHIỀU bộ nhớ, nên phải CẨN THẬN."* |
+| **Compressed In Memory** | *"Nạp AudioClip vào bộ nhớ ở **trạng thái ĐÃ NÉN** ⇒ **giải nén LÚC PHÁT.**"* | 💀 **TẢI CPU CAO** và **DỄ TRỄ khi phát**<br>✅ tốn ít RAM hơn | 🗣️ **Voice** — *"phù hợp cho âm thanh có FILE LỚN mà bạn KHÔNG muốn giải nén thẳng vào bộ nhớ, hoặc âm thanh KHÔNG bị ảnh hưởng bởi độ trễ NHỎ."* |
+| **Streaming** | *"Phương pháp **NẠP và PHÁT** đồng thời."* | ✅ **DÙNG ÍT BỘ NHỚ NHẤT**<br>💀 **TỐN CPU HƠN** | 🎼 **BGM** — *"khuyến nghị dùng với BGM DÀI."* |
+
+**Bảng 4.2 — Tóm tắt:**
+
+| Type | Usage |
+|---|---|
+| **Decompress On Load** | Sound Effects |
+| **Compressed In Memory** | Voice |
+| **Streaming** | BGM |
+
+**b) `Compression Format`**
+
+| Format | Đặc tính | Dùng cho |
+|---|---|---|
+| **PCM** | *"**CHƯA NÉN** và tiêu tốn **MỘT LƯỢNG LỚN bộ nhớ. ĐỪNG đặt cái này trừ khi bạn muốn CHẤT LƯỢNG ÂM THANH TỐT NHẤT.**"* | ❌ **Not used** |
+| **ADPCM** | 🏆 *"Dùng **ÍT HƠN 70% bộ nhớ so với PCM**, nhưng chất lượng THẤP HƠN, và **TẢI CPU NHỎ HƠN NHIỀU so với Vorbis** ⇒ **TỐC ĐỘ GIẢI NÉN NHANH HƠN**, phù hợp cho phát NGAY và phát **SỐ LƯỢNG LỚN**."* — *"ĐẶC BIỆT đúng với âm thanh ỒN như **BƯỚC CHÂN, VA CHẠM, VŨ KHÍ**."* | 🔫 **Sound Effects** |
+| **Vorbis** | *"Là **định dạng nén CÓ MẤT (lossy)**, chất lượng thấp hơn PCM nhưng **KÍCH THƯỚC FILE NHỎ HƠN. Là định dạng DUY NHẤT cho phép TINH CHỈNH chất lượng âm thanh.**"* | 🎼🔫🗣️ **BGM, sound effects, voice** — *"định dạng nén ĐƯỢC DÙNG NHIỀU NHẤT cho MỌI âm thanh."* |
+
+**c) `Sample Rate`**
+
+| Chế độ | Mô tả |
+|---|---|
+| **Preserve Sample Rate** | *"Cài đặt **MẶC ĐỊNH**. Dùng sample rate của **nguồn GỐC**."* |
+| **Optimize Sample Rate** | *"**Unity PHÂN TÍCH và TỰ ĐỘNG TỐI ƯU dựa trên THÀNH PHẦN TẦN SỐ CAO NHẤT.**"* |
+| **Override Sample Rate** | *"Ghi đè sample rate của nguồn gốc. **Chỉ định được từ 8,000 tới 192,000 Hz.** 🚨 **Chất lượng sẽ KHÔNG được cải thiện dù sample rate CAO HƠN nguồn gốc. Dùng option này khi bạn muốn HẠ sample rate xuống THẤP HƠN nguồn gốc.**"* |
+
+**d) `Force To Mono` cho sound effect**
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>✂️ <em>"Mặc định Unity phát STEREO, nhưng bằng cách bật <strong>Force To Mono</strong>, phát MONO được kích hoạt. <strong>Bật phát mono sẽ CẮT ĐÔI kích thước file và kích thước bộ nhớ, vì KHÔNG cần dữ liệu riêng cho kênh TRÁI và PHẢI.</strong>"</em></p>
+<p>✅ <em>"<strong>Phát mono thường là ỔN cho hiệu ứng âm thanh. Trong một số trường hợp, phát mono CŨNG TỐT HƠN cho 3D sound.</strong> Khuyến nghị bật Force To Mono sau khi cân nhắc kỹ. <strong>Hiệu quả tuning là "chuyện bé xé ra to" — nếu bạn KHÔNG có vấn đề gì với phát đơn kênh, hãy DÙNG Force To Mono một cách CHỦ ĐỘNG.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>✂️ <em>"By default, Unity plays stereo, but by enabling <strong>Force To Mono</strong>, mono playback is enabled. <strong>Enabling mono playback will CUT the file size and memory size IN HALF, since there is no need to have separate data for left and right channels.</strong>"</em></p>
+<p>✅ <em>"<strong>Mono playback is often fine for sound effects. In some cases, mono playback is also BETTER for 3D sound.</strong> It is recommended to enable Force To Mono after careful consideration. <strong>The performance tuning effect is a mountain out of a molehill. If you have no problem with monaural playback, you should ACTIVELY use Force To Mono.</strong>"</em></p>
+</div>
+</div>
+
+!!! warning "⚠️ ĐỪNG import file audio ĐÃ NÉN vào Unity"
+    **VI:** *"Dù đây KHÔNG hẳn là performance tuning, **file audio CHƯA NÉN mới nên được import vào Unity. Nếu bạn import file audio ĐÃ NÉN, chúng sẽ bị GIẢI MÃ rồi NÉN LẠI ở phía Unity, dẫn tới MẤT CHẤT LƯỢNG.**"*
+
+    **EN:** *"Although this is not the same as performance tuning, **UNCOMPRESSED audio files should be imported into Unity. If you import COMPRESSED audio files, they will be DECODED and RECOMPRESSED on the Unity side, resulting in a LOSS OF QUALITY.**"*
+
+### 27.7. 📂 `Resources` / `StreamingAssets` — hai thư mục ĐẶC BIỆT nguy hiểm
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📋 <em>"Có các <strong>thư mục ĐẶC BIỆT</strong> trong project. <strong>HAI cái sau ĐẶC BIỆT cần chú ý từ góc độ hiệu năng: thư mục <code>Resources</code> và thư mục <code>StreamingAssets</code>.</strong>"</em></p>
+<p>🔑 <em>"BÌNH THƯỜNG, <strong>Unity CHỈ đưa vào build những object ĐƯỢC THAM CHIẾU bởi scene, material, script, v.v.</strong>"</em></p>
+<p>💀 <em>"<strong>QUY TẮC KHÁC với các thư mục đặc biệt trên. FILE ĐƯỢC LƯU vào đó sẽ ĐƯỢC ĐƯA VÀO BUILD. Nghĩa là NGAY CẢ FILE THỰC SỰ KHÔNG CẦN THIẾT cũng được đưa vào build nếu chúng được lưu ở đó, dẫn tới PHÌNH TO KÍCH THƯỚC BUILD.</strong>"</em></p>
+<p>🚨 <em>"<strong>VẤN ĐỀ là KHÔNG THỂ kiểm tra được từ CHƯƠNG TRÌNH. Bạn phải KIỂM TRA BẰNG MẮT các file không cần thiết — TỐN THỜI GIAN. Hãy CẨN THẬN khi thêm file vào các thư mục này.</strong>"</em></p>
+<p>✅ <em>"Tuy nhiên, số file lưu trữ CHẮC CHẮN sẽ TĂNG khi project tiến triển. Một số file có thể bị lẫn với file không cần thiết không còn dùng nữa. <strong>Kết luận: chúng tôi khuyến nghị bạn RÀ SOÁT các file đã lưu ĐỊNH KỲ.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📋 <em>"There are <strong>SPECIAL FOLDERS</strong> in the project. <strong>The following two in particular require attention from a performance standpoint: the <code>Resources</code> folder and the <code>StreamingAssets</code> folder.</strong>"</em></p>
+<p>🔑 <em>"Normally, <strong>Unity ONLY includes objects REFERENCED by scenes, materials, scripts, etc. in a build.</strong>"</em></p>
+<p>💀 <em>"<strong>The RULES ARE DIFFERENT for the special folders. STORED FILES ARE INCLUDED IN THE BUILD. This means that EVEN FILES THAT ARE NOT ACTUALLY NEEDED are included in the build if they are stored, leading to an EXPANSION OF THE BUILD SIZE.</strong>"</em></p>
+<p>🚨 <em>"<strong>The problem is that it is NOT POSSIBLE to check from the PROGRAM. You have to VISUALLY CHECK for unnecessary files, which is TIME CONSUMING. Be careful adding files to these folders.</strong>"</em></p>
+<p>✅ <em>"However, the number of stored files will inevitably increase as the project progresses. <strong>In conclusion, we recommend that you REVIEW your stored files ON A REGULAR BASIS.</strong>"</em></p>
+</div>
+</div>
+
+**List 4.7 — cách BÌNH THƯỜNG (chỉ object được tham chiếu mới vào build):**
+
+```csharp
+// Referenced objects are included in the build
+[SerializeField] GameObject sample;
+```
+
+!!! danger "💀 `Resources` LÀM CHẬM THỜI GIAN KHỞI ĐỘNG — nguyên nhân ÍT AI BIẾT"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p><em>"<strong>Lưu MỘT SỐ LƯỢNG LỚN object trong thư mục <code>Resources</code> sẽ LÀM TĂNG THỜI GIAN KHỞI ĐỘNG ứng dụng.</strong> Thư mục <code>Resources</code> là một tính năng tiện lợi KIỂU CŨ cho phép bạn <strong>nạp object bằng THAM CHIẾU CHUỖI.</strong>"</em></p>
+    <p>🚨 <em>"<strong>RẤT DỄ LẠM DỤNG thư mục <code>Resources</code> vì bạn truy cập được object từ script chỉ bằng cách lưu chúng vào đó. TUY NHIÊN, làm QUÁ TẢI thư mục <code>Resources</code> sẽ TĂNG thời gian khởi động.</strong>"</em></p>
+    <p>🔑 <strong>LÝ DO CHÍNH XÁC:</strong> <em>"<strong>Khi Unity KHỞI ĐỘNG, nó PHÂN TÍCH CẤU TRÚC trong TẤT CẢ các thư mục <code>Resources</code> và TẠO một LOOKUP TABLE. TỐT NHẤT là GIẢM THIỂU việc dùng thư mục <code>Resources</code> càng nhiều càng tốt.</strong>"</em></p>
+    </div>
+    <div class="col-en">
+    <p><em>"<strong>Storing a LARGE NUMBER of objects in the <code>Resources</code> folder will INCREASE APPLICATION STARTUP TIME.</strong> The <code>Resources</code> folder is an OLD-FASHIONED convenience feature that allows you to <strong>load objects by STRING REFERENCE.</strong>"</em></p>
+    <p>🚨 <em>"<strong>It is EASY to OVERUSE the <code>Resources</code> folder because you can access objects from scripts by storing them there. However, OVERLOADING the <code>Resources</code> folder will INCREASE the startup time.</strong>"</em></p>
+    <p>🔑 <strong>The exact reason:</strong> <em>"<strong>The reason for this is that WHEN UNITY STARTS UP, IT ANALYZES THE STRUCTURE IN ALL <code>Resources</code> FOLDERS AND CREATES A LOOKUP TABLE. It is best to MINIMIZE the use of the <code>Resources</code> folder as much as possible.</strong>"</em></p>
+    </div>
+    </div>
+
+**List 4.8 — chính là API "tiện" gây hoạ:**
+
+```csharp
+var object = Resources.Load("aa/bb/cc/obj");
+```
+
+### 27.8. 📜 ScriptableObject — `[PreferBinarySerialization]`
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📝 <em>"ScriptableObject là <strong>asset YAML</strong>, và nhiều project có khả năng quản lý file của chúng dưới dạng <strong>file TEXT</strong>. Bằng cách <strong>chỉ định TƯỜNG MINH Attribute <code>[PreferBinarySerialization]</code></strong> để đổi định dạng lưu trữ sang <strong>BINARY</strong>. <strong>Với các asset CHỦ YẾU là LƯỢNG LỚN DỮ LIỆU, định dạng binary CẢI THIỆN hiệu năng thao tác GHI và ĐỌC.</strong>"</em></p>
+<p>⚖️ <em>"<strong>TUY NHIÊN, định dạng binary đương nhiên KHÓ DÙNG HƠN với công cụ MERGE.</strong> Với các asset <strong>chỉ cần cập nhật bằng cách GHI ĐÈ</strong> (không cần kiểm tra text để thấy thay đổi), hoặc <strong>asset mà dữ liệu KHÔNG CÒN thay đổi sau khi phát triển game xong</strong>, thì KHUYẾN NGHỊ dùng <code>[PreferBinarySerialization]</code>."</em></p>
+</div>
+<div class="col-en">
+<p>📝 <em>"ScriptableObjects are <strong>YAML assets</strong>, and many projects are likely to manage their files as <strong>TEXT FILES</strong>. By explicitly specifying a <strong><code>[PreferBinarySerialization]</code> Attribute</strong> to change the storage format to <strong>BINARY</strong>. <strong>For assets that are mainly LARGE AMOUNTS OF DATA, binary format IMPROVES the performance of WRITE and READ operations.</strong>"</em></p>
+<p>⚖️ <em>"<strong>However, binary format is naturally MORE DIFFICULT to use with MERGE TOOLS.</strong> For assets that need to be updated only by OVERWRITING (for which there is no need to check the text for changes), or for assets whose data is NO LONGER CHANGED after game development is complete, it is recommended to use it."</em></p>
+</div>
+</div>
+
+!!! danger "💀 LỖI PHỔ BIẾN — tên class KHÔNG KHỚP tên file"
+    **VI:** *"Một sai lầm PHỔ BIẾN khi dùng ScriptableObject là **KHÔNG KHỚP giữa TÊN CLASS và TÊN FILE mã nguồn. Class và file PHẢI CÓ CÙNG TÊN. Hãy CẨN THẬN với việc đặt tên khi tạo class, và đảm bảo file `.asset` được SERIALIZE và LƯU ĐÚNG ở định dạng BINARY.**"*
+
+    **EN:** *"A common mistake when using ScriptableObjects is **mismatching CLASS NAMES and SOURCE CODE FILE NAMES. The class and file MUST have the SAME NAME. Be careful with naming when creating classes and make sure that the `.asset` file is correctly serialized and saved in the binary format.**"*
+
+**List 4.9 — Cùng một Attribute, một cái CHẠY một cái KHÔNG:**
+
+```csharp
+/*
+* When the source code file is named ScriptableObjectSample.cs
+*/
+
+// ✅ Serialization succeeded
+[PreferBinarySerialization]
+public sealed class ScriptableObjectSample : ScriptableObject
+{
+    ...
+}
+
+// ❌ Serialization Failure  (class name != file name)
+[PreferBinarySerialization]
+public sealed class MyScriptableObject : ScriptableObject
+{
+    ...
+}
+```
+
+---
+
+## 28. 📦 AssetBundle (Chương 5) & ⚙️ Physics (Chương 6)
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🚨 <em>"Vấn đề trong cấu hình AssetBundle có thể gây ra <strong>NHIỀU rắc rối, chẳng hạn LÃNG PHÍ băng thông và dung lượng lưu trữ QUÝ GIÁ của NGƯỜI DÙNG, cũng như CẢN TRỞ trải nghiệm chơi THOẢI MÁI.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🚨 <em>"Problems in AssetBundle configuration can cause <strong>MANY problems, such as WASTING valuable COMMUNICATION and STORAGE SPACE for the USER, as well as HINDERING comfortable game play.</strong>"</em></p>
+</div>
+</div>
+
+### 28.1. 🧩 Granularity — ĐỘ MỊN của AssetBundle
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>⚖️ <em>"Độ mịn của AssetBundle <strong>PHẢI được cân nhắc KỸ do các vấn đề PHỤ THUỘC.</strong> Ở CỰC ĐOAN, có HAI cách: <strong>đưa TẤT CẢ asset vào MỘT AssetBundle, hoặc đưa MỖI asset vào MỘT AssetBundle.</strong>"</em></p>
+<p>💀 <em>"Cả hai đều ĐƠN GIẢN, nhưng <strong>cách TRƯỚC có VẤN ĐỀ CHÍ MẠNG: KỂ CẢ khi bạn chỉ THÊM asset hoặc CẬP NHẬT MỘT asset, bạn phải TẠO LẠI TOÀN BỘ FILE và PHÂN PHỐI nó. NẾU TỔNG dung lượng asset tính bằng GB, TẢI CẬP NHẬT sẽ RẤT CAO.</strong>"</em></p>
+<p>⚠️ <em>"Do đó, người ta chọn cách CHIA NHỎ AssetBundle càng nhiều càng tốt, <strong>NHƯNG NẾU QUÁ MỊN, nó sẽ gây OVERHEAD ở NHIỀU KHU VỰC.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>⚖️ <em>"The granularity of the AssetBundle <strong>should be CAREFULLY considered due to DEPENDENCY issues.</strong> At the extreme, there are two ways: <strong>put ALL assets in ONE AssetBundle, or put EACH asset in ONE AssetBundle.</strong>"</em></p>
+<p>💀 <em>"Both methods are simple, but <strong>the FORMER has a FATAL problem: EVEN IF you only ADD assets or UPDATE ONE asset, you have to RECREATE THE ENTIRE FILE and DISTRIBUTE it. If the total amount of assets is in GB, the UPDATE LOAD IS VERY HIGH.</strong>"</em></p>
+<p>⚠️ <em>"Therefore, the method of dividing the AssetBundle as much as possible is chosen, <strong>but if it is TOO DETAILED, it will cause OVERHEAD in various areas.</strong>"</em></p>
+</div>
+</div>
+
+!!! success "✅ HAI QUY TẮC VÀNG về granularity"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p>① <strong><em>"Các asset ĐƯỢC CHO LÀ dùng CÙNG LÚC nên được GỘP vào MỘT AssetBundle."</em></strong></p>
+    <p>② <strong><em>"Các asset được THAM CHIẾU bởi NHIỀU asset khác nên nằm trong AssetBundle RIÊNG."</em></strong></p>
+    <p>💡 <em>"<strong>KHÓ để kiểm soát HOÀN HẢO, nhưng nên ĐẶT MỘT SỐ QUY TẮC về granularity TRONG NỘI BỘ project.</strong>"</em></p>
+    </div>
+    <div class="col-en">
+    <p>① <strong><em>"Assets that are supposed to be used AT THE SAME TIME should be COMBINED into a SINGLE AssetBundle."</em></strong></p>
+    <p>② <strong><em>"Assets that are REFERENCED BY MULTIPLE assets should be in SEPARATE AssetBundles."</em></strong></p>
+    <p>💡 <em>"<strong>It is difficult to control perfectly, but it is a good idea to SET SOME RULES regarding granularity WITHIN THE PROJECT.</strong>"</em></p>
+    </div>
+    </div>
+
+### 28.2. 📥 Ba API nạp AssetBundle
+
+| API | Cơ chế | Đánh giá của CyberAgent |
+|---|---|---|
+| **`AssetBundle.LoadFromFile`** | *"Nạp bằng cách chỉ định **ĐƯỜNG DẪN FILE tồn tại trong storage**."* | 🏆 *"**Thường được dùng vì nó NHANH NHẤT và TIẾT KIỆM BỘ NHỚ NHẤT.**"* |
+| **`AssetBundle.LoadFromMemory`** | *"Nạp bằng cách chỉ định **dữ liệu AssetBundle ĐÃ nạp SẴN trong bộ nhớ**."* | 💀 *"Khi dùng AssetBundle, **MỘT LƯỢNG DỮ LIỆU RẤT LỚN cần được DUY TRÌ trong bộ nhớ, và TẢI BỘ NHỚ RẤT LỚN. Vì lý do này, nó THƯỜNG KHÔNG ĐƯỢC DÙNG.**"* |
+| **`AssetBundle.LoadFromStream`** | *"Nạp bằng cách chỉ định **`Stream` trả về dữ liệu AssetBundle**."* | ✅ *"Khi nạp một **AssetBundle ĐÃ MÃ HOÁ đồng thời GIẢI MÃ nó**, hãy dùng API này để cân nhắc tải bộ nhớ. ⚠️ **TUY NHIÊN, vì `Stream` PHẢI SEEKABLE, hãy CẨN THẬN ĐỪNG dùng thuật toán MÃ HOÁ KHÔNG XỬ LÝ ĐƯỢC seek.**"* |
+
+### 28.3. 🧹 Chiến lược UNLOAD — `Unload(true)` hay `Unload(false)`?
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🚨 <em>"<strong>Nếu AssetBundle KHÔNG được unload khi không còn cần, nó sẽ ÁP ĐẢO BỘ NHỚ.</strong> Tham số <code>unloadAllLoadedObjects</code> của <code>AssetBundle.Unload(bool unloadAllLoadedObjects)</code> — API dùng trong trường hợp này — <strong>RẤT QUAN TRỌNG và PHẢI được QUYẾT ĐỊNH cách đặt NGAY TỪ ĐẦU quá trình phát triển.</strong>"</em></p>
+<p>🔑 <em>"Nếu tham số này là <strong><code>true</code></strong>, khi unload một AssetBundle, <strong>TẤT CẢ asset đã nạp từ AssetBundle đó CŨNG SẼ ĐƯỢC UNLOAD.</strong> Nếu <strong><code>false</code></strong>, <strong>KHÔNG asset nào được unload.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🚨 <em>"<strong>If AssetBundle is not unloaded when it is no longer needed, it will OVERWHELM MEMORY.</strong> The argument <code>unloadAllLoadedObjects</code> of <code>AssetBundle.Unload(bool unloadAllLoadedObjects)</code> is <strong>VERY IMPORTANT and should be DECIDED how to set it up AT THE BEGINNING of the development.</strong>"</em></p>
+<p>🔑 <em>"If this argument is <strong><code>true</code></strong>, when unloading an AssetBundle, <strong>ALL assets loaded from that AssetBundle will ALSO be unloaded.</strong> If <strong><code>false</code></strong>, <strong>NO assets are unloaded.</strong>"</em></p>
+</div>
+</div>
+
+| | **`Unload(true)`** | **`Unload(false)`** |
+|---|---|---|
+| **Ràng buộc** | *"Đòi hỏi AssetBundle phải được nạp **LIÊN TỤC trong khi asset đang được dùng**"* | *"AssetBundle có thể được unload **khi asset nạp xong**"* |
+| **Tải bộ nhớ** | 💀 **CAO HƠN** | ✅ **THẤP** |
+| **An toàn** | ✅ *"**AN TOÀN HƠN vì nó ĐẢM BẢO asset bị HUỶ**"* | 💀 *"**QUÊN unload các asset đã dùng có thể dẫn tới RÒ RỈ BỘ NHỚ hoặc khiến CÙNG MỘT asset bị NẠP NHIỀU LẦN trong bộ nhớ**"* |
+| **Yêu cầu** | — | 🚨 *"Đòi hỏi **QUẢN LÝ BỘ NHỚ ĐÚNG ĐẮN**"* |
+
+> 🏆 **KẾT LUẬN của sách:** *"**Nói chung, quản lý bộ nhớ NGHIÊM NGẶT là KHẮC NGHIỆT, nên `AssetBundle.Unload(true)` ĐƯỢC KHUYẾN NGHỊ NẾU tải bộ nhớ CÒN DƯ ĐỦ.**"* / *"In general, strict memory management is severe, so `AssetBundle.Unload(true)` is recommended if memory load is sufficient."*
+
+### 28.4. 🔢 Số AssetBundle nạp ĐỒNG THỜI — `150–200` là NGƯỠNG
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>⚠️ <em>"Trong trường hợp <code>AssetBundle.Unload(true)</code>, <strong>AssetBundle KHÔNG THỂ unload khi asset đang được dùng. Do đó, tuỳ granularity, có thể có tình huống HƠN 100 AssetBundle được nạp CÙNG LÚC.</strong> Khi đó, bạn cần CẨN THẬN về <strong>giới hạn FILE DESCRIPTOR</strong> và <strong>mức dùng bộ nhớ của <code>PersistentManager.Remapper</code></strong>."</em></p>
+</div>
+<div class="col-en">
+<p>⚠️ <em>"In the case of <code>AssetBundle.Unload(true)</code>, <strong>AssetBundle CANNOT be unloaded while assets are in use. Therefore, depending on the granularity, there may be situations where MORE THAN 100 AssetBundles are loaded AT THE SAME TIME.</strong> In this case, you need to be careful about the <strong>FILE DESCRIPTOR LIMIT</strong> and the memory usage of <strong><code>PersistentManager.Remapper</code></strong>."</em></p>
+</div>
+</div>
+
+**Vấn đề 1️⃣ — FILE DESCRIPTOR:**
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📁 <em>"File descriptor là <strong>ID thao tác do OS gán khi ĐỌC hoặc GHI một file. MỘT file descriptor cần thiết để đọc/ghi MỘT file, và nó được GIẢI PHÓNG khi thao tác file HOÀN TẤT. Vì có GIỚI HẠN về số file descriptor một process có thể có, KHÔNG THỂ mở NHIỀU HƠN số đó cùng lúc.</strong>"</em></p>
+<p>💀 <em>"<strong>Nếu bạn thấy thông báo lỗi "Too many open files", nghĩa là process đã CHẠM GIỚI HẠN.</strong>"</em></p>
+<p>🚨 <em>"Do đó, <strong>số lần nạp ĐỒNG THỜI trong AssetBundle BỊ ẢNH HƯỞNG bởi giới hạn này, và Unity cũng phải giữ MỘT LƯỢNG DỰ TRỮ NHẤT ĐỊNH cho giới hạn, vì nó phải mở MỘT SỐ FILE.</strong> ⚠️ <strong>Giới hạn này KHÁC NHAU tuỳ OS và phiên bản, nên cần ĐIỀU TRA giá trị cho nền tảng mục tiêu TRƯỚC.</strong> Kể cả khi CHẠM giới hạn, <strong>có thể TĂNG TẠM THỜI giới hạn tuỳ OS</strong> (ở môi trường Linux/Unix, giới hạn có thể đổi lúc runtime bằng hàm <code>setrlimit</code>)."</em></p>
+</div>
+<div class="col-en">
+<p>📁 <em>"A file descriptor is an <strong>operation ID assigned by the OS when reading or writing a file. ONE file descriptor is required to read or write ONE file, and it is released when the file operation is completed. Since there is a LIMIT to the number of file descriptors a process can have, it is NOT POSSIBLE to have more than this number of files open at the same time.</strong>"</em></p>
+<p>💀 <em>"<strong>If you see the error message "Too many open files", it means that the process has reached the limit.</strong>"</em></p>
+<p>🚨 <em>"Therefore, <strong>the number of simultaneous loads in the AssetBundle is AFFECTED by this limit, and Unity also has to keep a certain amount of MARGIN for the limit, since it has to open some files.</strong> ⚠️ <strong>This limit VARIES depending on the OS and version, so it is necessary to INVESTIGATE the value for the target platform IN ADVANCE.</strong> Even if the limit is hit, <strong>it is possible to TEMPORARILY RAISE the limit depending on the OS</strong> (in Linux/Unix, via <code>setrlimit</code>)."</em></p>
+</div>
+</div>
+
+**Vấn đề 2️⃣ — `PersistentManager.Remapper` KHÔNG TRẢ bộ nhớ:**
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>💀 <em>"Nói đơn giản, <strong>PersistentManager là chức năng quản lý QUAN HỆ MAPPING giữa object và dữ liệu bên trong Unity. Nói cách khác, bạn có thể hình dung nó dùng bộ nhớ TỈ LỆ THUẬN với số AssetBundle nạp cùng lúc.</strong>"</em></p>
+<p>🚨 <em>"<strong>NHƯNG VẤN ĐỀ LÀ: NGAY CẢ KHI bạn GIẢI PHÓNG một AssetBundle, vùng nhớ đã dùng KHÔNG được GIẢI PHÓNG, mà bị GOM VÀO POOL. Vì bản chất này, BỘ NHỚ SẼ BỊ BÓP NGHẸT TỈ LỆ THUẬN với SỐ LẦN NẠP ĐỒNG THỜI, nên điều QUAN TRỌNG là GIẢM số lần nạp đồng thời.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>💀 <em>"Simply put, <strong>the PersistentManager is a function that manages the MAPPING RELATIONSHIP between objects and data within Unity. In other words, you can imagine that it uses memory IN PROPORTION to the number of AssetBundles loaded at the same time.</strong>"</em></p>
+<p>🚨 <em>"<strong>But the PROBLEM is that EVEN IF you RELEASE an AssetBundle, the memory space used is NOT RELEASED, but POOLED. Because of this nature, memory will be SQUEEZED in proportion to the number of concurrent loads, so it is IMPORTANT TO REDUCE the number of concurrent loads.</strong>"</em></p>
+</div>
+</div>
+
+!!! danger "🔢 CON SỐ KHUYẾN NGHỊ — nhớ nằm lòng"
+    | Chính sách | Số AssetBundle nạp đồng thời TỐI ĐA |
+    |---|---|
+    | **`AssetBundle.Unload(true)`** | **150 – 200** |
+    | **`AssetBundle.Unload(false)`** | **≤ 150** |
+
+    **EN:** *"When operating under the `AssetBundle.Unload(true)` policy, it is recommended that the maximum number of concurrently loaded AssetBundles be **150 to 200**, and when operating under the `AssetBundle.Unload(false)` policy, it is recommended that the maximum number be **150 or less**."*
+
+---
+
+### 28.5. ⚙️ Physics — TẮT hẳn engine khi KHÔNG dùng
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📌 <em>"Physics ở đây chỉ <strong>các phép tính vật lý dùng PhysX, KHÔNG PHẢI Unity Physics của ECS.</strong> Chương này chủ yếu tập trung vào <strong>3D Physics, nhưng 2D Physics cũng có thể hữu ích ở nhiều phần.</strong>"</em></p>
+<p>💀 <strong>SỰ THẬT ÍT AI BIẾT:</strong> <em>"Theo chuẩn Unity, <strong>NGAY CẢ KHI KHÔNG CÓ physics component nào trong scene, physics engine VẪN LUÔN thực hiện phép tính vật lý MỖI FRAME. Do đó, NẾU bạn KHÔNG cần physics trong game, hãy TẮT physics engine.</strong>"</em></p>
+<p>✅ <em>"Xử lý của physics engine BẬT/TẮT được bằng cách đặt giá trị cho <strong><code>Physics.autoSimulation</code></strong>. Ví dụ, nếu bạn <strong>chỉ muốn dùng physics TRONG GAME chứ không lúc khác, hãy đặt giá trị này = <code>true</code> CHỈ khi ở trong game.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📌 <em>"Physics here refers to <strong>physics operations using PhysX, NOT ECS's Unity Physics.</strong> This chapter focuses mainly on <strong>3D Physics, but 2D Physics may also be useful in many areas.</strong>"</em></p>
+<p>💀 <strong>The little-known fact:</strong> <em>"By Unity standard, <strong>EVEN IF there is NO physics component in the scene, the physics engine will ALWAYS perform physics calculations in EVERY FRAME. Therefore, if you do NOT need physics in your game, you should TURN OFF the physics engine.</strong>"</em></p>
+<p>✅ <em>"Physics engine processing can be turned on or off by setting a value to <strong><code>Physics.autoSimulation</code></strong>. For example, if you want to <strong>use physics only INGAME and NOT otherwise, set this value to <code>true</code> ONLY ingame.</strong>"</em></p>
+</div>
+</div>
+
+### 28.6. ⏲️ Fixed Timestep, Maximum Allowed Timestep & "VÒNG XOÁY TIÊU CỰC"
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>⏱️ <em>"<code>FixedUpdate</code> của MonoBehaviour chạy ở <strong>THỜI GIAN CỐ ĐỊNH</strong>, khác <code>Update</code>. <strong>Physics engine GỌI FixedUpdate NHIỀU LẦN trong MỘT FRAME để KHỚP thời gian trôi qua trong thế giới GAME với thời gian trong thế giới PHYSICS ENGINE. Do đó, giá trị Fixed Timestep CÀNG NHỎ thì FixedUpdate CÀNG ĐƯỢC GỌI NHIỀU LẦN, gây TẢI.</strong>"</em></p>
+<p>📍 Đặt tại <strong>Project Settings → Fixed Timestep</strong>, đơn vị GIÂY. <strong>Giá trị MẶC ĐỊNH là 0.02, tức 20 MILLISECOND.</strong> Cũng đổi được từ script qua <code>Time.fixedDeltaTime</code>.</p>
+<p>⚖️ <em>"Fixed Timestep nói chung <strong>CÀNG NHỎ thì tính toán vật lý CÀNG CHÍNH XÁC và CÀNG ÍT KHẢ NĂNG xảy ra vấn đề như MẤT VA CHẠM. Do đó, dù là ĐÁNH ĐỔI giữa ĐỘ CHÍNH XÁC và TẢI, ĐÁNG MONG MUỐN là đặt giá trị này CÀNG GẦN FPS MỤC TIÊU CÀNG TỐT mà không gây vấn đề hành vi game.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>⏱️ <em>"MonoBehaviour's <code>FixedUpdate</code> runs at a <strong>FIXED TIME</strong>, unlike <code>Update</code>. <strong>The physics engine calls FixedUpdate MULTIPLE TIMES in ONE FRAME to match the elapsed time in the GAME world with the time in the PHYSICS ENGINE world. Therefore, the SMALLER the value of Fixed Timestep, the MORE TIMES FixedUpdate is called, which causes load.</strong>"</em></p>
+<p>📍 Set in <strong>Project Settings → Fixed Timestep</strong>, in SECONDS. <strong>The default value is 0.02, or 20 MILLISECONDS.</strong> It can also be changed via <code>Time.fixedDeltaTime</code>.</p>
+<p>⚖️ <em>"Fixed Timestep is generally <strong>SMALLER = MORE ACCURATE physics and LESS LIKELY that problems such as collision loss will occur. Therefore, although it is a TRADEOFF between accuracy and load, it is desirable to set this value AS CLOSE TO THE TARGET FPS AS POSSIBLE without causing game behavior problems.</strong>"</em></p>
+</div>
+</div>
+
+!!! danger "💀 "NEGATIVE SPIRAL" — vòng xoáy chết người của physics engine"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p><em>"Như đã nói, <strong>Fixed Update được gọi NHIỀU LẦN dựa trên THỜI GIAN TRÔI QUA từ frame trước. NẾU thời gian trôi qua từ frame trước LỚN — ví dụ do RENDER NẶNG ở một frame nào đó — Fixed Update sẽ được gọi NHIỀU HƠN BÌNH THƯỜNG ở frame đó.</strong>"</em></p>
+    <p>🔢 <strong>VÍ DỤ TÍNH TOÁN:</strong> <em>"<strong>Nếu Fixed Timestep là 20 MILLISECOND và frame trước tốn 200 MILLISECOND, Fixed Update sẽ được gọi 10 LẦN.</strong>"</em></p>
+    <p>💀 <em>"<strong>Nghĩa là NẾU MỘT frame bị RỚT, CHI PHÍ phép tính vật lý ở frame TIẾP THEO sẽ CAO HƠN. Điều này LÀM TĂNG RỦI RO frame đó CŨNG THẤT BẠI, và LẦN LƯỢT khiến phép tính vật lý ở frame kế tiếp NẶNG HƠN NỮA — hiện tượng được biết đến trong thế giới physics engine là "NEGATIVE SPIRAL" (VÒNG XOÁY TIÊU CỰC).</strong>"</em></p>
+    <p>✅ <strong>GIẢI PHÁP — <code>Maximum Allowed Timestep</code>:</strong> <em>"Unity cho phép người dùng đặt <strong>Maximum Allowed Timestep — LƯỢNG THỜI GIAN TỐI ĐA mà phép tính vật lý có thể dùng TRONG MỘT FRAME. Giá trị này MẶC ĐỊNH là 0.33 GIÂY, nhưng bạn có thể muốn đặt nó GẦN với FPS MỤC TIÊU HƠN để GIỚI HẠN số lần gọi Fixed Update và ỔN ĐỊNH frame rate.</strong>"</em></p>
+    </div>
+    <div class="col-en">
+    <p><em>"<strong>If the elapsed time from the previous frame is LARGE, for example due to HEAVY RENDERING in a certain frame, Fixed Update will be called MORE OFTEN than usual in that frame.</strong>"</em></p>
+    <p>🔢 <strong>Worked example:</strong> <em>"<strong>If Fixed Timestep is 20 milliseconds and the previous frame took 200 milliseconds, Fixed Update will be called 10 TIMES.</strong>"</em></p>
+    <p>💀 <em>"<strong>This means that if ONE frame is dropped, the COST of physics operations in the NEXT frame will be HIGHER. This INCREASES THE RISK that the frame will ALSO fail, which in turn makes the physics operations in the next frame HEAVIER — a phenomenon known in the physics engine world as a "NEGATIVE SPIRAL".</strong>"</em></p>
+    <p>✅ <strong>The fix — <code>Maximum Allowed Timestep</code>:</strong> <em>"Unity allows the user to set the <strong>Maximum Allowed Timestep, which is the MAXIMUM AMOUNT OF TIME that physics operations can use in a SINGLE FRAME. This value defaults to 0.33 SECONDS, but you may want to set it CLOSER TO THE TARGET FPS to limit the number of Fixed Update calls and STABILIZE the frame rate.</strong>"</em></p>
+    </div>
+    </div>
+
+### 28.7. 🔺 Collision Shape & Collision Matrix
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>💰 <em>"Chi phí xử lý phát hiện va chạm <strong>PHỤ THUỘC vào HÌNH DẠNG collision và TÌNH HUỐNG của nó. Dù KHÓ nói CHÍNH XÁC nó tốn bao nhiêu, một QUY TẮC KINH NGHIỆM ĐÁNG NHỚ là các loại collision sau xếp theo chi phí GIẢM DẦN:</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>💰 <em>"The processing cost of collision detection <strong>DEPENDS on the SHAPE of the collision and its SITUATION. Although it is difficult to say exactly how much it will cost, a good RULE OF THUMB to remember is that the following collision types are in order of DECREASING cost:</strong>"</em></p>
+</div>
+</div>
+
+> 🥇 **`sphere collider`** → **`capsule collider`** → **`box collider`** → **`mesh collider`** (chi phí GIẢM DẦN theo thứ tự sách viết; ⚠️ nhưng sách cũng nhấn mạnh: *"trong các hình dạng này, **mesh collider ĐẶC BIỆT NẶNG TẢI**"*).
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>💡 <em>"Ví dụ, <strong>capsule collider thường được dùng để XẤP XỈ hình dạng nhân vật hình người, NHƯNG NẾU CHIỀU CAO KHÔNG PHẢI YẾU TỐ trong đặc tả game, THAY nó bằng sphere collider sẽ cho CHI PHÍ PHÁN ĐOÁN VA CHẠM NHỎ HƠN.</strong>"</em></p>
+<p>✅ <em>"<strong>TRƯỚC HẾT hãy cân nhắc liệu sphere collider, capsule collider, hay box collider VÀ CÁC TỔ HỢP của chúng có dùng được không. NẾU vẫn BẤT TIỆN, HÃY dùng mesh collider.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>💡 <em>"For example, <strong>the capsule collider is often used to approximate the shape of a humanoid character, but if HEIGHT is NOT a factor in the game specifications, REPLACING it with a SPHERE collider will result in a SMALLER cost of judging a hit.</strong>"</em></p>
+<p>✅ <em>"<strong>First, consider whether a sphere collider, capsule collider, or box collider AND ITS COMBINATIONS can be used to prepare collisions. If this is still inconvenient, use a mesh collider.</strong>"</em></p>
+</div>
+</div>
+
+!!! success "🏆 Collision Matrix — "CÁCH HIỆU QUẢ NHẤT" theo lời sách"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p><em>"Physics có cài đặt gọi là <strong>"collision matrix"</strong> ĐỊNH NGHĨA <strong>LAYER NÀO của game object có thể VA CHẠM với nhau</strong> (Project Settings → Physics → Layer Collision Matrix). Nếu <strong>ô tick ở GIAO ĐIỂM hai layer được TICK, hai layer đó SẼ VA CHẠM.</strong>"</em></p>
+    <p>🏆 <em>"<strong>Thực hiện ĐÚNG cài đặt này là CÁCH HIỆU QUẢ NHẤT để LOẠI BỎ các phép tính giữa những object KHÔNG CẦN va chạm, vì các layer KHÔNG va chạm CŨNG BỊ LOẠI KHỎI phép tính SƠ BỘ — thứ đưa ra phán đoán THÔ trên object, gọi là BROAD PHASE.</strong>"</em></p>
+    <p>✅ <em>"Xét về hiệu năng, <strong>NÊN CÓ MỘT LAYER CHUYÊN DỤNG cho các phép tính vật lý và BỎ TICK TẤT CẢ ô giữa các layer KHÔNG CẦN va chạm.</strong>"</em></p>
+    </div>
+    <div class="col-en">
+    <p><em>"Physics has a setting called <strong>"collision matrix"</strong> that defines <strong>WHICH LAYERS of game objects can COLLIDE with each other.</strong> The Collision Matrix indicates that <strong>if the checkboxes at the INTERSECTION of two layers are CHECKED, those layers will collide.</strong>"</em></p>
+    <p>🏆 <em>"<strong>PROPERLY performing this setting is the MOST EFFICIENT way to ELIMINATE calculations between objects that do not need to collide, since layers that do not collide are ALSO EXCLUDED from the pre-calculation that takes a rough hit on the object, called the BROAD PHASE.</strong>"</em></p>
+    <p>✅ <em>"For performance considerations, <strong>it is preferable to have a DEDICATED LAYER for physics calculations and UNCHECK ALL checkboxes between layers that do not need to collide.</strong>"</em></p>
+    </div>
+    </div>
+
+### 28.8. 🎯 Raycast Optimization
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>⚠️ <em>"Raycasting là chức năng hữu ích cho phép <strong>lấy thông tin va chạm giữa tia bạn bắn ra và các collider bị chạm, NHƯNG nó CŨNG có thể là NGUỒN GÂY TẢI.</strong>"</em></p>
+<p>🔺 <strong>Loại raycast:</strong> <em>"Ngoài <code>Physics.Raycast</code> phán đoán va chạm với ĐOẠN THẲNG, còn có các method khác như <code>Physics.SphereCast</code> phán đoán va chạm với HÌNH DẠNG KHÁC. <strong>TUY NHIÊN, HÌNH DẠNG cần phán đoán CÀNG PHỨC TẠP thì TẢI CÀNG CAO. Xét về hiệu năng, NÊN dùng CHỈ <code>Physics.Raycast</code> càng nhiều càng tốt.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>⚠️ <em>"Raycasting is a useful feature that allows you to <strong>get collision information between rays you fly and colliding colliders, BUT it can ALSO be a SOURCE OF LOAD.</strong>"</em></p>
+<p>🔺 <strong>Types:</strong> <em>"In addition to <code>Physics.Raycast</code>, which determines collision with a LINE SEGMENT, there are other methods such as <code>Physics.SphereCast</code>. <strong>However, the MORE COMPLEX the shape to be judged, the HIGHER the load. Considering performance, it is advisable to use ONLY <code>Physics.Raycast</code> as much as possible.</strong>"</em></p>
+</div>
+</div>
+
+**HAI tham số TỐI ƯU mà nhiều người BỎ QUA:**
+
+| Tham số | 💀 Nếu BỎ QUA | ✅ Nên làm |
+|---|---|---|
+| **`maxDistance`** | *"**`Mathf.Infinity` được truyền làm GIÁ TRỊ MẶC ĐỊNH**, và một nỗ lực phán đoán trên **TIA RẤT DÀI** được thực hiện. Tia như vậy có thể **ẢNH HƯỞNG TIÊU CỰC tới BROAD PHASE, hoặc CHẠM vào object VỐN KHÔNG CẦN chạm.**"* | *"**ĐỪNG chỉ định khoảng cách LỚN HƠN mức cần thiết.**"* |
+| **`layerMask`** | *"Giá trị mặc định là **`Physics.DefaultRaycastLayers`, va chạm với TẤT CẢ layer NGOẠI TRỪ `Ignore Raycast`**"* | *"**Cũng TRÁNH bật bit ở các layer KHÔNG CẦN chạm. Giống collision matrix, layer KHÔNG có bit CŨNG BỊ LOẠI KHỎI BROAD PHASE, do đó GIẢM chi phí tính toán. HÃY CHẮC CHẮN chỉ định cả tham số này.**"* |
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>💀 <strong><code>RaycastAll</code> gây GC Alloc:</strong> <em>"<code>Physics.Raycast</code> trả về thông tin va chạm cho MỘT trong các collider, nhưng <strong><code>Physics.RaycastAll</code> có thể dùng để lấy NHIỀU thông tin va chạm. <code>Physics.RaycastAll</code> trả về thông tin va chạm bằng cách CẤP PHÁT ĐỘNG một MẢNG các struct <code>RaycastHit</code>. Do đó, MỖI LẦN gọi method này sẽ dẫn tới GC ALLOC, có thể gây SPIKE do GC.</strong>"</em></p>
+<p>✅ <em>"Để tránh, có method <strong><code>Physics.RaycastNonAlloc</code></strong> — khi được truyền một mảng ĐÃ CẤP PHÁT làm tham số, nó GHI KẾT QUẢ vào mảng đó và trả về."</em></p>
+<p>🚨 <strong>QUY TẮC VÀNG:</strong> <em>"<strong>Xét về hiệu năng, GC Alloc KHÔNG NÊN xảy ra bên trong <code>FixedUpdate</code> BẤT CỨ KHI NÀO CÓ THỂ.</strong>"</em></p>
+<p>💡 <em>"<strong>GC.Alloc có thể được TRÁNH TRỪ lúc KHỞI TẠO MẢNG, bằng cách DUY TRÌ mảng ghi kết quả trong một FIELD của class, POOLING, hoặc cơ chế khác, rồi TRUYỀN mảng đó cho <code>Physics.RaycastNonAlloc</code>.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>💀 <strong><code>RaycastAll</code> causes GC Alloc:</strong> <em>"<code>Physics.Raycast</code> returns collision information for ONE of the colliding colliders, but <strong><code>Physics.RaycastAll</code> can be used to obtain MULTIPLE collision information. It returns collision information by DYNAMICALLY ALLOCATING an array of <code>RaycastHit</code> structures. Therefore, EACH CALL to this method will result in a GC ALLOC, which can cause SPIKES due to GC.</strong>"</em></p>
+<p>✅ <em>"To avoid this problem, there is a method called <strong><code>Physics.RaycastNonAlloc</code></strong> that, when passed an ALLOCATED array as an argument, WRITES the result to that array and returns it."</em></p>
+<p>🚨 <strong>The golden rule:</strong> <em>"<strong>For performance considerations, GC Alloc should NOT occur within <code>FixedUpdate</code> WHENEVER POSSIBLE.</strong>"</em></p>
+<p>💡 <em>"<strong>GC.Alloc can be avoided EXCEPT during ARRAY INITIALIZATION by maintaining the array in a CLASS FIELD, POOLING, or other mechanism, and passing that array to <code>Physics.RaycastNonAlloc</code>.</strong>"</em></p>
+</div>
+</div>
+
+**List 6.1 — dùng `Physics.RaycastNonAlloc` ĐÚNG CÁCH:**
+
+```csharp
+// Starting point to skip ray
+var origin = transform.origin;
+// Direction of ray
+var direction = Vector3.forward;
+// Length of ray
+var maxDistance = 3.0f;
+// The layer with which the ray will collide
+var layerMask = 1 << LayerMask.NameToLayer("Player");
+
+// An array to store the ray-cast collision results
+// This array can be allocated in advance during initialization or
+// or use the one allocated in the pool.
+// The maximum number of ray-cast results must be determined in advance
+// private const int kMaxResultCount = 100;
+// private readonly RaycastHit[] _results = new RaycastHit[kMaxResultCount];
+
+// All collision information is returned in an array.
+// Return value is number of collisions
+var hitCount = Physics.RaycastNonAlloc(
+    origin,
+    direction,
+    _results,
+    layerMask,
+    query
+);
+if (hitCount > 0)
+{
+    Debug.Log($"{hitCount} players collided");
+
+    // The _results array stores collision information in order.
+    var firstHit = _results[0];
+
+    // Note that indexes exceeding the number of collisions are invalid information.
+}
+```
+
+### 28.9. 🧱 Ba loại Collider & trạng thái SLEEP
+
+| Loại | Cấu tạo | Đặc tính & CẢNH BÁO |
+|---|---|---|
+| **Static Collider** | Có `Collider`, **KHÔNG** có `Rigidbody` | *"Được TỐI ƯU để dùng **CHỈ cho geometry LUÔN ở NGUYÊN MỘT CHỖ và KHÔNG BAO GIỜ DI CHUYỂN.**"*<br>💀 *"**Bạn KHÔNG NÊN bật/tắt static collider, CŨNG KHÔNG NÊN DI CHUYỂN hay SCALE nó trong lúc chơi. Làm vậy sẽ gây TÍNH TOÁN LẠI do THAY ĐỔI CẤU TRÚC DỮ LIỆU BÊN TRONG, có thể LÀM SUY GIẢM HIỆU NĂNG ĐÁNG KỂ.**"* |
+| **Dynamic Collider** | Có **CẢ** `Collider` **và** `Rigidbody` | *"Va chạm được với object khác bởi physics engine. Cũng PHẢN ỨNG với va chạm và LỰC tác dụng bằng cách thao tác `Rigidbody` từ script. **Đây là collider ĐƯỢC DÙNG PHỔ BIẾN NHẤT trong game cần physics.**"* |
+| **Kinematic Dynamic Collider** | `Collider` + `Rigidbody` với **`isKinematic` BẬT** | *"**DI CHUYỂN được bằng cách thao tác TRỰC TIẾP `Transform`, NHƯNG KHÔNG bằng cách áp dụng va chạm hay lực qua `Rigidbody`** như dynamic collider thường."*<br>✅ *"Dùng để **TỐI ƯU physics khi bạn muốn CHUYỂN ĐỔI việc thực thi phép tính vật lý, hoặc cho CHƯỚNG NGẠI VẬT như CỬA — thứ bạn muốn di chuyển THỈNH THOẢNG chứ không phải ĐA SỐ THỜI GIAN.**"* |
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>😴 <strong>Trạng thái SLEEP:</strong> <em>"Như một phần của tối ưu, <strong>physics engine XÁC ĐỊNH rằng nếu một object gắn `Rigidbody` KHÔNG DI CHUYỂN trong MỘT KHOẢNG THỜI GIAN NHẤT ĐỊNH, object đó được coi là NGỦ ĐÔNG và trạng thái bên trong đổi sang SLEEP. Chuyển sang sleep GIẢM THIỂU chi phí tính toán cho object đó TRỪ KHI nó bị di chuyển bởi ngoại lực, va chạm, hoặc sự kiện khác.</strong>"</em></p>
+<p>✅ <em>"Do đó, <strong>các object gắn `Rigidbody` mà KHÔNG CẦN di chuyển NÊN được chuyển sang trạng thái sleep BẤT CỨ KHI NÀO CÓ THỂ để GIẢM chi phí tính toán vật lý.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>😴 <strong>The sleep state:</strong> <em>"As part of the optimization, <strong>the physics engine determines that if an object with a `Rigidbody` does NOT MOVE for a certain period of time, the object is considered DORMANT and its internal state is changed to SLEEP. Moving to the sleep state MINIMIZES the computational cost for that object UNLESS it is moved by an external force, collision, or other event.</strong>"</em></p>
+<p>✅ <em>"Therefore, <strong>objects with a `Rigidbody` that do NOT need to move can be transitioned to the sleep state whenever possible to REDUCE the computational cost of physics calculations.</strong>"</em></p>
+</div>
+</div>
+
+!!! info "🎚️ `Sleep Threshold` — ĐÁNH ĐỔI giữa CHI PHÍ và CẢM GIÁC"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p>📍 Đặt tại <strong>Project Settings → Physics → Sleep Threshold</strong>, hoặc riêng từng object qua <strong><code>Rigidbody.sleepThreshold</code></strong>.</p>
+    <p>📐 <em>"<strong>Sleep Threshold biểu diễn ĐỘNG NĂNG CHUẨN HOÁ THEO KHỐI LƯỢNG (mass-normalized kinetic energy) của object khi nó đi ngủ.</strong>"</em></p>
+    <p>⚖️ <em>"<strong>Giá trị này CÀNG LỚN thì object CÀNG NHANH đi ngủ, do đó GIẢM chi phí tính toán. TUY NHIÊN, object có thể TRÔNG NHƯ DỪNG ĐỘT NGỘT vì nó có xu hướng đi ngủ NGAY CẢ KHI ĐANG DI CHUYỂN CHẬM. Nếu GIẢM giá trị này, hiện tượng trên ÍT XẢY RA HƠN, nhưng ngược lại object KHÓ đi ngủ HƠN.</strong>"</em></p>
+    <p>🔍 <em>"Trạng thái sleep kiểm tra được bằng <strong><code>Rigidbody.IsSleeping</code></strong>. <strong>TỔNG SỐ component `Rigidbody` ĐANG HOẠT ĐỘNG trên scene kiểm tra được từ mục Physics trong profiler.</strong>"</em></p>
+    </div>
+    <div class="col-en">
+    <p>📍 Set in <strong>Project Settings → Physics → Sleep Threshold</strong>, or per object via <strong><code>Rigidbody.sleepThreshold</code></strong>.</p>
+    <p>📐 <em>"<strong>Sleep Threshold represents the MASS-NORMALIZED KINETIC ENERGY of the object when it goes to sleep.</strong>"</em></p>
+    <p>⚖️ <em>"<strong>The LARGER this value is, the FASTER the object will go to sleep, thus REDUCING the computational cost. However, the object may appear to come to an ABRUPT STOP because it tends to go to sleep EVEN WHEN MOVING SLOWLY. If this value is reduced, the above phenomenon is LESS LIKELY to occur, but on the other hand, it is MORE DIFFICULT for the object to go to sleep.</strong>"</em></p>
+    <p>🔍 <em>"Whether `Rigidbody` is in sleep mode can be checked with <strong><code>Rigidbody.IsSleeping</code></strong>. <strong>The total number of active `Rigidbody` components in the scene can be checked from the Physics item in the profiler.</strong>"</em></p>
+    </div>
+    </div>
+
+<img src="../assets/ca-physics-debugger.png" alt="Physics Debugger của Unity hiển thị collider theo màu">
+
+<p><em>VI: <strong>Physics Debugger</strong> — cửa sổ trái cho phép bật/tắt <strong>Show Static Colliders / Triggers / Rigidbodies / Kinematic Bodies / Sleeping Bodies</strong> và lọc theo loại collider (<strong>Box / Sphere / Capsule / MeshColliders (convex) / MeshColliders (concave) / Terrain</strong>). Bảng <strong>Colors</strong> gán màu: <strong>Static Colliders = XANH LÁ, Triggers = VÀNG, Rigidbodies = ĐỎ, Kinematic Bodies = XANH DƯƠNG, Sleeping Bodies = TÍM</strong> (Transparency 0.5, View Distance 1000). Scene bên phải: hàng trăm quả cầu ĐỎ (rigidbody đang HOẠT ĐỘNG) xen lẫn quả TÍM (đã SLEEP) trên nền XANH LÁ (static collider). 🔑 Đây là cách NHÌN THẤY TRỰC TIẾP object nào còn tốn chi phí physics. / EN: The Physics Debugger — colour-coded collider states; purple spheres are already asleep, red ones still cost simulation time.</em></p>
+
+### 28.10. 🎲 Collision Detection — bốn thuật toán
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🧮 <em>"Component `Rigidbody` cho phép chọn thuật toán dùng cho phát hiện va chạm ở mục <strong>Collision Detection</strong>. <strong>Tính tới Unity 2020.3, có BỐN tuỳ chọn: Discrete, Continuous, Continuous Dynamic, Continuous Speculative.</strong>"</em></p>
+<p>📖 <em>"<strong>Discrete là phát hiện va chạm RỜI RẠC, các cái còn lại thuộc phát hiện va chạm LIÊN TỤC.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🧮 <em>"The `Rigidbody` component allows you to select the algorithm used for collision detection in the <strong>Collision Detection</strong> item. <strong>As of Unity 2020.3, there are FOUR options: Discrete, Continuous, Continuous Dynamic, Continuous Speculative.</strong>"</em></p>
+<p>📖 <em>"<strong>Discrete is DISCRETE collision detection and the others belong to CONTINUOUS collision detection.</strong>"</em></p>
+</div>
+</div>
+
+| Thuật toán | Cơ chế | Chi phí | Ghi chú |
+|---|---|---|---|
+| **Discrete** | *"**Dịch chuyển tức thời (teleport) object RỜI RẠC ở MỖI simulation, và phát hiện va chạm được thực hiện SAU KHI TẤT CẢ object đã di chuyển.**"* | 🥇 **THẤP NHẤT** | 💀 *"**CÓ KHẢ NĂNG BỎ SÓT va chạm, ĐẶC BIỆT nếu object di chuyển TỐC ĐỘ CAO, khiến object XUYÊN QUA nhau.**"* ✅ *"**Để tối ưu hiệu năng, hãy TẠO hành vi game sao cho Discrete CÓ THỂ được chọn BẤT CỨ KHI NÀO CÓ THỂ.**"* |
+| **Continuous** | *"Tính đến va chạm giữa các object **TRƯỚC và SAU khi chúng di chuyển**, do đó **NGĂN object di chuyển nhanh XUYÊN QUA**."* | ⬆️ **CAO HƠN Discrete** | *"Dùng được cho tổ hợp **Dynamic Collider và Static Collider**"* |
+| **Continuous Dynamic** | *"Bật phát hiện va chạm liên tục **KỂ CẢ với dynamic collider**"* | 💀 **CAO HƠN NỮA** | ✅ *"Nếu bạn **CHỈ muốn xét va chạm giữa dynamic và static collider — tức nhân vật CHẠY QUANH SÂN — hãy chọn Continuous Dynamic.**"* |
+| **Continuous Speculative** | Va chạm liên tục **speculative** giữa các dynamic collider | ✅ *"**ÍT TỐN TÍNH TOÁN HƠN Continuous Dynamic**"* | 🚨 *"**PHẢI được đưa vào một cách THẬN TRỌNG do hiện tượng gọi là "GHOST COLLISION" (VA CHẠM MA), xảy ra khi NHIỀU collider VA CHẠM VỚI NHAU Ở KHOẢNG CÁCH GẦN.**"* |
+
+### 28.11. ⚙️ Hai project setting ẢNH HƯỞNG LỚN
+
+!!! warning "⚠️ `Physics.autoSyncTransforms` — thủ phạm gây SPIKE ở project cũ"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p><em>"Ở các phiên bản <strong>TRƯỚC Unity 2018.3</strong>, <strong>vị trí của physics engine được TỰ ĐỘNG ĐỒNG BỘ với `Transform` MỖI KHI một API vật lý như `Physics.Raycast` được gọi. Tiến trình này TƯƠNG ĐỐI NẶNG và có thể gây SPIKE khi gọi API cho các phép tính vật lý.</strong>"</em></p>
+    <p>✅ <em>"Để khắc phục, cài đặt <strong><code>Physics.autoSyncTransforms</code></strong> đã được thêm <strong>từ Unity 2018.3. Đặt giá trị này là <code>false</code> sẽ NGĂN tiến trình đồng bộ `Transform` nói trên khi gọi physics API.</strong>"</em></p>
+    <p>💀 <strong>HỆ QUẢ phải biết:</strong> <em>"<strong>Đồng bộ `Transform` sẽ được thực hiện SAU KHI `FixedUpdate` được gọi trong physics simulation. Nghĩa là NẾU bạn DI CHUYỂN collider rồi THỰC HIỆN RAYCAST tại vị trí MỚI của collider, RAYCAST SẼ KHÔNG TRÚNG COLLIDER.</strong>"</em></p>
+    </div>
+    <div class="col-en">
+    <p><em>"In versions <strong>PRIOR to Unity 2018.3</strong>, <strong>the position of the physics engine was AUTOMATICALLY SYNCHRONIZED with `Transform` EACH TIME an API for physics operations such as `Physics.Raycast` was called. This process is RELATIVELY HEAVY and can cause SPIKES.</strong>"</em></p>
+    <p>✅ <em>"To work around this, a setting called <strong><code>Physics.autoSyncTransforms</code></strong> has been added <strong>since Unity 2018.3. Setting this value to <code>false</code> will PREVENT the `Transform` synchronization process when calling the physics API.</strong>"</em></p>
+    <p>💀 <strong>The consequence:</strong> <em>"<strong>Synchronization of `Transform` will be performed AFTER `FixedUpdate` is called during physics simulation. This means that if you MOVE the collider and then perform a RAYCAST on the NEW position of the collider, THE RAYCAST WILL NOT HIT THE COLLIDER.</strong>"</em></p>
+    </div>
+    </div>
+
+!!! danger "💀 `Physics.reuseCollisionCallbacks` — KIỂM TRA NGAY nếu project của bạn CŨ"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p><em>"<strong>TRƯỚC Unity 2018.3, MỖI KHI một event được gọi để nhận collision call cho một component `Collider` như `OnCollisionEnter`, một INSTANCE `Collision` MỚI của tham số được TẠO RA và TRUYỀN VÀO, DẪN TỚI GC ALLOC.</strong>"</em></p>
+    <p>✅ <em>"Vì hành vi này có thể ẢNH HƯỞNG TIÊU CỰC tới hiệu năng game <strong>tuỳ theo TẦN SUẤT event được gọi</strong>, một property mới <strong><code>Physics.reuseCollisionCallbacks</code></strong> đã được phơi ra <strong>từ 2018.3. Đặt giá trị này là <code>true</code> sẽ TRIỆT TIÊU GC Alloc vì nó DÙNG LẠI (reuse) instance `Collision` BÊN TRONG khi gọi event.</strong>"</em></p>
+    <p>🚨 <em>"Cài đặt này có <strong>giá trị mặc định <code>true</code> ở 2018.3 trở lên</strong>, ổn nếu bạn tạo project với phiên bản Unity TƯƠNG ĐỐI MỚI. <strong>NHƯNG NẾU bạn tạo project với phiên bản TRƯỚC 2018.3, giá trị này CÓ THỂ ĐANG LÀ <code>false</code>. NẾU cài đặt này bị TẮT, BẠN NÊN BẬT NÓ rồi SỬA CODE để game chạy ĐÚNG.</strong>"</em></p>
+    </div>
+    <div class="col-en">
+    <p><em>"<strong>Prior to Unity 2018.3, EVERY TIME an event was called to receive a collision call for a `Collider` component such as `OnCollisionEnter`, a NEW `Collision` INSTANCE of the argument was CREATED and PASSED, resulting in a GC ALLOC.</strong>"</em></p>
+    <p>✅ <em>"Since this behavior can have a negative impact <strong>depending on HOW OFTEN events are called</strong>, a new property <strong><code>Physics.reuseCollisionCallbacks</code></strong> has been exposed <strong>since 2018.3. Setting this value to <code>true</code> will SUPPRESS GC Alloc as it internally REUSES the `Collision` instance passed around when calling events.</strong>"</em></p>
+    <p>🚨 <em>"This setting has a <strong>default value of `true` in 2018.3 and later</strong>. <strong>But if you created your project with a version PRIOR to 2018.3, this value may be set to `false`. If this setting is DISABLED, you should ENABLE IT and then MODIFY YOUR CODE so that the game runs correctly.</strong>"</em></p>
+    </div>
+    </div>
+
+---
+
+## 29. 🎨 GRAPHICS (Chương 7) & 🖱️ UI (Chương 8)
+
+👉 *Nhiều mục dưới đây ĐÃ được phủ ở [Module 3](../03-senior/01-memory-addressables-networking.md) và [Module 4](../04-tech-lead/01-gpu-urp-advanced-rendering.md). Ở đây giữ lại các ĐIỀU KIỆN, CON SỐ và CẢNH BÁO riêng của CyberAgent.*
+
+### 29.1. 📐 Resolution Tuning — cách RẺ NHẤT để cứu fragment shader
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🔑 <em>"Trong rendering pipeline, <strong>CHI PHÍ của fragment shader TĂNG TỈ LỆ THUẬN với ĐỘ PHÂN GIẢI mà chúng được render. ĐẶC BIỆT với độ phân giải màn hình CAO của thiết bị di động ngày nay, CẦN THIẾT phải điều chỉnh độ phân giải render về giá trị PHÙ HỢP.</strong>"</em></p>
+<p>⚙️ <strong>DPI Settings:</strong> <em>"Nếu <strong><code>Resolution Scaling Mode</code></strong> (trong phần liên quan độ phân giải của Player Settings cho nền tảng mobile) được đặt là <strong><code>Fixed DPI</code></strong>, độ phân giải có thể được GIẢM để nhắm tới một <strong>DPI (dots per inch)</strong> cụ thể."</em></p>
+<p>🧮 <em>"<strong>Độ phân giải CUỐI CÙNG được xác định bằng cách NHÂN giá trị <code>Target DPI</code> với giá trị <code>Resolution Scaling DPI Scale Factor</code> trong Quality Settings.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🔑 <em>"In the rendering pipeline, <strong>the COST of fragment shaders INCREASES IN PROPORTION to the RESOLUTION at which they are rendered. Especially with the HIGH display resolutions of today's mobile devices, it is NECESSARY to adjust the rendering resolution to an APPROPRIATE value.</strong>"</em></p>
+<p>⚙️ <strong>DPI Settings:</strong> <em>"If <strong><code>Resolution Scaling Mode</code></strong>, which is included in the resolution-related section of Player Settings for mobile platforms, is set to <strong><code>Fixed DPI</code></strong>, the resolution can be reduced to target a specific DPI."</em></p>
+<p>🧮 <em>"<strong>The FINAL resolution is determined by MULTIPLYING the <code>Target DPI</code> value by the <code>Resolution Scaling DPI Scale Factor</code> value in the Quality Settings.</strong>"</em></p>
+</div>
+</div>
+
+**List 7.1 — đổi độ phân giải ĐỘNG từ script:**
+
+```csharp
+public void SetupResolution()
+{
+    var factor = 0.8f;
+
+    // Get current resolution with Screen.width, Screen.height
+    var width = (int)(Screen.width * factor);
+    var height = (int)(Screen.height * factor);
+
+    // Set Resolution
+    Screen.SetResolution(width, height, true);
+}
+```
+
+!!! warning "⚠️ `Screen.SetResolution` KHÔNG có tác dụng trong Editor"
+    **VI:** *"Cài đặt độ phân giải ở `Screen.SetResolution` **CHỈ được phản ánh trên THIẾT BỊ THẬT. Lưu ý rằng thay đổi KHÔNG được phản ánh trong Editor.**" (Độ phân giải hiện tại lấy qua `Screen.width` / `Screen.height`, DPI qua `Screen.dpi`.)*
+
+    **EN:** *"Resolution settings at `Screen.SetResolution` are reflected **ONLY on the actual device. Note that changes are NOT reflected in the Editor.**"*
+
+### 29.2. 🔥 Bán trong suốt & OVERDRAW
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🔥 <em>"Việc dùng material BÁN TRONG SUỐT bị chi phối bởi <strong>OVERDRAW</strong>. Overdraw là việc <strong>vẽ MỘT fragment NHIỀU LẦN trên MỖI PIXEL của màn hình, và nó ẢNH HƯỞNG tới hiệu năng TỈ LỆ THUẬN với TẢI của fragment shader.</strong>"</em></p>
+<p>💀 <em>"<strong>ĐẶC BIỆT khi MỘT SỐ LƯỢNG LỚN hạt BÁN TRONG SUỐT được sinh ra, chẳng hạn trong particle system, MỘT LƯỢNG LỚN OVERDRAW thường được tạo ra.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🔥 <em>"The use of TRANSLUCENT materials is controlled by <strong>OVERDRAW</strong>. Overdraw is <strong>the drawing of a fragment MULTIPLE TIMES per pixel on the screen, and it affects performance IN PROPORTION to the load on the fragment shader.</strong>"</em></p>
+<p>💀 <em>"<strong>Particularly when a LARGE NUMBER of translucent particles are generated, such as in a particle system, a LARGE AMOUNT of overdraw is often generated.</strong>"</em></p>
+</div>
+</div>
+
+**Bốn cách GIẢM tải vẽ do overdraw:**
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>① <em>"<strong>GIẢM vùng vẽ KHÔNG CẦN THIẾT</strong> — <strong>GIẢM TỐI ĐA các vùng mà texture HOÀN TOÀN TRONG SUỐT, vì chúng CŨNG là đối tượng của việc render.</strong>"</em></p>
+<p>② <em>"<strong>Dùng shader NHẸ cho các object CÓ THỂ gây overdraw.</strong>"</em></p>
+<p>③ <em>"<strong>TRÁNH dùng material bán trong suốt càng nhiều càng tốt.</strong>"</em></p>
+<p>④ <em>"<strong>Dùng material ĐỤC để MÔ PHỎNG diện mạo bán trong suốt — DITHERING là một kỹ thuật khác đáng cân nhắc.</strong>"</em></p>
+<p>🔍 <em>"Trong Editor của Built-in Render Pipeline, <strong>đặt chế độ Scene view thành OVERDRAW — hữu ích làm CƠ SỞ để điều chỉnh overdraw.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>① <em>"<strong>Reduce unnecessary drawing area</strong> — <strong>reduce as much as possible the number of areas where textures are COMPLETELY TRANSPARENT, as they are ALSO subject to rendering.</strong>"</em></p>
+<p>② <em>"<strong>Use LIGHTWEIGHT shaders for objects that may cause overdraw.</strong>"</em></p>
+<p>③ <em>"<strong>Avoid using semi-transparent materials as much as possible.</strong>"</em></p>
+<p>④ <em>"<strong>Use OPAQUE materials to simulate the appearance of translucency — DITHERING is another technique to consider.</strong>"</em></p>
+<p>🔍 <em>"In the Editor of the Built-in Render Pipeline, <strong>set the Scene view mode to OVERDRAW, which is useful as a basis for adjusting overdraw.</strong>"</em></p>
+</div>
+</div>
+
+<img src="../assets/ca-overdraw-mode.png" alt="Chế độ Overdraw của Scene view">
+
+<p><em>VI: Scene view ở chế độ <strong>Overdraw</strong> — một hiệu ứng lửa từ Particle System. Vùng CÀNG SÁNG (trắng/vàng) thì pixel đó bị vẽ ĐÈ CÀNG NHIỀU LẦN; lõi ngọn lửa gần như TRẮNG XOÁ = overdraw CỰC CAO. 🚨 Đây chính là minh chứng cho câu <em>"khi MỘT SỐ LƯỢNG LỚN hạt bán trong suốt được sinh ra, MỘT LƯỢNG LỚN OVERDRAW được tạo ra"</em>. / EN: Scene view Overdraw mode on a particle fire — brighter pixels were shaded more times.</em></p>
+
+!!! info "ℹ️ URP thì sao?"
+    **VI:** *"**Universal Render Pipeline HỖ TRỢ Scene Debug View Modes được cài đặt trong URP TỪ Unity 2021.2.**"*
+
+    **EN:** *"The Universal Render Pipeline supports the Scene Debug View Modes implemented in the Universal Render Pipeline since Unity 2021.2."*
+
+### 29.3. 🧮 Giảm DRAW CALL — 4 cơ chế và ĐIỀU KIỆN của chúng
+
+<img src="../assets/ca-player-static-batching.png" alt="Player Settings Other Settings rendering flags">
+<p><em>VI: <code>Player Settings &gt; Other Settings &gt; Rendering</code> — <strong>Static Batching ✓</strong> (khung vàng), <strong>Dynamic Batching ✗</strong>, cùng <strong>Multithreaded Rendering ✓ · Compute Skinning ✓ · Graphics Jobs (Experimental) ✗ · Color Space: Gamma · Normal Map Encoding: XYZ · Lightmap Encoding: Low Quality</strong>. / EN: The Rendering flags under Player Settings &gt; Other Settings.</em></p>
+
+
+👉 *Xem thêm [Module 4](../04-tech-lead/01-gpu-urp-advanced-rendering.md). Điểm khác biệt ở đây: **DANH SÁCH ĐIỀU KIỆN ĐẦY ĐỦ** của Dynamic Batching và **cảnh báo deprecated ở URP**.*
+
+**a) Dynamic Batching**
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>⚙️ <em>"Dynamic batching là chức năng <strong>gộp lô các object ĐỘNG lúc RUNTIME</strong>, dùng để <strong>hợp nhất và giảm draw call trên các object động dùng CÙNG MATERIAL.</strong> Bật ở Player Settings; ở URP thì bật trong URP Asset."</em></p>
+<p>🚨 <em>"<strong>TUY NHIÊN, việc dùng Dynamic Batching là DEPRECATED trong Universal Render Pipeline.</strong>"</em></p>
+<p>💀 <em>"<strong>Vì dynamic batching là tiến trình TỐN CPU, RẤT NHIỀU điều kiện PHẢI được thoả mãn trước khi nó áp dụng được cho một object.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>⚙️ <em>"Dynamic batching is a feature for <strong>batching DYNAMIC objects at RUNTIME</strong>, used to <strong>consolidate and reduce draw calls on dynamic objects that use the SAME MATERIAL.</strong>"</em></p>
+<p>🚨 <em>"<strong>However, the use of Dynamic Batching is DEPRECATED in the Universal Render Pipeline.</strong>"</em></p>
+<p>💀 <em>"<strong>Because dynamic batching is a CPU-INTENSIVE process, MANY conditions must be met before it can be applied to an object.</strong>"</em></p>
+</div>
+</div>
+
+> 📋 **ĐIỀU KIỆN CHÍNH của Dynamic Batching:**
+> - *"Tham chiếu **CÙNG MỘT material**"*
+> - *"Object được render bằng **`MeshRenderer` hoặc `Particle System`** — ⚠️ *"các component khác như **`SkinnedMeshRenderer` KHÔNG thuộc đối tượng dynamic batching**"*
+> - *"**Số ĐỈNH của mesh DƯỚI 300**"*
+> - *"**KHÔNG dùng multipath**"*
+> - *"**KHÔNG bị ảnh hưởng bởi real-time shadow**"*
+
+!!! warning "⚠️ CyberAgent KHÔNG khuyến nghị Dynamic Batching"
+    **VI:** *"**Dynamic batching có thể KHÔNG được khuyến nghị vì TÁC ĐỘNG của nó lên TẢI CPU ỔN ĐỊNH (steady CPU load). SRP Batcher mô tả bên dưới có thể được dùng để đạt hiệu quả TƯƠNG TỰ dynamic batching.**"*
+
+    **EN:** *"Dynamic batching may NOT be recommended because of its impact on STEADY CPU LOAD. SRP Batcher described below can be used to achieve an effect similar to dynamic batching."*
+
+**b) Static Batching**
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>⚙️ <em>"Chức năng gộp lô các object <strong>KHÔNG DI CHUYỂN</strong> trong scene. Để một object ĐỦ ĐIỀU KIỆN, <strong>cờ `static` của object PHẢI được bật — cụ thể là cờ con <code>Batching Static</code>.</strong>"</em></p>
+<p>✅⚖️ <em>"<strong>Static batching KHÁC dynamic batching ở chỗ nó KHÔNG liên quan tới tiến trình BIẾN ĐỔI ĐỈNH lúc runtime, nên nó thực hiện được với TẢI THẤP HƠN. TUY NHIÊN, cần lưu ý rằng nó TIÊU TỐN RẤT NHIỀU BỘ NHỚ để lưu thông tin mesh đã được gộp lô.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>⚙️ <em>"A function for batching objects that <strong>do NOT move</strong> in the scene. To make an object eligible, <strong>the object's `static` flag must be enabled — specifically, the <code>Batching Static</code> sub-flag.</strong>"</em></p>
+<p>✅⚖️ <em>"<strong>Static batching DIFFERS from dynamic batching in that it does NOT involve VERTEX CONVERSION processing at runtime, so it can be performed with a LOWER load. However, it should be noted that it CONSUMES A LOT OF MEMORY to store the mesh information combined by batch processing.</strong>"</em></p>
+</div>
+</div>
+
+**c) GPU Instancing**
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🌿 <em>"GPU instancing là chức năng <strong>vẽ HIỆU QUẢ các object có CÙNG MESH và CÙNG MATERIAL. Kỳ vọng GIẢM draw call khi vẽ CÙNG MỘT MESH NHIỀU LẦN, chẳng hạn CỎ hoặc CÂY.</strong>"</em> Bật bằng <strong><code>Enable Instancing</code></strong> trong Inspector của material.</p>
+<p>🎨 <em>"<strong>GPU instancing CHỈ hoạt động trên các object tham chiếu CÙNG MỘT material, NHƯNG bạn CÓ THỂ đặt property CHO TỪNG INSTANCE</strong> bằng cách bao property mục tiêu giữa <code>UNITY_INSTANCING_BUFFER_START(Props)</code> và <code>UNITY_INSTANCING_BUFFER_END(Props)</code>."</em></p>
+<p>🚨 <em>"Property này sau đó đặt được trong C# bằng API <strong><code>MaterialPropertyBlock</code></strong>. ⚠️ <strong>CHỈ CẨN THẬN ĐỪNG dùng `MaterialPropertyBlock` cho QUÁ NHIỀU instance, vì truy cập `MaterialPropertyBlock` có thể ẢNH HƯỞNG tới hiệu năng CPU.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🌿 <em>"GPU instancing is a function for <strong>efficiently drawing objects of the SAME MESH and MATERIAL. It is expected to reduce draw calls when drawing the same mesh multiple times, such as GRASS or TREES.</strong>"</em></p>
+<p>🎨 <em>"<strong>GPU instancing only works on objects that reference the SAME material, but you CAN set properties FOR EACH INSTANCE</strong> by enclosing the target property with <code>UNITY_INSTANCING_BUFFER_START(Props)</code> and <code>UNITY_INSTANCING_BUFFER_END(Props)</code>."</em></p>
+<p>🚨 <em>"This property can then be set in C# via <strong><code>MaterialPropertyBlock</code></strong>. ⚠️ <strong>Just be careful NOT to use `MaterialPropertyBlock` for TOO MANY instances, as accessing it may AFFECT CPU PERFORMANCE.</strong>"</em></p>
+</div>
+</div>
+
+**List 7.2 — Shader TỐI THIỂU hỗ trợ GPU Instancing (Built-in RP):**
+
+```hlsl
+Shader "SimpleInstancing"
+{
+    Properties
+    {
+         _Color ("Color", Color) = (1, 1, 1, 1)
+    }
+
+    CGINCLUDE
+
+    #include "UnityCG.cginc"
+
+    struct appdata
+    {
+         float4 vertex : POSITION;
+         UNITY_VERTEX_INPUT_INSTANCE_ID
+    };
+
+    struct v2f
+    {
+         float4 vertex : SV_POSITION;
+         // Required only when accessing INSTANCED_PROP in fragment shaders
+         UNITY_VERTEX_INPUT_INSTANCE_ID
+    };
+
+    UNITY_INSTANCING_BUFFER_START(Props)
+         UNITY_DEFINE_INSTANCED_PROP(float4, _Color)
+    UNITY_INSTANCING_BUFFER_END(Props)
+
+    v2f vert(appdata v)
+    {
+        v2f o;
+
+        UNITY_SETUP_INSTANCE_ID(v);
+
+        // Required only when accessing INSTANCED_PROP in fragment shaders
+        UNITY_TRANSFER_INSTANCE_ID(v, o);
+
+        o.vertex = UnityObjectToClipPos(v.vertex);
+        return o;
+    }
+
+    fixed4 frag(v2f i) : SV_Target
+    {
+        // Only required when accessing INSTANCED_PROP with fragment shaders
+        UNITY_SETUP_INSTANCE_ID(i);
+
+        float4 color = UNITY_ACCESS_INSTANCED_PROP(Props, _Color);
+        return color;
+    }
+
+    ENDCG
+
+    SubShader
+    {
+        Tags { "RenderType"="Opaque" }
+        LOD 100
+
+        Pass
+        {
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #pragma multi_compile_instancing
+            ENDCG
+        }
+    }
+}
+```
+
+**d) SRP Batcher — HAI điều kiện để shader TƯƠNG THÍCH**
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🏆 <em>"SRP Batcher là chức năng <strong>GIẢM CHI PHÍ CPU của việc render, CHỈ có ở Scriptable Render Pipeline. Chức năng này cho phép NHIỀU shader set-pass call dùng CÙNG MỘT SHADER VARIANT được XỬ LÝ CÙNG NHAU.</strong>"</em> Bật từ Inspector của SRP Asset.</p>
+<p>📋 <strong>HAI điều kiện để shader tương thích SRP Batcher:</strong><br>
+① <em>"<strong>ĐỊNH NGHĨA các built-in property được định nghĩa THEO OBJECT trong MỘT CBUFFER DUY NHẤT tên <code>UnityPerDraw</code></strong>"</em><br>
+② <em>"<strong>ĐỊNH NGHĨA property THEO MATERIAL trong MỘT CBUFFER DUY NHẤT tên <code>UnityPerMaterial</code></strong>"</em></p>
+<p>💡 <em>"Với <strong><code>UnityPerDraw</code></strong>, các shader của Universal Render Pipeline và shader khác <strong>về cơ bản HỖ TRỢ SẴN theo mặc định, NHƯNG bạn cần TỰ THIẾT LẬP CBUFFER cho <code>UnityPerMaterial</code>.</strong>"</em></p>
+<p>🔍 <em>"Bạn <strong>KIỂM TRA được shader có hỗ trợ SRP Batcher hay không TỪ INSPECTOR của shader — mục "SRP Batcher" ghi "compatible" hoặc "not compatible".</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🏆 <em>"SRP Batcher is a feature to <strong>REDUCE THE CPU COST of rendering that is ONLY available in the Scriptable Render Pipeline. This feature allows MULTIPLE shader SET-PASS CALLS that use the SAME SHADER VARIANT to be processed TOGETHER.</strong>"</em></p>
+<p>📋 <strong>Two conditions for SRP-Batcher-compatible shaders:</strong><br>
+① <em>"<strong>Define built-in properties defined PER OBJECT in a SINGLE CBUFFER called <code>UnityPerDraw</code></strong>"</em><br>
+② <em>"<strong>Define properties PER MATERIAL in a SINGLE CBUFFER called <code>UnityPerMaterial</code></strong>"</em></p>
+<p>💡 <em>"For <strong><code>UnityPerDraw</code></strong>, Universal Render Pipeline and other shaders <strong>basically support it BY DEFAULT, but you need to SET UP YOUR OWN CBUFFER for <code>UnityPerMaterial</code>.</strong>"</em></p>
+<p>🔍 <em>"You can <strong>check whether a shader supports SRP Batcher from the shader's INSPECTOR — the "SRP Batcher" item reads "compatible" or "not compatible".</strong>"</em></p>
+
+<img src="../assets/ca-shader-srp-batcher-compatible.png" alt="Shader Inspector showing SRP Batcher compatible">
+<p><em>VI: Inspector của shader <code>Unlit/Unlit Shader</code> — dòng <strong>SRP Batcher: <code>compatible</code></strong> (khung vàng). Cùng panel còn cho biết <strong>Render queue 2000 · LOD 100 · Disable batching: no · Cast shadows: no</strong>. / EN: The shader Inspector reading "SRP Batcher: compatible".</em></p>
+
+</div>
+</div>
+
+**List 7.3 & 7.4 — bật SRP Batcher từ C#, và khai báo `UnityPerMaterial`:**
+
+```csharp
+GraphicsSettings.useScriptableRenderPipelineBatching = true;
+```
+
+```hlsl
+Properties
+{
+    _Color1 ("Color 1", Color) = (1,1,1,1)
+    _Color2 ("Color 2", Color) = (1,1,1,1)
+}
+
+CBUFFER_START(UnityPerMaterial)
+
+float4 _Color1;
+float4 _Color2;
+
+CBUFFER_END
+```
+
+### 29.4. 🧩 SpriteAtlas
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🎯 <em>"Game 2D và UI thường dùng <strong>NHIỀU sprite để dựng màn hình</strong>. Trong trường hợp đó, chức năng để TRÁNH sinh ra một số lượng lớn draw call là <strong>SpriteAtlas — GIẢM draw call bằng cách GỘP NHIỀU SPRITE vào MỘT TEXTURE DUY NHẤT.</strong>"</em></p>
+<p>📥 <strong>Ba bước tạo:</strong> ① cài package <strong>2D Sprite</strong> từ Package Manager; ② right-click trong Project view → <strong>"Create → 2D → Sprite Atlas"</strong>; ③ chỉ định sprite hoặc THƯ MỤC chứa sprite ở mục <strong><code>Objects for Packing</code></strong> trong inspector.</p>
+<p>✅ <em>"Với các cài đặt trên, <strong>sprite sẽ được ATLAS HOÁ trong quá trình BUILD và khi PHÁT trong Unity Editor, và texture SpriteAtlas ĐÃ TÍCH HỢP sẽ được THAM CHIẾU khi vẽ sprite mục tiêu.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🎯 <em>"2D games and UIs often use <strong>MANY sprites to build the screen</strong>. In such cases, the function to avoid generating a large number of draw calls is <strong>SpriteAtlas — it reduces draw calls by COMBINING MULTIPLE SPRITES into a SINGLE TEXTURE.</strong>"</em></p>
+<p>📥 <strong>Three steps:</strong> ① install the <strong>2D Sprite</strong> package; ② right-click in the Project view → <strong>"Create → 2D → Sprite Atlas"</strong>; ③ set the sprite or the FOLDER containing the sprites in <strong><code>Objects for Packing</code></strong>.</p>
+<p>✅ <em>"With the above settings, <strong>the sprite will be atlased during BUILD and PLAYBACK in the Unity Editor, and the INTEGRATED SpriteAtlas texture will be REFERENCED when drawing the target sprite.</strong>"</em></p>
+</div>
+</div>
+
+**List 7.5 — lấy Sprite TRỰC TIẾP từ SpriteAtlas:**
+
+```csharp
+[SerializeField]
+private SpriteAtlas atlas;
+
+public Sprite LoadSprite(string spriteName)
+{
+    // Obtain a Sprite from SpriteAtlas with the Sprite name as an argument
+    var sprite = atlas.GetSprite(spriteName);
+    return sprite;
+}
+```
+
+!!! danger "💀 MẶT TRÁI của SpriteAtlas — nạp MỘT sprite là nạp CẢ ATLAS"
+    **VI:** *"**NẠP MỘT Sprite DUY NHẤT trong SpriteAtlas TIÊU TỐN NHIỀU BỘ NHỚ HƠN so với chỉ nạp một cái, vì texture của TOÀN BỘ ATLAS được nạp. Do đó, SpriteAtlas PHẢI được dùng CẨN THẬN và CHIA NHỎ PHÙ HỢP.**"*
+
+    **EN:** *"**Loading a single Sprite in the SpriteAtlas consumes MORE MEMORY than loading just one, since the texture of the ENTIRE ATLAS is loaded. Therefore, the SpriteAtlas should be used with care and DIVIDED APPROPRIATELY.**"*
+
+    ⚠️ *"Mục này viết cho **SpriteAtlas V1. SpriteAtlas V2 có thể có THAY ĐỔI ĐÁNG KỂ về vận hành, chẳng hạn KHÔNG THỂ chỉ định THƯ MỤC của sprite cần atlas hoá."* / "This section targets SpriteAtlas V1. SpriteAtlas V2 may have significant changes, such as not being able to specify the folder of the sprite to be atlased."*
+
+### 29.5. ✂️ Culling — ba tầng
+
+| Loại | Cơ chế | Ghi chú của sách |
+|---|---|---|
+| **Visual (Frustum) Culling** | *"Bỏ qua khỏi render các object **NGOÀI vùng render của camera — HÌNH NÓN NHÌN (viewing cone)**"* | ✅ *"Được thực hiện **MẶC ĐỊNH mà KHÔNG cần cài đặt gì.** Với object **NẶNG VỀ VERTEX SHADER, culling có thể được áp dụng bằng cách CHIA MESH PHÙ HỢP để giảm chi phí render.**"* |
+| **Rear (Back-face) Culling** | *"Bỏ qua render **MẶT SAU của polygon** mà camera (được cho là) KHÔNG nhìn thấy"* | *"**HẦU HẾT mesh là KÍN (chỉ polygon mặt trước thấy được), nên mặt sau KHÔNG cần được vẽ.** Trong Unity, **nếu bạn KHÔNG chỉ định trong shader, mặt sau của polygon LÀ đối tượng culling.**"* |
+| **Occlusion Culling** | *"Bỏ qua render các object **KHÔNG nhìn thấy được vì bị object khác CHE KHUẤT**. Dùng **dữ liệu occlusion ĐÃ BAKE TRƯỚC** để xác định lúc runtime"* | 🚨 *"Occlusion culling **GIẢM chi phí render, NHƯNG ĐỒNG THỜI ĐẶT THÊM TẢI LÊN CPU cho tiến trình culling, nên CẦN CÂN BẰNG từng loại tải và đặt cài đặt PHÙ HỢP.**"* |
+
+**List 7.6 — cài đặt Cull trong SubShader:**
+
+```hlsl
+SubShader
+{
+    Tags { "RenderType"="Opaque" }
+    LOD 100
+
+    Cull Back //   Front, Off
+
+    Pass
+    {
+        CGPROGRAM
+        #pragma vertex vert
+        #pragma fragment frag
+        ENDCG
+    }
+}
+```
+
+| Setting | Hiệu ứng |
+|---|---|
+| **`Back`** | *"KHÔNG vẽ polygon ở phía **ĐỐI DIỆN** với điểm nhìn"* |
+| **`Front`** | *"KHÔNG vẽ polygon **CÙNG HƯỚNG** với điểm nhìn"* |
+| **`Off`** | *"**VÔ HIỆU HOÁ** back culling và vẽ **TẤT CẢ các mặt**"* |
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🏷️ <strong>Occlusion Culling — cờ static:</strong> <em>"Đặt cờ static của inspector thành <strong><code>Occluder Static</code></strong> hoặc <strong><code>Occludee Static</code></strong>. <strong>NẾU `Occluder Static` bị TẮT và `Occludee Static` được BẬT, object sẽ KHÔNG CÒN được coi là VẬT CHE (occluder), mà CHỈ là VẬT BỊ CHE. Trường hợp NGƯỢC LẠI thì ngược lại.</strong>"</em></p>
+<p>🔨 <em>"Để bake trước, hiển thị cửa sổ <strong>Occlusion Culling</strong> — ở đó bạn <strong>đổi được cờ static cho TỪNG object, đổi cài đặt bake, v.v., rồi bấm nút Bake.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🏷️ <strong>Occlusion Culling — static flags:</strong> <em>"Set the inspector's static flag to <strong><code>Occluder Static</code></strong> or <strong><code>Occludee Static</code></strong>. <strong>If `Occluder Static` is DISABLED and `Occludee Static` is ENABLED, the object will NO LONGER be considered as the OCCLUDER, but ONLY as the OCCLUDED object. In the opposite case, the opposite applies.</strong>"</em></p>
+
+<img src="../assets/ca-static-flags-occluder.png" alt="Static flags dropdown with Occluder and Occludee Static">
+<p><em>VI: Dropdown <strong>Static flags</strong> trên Inspector — <strong>Occluder Static</strong> và <strong>Occludee Static</strong> đang được TICK (khung cam). Các cờ khác: <em>Contribute GI · Batching Static · Navigation Static · Off Mesh Link Generation · Reflection Probe Static</em>. / EN: The Static flags dropdown with Occluder Static and Occludee Static checked.</em></p>
+
+<p>🔨 <em>"To pre-bake, the <strong>Occlusion Culling</strong> window is displayed — there you can <strong>change the static flags for each object, change the bake settings, and press the Bake button.</strong>"</em></p>
+</div>
+</div>
+
+!!! warning "⚠️ Occlusion Culling KHÔNG cứu được real-time shadow"
+    **VI:** *"**CHỈ tiến trình render OBJECT được giảm bởi occlusion culling, trong khi các tiến trình như RENDER BÓNG ĐỔ REAL-TIME VẪN KHÔNG THAY ĐỔI.**"*
+
+    **EN:** *"**Only the object rendering process is reduced by occlusion culling, while processes such as REAL-TIME SHADOW RENDERING REMAIN UNCHANGED.**"*
+
+### 29.6. 💻 Shaders — bốn kỹ thuật
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>① <strong>GIẢM ĐỘ CHÍNH XÁC dấu phẩy động</strong> — <em>"<strong>GPU (ĐẶC BIỆT trên nền tảng MOBILE) tính TOÁN NHANH HƠN với kiểu dữ liệu NHỎ HƠN.</strong> Do đó, <strong>thay kiểu <code>float</code> (32bit) bằng kiểu <code>half</code> (16bit) là HIỆU QUẢ khi có thể thay được.</strong>"</em></p>
+<p>⚖️ <em>"<strong>Kiểu <code>float</code> NÊN được dùng khi CẦN ĐỘ CHÍNH XÁC, chẳng hạn trong tính toán ĐỘ SÂU (depth), nhưng trong tính toán MÀU SẮC, KỂ CẢ khi giảm độ chính xác thì cũng KHÓ gây khác biệt LỚN về diện mạo kết quả.</strong>"</em></p>
+<p>② <strong>Đẩy tính toán sang VERTEX SHADER</strong> — <em>"<strong>Vertex shader được thực thi theo SỐ ĐỈNH của mesh, còn fragment shader theo SỐ PIXEL cuối cùng được ghi. NÓI CHUNG, vertex shader thường được thực thi ÍT LẦN HƠN fragment shader, nên TỐT NHẤT là thực hiện các tính toán PHỨC TẠP TRONG VERTEX SHADER bất cứ khi nào có thể.</strong>"</em></p>
+<p>⚠️ <em>"Kết quả tính của vertex shader được truyền sang fragment shader qua <strong>shader semantics</strong>, nhưng cần lưu ý <strong>các giá trị truyền đi bị NỘI SUY (interpolated) và có thể TRÔNG KHÁC so với khi tính trong fragment shader.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>① <strong>Reduce floating-point precision</strong> — <em>"<strong>GPUs (especially on MOBILE platforms) compute FASTER with SMALLER data types.</strong> Therefore, <strong>replacing <code>float</code> (32bit) with <code>half</code> (16bit) is EFFECTIVE when possible.</strong>"</em></p>
+<p>⚖️ <em>"<strong>The <code>float</code> type should be used when PRECISION IS REQUIRED, such as in DEPTH calculations, but in COLOUR calculations, even if the precision is reduced, it is DIFFICULT to cause a LARGE DIFFERENCE in the resulting appearance.</strong>"</em></p>
+<p>② <strong>Perform calculations in the vertex shader</strong> — <em>"<strong>The vertex shader is executed for the NUMBER OF VERTICES, and the fragment shader for the NUMBER OF PIXELS finally written. In general, vertex shaders are executed LESS FREQUENTLY, so it is best to perform COMPLEX CALCULATIONS IN THE VERTEX SHADER whenever possible.</strong>"</em></p>
+<p>⚠️ <em>"The results are passed via <strong>shader semantics</strong>, but note that <strong>the values passed are INTERPOLATED and may LOOK DIFFERENT than if they were calculated in the fragment shader.</strong>"</em></p>
+</div>
+</div>
+
+**List 7.7 — TIỀN TÍNH TOÁN trong vertex shader:**
+
+```hlsl
+CGPROGRAM
+#pragma vertex vert
+#pragma fragment frag
+
+#include "UnityCG.cginc"
+
+struct appdata
+{
+    float4 vertex : POSITION;
+    float2 uv : TEXCOORD0;
+};
+
+struct v2f
+{
+    float2 uv : TEXCOORD0;
+    float3 factor : TEXCOORD1;
+    float4 vertex : SV_POSITION;
+};
+
+sampler2D _MainTex;
+float4 _MainTex_ST;
+
+v2f vert (appdata v)
+{
+    v2f o;
+    o.vertex = UnityObjectToClipPos(v.vertex);
+    o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+
+    // Complex precomputations.
+    o.factor = CalculateFactor();
+
+    return o;
+}
+
+fixed4 frag (v2f i) : SV_Target
+{
+    fixed4 col = tex2D(_MainTex, i.uv);
+
+    // Values computed in the vertex shader are used in the fragment shader
+    col *= i.factor;
+
+    return col;
+}
+ENDCG
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>③ <strong>NƯỚNG SẴN thông tin vào TEXTURE</strong> — <em>"<strong>NẾU kết quả của các tính toán PHỨC TẠP trong shader KHÔNG bị ảnh hưởng bởi giá trị BÊN NGOÀI, thì LƯU KẾT QUẢ ĐÃ TÍNH TRƯỚC thành các PHẦN TỬ TRONG TEXTURE là cách HIỆU QUẢ.</strong>"</em></p>
+<p>💡 <em>"Có thể làm bằng cách <strong>cài đặt công cụ SINH TEXTURE chuyên dụng trong Unity hoặc như một EXTENSION cho các công cụ DCC. NẾU KÊNH ALPHA của một texture đang dùng CHƯA được sử dụng, GHI VÀO ĐÓ là ý hay, hoặc chuẩn bị một texture chuyên dụng.</strong>"</em></p>
+<p>🎨 <em>"Ví dụ, <strong>LUT (bảng tương ứng màu) dùng cho color grading sẽ TIỀN HIỆU CHỈNH texture sao cho TOẠ ĐỘ của MỖI PIXEL TƯƠNG ỨNG với MỖI MÀU. Bằng cách LẤY MẪU texture trong shader dựa trên MÀU GỐC, kết quả GẦN NHƯ GIỐNG HỆT với việc áp dụng tiền hiệu chỉnh lên màu gốc.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>③ <strong>Prebuild information into textures</strong> — <em>"<strong>If the results of complex calculations in the shader are NOT affected by EXTERNAL VALUES, then STORING the PRE-CALCULATED results as ELEMENTS IN THE TEXTURE is an effective way to do so.</strong>"</em></p>
+<p>💡 <em>"This can be done by <strong>implementing a dedicated texture generation tool in Unity or as an EXTENSION to various DCC tools. If the ALPHA CHANNEL of a texture already in use is NOT being used, it is a good idea to WRITE TO IT, or prepare a dedicated texture.</strong>"</em></p>
+<p>🎨 <em>"For example, <strong>the LUT (colour correspondence table) used for colour grading will PRE-CORRECT the texture so that the COORDINATES of each pixel CORRESPOND to each COLOUR. By SAMPLING the texture in the shader based on the ORIGINAL COLOUR, the result is ALMOST THE SAME as if the pre-correction had been applied to the original colour.</strong>"</em></p>
+</div>
+</div>
+
+<img src="../assets/ca-lut-texture.png" alt="Texture LUT 1024x32 trước khi hiệu chỉnh màu">
+
+<p><em>VI: <strong>Texture LUT 1024×32</strong> TRƯỚC khi hiệu chỉnh màu — 32 ô vuông xếp ngang, mỗi ô là một LÁT của khối màu RGB. Shader sample texture này dựa trên MÀU GỐC để có kết quả gần như y hệt việc áp color grading trực tiếp — nhưng với chi phí CHỈ MỘT lần sample. / EN: The 1024×32 colour-grading LUT texture before correction — 32 slices of the RGB colour cube laid out horizontally.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>④ <strong><code>ShaderVariantCollection</code> — chống SPIKE lúc compile shader</strong></p>
+<p>⚡ <em>"<strong><code>ShaderVariantCollection</code> có thể được dùng để BIÊN DỊCH SHADER TRƯỚC KHI chúng được dùng, nhằm NGĂN SPIKE.</strong> Nó cho phép <strong>giữ một DANH SÁCH các shader variant dùng trong game DƯỚI DẠNG ASSET</strong>, tạo bằng <strong>"Create → Shader → Shader Variant Collection"</strong>."</em></p>
+<p>📋 <em>"Từ Inspector của ShaderVariantCollection đã tạo, <strong>bấm <code>Add Shader</code> để thêm shader mục tiêu, rồi chọn variant nào cần thêm cho shader đó.</strong>"</em></p>
+<p>🚀 <em>"ShaderVariantCollection được thêm vào mục <strong><code>Preloaded Shaders</code> trong phần Shader preloading của Graphics Settings</strong>, để đặt các shader variant sẽ được <strong>BIÊN DỊCH LÚC KHỞI ĐỘNG ỨNG DỤNG.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>④ <strong><code>ShaderVariantCollection</code> — preventing shader-compile spikes</strong></p>
+<p>⚡ <em>"<strong><code>ShaderVariantCollection</code> can be used to COMPILE SHADERS BEFORE THEY ARE USED to PREVENT SPIKES.</strong> It allows you to <strong>keep a LIST of shader variants used in your game AS ASSETS</strong>, created via <strong>"Create → Shader → Shader Variant Collection"</strong>."</em></p>
+<p>📋 <em>"From the Inspector, <strong>press <code>Add Shader</code> to add the target shader, and then select which variants to add.</strong>"</em></p>
+<p>🚀 <em>"It is added to <strong><code>Preloaded Shaders</code> in the Shader preloading section of the Graphics Settings</strong>, to set the shader variants to be <strong>COMPILED AT APPLICATION STARTUP.</strong>"</em></p>
+</div>
+</div>
+
+**List 7.8 — TIỀN BIÊN DỊCH TƯỜNG MINH từ script:**
+
+```csharp
+public void PreloadShaderVariants(ShaderVariantCollection collection)
+{
+    // Explicitly precompile shader variants
+    if (!collection.isWarmedUp)
+    {
+        collection.WarmUp();
+    }
+}
+```
+
+### 29.7. 💡 Lighting — real-time shadow, pseudo shadow & lightmap
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🚨 <em>"<strong>Sinh bóng real-time TIÊU TỐN MỘT LƯỢNG LỚN DRAW CALL và FILL RATE. Do đó, PHẢI cân nhắc KỸ các cài đặt khi dùng real-time shadow.</strong>"</em></p>
+<p>📉 <strong>Giảm DRAW CALL của bóng — hai chính sách:</strong><br>
+① <em>"<strong>GIẢM SỐ OBJECT ĐỔ BÓNG</strong> — cách ĐƠN GIẢN là <strong>đặt cài đặt <code>Cast Shadows</code> của `MeshRenderer` thành OFF. Điều này LOẠI object khỏi shadow draw call. 🚨 Cài đặt này THƯỜNG BẬT trong Unity và CẦN ĐƯỢC LƯU Ý trong các project dùng bóng.</strong>"</em><br>
+② <em>"<strong>HỢP NHẤT draw call bằng BATCHING.</strong>"</em></p>
+<p>📏 <em>"Cũng hữu ích khi <strong>GIẢM KHOẢNG CÁCH TỐI ĐA mà object được vẽ trong shadow map — <code>Shadow Distance</code> trong Quality Settings — để giảm số object đổ bóng xuống MỨC TỐI THIỂU CẦN THIẾT. ⚠️ Điều chỉnh cài đặt này CŨNG SẼ GIẢM ĐỘ PHÂN GIẢI của bóng, vì bóng sẽ được vẽ ở PHẠM VI TỐI THIỂU cho độ phân giải của shadow map.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🚨 <em>"<strong>Generating real-time shadows consumes a LARGE AMOUNT of DRAW CALL and FILL RATE. Therefore, careful consideration should be given to settings when using real-time shadows.</strong>"</em></p>
+<p>📉 <strong>Reducing shadow draw calls — two policies:</strong><br>
+① <em>"<strong>Reduce the NUMBER OF OBJECTS THAT DROP SHADOWS</strong> — a simple method is <strong>to set the MeshRenderer's <code>Cast Shadows</code> setting to OFF. This removes the object from the shadow draw call. 🚨 This setting is usually turned ON in Unity and should be NOTED in projects that use shadows.</strong>"</em><br>
+② <em>"<strong>Consolidate draw calls by BATCHING.</strong>"</em></p>
+<p>📏 <em>"It is also useful to <strong>reduce the MAXIMUM DISTANCE an object can be drawn in the shadow map — <code>Shadow Distance</code> in the Quality Settings. ⚠️ Adjusting this setting will ALSO REDUCE THE RESOLUTION of the shadows, since shadows will be drawn at the MINIMUM RANGE for the resolution of the shadow map.</strong>"</em></p>
+</div>
+</div>
+
+**TIẾT KIỆM FILL RATE — Quality Settings → Shadows:**
+
+| Cài đặt | Đánh đổi |
+|---|---|
+| **Hard Shadows** | *"tạo **BIÊN BÓNG RÕ NÉT, nhưng với TẢI TƯƠNG ĐỐI THẤP**"* |
+| **Soft Shadows** | *"**ĐẮT HƠN, nhưng tạo được BIÊN BÓNG MỜ**"* |
+| **Shadow Resolution** & **Shadow Cascades** | *"ẢNH HƯỞNG tới độ phân giải shadow map — **cài đặt CÀNG LỚN thì độ phân giải CÀNG CAO và TIÊU TỐN CÀNG NHIỀU FILL RATE. TUY NHIÊN, vì các cài đặt này LIÊN QUAN RẤT NHIỀU tới CHẤT LƯỢNG bóng, phải điều chỉnh CẨN THẬN để CÂN BẰNG hiệu năng và chất lượng.**"* |
+
+> 💡 *"**Một số cài đặt điều chỉnh được qua Inspector của component Light, nên CÓ THỂ đổi cài đặt cho TỪNG ĐÈN RIÊNG LẺ.**"*
+
+<img src="../assets/ca-pseudo-shadow.png" alt="Bóng giả bằng plate polygon">
+
+<p><em>VI: <strong>Pseudo Shadow</strong> — một quả cầu với "bóng" thực chất là <strong>một TẤM POLYGON (plate polygon)</strong> phẳng nằm dưới (khung CAM chính là mesh phẳng đó). <em>"Tuỳ THỂ LOẠI game hoặc PHONG CÁCH NGHỆ THUẬT, có thể HIỆU QUẢ khi dùng plate polygon để MÔ PHỎNG bóng. Dù phương pháp này có RÀNG BUỘC SỬ DỤNG MẠNH và KHÔNG LINH HOẠT CAO, nó <strong>NHẸ HƠN RẤT NHIỀU so với phương pháp render bóng real-time thông thường.</strong>"</em> / EN: A pseudo shadow built from a flat plate polygon — far lighter than real-time shadow rendering.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🔥 <strong>Light Mapping:</strong> <em>"Bằng cách <strong>BAKE hiệu ứng ánh sáng và bóng vào TEXTURE TRƯỚC, có thể đạt được biểu đạt ánh sáng CHẤT LƯỢNG với TẢI THẤP HƠN ĐÁNG KỂ so với sinh real-time.</strong>"</em></p>
+<p>📋 <strong>Quy trình bake:</strong> ① đặt <strong><code>Mode</code> của Light thành <code>Mixed</code> hoặc <code>Baked</code></strong>; ② <strong>bật cờ <code>static</code></strong> cho object cần bake; ③ mở <strong>"Window → Rendering → Lighting"</strong>; ④ nếu chưa có, bấm <strong><code>New Lighting Settings</code></strong> để tạo asset mới; ⑤ chỉnh trong tab <strong><code>Lightmapping Settings</code></strong>; ⑥ bấm <strong><code>Generate Lighting</code></strong> ở dưới cùng Inspector.</p>
+<p>🏆 <strong>Cài đặt ẢNH HƯỞNG LỚN NHẤT tới hiệu năng:</strong> <em>"<strong>Trong các cài đặt này, cái ẢNH HƯỞNG LỚN NHẤT tới hiệu năng là <code>Lightmap Resolution</code>. Cài đặt này xác định BAO NHIÊU LIGHTMAP TEXEL được cấp trên MỖI ĐƠN VỊ trong Unity, và vì KÍCH THƯỚC LIGHTMAP CUỐI CÙNG thay đổi tuỳ giá trị này, nó có TÁC ĐỘNG ĐÁNG KỂ tới DUNG LƯỢNG LƯU TRỮ và BỘ NHỚ, TỐC ĐỘ TRUY CẬP TEXTURE, và các yếu tố khác.</strong>"</em></p>
+<p>💡 <em>"Sau khi bake xong, <strong>lightmap đã bake được lưu trong một THƯ MỤC CÙNG TÊN với SCENE.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🔥 <strong>Light Mapping:</strong> <em>"By <strong>BAKING lighting effects and shadows into TEXTURES in advance, QUALITY lighting expressions can be achieved with CONSIDERABLY LOWER LOAD than real-time generation.</strong>"</em></p>
+<p>📋 <strong>Bake workflow:</strong> ① set the Light's <strong><code>Mode</code> to <code>Mixed</code> or <code>Baked</code></strong>; ② <strong>activate the <code>static</code> flag</strong>; ③ open <strong>"Window → Rendering → Lighting"</strong>; ④ click <strong><code>New Lighting Settings</code></strong> if none exists; ⑤ adjust the <strong><code>Lightmapping Settings</code></strong> tab; ⑥ press <strong><code>Generate Lighting</code></strong>.</p>
+<p>🏆 <strong>The single most performance-critical setting:</strong> <em>"<strong>Of these settings, the one that has the GREATEST IMPACT on performance is <code>Lightmap Resolution</code>. This setting determines HOW MANY LIGHTMAP TEXELS are allocated PER UNIT in Unity, and since the FINAL LIGHTMAP SIZE varies depending on this value, it has a SIGNIFICANT IMPACT on STORAGE and MEMORY CAPACITY, TEXTURE ACCESS SPEED, and other factors.</strong>"</em></p>
+<p>💡 <em>"Once baking is complete, <strong>the baked lightmap is stored in a FOLDER WITH THE SAME NAME AS THE SCENE.</strong>"</em></p>
+</div>
+</div>
+
+### 29.8. 🔭 LOD & Texture Streaming
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🔭 <strong>Level of Detail:</strong> <em>"<strong>KHÔNG HIỆU QUẢ khi render các object XA CAMERA ở dạng ĐA GIÁC CAO, ĐỘ CHI TIẾT CAO.</strong> Phương pháp LOD dùng để <strong>GIẢM mức độ chi tiết của object TUỲ theo KHOẢNG CÁCH tới camera.</strong> Trong Unity, object được gán component <strong><code>LOD Group</code></strong>."</em></p>
+<p>⚙️ <em>"Bằng cách <strong>đặt một renderer với mesh của TỪNG LOD LEVEL vào CON của GameObject có LOD Group, và cài đặt từng LOD level trong LOD Group, LOD level sẽ được CHUYỂN ĐỔI theo camera. CŨNG có thể đặt LOD level nào được gán cho mỗi LOD Group theo KHOẢNG CÁCH camera.</strong>"</em></p>
+<p>🚨 <strong>MẶT TRÁI:</strong> <em>"<strong>Dùng LOD NÓI CHUNG GIẢM tải vẽ, NHƯNG PHẢI Ý THỨC về ÁP LỰC BỘ NHỚ và LƯU TRỮ, vì TẤT CẢ mesh cho TỪNG LOD level ĐỀU ĐƯỢC NẠP.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🔭 <strong>Level of Detail:</strong> <em>"<strong>It is INEFFICIENT to render objects that are FAR from the camera in HIGH-POLYGON, HIGH-DEFINITION.</strong> The LOD method can be used to <strong>REDUCE the level of detail of an object DEPENDING ON ITS DISTANCE from the camera.</strong> In Unity, objects are assigned a <strong><code>LOD Group</code></strong> component."</em></p>
+<p>⚙️ <em>"By <strong>placing a renderer with a mesh of EACH LOD LEVEL on a CHILD of a GameObject with a LOD Group, and setting each LOD level in the LOD Group, the LOD level can be SWITCHED according to the camera.</strong>"</em></p>
+<p>🚨 <strong>The downside:</strong> <em>"<strong>Using LOD generally REDUCES the drawing load, but one should be AWARE of MEMORY and STORAGE PRESSURES since ALL MESHES for EACH LOD LEVEL ARE LOADED.</strong>"</em></p>
+</div>
+</div>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🌊 <strong>Texture Streaming:</strong> <em>"Texture Streaming của Unity dùng để <strong>GIẢM DẤU CHÂN BỘ NHỚ và THỜI GIAN NẠP cần cho texture. Texture streaming là tính năng TIẾT KIỆM GPU MEMORY bằng cách NẠP MIPMAP DỰA TRÊN VỊ TRÍ CAMERA trong scene.</strong>"</em></p>
+<p>📋 <strong>Ba bước bật:</strong> ① bật <strong><code>Texture Streaming</code> trong Quality Settings</strong>; ② trong texture inspector, bật <strong><code>Streaming Mipmaps</code> ở phần Advanced</strong>; ③ đặt <strong><code>Memory Budget</code> trong Quality Settings để GIỚI HẠN tổng mức dùng bộ nhớ của texture đã nạp.</strong></p>
+<p>🔑 <em>"<strong>Hệ thống texture streaming sẽ NẠP mipmap mà KHÔNG VƯỢT QUÁ lượng bộ nhớ đặt ở đây.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🌊 <strong>Texture Streaming:</strong> <em>"Unity's Texture Streaming can be used to <strong>REDUCE the MEMORY FOOTPRINT and LOAD TIME required for textures. Texture streaming is a feature that SAVES GPU MEMORY by LOADING MIPMAPS BASED ON THE CAMERA POSITION in the scene.</strong>"</em></p>
+<p>📋 <strong>Three steps:</strong> ① enable <strong><code>Texture Streaming</code> in Quality Settings</strong>; ② enable <strong><code>Streaming Mipmaps</code> in the texture's Advanced settings</strong>; ③ set <strong><code>Memory Budget</code> in Quality Settings to LIMIT total memory usage of loaded textures.</strong></p>
+<p>🔑 <em>"<strong>The texture streaming system will load the mipmaps WITHOUT EXCEEDING the amount of memory set here.</strong>"</em></p>
+</div>
+</div>
+
+---
+
+### 29.9. 🖱️ UI — CHIA NHỎ Canvas
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>💀 <em>"Trong uGUI, <strong>khi có THAY ĐỔI ở một phần tử trong Canvas, một tiến trình (REBUILD) chạy để DỰNG LẠI TOÀN BỘ UI MESH của Canvas. "Thay đổi" là BẤT KỲ thay đổi nào — như BẬT/TẮT active, DI CHUYỂN hay ĐỔI KÍCH THƯỚC — từ thay đổi LỚN về diện mạo tới thay đổi NHỎ mà thoạt nhìn KHÔNG THẤY RÕ.</strong>"</em></p>
+<p>🚨 <em>"<strong>CHI PHÍ của tiến trình rebuild là CAO, nên NẾU nó được thực hiện QUÁ NHIỀU LẦN hoặc NẾU số UI trong Canvas LỚN, hiệu năng sẽ bị ẢNH HƯỞNG TIÊU CỰC.</strong>"</em></p>
+<p>✅ <em>"Ngược lại, <strong>chi phí rebuild GIẢM được bằng cách CHIA Canvas theo MỘT MỨC ĐỘ GẮN KẾT UI nào đó. Ví dụ, nếu bạn có UI CÓ animation và UI KHÔNG animation, bạn có thể TỐI THIỂU HOÁ các lần rebuild do animation bằng cách đặt chúng dưới các Canvas RIÊNG BIỆT.</strong>"</em></p>
+<p>⚠️ <em>"<strong>TUY NHIÊN, bạn cần SUY NGHĨ KỸ về cách chia, vì CHIA Canvas sẽ KHÔNG HOẠT ĐỘNG cho các LÔ VẼ (drawing batches).</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>💀 <em>"In uGUI, <strong>when there is a CHANGE in an element in a Canvas, a process (REBUILD) runs to REBUILD THE ENTIRE CANVAS UI MESH. A change is ANY change, such as active switching, moving or resizing, from a major change in appearance to a MINOR change that is not apparent at first glance.</strong>"</em></p>
+<p>🚨 <em>"<strong>The COST of the rebuild process is HIGH, so if it is performed TOO MANY TIMES or if the NUMBER OF UIs in the Canvas is LARGE, performance will be ADVERSELY AFFECTED.</strong>"</em></p>
+<p>✅ <em>"In contrast, <strong>the cost of rebuilds can be REDUCED by DIVIDING the Canvas by some degree of UI COHESION. For example, if you have UIs that ANIMATE and UIs that DO NOT, you can MINIMIZE the animation rebuilds by placing them under a SEPARATE Canvas.</strong>"</em></p>
+<p>⚠️ <em>"<strong>However, you need to think carefully about how to split them, as splitting Canvas will NOT WORK for DRAWING BATCHES.</strong>"</em></p>
+</div>
+</div>
+
+!!! warning "⚠️ Canvas LỒNG NHAU — một hành vi CHƯA ĐƯỢC GIẢI THÍCH"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p><em>"Chia Canvas <strong>CŨNG có hiệu lực khi Canvas được LỒNG dưới Canvas. NẾU các phần tử trong Canvas CON thay đổi, CHỈ rebuild của Canvas CON chạy, CHỨ KHÔNG PHẢI Canvas CHA.</strong>"</em></p>
+    <p>💀 <em>"<strong>TUY NHIÊN, khi xem xét KỸ HƠN, có vẻ tình huống KHÁC ĐI khi UI trong Canvas CON được chuyển sang trạng thái ACTIVE bằng <code>SetActive</code>. Trong trường hợp này, NẾU một SỐ LƯỢNG LỚN UI được đặt trong Canvas CHA, có vẻ có HIỆN TƯỢNG GÂY TẢI CAO. Tôi KHÔNG BIẾT chi tiết VÌ SAO hành vi này xảy ra, nhưng có vẻ NÊN CẨN THẬN khi chuyển trạng thái active của UI trong Canvas LỒNG NHAU.</strong>"</em></p>
+    </div>
+    <div class="col-en">
+    <p><em>"Splitting Canvas is <strong>also valid when Canvas is NESTED under Canvas. If the elements contained in the CHILD Canvas change, a rebuild of the CHILD Canvas will ONLY run, NOT the parent Canvas.</strong>"</em></p>
+    <p>💀 <em>"<strong>However, upon closer inspection, it seems that the situation is DIFFERENT when the UI in the child Canvas is switched to the ACTIVE state by <code>SetActive</code>. In this case, if a LARGE NUMBER of UIs are placed in the PARENT Canvas, there seems to be a phenomenon that causes a HIGH LOAD. I do NOT KNOW the details of WHY this behavior occurs, but it seems that CARE SHOULD BE TAKEN when switching the active state of the UI in the nested Canvas.</strong>"</em></p>
+    </div>
+    </div>
+
+### 29.10. ⬜ UnityWhite — tiện lợi nhưng NGẮT BATCH
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🤍 <em>"Khi phát triển UI, ta thường muốn hiển thị <strong>object hình CHỮ NHẬT ĐƠN GIẢN</strong>. Đây là lúc <strong>UnityWhite</strong> phát huy tác dụng. <strong>UnityWhite là một texture TÍCH HỢP SẴN của Unity, được dùng khi component `Image` hoặc `RawImage` KHÔNG CHỈ ĐỊNH ảnh cần dùng.</strong> Bạn thấy UnityWhite được dùng thế nào trong <strong>Frame Debugger</strong>. Cơ chế này dùng để vẽ HÌNH CHỮ NHẬT TRẮNG, nên <strong>hiển thị kiểu chữ nhật đơn giản đạt được bằng cách KẾT HỢP nó với MÀU NHÂN.</strong>"</em></p>
+<p>🚨 <strong>CÁI GIÁ:</strong> <em>"<strong>TUY NHIÊN, vì UnityWhite là một texture KHÁC với SpriteAtlas được cung cấp trong project, CÁC LÔ VẼ BỊ NGẮT QUÃNG. Điều này LÀM TĂNG DRAW CALL và GIẢM HIỆU QUẢ VẼ.</strong>"</em></p>
+<p>✅ <strong>GIẢI PHÁP CyberAgent:</strong> <em>"<strong>Do đó, bạn NÊN THÊM một ảnh vuông TRẮNG NHỎ (ví dụ 4×4 PIXEL) vào SpriteAtlas và DÙNG Sprite ĐÓ để vẽ hình chữ nhật đơn giản. Điều này sẽ cho phép BATCH HOẠT ĐỘNG, vì CÙNG MỘT SpriteAtlas sẽ được dùng cho CÙNG MỘT MATERIAL.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🤍 <em>"When developing UIs, it is often the case that we want to display a <strong>SIMPLE RECTANGLE-shaped object</strong>. This is where <strong>UnityWhite</strong> comes in handy. <strong>UnityWhite is a Unity BUILT-IN texture that is used when the `Image` or `RawImage` component does NOT SPECIFY the image to be used.</strong> You can see how UnityWhite is used in the <strong>Frame Debugger</strong>. This mechanism can be used to draw a WHITE RECTANGLE, so <strong>a simple rectangle display can be achieved by COMBINING this with a MULTIPLYING COLOUR.</strong>"</em></p>
+<p>🚨 <strong>The cost:</strong> <em>"<strong>However, since UnityWhite is a DIFFERENT TEXTURE than the SpriteAtlas provided in the project, DRAW BATCHES ARE INTERRUPTED. This INCREASES DRAW CALLS and REDUCES drawing efficiency.</strong>"</em></p>
+<p>✅ <strong>CyberAgent's fix:</strong> <em>"<strong>Therefore, you should ADD a SMALL (e.g., 4 × 4 PIXEL) WHITE SQUARE image to the SpriteAtlas and use THAT Sprite to draw a simple rectangle. This will allow the BATCH TO WORK, since the SAME SpriteAtlas will be used for the SAME MATERIAL.</strong>"</em></p>
+</div>
+</div>
+
+<img src="../assets/ca-unitywhite-frame-debugger.png" alt="UnityWhite hiển thị trong Frame Debugger">
+
+<p><em>VI: Bằng chứng trong <strong>Frame Debugger</strong> — tab <strong>ShaderProperties</strong> của một draw call UI cho thấy <strong>Textures → <code>_MainTex</code> = "UnityWhite"</strong> (ô texture TRẮNG TRƠN). 🔑 Chỉ cần THẤY tên này trong Frame Debugger là bạn biết batch UI ĐANG BỊ NGẮT ở đó. / EN: Seeing `_MainTex = UnityWhite` in the Frame Debugger is the tell-tale sign that a UI batch was broken.</em></p>
+
+### 29.11. 📏 Layout component, Raycast Target & Masks
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📏 <em>"uGUI cung cấp <strong>Layout component</strong> cho phép căn chỉnh object gọn gàng — ví dụ <strong><code>VerticalLayoutGroup</code></strong> cho căn dọc và <strong><code>GridLayoutGroup</code></strong> cho căn theo lưới."</em></p>
+<p>💀 <em>"Khi dùng Layout component, <strong>LAYOUT REBUILD xảy ra khi object mục tiêu ĐƯỢC TẠO hoặc khi MỘT SỐ PROPERTY được SỬA. Layout rebuild, giống mesh rebuild, là các tiến trình ĐẮT ĐỎ.</strong>"</em></p>
+<p>✅ <em>"Để tránh suy giảm hiệu năng do Layout rebuild, <strong>HIỆU QUẢ là TRÁNH dùng Layout component càng nhiều càng tốt.</strong>"</em></p>
+<p>💡 <em>"Ví dụ, <strong>nếu bạn KHÔNG cần bố trí ĐỘNG (như text thay đổi vị trí theo nội dung), bạn KHÔNG CẦN dùng Layout component. Nếu bạn THỰC SỰ cần bố trí động, hoặc nếu nó được dùng NHIỀU trên màn hình, có thể TỐT HƠN là ĐIỀU KHIỂN bằng SCRIPT RIÊNG của bạn.</strong> Ngoài ra, <strong>nếu yêu cầu là đặt ở VỊ TRÍ CỤ THỂ tương đối với CHA kể cả khi cha đổi kích thước, điều này có thể đạt được bằng cách ĐIỀU CHỈNH <code>RectTransform</code> ANCHORS.</strong>"</em></p>
+<p>🚨 <em>"<strong>NẾU bạn dùng Layout component khi tạo prefab vì nó TIỆN cho việc bố trí, HÃY CHẮC CHẮN XOÁ NÓ ĐI rồi mới LƯU.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📏 <em>"uGUI provides a <strong>Layout component</strong> — e.g. <strong><code>VerticalLayoutGroup</code></strong> for vertical alignment and <strong><code>GridLayoutGroup</code></strong> for grid alignment."</em></p>
+<p>💀 <em>"When using the Layout component, <strong>LAYOUT REBUILDS occur when the target object is CREATED or when certain properties are EDITED. Layout rebuilds, like mesh rebuilds, are COSTLY processes.</strong>"</em></p>
+<p>✅ <em>"To avoid performance degradation due to Layout rebuilds, <strong>it is EFFECTIVE to AVOID using Layout components as much as possible.</strong>"</em></p>
+<p>💡 <em>"For example, <strong>if you do NOT need dynamic placement, you do NOT need to use the Layout component. If you really need dynamic placement, or if it is used a lot on screen, it may be BETTER to control it with YOUR OWN SCRIPTS.</strong> Also, <strong>if the requirement is to be placed in a specific position relative to the parent even if the parent changes size, this can be accomplished by adjusting the <code>RectTransform</code> ANCHORS.</strong>"</em></p>
+<p>🚨 <em>"<strong>If you use a Layout component when creating a prefab because it is convenient for placement, BE SURE TO DELETE IT and save.</strong>"</em></p>
+</div>
+</div>
+
+<img src="../assets/ca-ugui-layout-groups.png" alt="Ví dụ VerticalLayoutGroup và GridLayoutGroup">
+
+<p><em>VI: TRÁI — <strong><code>VerticalLayoutGroup</code></strong>: các phần tử tự giãn dòng theo nội dung ("Two-line text" đẩy các ô ra xa hơn "One-line text"). PHẢI — <strong><code>GridLayoutGroup</code></strong>: 14 ô xếp lưới 4 cột. 🚨 Chính hành vi TỰ ĐỘNG BỐ TRÍ này là thứ gây <strong>Layout rebuild</strong> mỗi lần nội dung đổi. / EN: VerticalLayoutGroup (left) vs GridLayoutGroup (right) — the auto-layout behaviour that triggers costly layout rebuilds.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🎯 <strong>Raycast Target:</strong> <em>"<code>Graphic</code>, lớp cơ sở cho <code>Image</code> và <code>RawImage</code>, có property <strong><code>Raycast Target</code></strong>. <strong>Khi property này BẬT, `Graphic` đó TRỞ THÀNH MỤC TIÊU cho CLICK và CHẠM. Khi màn hình được click hoặc chạm, các object có property này BẬT sẽ LÀ ĐỐI TƯỢNG XỬ LÝ, nên TẮT property này càng nhiều càng tốt sẽ CẢI THIỆN HIỆU NĂNG.</strong>"</em></p>
+<p>💡 <strong>Mẹo dùng PRESET:</strong> <em>"<strong>Property này BẬT MẶC ĐỊNH, nhưng thực tế NHIỀU `Graphic` KHÔNG CẦN property này bật.</strong> Mặt khác, <strong>Unity có tính năng gọi là PRESET cho phép ĐỔI GIÁ TRỊ MẶC ĐỊNH trong project. Cụ thể, bạn TẠO preset cho component `Image` và `RawImage` tương ứng, và ĐĂNG KÝ chúng làm DEFAULT PRESET từ Preset Manager trong Project Settings. Bạn có thể dùng tính năng này để TẮT property `Raycast Target` MẶC ĐỊNH.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🎯 <strong>Raycast Target:</strong> <em>"<code>Graphic</code>, the base class for <code>Image</code> and <code>RawImage</code>, has a <strong><code>Raycast Target</code></strong> property. <strong>When enabled, its `Graphic` becomes the TARGET for clicks and touches. When the screen is clicked or touched, objects with this property enabled will be the target of processing, so DISABLING this property as much as possible will IMPROVE PERFORMANCE.</strong>"</em></p>
+<p>💡 <strong>The preset trick:</strong> <em>"<strong>This property is enabled by DEFAULT, but actually MANY `Graphic` do NOT require it.</strong> On the other hand, <strong>Unity has a feature called PRESET that allows you to CHANGE THE DEFAULT VALUE in your project. Specifically, you can create presets for the `Image` and `RawImage` components respectively, and register them as DEFAULT PRESETS from the Preset Manager in Project Settings. You may use this feature to DISABLE the `Raycast Target` property by default.</strong>"</em></p>
+</div>
+</div>
+
+!!! danger "💀 `RectMask2d` — "nên chọn nếu có" là LỜI KHUYÊN ĐÃ LỖI THỜI"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p><em>"Để biểu diễn mask trong uGUI, dùng component <strong><code>Mask</code></strong> hoặc <strong><code>RectMask2d</code></strong>."</em></p>
+    <p>⚖️ <em>"<strong>Vì <code>Mask</code> dùng STENCIL để hiện thực mask, CHI PHÍ VẼ TĂNG theo MỖI component được thêm. Mặt khác, <code>RectMask2d</code> dùng SHADER PARAMETER để hiện thực mask, nên mức tăng chi phí vẽ bị TRIỆT TIÊU. TUY NHIÊN, <code>Mask</code> KHOÉT ĐƯỢC THEO HÌNH DẠNG BẤT KỲ, trong khi <code>RectMask2d</code> CHỈ khoét được HÌNH CHỮ NHẬT.</strong>"</em></p>
+    <p>🚨 <em>"<strong>Người ta thường tin rằng NÊN CHỌN `RectMask2d` NẾU CÓ THỂ, nhưng người dùng Unity gần đây CŨNG NÊN CẨN THẬN khi dùng `RectMask2d`.</strong>"</em></p>
+    <p>💀 <em>"Cụ thể, <strong>khi `RectMask2d` được BẬT, TẢI CPU cho việc CULLING MỖI FRAME TỈ LỆ THUẬN với số MỤC TIÊU BỊ MASK. Hiện tượng SINH TẢI MỖI FRAME NGAY CẢ KHI UI KHÔNG DI CHUYỂN GÌ CẢ này có vẻ là TÁC DỤNG PHỤ của một BẢN VÁ được đưa vào Unity 2019.3</strong>, theo comment trong phần cài đặt nội bộ của uGUI."</em></p>
+    <p>✅ <strong>BA biện pháp:</strong> <em>"<strong>① TRÁNH dùng `RectMask2d` càng nhiều càng tốt; ② dùng <code>enabled = false</code> khi KHÔNG cần dù có dùng; ③ giữ MỤC TIÊU BỊ MASK ở MỨC TỐI THIỂU CẦN THIẾT.</strong>"</em></p>
+    </div>
+    <div class="col-en">
+    <p>⚖️ <em>"<strong>Since <code>Mask</code> uses STENCILS, the drawing cost INCREASES WITH EACH additional component. On the other hand, <code>RectMask2d</code> uses SHADER PARAMETERS, so the increase in drawing cost is SUPPRESSED. However, <code>Mask</code> can be hollowed out in ANY SHAPE, while <code>RectMask2d</code> can ONLY be hollowed out as a RECTANGLE.</strong>"</em></p>
+    <p>🚨 <em>"<strong>It is a common belief that `RectMask2d` should be selected if available, but recent Unity users should ALSO BE CAREFUL about using `RectMask2d`.</strong>"</em></p>
+    <p>💀 <em>"Specifically, <strong>when `RectMask2d` is enabled, the CPU LOAD for CULLING EVERY FRAME is PROPORTIONAL to its MASKING TARGETS. This phenomenon, which GENERATES LOAD EVERY FRAME EVEN WHEN THE UI IS NOT MOVING ANYTHING, seems to be a SIDE EFFECT of a FIX that was included in Unity 2019.3</strong>, according to comments in uGUI's internal implementation."</em></p>
+    <p>✅ <strong>Three countermeasures:</strong> <em>"<strong>① avoid using `RectMask2d` as much as possible; ② use <code>enabled = false</code> when it is not needed even if it is used; ③ keep masked targets to the MINIMUM NECESSARY.</strong>"</em></p>
+    </div>
+    </div>
+
+### 29.12. 🔤 TextMeshPro — `SetText` thay vì `.text`
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📝 <em>"Cách PHỔ BIẾN để đặt text trong TextMeshPro là <strong>gán text cho property <code>text</code></strong>, nhưng còn có một cách KHÁC: <strong><code>SetText</code></strong>."</em></p>
+<p>🔧 <em>"Có <strong>NHIỀU OVERLOAD của <code>SetText</code></strong>, ví dụ nhận một <code>string</code> và một giá trị kiểu <code>float</code> làm tham số."</em></p>
+<p>🏆 <em>"<strong>ƯU ĐIỂM của phương pháp này là nó GIẢM CHI PHÍ SINH CHUỖI.</strong>"</em></p>
+<p>💀 <em>"Trong phương pháp dùng property <code>text</code>, <strong><code>ToString()</code> của kiểu <code>float</code> ĐƯỢC THỰC THI, nên CHI PHÍ SINH CHUỖI PHÁT SINH MỖI LẦN tiến trình này chạy.</strong> Ngược lại, <strong>phương pháp dùng <code>SetText</code> được THIẾT KẾ để SINH RA CÀNG ÍT CHUỖI CÀNG TỐT — một LỢI THẾ HIỆU NĂNG khi text hiển thị THAY ĐỔI THƯỜNG XUYÊN.</strong>"</em></p>
+<p>⚡ <em>"Tính năng này của TextMeshPro <strong>CŨNG RẤT MẠNH khi KẾT HỢP với ZString</strong> (<code>github.com/Cysharp/ZString</code>). <strong>ZString là thư viện GIẢM CẤP PHÁT BỘ NHỚ trong việc SINH CHUỖI. ZString cung cấp NHIỀU EXTENSION METHOD cho kiểu <code>TMP_Text</code>, và bằng cách dùng chúng, bạn đạt được hiển thị text LINH HOẠT trong khi GIẢM chi phí sinh chuỗi.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📝 <em>"The common way to set text in TextMeshPro is to <strong>assign text to the <code>text</code> property</strong>, but there is ANOTHER method: <strong><code>SetText</code></strong>."</em></p>
+<p>🔧 <em>"There are <strong>MANY OVERLOADS to <code>SetText</code></strong>, for example, that take a <code>string</code> and a <code>float</code> value as arguments."</em></p>
+<p>🏆 <em>"<strong>The ADVANTAGE of this method is that it REDUCES THE COST OF GENERATING STRINGS.</strong>"</em></p>
+<p>💀 <em>"In the method using the <code>text</code> property, <strong><code>ToString()</code> of type <code>float</code> IS EXECUTED, so the STRING GENERATION COST is INCURRED EACH TIME this process is executed.</strong> In contrast, <strong>the method using <code>SetText</code> is designed to generate AS FEW STRINGS AS POSSIBLE, which is a PERFORMANCE ADVANTAGE when the text to be displayed CHANGES FREQUENTLY.</strong>"</em></p>
+<p>⚡ <em>"This feature is also very powerful when <strong>COMBINED WITH ZString</strong>. <strong>ZString is a library that REDUCES MEMORY ALLOCATION in string generation. ZString provides MANY EXTENSION METHODS for the <code>TMP_Text</code> type, and by using those methods, FLEXIBLE text display can be achieved while REDUCING the cost of string generation.</strong>"</em></p>
+</div>
+</div>
+
+**List 8.1 (✅ NÊN) vs List 8.2 (❌ TRÁNH):**
+
+```csharp
+// ✅ List 8.1 — SetText: sinh RẤT ÍT chuỗi
+label.SetText("{0}", number);
+
+// ❌ List 8.2 — property text: float.ToString() chạy MỖI LẦN
+label.text = number.ToString();
+```
+
+> 📌 *Giả định `label` là biến kiểu `TMP_Text` (hoặc kế thừa từ nó) và `number` là kiểu `float`.*
+
+### 29.13. 🏆 CHUYỂN ĐỔI HIỂN THỊ UI — bảng đo 323.79ms vs 3.64ms
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>💀 <em>"Các component uGUI có ĐẶC ĐIỂM là <strong>CHI PHÍ CAO của việc CHUYỂN ĐỔI ACTIVE của object bằng <code>SetActive</code>. Điều này là do <code>OnEnable</code> ĐẶT CỜ DIRTY cho các loại rebuild và thực hiện KHỞI TẠO liên quan tới MASK. Do đó, điều QUAN TRỌNG là cân nhắc các PHƯƠNG ÁN THAY THẾ cho <code>SetActive</code> khi chuyển đổi hiển thị UI.</strong>"</em></p>
+<p>1️⃣ <strong>Đổi <code>enabled</code> của Canvas thành <code>false</code></strong> — <em>"Điều này sẽ NGĂN TẤT CẢ object dưới Canvas được render. ⚠️ <strong>Do đó, phương pháp này có NHƯỢC ĐIỂM là CHỈ dùng được nếu bạn muốn ẨN TẤT CẢ object dưới Canvas.</strong>"</em></p>
+<p>2️⃣ <strong>Dùng <code>CanvasGroup</code></strong> — <em>"<code>CanvasGroup</code> có chức năng cho phép <strong>ĐIỀU CHỈNH ĐỘ TRONG SUỐT của TẤT CẢ object bên dưới nó CÙNG MỘT LÚC. Nếu bạn dùng chức năng này và ĐẶT ĐỘ TRONG SUỐT = 0, bạn ẨN được tất cả object dưới CanvasGroup đó.</strong>"</em></p>
+<p>🚨 <strong>CẢNH BÁO CHUNG cho cả hai:</strong> <em>"<strong>Dù các phương pháp này được KỲ VỌNG TRÁNH được tải do <code>SetActive</code>, bạn có thể cần CẨN THẬN vì GameObject SẼ VẪN Ở TRẠNG THÁI ACTIVE. Ví dụ, NẾU các method <code>Update</code> được định nghĩa, hãy Ý THỨC rằng CHÚNG SẼ TIẾP TỤC CHẠY KỂ CẢ Ở TRẠNG THÁI ẨN, có thể dẫn tới TĂNG TẢI NGOÀI Ý MUỐN.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>💀 <em>"uGUI components are characterized by the <strong>HIGH COST of ACTIVE SWITCHING of objects by <code>SetActive</code>. This is due to the fact that <code>OnEnable</code> SETS THE DIRTY FLAG for various rebuilds and performs INITIALIZATION related to MASKS. Therefore, it is IMPORTANT to consider ALTERNATIVES to the <code>SetActive</code> method for switching the display of the UI.</strong>"</em></p>
+<p>1️⃣ <strong>Set Canvas <code>enabled</code> to <code>false</code></strong> — <em>"This will prevent all objects under the Canvas from being rendered. ⚠️ <strong>Therefore, this method has the DISADVANTAGE that it can ONLY be used if you want to HIDE ALL the objects under the Canvas.</strong>"</em></p>
+<p>2️⃣ <strong>Use <code>CanvasGroup</code></strong> — <em>"<code>CanvasGroup</code> has a function that allows you to <strong>adjust the TRANSPARENCY of ALL objects under it AT ONCE. If you set the transparency to 0, you can HIDE all the objects under that CanvasGroup.</strong>"</em></p>
+<p>🚨 <strong>The caveat for both:</strong> <em>"<strong>While these methods are expected to avoid the load caused by <code>SetActive</code>, you may need to be careful because the GameObject WILL REMAIN IN THE ACTIVE STATE. For example, if <code>Update</code> methods are defined, be aware that THEY WILL CONTINUE TO RUN EVEN IN THE HIDDEN STATE, which may lead to an UNEXPECTED INCREASE IN LOAD.</strong>"</em></p>
+</div>
+</div>
+
+!!! success "📊 BẢNG 8.1 — Đo THỰC TẾ trên 1280 GameObject có `Image`"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p>🔬 <strong>Điều kiện đo:</strong> <em>"Chúng tôi đã đo thời gian xử lý cho <strong>1280 GameObject có component `Image` gắn vào</strong>, khi chuyển giữa trạng thái HIỆN và ẨN bằng TỪNG phương pháp. <strong>Thời gian xử lý được đo bằng Unity editor, và Deep Profile KHÔNG được dùng.</strong> Thời gian xử lý của phương pháp là <strong>TỔNG của thời gian thực thi việc chuyển đổi thực tế</strong> (ví dụ với `SetActive`, lời gọi method được bao bởi <code>Profiler.BeginSample</code>/<code>EndSample</code>) <strong>CỘNG thời gian thực thi <code>UIEvents.WillRenderCanvases</code> trong frame đó</strong> — vì <strong>UI rebuild được thực hiện trong đó.</strong>"</em></p>
+    </div>
+    <div class="col-en">
+    <p>🔬 <strong>Measurement conditions:</strong> <em>"We measured the processing time for <strong>1280 GameObjects with `Image` components attached</strong>, when switching between visible and hidden states using each method. <strong>The processing time was measured using the Unity editor, and Deep Profile was NOT used.</strong> The processing time is the <strong>SUM of the execution time of the actual switching</strong> and <strong>the execution time of <code>UIEvents.WillRenderCanvases</code> in the frame</strong>, because the UI rebuild is performed there."</em></p>
+    </div>
+    </div>
+
+    | Method | ⏱️ Thời gian xử lý (**HIỆN**) | ⏱️ Thời gian xử lý (**ẨN**) |
+    |---|---|---|
+    | 💀 **`SetActive`** | **323.79 ms** | **209.93 ms** |
+    | ⚠️ **`Canvas.enabled`** | **61.25 ms** | **61.23 ms** |
+    | 🏆 **`CanvasGroup.alpha`** | **3.64 ms** | **3.40 ms** |
+
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p>🎯 <em>"Từ kết quả Bảng 8.1, chúng tôi thấy rằng <strong>phương pháp dùng `CanvasGroup` có thời gian xử lý NGẮN NHẤT VƯỢT TRỘI trong tình huống chúng tôi đã thử.</strong>"</em></p>
+    <p>🧮 <strong>Quy ra tỉ lệ:</strong> `CanvasGroup` <strong>NHANH HƠN `SetActive` khoảng 89 LẦN</strong> khi HIỆN (323.79 / 3.64 ≈ <strong>89×</strong>) và <strong>khoảng 62 LẦN</strong> khi ẨN (209.93 / 3.40 ≈ <strong>62×</strong>); `Canvas.enabled` nhanh hơn `SetActive` khoảng <strong>5.3×</strong>.</p>
+    </div>
+    <div class="col-en">
+    <p>🎯 <em>"From the results of Table 8.1, we found that <strong>the method using `CanvasGroup` has BY FAR the SHORTEST processing time in the situation we tried this time.</strong>"</em></p>
+    <p>🧮 <strong>As ratios:</strong> `CanvasGroup` is roughly <strong>89× faster</strong> than `SetActive` when showing and about <strong>62× faster</strong> when hiding; `Canvas.enabled` is about <strong>5.3×</strong> faster than `SetActive`.</p>
+    </div>
+    </div>
+
+---
+
+!!! abstract "🎓 TỔNG KẾT PHẦN C — CHỌN ĐÚNG CÔNG CỤ, ĐÚNG CON SỐ"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p>🧰 <strong>Bản đồ CÔNG CỤ:</strong> <strong>Unity Profiler</strong> (nhìn tổng quan theo frame) → <strong>Profile Analyzer</strong> (thống kê nhiều frame, so sánh trước/sau) → <strong>Frame Debugger</strong> (vì sao KHÔNG batch) → <strong>Memory Profiler / Heap Explorer</strong> (ai GIỮ tham chiếu) → <strong>Xcode &amp; Instruments</strong> (con số CHÍNH XÁC, native, plug-in) → <strong>Android Studio</strong> (Java/native heap) → <strong>RenderDoc</strong> (GPU chi tiết, overdraw theo pixel).</p>
+    <p>🔢 <strong>Con số PHẢI NHỚ:</strong> Deep Profile chỉ dùng khi profile thường KHÔNG đủ · Autoconnect Profiler làm app CHỜ <strong>8 giây</strong> · Mip Map làm texture <strong>×1.3</strong> · Read/Write làm texture &amp; mesh <strong>×2</strong> · Dynamic batching cần <strong>&lt; 300 đỉnh</strong> · AssetBundle nạp đồng thời <strong>150–200</strong> (Unload true) / <strong>≤150</strong> (Unload false) · Fixed Timestep mặc định <strong>0.02s</strong>, Maximum Allowed Timestep <strong>0.33s</strong> · <code>CanvasGroup.alpha</code> <strong>3.64ms</strong> vs <code>SetActive</code> <strong>323.79ms</strong>.</p>
+    </div>
+    <div class="col-en">
+    <p>🧰 <strong>Tool map:</strong> <strong>Unity Profiler</strong> (per-frame overview) → <strong>Profile Analyzer</strong> (multi-frame statistics, before/after) → <strong>Frame Debugger</strong> (why batching failed) → <strong>Memory Profiler / Heap Explorer</strong> (who holds the reference) → <strong>Xcode &amp; Instruments</strong> (accurate native numbers, plug-ins) → <strong>Android Studio</strong> (Java/native heap) → <strong>RenderDoc</strong> (GPU detail, per-pixel overdraw).</p>
+    <p>🔢 <strong>Numbers to memorise:</strong> Deep Profile only when the normal profile is not enough · Autoconnect Profiler costs <strong>~8 s</strong> of startup timeout · Mip Maps <strong>×1.3</strong> texture memory · Read/Write <strong>×2</strong> for textures and meshes · Dynamic batching needs <strong>&lt; 300 vertices</strong> · concurrent AssetBundles <strong>150–200</strong> / <strong>≤150</strong> · Fixed Timestep <strong>0.02 s</strong>, Maximum Allowed Timestep <strong>0.33 s</strong> · <code>CanvasGroup.alpha</code> <strong>3.64 ms</strong> vs <code>SetActive</code> <strong>323.79 ms</strong>.</p>
+    </div>
+    </div>
+---
+
+# PHẦN D — TUNING SCRIPT: UNITY & C# (Chương 9–10)
+
+> Nguồn: *Unity Performance Tuning Bible* — CyberAgent SGE Core Technology Team (Feb. 22, 2023, 1st Edition), Chương 9 "Tuning Practice - Script (Unity)" và Chương 10 "Tuning Practice - Script (C#)".
+
+---
+
+## 30. 🔑 Unity Event Functions & các API truy cập cơ bản
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Việc sử dụng <strong>tuỳ tiện</strong> các tính năng mà Unity cung cấp có thể dẫn tới những cái bẫy không ngờ tới. Chương này giới thiệu các kỹ thuật performance tuning liên quan tới <strong>phần hiện thực bên trong (internal implementation)</strong> của Unity, kèm ví dụ thực tế.</p>
+</div>
+<div class="col-en">
+<p>Casual use of the features provided by Unity can lead to unexpected pitfalls. This chapter introduces performance tuning techniques related to Unity's internal implementation with actual examples.</p>
+</div>
+</div>
+
+### 30.1. 💀 Hàm event rỗng của Unity (Empty Unity event functions)
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Khi các hàm event do Unity cung cấp như <code>Awake</code>, <code>Start</code>, <code>Update</code> được <strong>định nghĩa</strong>, chúng được <strong>cache vào một list nội bộ của Unity</strong> lúc runtime và được thực thi bằng cách duyệt (iteration) qua list đó.</p>
+<p>⚠️ Ngay cả khi hàm <strong>không làm gì cả</strong>, nó vẫn bị cache <strong>chỉ vì nó được định nghĩa</strong>. Để lại các hàm event không cần thiết sẽ làm <strong>phình to list</strong> và <strong>tăng chi phí duyệt list</strong>.</p>
+<p>Ví dụ: như đoạn code mẫu dưới đây, <code>Start</code> và <code>Update</code> được sinh ra sẵn ngay từ đầu trong một script mới tạo trên Unity. Nếu bạn không cần các hàm này, <strong>hãy chắc chắn xoá chúng đi</strong>.</p>
+</div>
+<div class="col-en">
+<p>When Unity-provided event functions such as Awake, Start, and Update are defined, they are cached in an internal Unity list at runtime and executed by iteration of the list.</p>
+<p>Even if nothing is done in the function, it will be cached simply because it is defined. Leaving unneeded event functions in place will bloat the list and increase the cost of iteration.</p>
+<p>For example, as shown in the sample code below, Start and Update are defined from the beginning in a newly generated script on Unity. If you do not need these functions, be sure to delete them.</p>
+</div>
+</div>
+
+▼ **List 9.1** — Script mới sinh ra trong Unity / *Newly generated script in Unity*
+
+```csharp
+public class NewBehaviourScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()      // ❌ Rỗng nhưng vẫn bị cache vào list nội bộ → tốn chi phí iteration
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()     // ❌ Rỗng nhưng vẫn được gọi MỖI FRAME cho MỌI instance
+    {
+
+    }
+}
+```
+
+!!! danger "Bẫy chết người của hàm rỗng"
+    Nếu bạn có **1.000 GameObject** cùng gắn một script có `Update()` rỗng, Unity vẫn phải duyệt qua **1.000 phần tử** trong list và gọi **1.000 lần** vào managed code mỗi frame — với **0 lợi ích**. Đây là chi phí đi qua ranh giới C++ → C# hoàn toàn lãng phí.
+
+### 30.2. 💀 Truy cập `tag` và `name` — chúng GC.Alloc!
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Các class kế thừa từ <code>UnityEngine.Object</code> cung cấp property <code>tag</code> và <code>name</code>. Những property này rất tiện để nhận diện object, nhưng thực tế chúng <strong>GC.Alloc</strong>.</p>
+<p>Sách trích dẫn phần hiện thực từ <code>UnityCsReference</code>. Bạn có thể thấy cả hai đều gọi xuống <strong>process được hiện thực trong native code</strong>.</p>
+<p>Unity cho phép viết script bằng C#, nhưng <strong>bản thân Unity được viết bằng C++</strong>. Vì <strong>vùng nhớ C# và vùng nhớ C++ không thể chia sẻ với nhau</strong>, bộ nhớ phải được <strong>cấp phát mới</strong> để chuyển thông tin chuỗi từ phía C++ sang phía C#. Việc này xảy ra <strong>MỖI LẦN GỌI</strong>, nên nếu bạn muốn truy cập nhiều lần, <strong>bắt buộc phải cache lại</strong>.</p>
+</div>
+<div class="col-en">
+<p>Classes inheriting from UnityEngine.Object provide the tag and name properties. These properties are useful for object identification, but in fact GC.Alloc.</p>
+<p>I have quoted their respective implementations from UnityCsReference. You can see that both call processes implemented in native code.</p>
+<p>Unity implements scripts in C#, but Unity itself is implemented in C++. Since C# memory space and C++ memory space cannot be shared, memory is allocated to pass string information from the C++ side to the C# side. This is done each time it is called, so if you want to access it multiple times, you should cache it.</p>
+</div>
+</div>
+
+▼ **List 9.2** — `UnityCsReference GameObject.bindings.cs`
+
+```csharp
+public extern string tag
+{
+    [FreeFunction("GameObjectBindings::GetTag", HasExplicitThis = true)]
+    get;   // ⚠️ Gọi xuống native C++ → cấp phát string mới mỗi lần đọc
+    [FreeFunction("GameObjectBindings::SetTag", HasExplicitThis = true)]
+    set;
+}
+```
+
+▼ **List 9.3** — `UnityCsReference UnityEngineObject.bindings.cs`
+
+```csharp
+public string name
+{
+    get { return GetName(this); }   // ⚠️ GC.Alloc mỗi lần truy cập
+    set { SetName(this, value); }
+}
+
+[FreeFunction("UnityEngineObjectBindings::GetName")]
+extern static string GetName([NotNull("NullExceptionObject")] Object obj);
+```
+
+!!! warning "Quy tắc"
+    Không bao giờ so sánh `gameObject.tag == "Enemy"` hay `gameObject.name == "Player"` **trong `Update()`**. Dùng `CompareTag()` (không alloc) hoặc cache chuỗi ra biến thành viên một lần duy nhất trong `Awake()`.
+
+### 30.3. ⚠️ Lấy Component — `GetComponent()`
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><code>GetComponent()</code>, hàm lấy các component khác gắn trên cùng một <code>GameObject</code>, cũng là một thứ cần chú ý.</p>
+<p>Ngoài việc nó gọi xuống <strong>process hiện thực bằng native code</strong> — tương tự property <code>tag</code> và <code>name</code> ở mục trước — chúng ta còn phải cẩn thận với <strong>chi phí "tìm kiếm" (searching)</strong> component thuộc kiểu được chỉ định.</p>
+<p>Trong code mẫu dưới đây, bạn sẽ phải trả chi phí tìm component <code>Rigidbody</code> <strong>mỗi frame</strong>. Nếu bạn truy cập thường xuyên, <strong>hãy dùng bản đã cache sẵn</strong>.</p>
+</div>
+<div class="col-en">
+<p>GetComponent(), which retrieves other components attached to the same GameObject, is another one that requires attention.</p>
+<p>As well as the fact that it calls a process implemented in native code, similar to the tag and name properties in the previous section, we must also be careful about the cost of "searching" for components of the specified type.</p>
+<p>In the sample code below, you will have the cost of searching for Rigidbody components every frame. If you access the site frequently, you should use a pre-cached version of the site.</p>
+</div>
+</div>
+
+▼ **List 9.4** — Code gọi `GetComponent()` mỗi frame / *Code to GetComponent() every frame*
+
+```csharp
+void Update()
+{
+    Rigidbody rb = GetComponent<Rigidbody>();   // ❌ Tìm kiếm component MỖI FRAME
+    rb.AddForce(Vector3.up * 10f);
+}
+```
+
+```csharp
+// ✅ Bản sửa: cache 1 lần trong Awake
+private Rigidbody _rb;
+
+void Awake()
+{
+    _rb = GetComponent<Rigidbody>();   // Chỉ tìm 1 lần duy nhất
+}
+
+void Update()
+{
+    _rb.AddForce(Vector3.up * 10f);
+}
+```
+
+### 30.4. 🎯 Truy cập `transform`
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><code>Transform</code> là component được truy cập rất thường xuyên: <code>position</code>, <code>rotation</code>, <code>scale</code> (phóng to/thu nhỏ), thay đổi quan hệ cha-con. Như code mẫu dưới đây, bạn thường phải cập nhật <strong>nhiều giá trị</strong> cùng lúc.</p>
+</div>
+<div class="col-en">
+<p>Transform components are frequently accessed components such as position, rotation, scale (expansion and contraction), and parent-child relationship changes. As shown in the sample code below, you will often need to update multiple values.</p>
+</div>
+</div>
+
+▼ **List 9.5** — Ví dụ truy cập transform / *Example of accessing transform*
+
+```csharp
+void SetTransform(Vector3 position, Quaternion rotation, Vector3 scale)
+{
+    transform.position = position;     // ❌ 3 lần gọi GetTransform() nội bộ
+    transform.rotation = rotation;
+    transform.localScale = scale;
+}
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Khi <code>transform</code> được lấy ra, tiến trình <code>GetTransform()</code> được gọi bên trong Unity. Nó <strong>đã được tối ưu và nhanh hơn <code>GetComponent()</code></strong> ở mục trước. Tuy nhiên, nó vẫn <strong>chậm hơn trường hợp đã cache</strong>, nên thứ này cũng nên được cache và truy cập như code mẫu bên dưới.</p>
+<p>💡 Đối với <code>position</code> và <code>rotation</code>, bạn còn có thể dùng <code>SetPositionAndRotation()</code> để <strong>giảm số lần gọi hàm</strong>.</p>
+</div>
+<div class="col-en">
+<p>When transform is retrieved, the process GetTransform() is called inside Unity. It is optimized and faster than GetComponent() in the previous section. However, it is slower than the cached case, so this should also be cached and accessed as shown in the sample code below. For position and rotation, you can also use SetPositionAndRotation() to reduce the number of function calls.</p>
+</div>
+</div>
+
+▼ **List 9.6** — Ví dụ cache transform / *Example of caching transform*
+
+```csharp
+void SetTransform(Vector3 position, Quaternion rotation, Vector3 scale)
+{
+    var transformCache = transform;                                  // ✅ Lấy 1 lần
+    transformCache.SetPositionAndRotation(position, rotation);       // ✅ Gộp 2 lệnh thành 1
+    transformCache.localScale = scale;
+}
+```
+
+---
+
+## 31. 💀 Vòng đời tài nguyên & chuỗi định danh
+
+### 31.1. 🚨 Các class BẮT BUỘC phải huỷ tường minh
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Vì Unity được phát triển bằng C#, các object không còn được tham chiếu sẽ được GC giải phóng. <strong>Tuy nhiên, một số class trong Unity cần được huỷ (destroy) một cách TƯỜNG MINH.</strong> Các ví dụ điển hình là <code>Texture2D</code>, <code>Sprite</code>, <code>Material</code>, và <code>PlayableGraph</code>.</p>
+<p>Nếu bạn tạo chúng bằng <code>new</code> hoặc bằng hàm <code>Create</code> chuyên dụng, <strong>hãy chắc chắn huỷ chúng tường minh</strong>.</p>
+</div>
+<div class="col-en">
+<p>Since Unity is developed in C#, objects that are no longer referenced by GC are freed. However, some classes in Unity need to be explicitly destroyed. Typical examples are Texture2D, Sprite, Material, and PlayableGraph. If you generate them with new or the dedicated Create function, be sure to explicitly destroy them.</p>
+</div>
+</div>
+
+▼ **List 9.7** — Tạo và huỷ tường minh / *Generation and Explicit Destruction*
+
+```csharp
+void Start()
+{
+    _texture  = new Texture2D(8, 8);
+    _sprite   = Sprite.Create(_texture, new Rect(0, 0, 8, 8), Vector2.zero);
+    _material = new Material(shader);
+    _graph    = PlayableGraph.Create();
+}
+
+void OnDestroy()
+{
+    // ✅ BẮT BUỘC: GC KHÔNG tự dọn phần native memory của các đối tượng này
+    Destroy(_texture);
+    Destroy(_sprite);
+    Destroy(_material);
+
+    if (_graph.IsValid())
+    {
+        _graph.Destroy();
+    }
+}
+```
+
+!!! danger "Vì sao GC không cứu được bạn?"
+    Các đối tượng này là **wrapper C# mỏng bọc quanh native object phía C++**. GC chỉ dọn phần vỏ C# — **phần thân native vẫn nằm lại trong RAM** cho tới khi bạn gọi `Destroy()`. Đây là nguyên nhân kinh điển của rò rỉ bộ nhớ tăng dần cho tới khi app bị OOM-kill.
+
+### 31.2. ⚠️ Chỉ định bằng chuỗi (String specification)
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Hãy <strong>tránh dùng chuỗi</strong> để chỉ định state cần phát trong <code>Animator</code> và property cần thao tác trong <code>Material</code>.</p>
+</div>
+<div class="col-en">
+<p>Avoid using strings to specify states to play in Animator and properties to manipulate in Material.</p>
+</div>
+</div>
+
+▼ **List 9.8** — Ví dụ chỉ định bằng chuỗi / *Example of String Specification*
+
+```csharp
+_animator.Play("Wait");                 // ❌ Nội bộ gọi Animator.StringToHash mỗi lần
+_material.SetFloat("_Prop", 100f);      // ❌ Nội bộ gọi Shader.PropertyToID mỗi lần
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Bên trong các hàm này, <code>Animator.StringToHash()</code> và <code>Shader.PropertyToID()</code> được thực thi để chuyển chuỗi thành <strong>giá trị định danh duy nhất</strong>. Vì rất lãng phí khi thực hiện việc chuyển đổi này mỗi lần truy cập nhiều lần, <strong>hãy cache giá trị định danh và tái sử dụng</strong>.</p>
+<p>Như mẫu bên dưới, khuyến nghị định nghĩa một <strong>class liệt kê các giá trị định danh đã cache</strong> để dễ dùng.</p>
+</div>
+<div class="col-en">
+<p>Inside these functions, Animator.StringToHash() and Shader.PropertyToID() are executed to convert strings to unique identification values. Since it is wasteful to perform the conversion each time when accessing the site many times, cache the identification value and use it repeatedly. As shown in the sample below, it is recommended to define a class that lists cached identification values for ease of use.</p>
+</div>
+</div>
+
+▼ **List 9.9** — Ví dụ cache giá trị định danh / *Example of caching identification values*
+
+```csharp
+public static class ShaderProperty
+{
+    public static readonly int Color  = Shader.PropertyToID("_Color");
+    public static readonly int Alpha  = Shader.PropertyToID("_Alpha");
+    public static readonly int ZWrite = Shader.PropertyToID("_ZWrite");
+}
+
+public static class AnimationState
+{
+    public static readonly int Idle = Animator.StringToHash("idle");
+    public static readonly int Walk = Animator.StringToHash("walk");
+    public static readonly int Run  = Animator.StringToHash("run");
+}
+
+// ✅ Sử dụng: _material.SetFloat(ShaderProperty.Alpha, 1f);
+//            _animator.Play(AnimationState.Run);
+```
+
+### 31.3. 💀 Cái bẫy của `JsonUtility`
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Unity cung cấp class <code>JsonUtility</code> để serialize/deserialize JSON. Tài liệu chính thức cũng nói rằng nó <strong>nhanh hơn chuẩn của C#</strong>, và thường được dùng cho các hiện thực chú trọng performance.</p>
+</div>
+<div class="col-en">
+<p>Unity provides a class JsonUtility for JSON serialization/deserialization. The official document also states that it is faster than the C# standard, and is often used for performance-conscious implementations.</p>
+</div>
+</div>
+
+<blockquote><p><em>"JsonUtility (although it has less functionality than .NET JSON) has been shown in benchmark tests to be <strong>significantly faster</strong> than the commonly used ."</em></p></blockquote>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Tuy nhiên, có <strong>một điểm liên quan tới performance cần lưu ý</strong>: cách xử lý <code>null</code>.</p>
+<p>Code mẫu bên dưới cho thấy tiến trình serialize và kết quả. Bạn có thể thấy rằng <strong>dù thành viên <code>b1</code> của class <code>A</code> được gán <code>null</code> tường minh</strong>, nó vẫn được serialize kèm theo class <code>B</code> và class <code>C</code> <strong>được sinh ra bằng constructor mặc định</strong>.</p>
+<p>🚨 Nếu field cần serialize là <code>null</code> như ở đây, <strong>một object giả (dummy) sẽ được <code>new</code> ra trong quá trình chuyển đổi JSON</strong>, nên bạn cần tính tới overhead đó.</p>
+</div>
+<div class="col-en">
+<p>However, there is one performance-related thing to be aware of: the handling of null.</p>
+<p>The sample code below shows the serialization process and its results. You can see that even though the member b1 of class A is explicitly set to null, it is serialized with class B and class C generated with the default constructor. If the field to be serialized has null as shown here, a dummy object will be new created during JSON conversion, so you may want to take that overhead into account.</p>
+</div>
+</div>
+
+▼ **List 9.10** — Hành vi serialize / *Serialization Behavior*
+
+```csharp
+[Serializable] public class A { public B b1; }
+[Serializable] public class B { public C c1; public C c2; }
+[Serializable] public class C { public int n; }
+
+void Start()
+{
+    Debug.Log(JsonUtility.ToJson(new A() { b1 = null, }));
+    // Kết quả: {"b1":{"c1":{"n":0}, "c2":{"n":0}}
+    // 💀 b1 = null nhưng B, C VẪN bị new ra bằng default constructor!
+}
+```
+
+### 31.4. 🚨 Cái bẫy của `Renderer.material` và `MeshFilter.mesh`
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Material lấy qua <code>Renderer.material</code> và mesh lấy qua <code>MeshFilter.mesh</code> là <strong>các instance được NHÂN BẢN (duplicated)</strong> và <strong>phải được huỷ tường minh</strong> khi dùng xong. Tài liệu chính thức cũng ghi rõ như sau.</p>
+</div>
+<div class="col-en">
+<p>Materials obtained with Renderer.material and meshes obtained with MeshFilter.mesh are duplicated instances and must be explicitly destroyed when finished using them. The official documentation also clearly states the following respectively.</p>
+</div>
+</div>
+
+<blockquote><p><em>"If the material is used by any other renderers, this will <strong>clone the shared material</strong> and start using it from now on."</em></p></blockquote>
+
+<blockquote><p><em>"It is <strong>your responsibility</strong> to destroy the automatically instantiated mesh when the game object is being destroyed."</em></p></blockquote>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Hãy giữ material và mesh đã lấy ra trong <strong>biến thành viên</strong> và huỷ chúng vào thời điểm phù hợp.</p>
+</div>
+<div class="col-en">
+<p>Keep acquired materials and meshes in member variables and destroy them at the appropriate time.</p>
+</div>
+</div>
+
+▼ **List 9.11** — Huỷ tường minh material đã nhân bản / *Explicitly destroying duplicated materials*
+
+```csharp
+void Start()
+{
+    // ⚠️ .material CLONE shared material → tạo instance mới, tăng draw call & RAM
+    _material = GetComponent<Renderer>().material;
+}
+
+void OnDestroy()
+{
+    if (_material != null) {
+        Destroy(_material);   // ✅ Trách nhiệm dọn dẹp thuộc về BẠN
+    }
+}
+```
+
+!!! tip "Mẹo phân biệt"
+    `Renderer.sharedMaterial` — **không** clone, dùng chung, sửa nó sẽ ảnh hưởng mọi renderer khác (và cả asset trên đĩa trong Editor).
+    `Renderer.material` — **luôn** clone lần đầu truy cập, bạn phải tự `Destroy()`.
+
+---
+
+## 32. 🔑 Loại bỏ log & tăng tốc bằng Burst
+
+### 32.1. 💀 Loại bỏ code xuất log (Removal of log output codes)
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Unity cung cấp các hàm xuất log như <code>Debug.Log()</code>, <code>Debug.LogWarning()</code>, <code>Debug.LogError()</code>. Dù hữu ích, chúng có một số vấn đề:</p>
+<ul>
+<li>Bản thân việc <strong>xuất log là một tiến trình nặng</strong>.</li>
+<li>Nó <strong>cũng được thực thi trong release build</strong>.</li>
+<li>Việc <strong>tạo và nối chuỗi gây GC.Alloc</strong>.</li>
+</ul>
+<p>Nếu bạn tắt setting <code>Logging</code> trong Unity, stack trace sẽ dừng nhưng <strong>log vẫn được xuất</strong>. Nếu đặt <code>UnityEngine.Debug.unityLogger.logEnabled = false</code>, không log nào được xuất, nhưng vì đó <strong>chỉ là một nhánh rẽ bên trong hàm</strong>, nên chi phí gọi hàm cùng việc tạo/nối chuỗi lẽ ra không cần thiết <strong>vẫn bị thực hiện</strong>.</p>
+<p>Còn có lựa chọn dùng chỉ thị <code>#if</code>, nhưng <strong>không thực tế</strong> để bọc toàn bộ mọi lệnh log.</p>
+</div>
+<div class="col-en">
+<p>Unity provides functions for log output such as Debug.Log(), Debug.LogWarning(), and Debug.LogError(). While these functions are useful, there are some problems with them.</p>
+<ul>
+<li>Log output itself is a heavy process.</li>
+<li>It is also executed in release builds.</li>
+<li>String generation and concatenation causes GC.Alloc.</li>
+</ul>
+<p>If you turn off the Logging setting in Unity, the stack trace will stop, but the logs will be output. If UnityEngine.Debug.unityLogger.logEnabled is set to false in Unity, no logging is output, but since it is just a branch inside the function, function call costs and string generation and concatenation that should be unnecessary are done. There is also the option of using the #if directive, but it is not realistic to deal with all log output processing.</p>
+</div>
+</div>
+
+▼ **List 9.12** — Chỉ thị `#if` / *The #if directive*
+
+```csharp
+#if UNITY_EDITOR
+  Debug.LogError($"Error {e}");   // ⚠️ Phải bọc THỦ CÔNG từng chỗ → không thực tế
+#endif
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>✅ <strong>Thuộc tính <code>Conditional</code></strong> có thể được tận dụng trong trường hợp này. Các hàm mang thuộc tính <code>Conditional</code> sẽ bị <strong>compiler loại bỏ TOÀN BỘ PHẦN GỌI</strong> nếu symbol được chỉ định không được định nghĩa.</p>
+<p>Như mẫu List 9.13, ý tưởng hay là gắn thuộc tính <code>Conditional</code> lên từng hàm trong <strong>class tự viết</strong>, đặt quy tắc rằng mọi lệnh log của Unity đều đi qua class log tự chế, để <strong>toàn bộ lời gọi hàm có thể bị loại bỏ</strong> khi cần.</p>
+</div>
+<div class="col-en">
+<p>The Conditional attribute can be utilized in such cases. Functions with the Conditional attribute will have the calling part removed by the compiler if the specified symbol is not defined. As in the sample in List 9.13, it is a good idea to add the Conditional attribute to each function on the home-made class side as a rule to call the logging function on the Unity side through the home-made log output class, so that the entire function call can be removed if necessary.</p>
+</div>
+</div>
+
+▼ **List 9.13** — Ví dụ thuộc tính Conditional / *Example of Conditional Attribute*
+
+```csharp
+public static class Debug
+{
+    private const string MConditionalDefine = "DEBUG_LOG_ON";
+
+    // ✅ Nếu DEBUG_LOG_ON KHÔNG được define → compiler xoá luôn LỜI GỌI
+    //    → không tạo chuỗi, không gọi hàm, không GC.Alloc
+    [System.Diagnostics.Conditional(MConditionalDefine)]
+    public static void Log(object message)
+        => UnityEngine.Debug.Log(message);
+}
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Một điều cần lưu ý: symbol được chỉ định <strong>phải tham chiếu được từ phía hàm gọi</strong>. Phạm vi của symbol định nghĩa bằng <code>#define</code> chỉ giới hạn trong <strong>file</strong> chứa nó. Không thực tế nếu phải định nghĩa symbol trong mọi file gọi hàm có thuộc tính <code>Conditional</code>.</p>
+<p>Unity có tính năng <strong>Scripting Define Symbols</strong> cho phép định nghĩa symbol cho <strong>toàn bộ project</strong>. Vào <strong>"Project Settings → Player → Other Settings"</strong>.</p>
+</div>
+<div class="col-en">
+<p>One thing to note is that the symbols specified must be able to be referenced by the function caller. The scope of the symbols defined in #define would be limited to the file in which they are written. It is not practical to define a symbol in every file that calls a function with the Conditional attribute. Unity has a feature called Scripting Define Symbols that allows you to define symbols for the entire project. This can be done under "Project Settings -> Player -> Other Settings".</p>
+</div>
+</div>
+
+<img src="../assets/cb-scripting-define-symbols.png" alt="Scripting Define Symbols với DEBUG_LOG_ON">
+
+<p><em>VI: Hình 9.1 — Mục <strong>Script Compilation → Scripting Define Symbols</strong> trong Player Settings, đang khai báo symbol <code>DEBUG_LOG_ON</code> cho toàn project. / EN: Figure 9.1 — Scripting Define Symbols.</em></p>
+
+### 32.2. ⚡ Tăng tốc code bằng Burst
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Burst</strong> là compiler chính thức của Unity dành cho C# scripting hiệu năng cao.</p>
+<p>Burst dùng một <strong>tập con (subset)</strong> của ngôn ngữ C#. Burst chuyển code C# thành <strong>IR (Intermediate Representation)</strong> — cú pháp trung gian của <strong>LLVM</strong>, một hạ tầng compiler — rồi tối ưu IR trước khi chuyển thành mã máy.</p>
+<p>Tại bước này, code được <strong>vector hoá</strong> tối đa và thay bằng <strong>SIMD</strong>, tức tiến trình sử dụng tích cực các chỉ thị SIMD. Điều này được kỳ vọng cho ra chương trình chạy nhanh hơn.</p>
+<p><strong>SIMD</strong> = <em>Single Instruction / Multiple Data</em>, chỉ các lệnh áp dụng <strong>MỘT chỉ thị lên NHIỀU dữ liệu ĐỒNG THỜI</strong>. Nói cách khác, bằng cách dùng tích cực chỉ thị SIMD, dữ liệu được xử lý gộp trong một chỉ thị duy nhất, cho tốc độ nhanh hơn so với chỉ thị thường.</p>
+</div>
+<div class="col-en">
+<p>Burst is an official Unity compiler for high-performance C# scripting.</p>
+<p>Burst uses a subset of the C# language to write code. Burst converts the C# code into IR (Intermediate Representation), which is the intermediate syntax of a compiler infrastructure called LLVM, and then optimizes the IR before converting it into machine language.</p>
+<p>At this point, the code is vectorized as much as possible and replaced with SIMD, a process that actively uses instructions. This is expected to produce faster program output.</p>
+<p>SIMD stands for Single Instruction/Multiple Data and refers to instructions that apply a single instruction to multiple data simultaneously. In other words, by actively using SIMD instructions, data is processed together in a single instruction, resulting in faster operation compared to normal instructions.</p>
+</div>
+</div>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Dùng Burst để tăng tốc code.</strong> Burst dùng tập con của C# gọi là <strong>High Performance C# (HPC#)</strong>.</p>
+<p>Một trong các đặc điểm của HPC# là <strong>các kiểu tham chiếu (reference type) của C# như class và array KHÔNG khả dụng</strong>. Do đó, theo nguyên tắc, cấu trúc dữ liệu được mô tả bằng <strong>struct</strong>.</p>
+<p>Với các collection như mảng, hãy dùng <strong><code>NativeContainer</code></strong> như <code>NativeArray&lt;T&gt;</code> thay thế.</p>
+<p>Burst được dùng <strong>kết hợp với C# Job System</strong>. Vì vậy, phần xử lý riêng được mô tả trong method <code>Execute</code> của một job hiện thực <code>IJob</code>. Bằng cách gắn thuộc tính <code>BurstCompile</code> cho job đã định nghĩa, job sẽ được Burst tối ưu.</p>
+<p>List 9.14 minh hoạ ví dụ <strong>bình phương từng phần tử</strong> của mảng đầu vào và lưu vào mảng <code>Output</code>.</p>
+</div>
+<div class="col-en">
+<p>Burst uses a subset of C# called High Performance C# (HPC#) to write code.</p>
+<p>One of the features of HPC# is that C# reference types, such as classes and arrays, are not available. Therefore, as a rule, data structures are described using structures.</p>
+<p>For collections such as arrays, use NativeContainer such as NativeArray&lt;T&gt; instead.</p>
+<p>Burst is used in conjunction with the C# Job System. Therefore, its own processing is described in the Execute method of a job that implements IJob. By giving the BurstCompile attribute to the defined job, the job will be optimized by Burst.</p>
+<p>List 9.14 shows an example of squaring each element of a given array and storing it in the Output array.</p>
+</div>
+</div>
+
+▼ **List 9.14** — Hiện thực Job để kiểm chứng đơn giản / *Job implementation for a simple validation*
+
+```csharp
+[BurstCompile]                       // ✅ Kích hoạt tối ưu Burst cho job này
+private struct MyJob : IJob
+{
+    [ReadOnly]
+    public NativeArray<float> Input;   // NativeContainer thay cho mảng managed
+
+    [WriteOnly]
+    public NativeArray<float> Output;
+
+    public void Execute()
+    {
+        for (int i = 0; i < Input.Length; i++)
+        {
+            Output[i] = Input[i] * Input[i];   // ← dòng 14: được vector hoá thành SIMD
+        }
+    }
+}
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Mỗi phần tử ở <strong>dòng 14</strong> của job có thể được tính <strong>độc lập</strong> (không có phụ thuộc thứ tự trong phép tính), và vì <strong>bố cục bộ nhớ của mảng output là liên tục</strong>, chúng có thể được tính <strong>gộp lại cùng nhau</strong> bằng chỉ thị SIMD.</p>
+<p>Bạn có thể xem code sẽ được chuyển thành assembly loại nào bằng <strong>Burst Inspector</strong>.</p>
+</div>
+<div class="col-en">
+<p>Each element in line 14 of the job can be computed independently (there is no order dependence in the computation), and since the memory alignment of the output array is continuous, they can be computed together using the SIMD instruction.</p>
+<p>You can see what kind of assembly the code will be converted to using Burst Inspector.</p>
+</div>
+</div>
+
+<img src="../assets/cb-burst-inspector.png" alt="Cửa sổ Burst Inspector hiển thị assembly ARMV8A_AARCH64">
+
+<p><em>VI: Hình 9.2 — Burst Inspector với target <code>ARMV8A_AARCH64</code>. Dòng <code>Output[i] = Input[i] * Input[i];</code> được biên dịch thành cặp lệnh <code>fmul v0.4s, v0.4s, v0.4s</code> — hậu tố <strong><code>.4s</code></strong> xác nhận đang dùng SIMD (4 số float xử lý cùng lúc). / EN: Figure 9.2 — Using the Burst Inspector, you can check what kind of assembly the code will be converted to.</em></p>
+
+▼ **List 9.15** — Assembly ARMV8A_AARCH64 của dòng 14 / *Line 14 of the assembly for ARMV8A_AARCH64*
+
+```asm
+fmul         v0.4s, v0.4s, v0.4s
+fmul         v1.4s, v1.4s, v1.4s
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Việc toán hạng của assembly có <strong>hậu tố <code>.4s</code></strong> xác nhận rằng <strong>chỉ thị SIMD đang được sử dụng</strong>.</p>
+<p>Hiệu năng của code viết bằng pure C# và code tối ưu bằng Burst được so sánh trên <strong>thiết bị thật</strong>: <strong>Android Pixel 4a</strong>, build IL2CPP làm script backend. Kích thước mảng là <strong>2^20 = 1.048.576</strong>. Cùng tiến trình lặp lại <strong>10 lần</strong> và lấy thời gian xử lý trung bình.</p>
+</div>
+<div class="col-en">
+<p>The fact that the operand of the assembly is suffixed with .4s confirms that the SIMD instruction is used.</p>
+<p>The performance of the code implemented with pure C# and the code optimized with Burst are compared on a real device. The actual devices are Android Pixel 4a and IL2CPP built with a script backend for comparison. The array size is 2^20 = 1,048,576. The same process was repeated 10 times and the average processing time was taken.</p>
+</div>
+</div>
+
+▼ **Table 9.1** — So sánh thời gian xử lý pure C# vs Burst
+
+| Method / Phương pháp | Processing time / Thời gian xử lý |
+|---|---|
+| Pure C# implementation (hiện thực C# thuần) | **5,73 ms** |
+| Implementation with Burst (hiện thực có Burst) | **0,98 ms** |
+
+!!! success "Kết quả"
+    Chúng tôi quan sát được mức **tăng tốc khoảng 5,8 LẦN** so với hiện thực pure C#.
+    *"We observed a speedup of about 5.8 times compared to the pure C# implementation."*
+
+---
+
+## 33. 💀 GC.Alloc — mổ xẻ các trường hợp điển hình
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Chương này chủ yếu giới thiệu các thực hành performance tuning cho code C# kèm ví dụ. Cú pháp C# cơ bản <strong>không</strong> được đề cập ở đây, mà tập trung vào <strong>thiết kế và hiện thực bạn phải ý thức</strong> khi phát triển game đòi hỏi hiệu năng.</p>
+</div>
+<div class="col-en">
+<p>This chapter mainly introduces performance tuning practices for C# code with examples. Basic C# notation is not covered here, but rather the design and implementation that you should be aware of when developing games that require performance.</p>
+</div>
+</div>
+
+### 33.1. `new` một reference type
+
+▼ **List 10.1** — Code GC.Alloc mỗi frame / *Code that GC.Alloc every frame*
+
+```csharp
+private void Update()
+{
+    const int listCapacity = 100;
+    // GC.Alloc in new of List<int>.
+    var list = new List<int>(listCapacity);          // ❌ Cấp phát heap MỖI FRAME
+    for (var index = 0; index < listCapacity; index++)
+    {
+        // Pack index into list, though it doesn't make any sense in particular
+        list.Add(index);
+    }
+    // Randomly take a value from the list
+    var random = UnityEngine.Random.Range(0, listCapacity);
+    var randomValue = list[random];
+    // ... Do something with the random value ...
+}
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Vấn đề lớn của code này là <code>List&lt;int&gt;</code> được <code>new</code> <strong>trong method <code>Update</code> chạy mỗi frame</strong>.</p>
+<p>Để sửa, ta có thể tránh GC.Alloc mỗi frame bằng cách <strong>sinh sẵn <code>List&lt;int&gt;</code> từ trước</strong> và dùng đi dùng lại.</p>
+</div>
+<div class="col-en">
+<p>The major problem with this code is that List&lt;int&gt; is new in the Update method that is executed every frame.</p>
+<p>To fix this, it is possible to avoid GC.Alloc every frame by pre-generating List&lt;int&gt; and using it around.</p>
+</div>
+</div>
+
+▼ **List 10.2** — Code loại bỏ GC.Alloc mỗi frame / *Code that eliminates GC.Alloc in every frame*
+
+```csharp
+private static readonly int listCapacity = 100;
+// Generate a List in advance — ✅ sinh sẵn 1 lần
+private readonly List<int> _list = new List<int>(listCapacity);
+
+private void Update()
+{
+    _list.Clear();                                    // ✅ Tái sử dụng buffer, KHÔNG alloc
+    for (var index = 0; index < listCapacity; index++)
+    {
+        // Pack indexes into the list, though it doesn't make sense to do so
+        _list.Add(index);
+    }
+    // Randomly take a value from the list
+    var random = UnityEngine.Random.Range(0, listCapacity);
+    var randomValue = _list[random];
+    // ... Do something with the random values ...
+}
+```
+
+!!! info "💡 Nếu bạn mất dấu GC.Alloc — *If you lose GC.Alloc*"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p>Như bạn có thể đã nhận ra, với code mẫu List 10.2 ở trên thì <strong>tất cả những gì bạn cần làm</strong> chỉ là:</p>
+    </div>
+    <div class="col-en">
+    <p>As you may have noticed, the sample code from List 10.2 above is all you need to do.</p>
+    </div>
+    </div>
+
+    ```csharp
+    var randomValue = UnityEngine.Random.Range(0, listCapacity);
+    // ... Do something from a random value ...
+    ```
+
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p>Dù việc nghĩ cách loại bỏ GC.Alloc là quan trọng trong performance tuning, <strong>luôn nghĩ tới việc loại bỏ những phép tính vô nghĩa</strong> mới là bước đi hướng tới tăng tốc tiến trình.</p>
+    </div>
+    <div class="col-en">
+    <p>While it is important to think about eliminating GC.Alloc in performance tuning, always thinking about eliminating pointless calculations is a step toward speeding up the process.</p>
+    </div>
+    </div>
+
+### 33.2. 💀 Biểu thức Lambda (Lambda Expressions)
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Lambda cũng là tính năng hữu ích, nhưng <strong>việc dùng nó bị hạn chế trong game</strong> vì nó cũng có thể gây GC.Alloc tuỳ vào cách dùng. Ở đây ta giả định code sau đã được định nghĩa.</p>
+</div>
+<div class="col-en">
+<p>Lambda expressions are also a useful feature, but their use is limited in games because they too can cause GC.Alloc depending on how they are used. Here we assume that the following code is defined.</p>
+</div>
+</div>
+
+▼ **List 10.4** — Code giả định cho ví dụ lambda / *Assumed code for the lambda expression sample*
+
+```csharp
+// Member Variables
+private int _memberCount = 0;
+
+// static variables
+private static int _staticCount = 0;
+
+// member method
+private void IncrementMemberCount()
+{
+    _memberCount++;
+}
+
+// static method
+private static void IncrementStaticCount()
+{
+    _staticCount++;
+}
+
+// Member method that only invokes the received Action
+private void InvokeActionMethod(System.Action action)
+{
+    action.Invoke();
+}
+```
+
+▼ **List 10.5** — Trường hợp GC.Alloc do tham chiếu biến trong lambda / *Case of GC.Alloc by referencing a variable in a lambda expression*
+
+```csharp
+// When a member variable is referenced, Delegate Allocation occurs
+InvokeActionMethod(() => { _memberCount++; });      // ❌ Delegate Allocation
+
+// When a local variable is referenced, Closure Allocation occurs
+int count = 0;
+// The same Delegate Allocation as above also occurs
+InvokeActionMethod(() => { count++; });             // ❌ Closure + Delegate Allocation
+```
+
+▼ **List 10.6** — Trường hợp tham chiếu biến static → KHÔNG GC.Alloc
+
+```csharp
+// When a static variable is referenced, GC Alloc does not occur
+InvokeActionMethod(() => { _staticCount++; });      // ✅ Non-Alloc
+```
+
+▼ **List 10.7** — Trường hợp GC.Alloc khi tham chiếu method trong lambda
+
+```csharp
+// When a member method is referenced, Delegate Allocation occurs.
+InvokeActionMethod(() => { IncrementMemberCount(); });   // ❌ Delegate Allocation
+
+// If a member method is directly specified, Delegate Allocation occurs.
+InvokeActionMethod(IncrementMemberCount);                // ❌ Delegate Allocation
+
+// When a static method is directly specified, Delegate Allocation occurs
+InvokeActionMethod(IncrementStaticCount);                // ❌ Delegate Allocation
+```
+
+▼ **List 10.8** — Trường hợp tham chiếu method trong lambda mà KHÔNG GC.Alloc
+
+```csharp
+// Non Alloc when a static method is referenced in a lambda expression
+InvokeActionMethod(() => { IncrementStaticCount(); });   // ✅ Non-Alloc
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Theo cách này, <code>Action</code> chỉ được <code>new</code> ở <strong>lần đầu tiên</strong>, nhưng nó được <strong>cache nội bộ</strong> để tránh GC.Alloc từ lần thứ hai trở đi.</p>
+<p>⚠️ Tuy nhiên, <strong>biến mọi biến và method thành <code>static</code> không phải là lựa chọn dễ áp dụng</strong> xét về mặt an toàn và khả năng đọc của code. Trong code cần chạy nhanh, <strong>an toàn hơn là thiết kế KHÔNG dùng lambda</strong> cho các sự kiện bắn ra mỗi frame hoặc vào thời điểm bất định, thay vì lạm dụng <code>static</code> để triệt tiêu GC.Alloc.</p>
+</div>
+<div class="col-en">
+<p>In this way, the Action is new only the first time, but it is cached internally to avoid GC.Alloc from the second time onward.</p>
+<p>However, making all variables and methods static is not very adoptable in terms of code safety and readability. In code that needs to be fast, it is safer to design without using lambda expressions for events that fire at every frame or at indefinite times, rather than to use a lot of statics to eliminate GC.Alloc.</p>
+</div>
+</div>
+
+📊 **Bảng tổng kết GC.Alloc của lambda:**
+
+| Cách viết | Loại allocation | Kết quả |
+|---|---|---|
+| `() => { _memberCount++; }` (biến thành viên) | Delegate Allocation | ❌ Alloc |
+| `() => { count++; }` (biến cục bộ) | Closure + Delegate Allocation | ❌ Alloc (nặng nhất) |
+| `() => { _staticCount++; }` (biến static) | — | ✅ Non-Alloc |
+| `() => { IncrementMemberCount(); }` | Delegate Allocation | ❌ Alloc |
+| `InvokeActionMethod(IncrementMemberCount)` (method group) | Delegate Allocation | ❌ Alloc |
+| `InvokeActionMethod(IncrementStaticCount)` (method group static) | Delegate Allocation | ❌ Alloc |
+| `() => { IncrementStaticCount(); }` (gọi static dạng câu lệnh) | — | ✅ Non-Alloc |
+
+### 33.3. ⚠️ Generics và Boxing ngoài ý muốn
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Trong trường hợp dùng generics sau đây, điều gì có thể gây ra <strong>boxing</strong>?</p>
+</div>
+<div class="col-en">
+<p>In the following cases where generics are used, what could cause boxing?</p>
+</div>
+</div>
+
+▼ **List 10.9** — Ví dụ trường hợp có thể bị boxing khi dùng generics
+
+```csharp
+public readonly struct GenericStruct<T> : IEquatable<T>
+{
+    private readonly T _value;
+
+    public GenericStruct(T value)
+    {
+        _value = value;
+    }
+
+    public bool Equals(T other)
+    {
+        var result = _value.Equals(other);   // 💀 Có thể rơi xuống Object.Equals(object) → BOXING
+        return result;
+    }
+}
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Trong trường hợp này, lập trình viên đã hiện thực interface <code>IEquatable&lt;T&gt;</code> cho <code>GenericStruct</code>, nhưng <strong>quên đặt ràng buộc lên <code>T</code></strong>. Kết quả là một kiểu <strong>không</strong> hiện thực <code>IEquatable&lt;T&gt;</code> vẫn có thể được truyền vào <code>T</code>, và tồn tại trường hợp <code>Equals</code> dưới đây được dùng thông qua việc <strong>ép kiểu ngầm định sang <code>Object</code></strong>.</p>
+</div>
+<div class="col-en">
+<p>In this case, the programmer implemented the IEquatable&lt;T&gt; interface to GenericStruct, but forgot to place restrictions on T. As a result, a type that does not implement the IEquatable&lt;T&gt; interface can be specified for T, and there is a case where the following Equals is used by implicitly casting to the Object type.</p>
+</div>
+</div>
+
+▼ **List 10.10** — `Object.cs`
+
+```csharp
+public virtual bool Equals(object obj);   // 💀 Tham số là object → struct bị box
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Ví dụ, nếu một <code>struct</code> <strong>không</strong> hiện thực interface <code>IEquatable&lt;T&gt;</code> được truyền vào <code>T</code>, nó sẽ bị ép sang <code>object</code> ở đối số của <code>Equals</code>, <strong>gây ra boxing</strong>. Để ngăn chặn điều này từ trước, hãy sửa như sau.</p>
+</div>
+<div class="col-en">
+<p>For example, if struct, which does not implement the IEquatable&lt;T&gt; interface, is specified to T, it will be cast to object with the argument Equals, resulting in boxing. To prevent this from happening in advance, change the following</p>
+</div>
+</div>
+
+▼ **List 10.11** — Ví dụ có ràng buộc để ngăn boxing / *Example with restrictions to prevent boxing*
+
+```csharp
+public readonly struct GenericOnlyStruct<T> : IEquatable<T>
+    where T : IEquatable<T>              // ✅ Generic type constraint — chặn boxing từ gốc
+{
+    private readonly T _value;
+
+    public GenericOnlyStruct(T value)
+    {
+        _value = value;
+    }
+
+    public bool Equals(T other)
+    {
+        var result = _value.Equals(other);
+        return result;
+    }
+}
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Bằng cách dùng mệnh đề <code>where</code> (<strong>generic type constraint</strong>) để hạn chế các kiểu mà <code>T</code> có thể nhận, chỉ cho phép những kiểu hiện thực <code>IEquatable&lt;T&gt;</code>, có thể <strong>ngăn chặn boxing ngoài ý muốn</strong>.</p>
+</div>
+<div class="col-en">
+<p>By using the where clause (generic type constraint) to restrict the types that T can accept to those that implement IEquatable&lt;T&gt;, such unexpected boxing can be prevented.</p>
+</div>
+</div>
+
+### 33.4. 🎯 Đừng bao giờ đánh mất mục tiêu ban đầu
+
+!!! warning "Never lose sight of the original purpose"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p>Có rất nhiều trường hợp <code>struct</code> được chọn vì <strong>ý định tránh GC.Alloc lúc runtime</strong> trong game. Tuy nhiên, <strong>không phải lúc nào cũng có thể tăng tốc bằng cách biến mọi thứ thành struct</strong> để giảm GC.Alloc.</p>
+    <p>💀 Một trong những thất bại phổ biến nhất là: khi dùng struct để tránh GC.Alloc, chi phí liên quan tới GC <strong>giảm đúng như kỳ vọng</strong>, nhưng <strong>kích thước dữ liệu quá lớn khiến việc COPY value type trở nên đắt đỏ</strong>, dẫn tới xử lý kém hiệu quả.</p>
+    <p>Để tránh, cũng có phương pháp giảm chi phí copy bằng cách <strong>truyền tham chiếu (pass-by-reference)</strong> cho đối số method. Dù điều này có thể tăng tốc, trong trường hợp này bạn <strong>nên cân nhắc chọn class ngay từ đầu</strong> và hiện thực theo hướng <strong>sinh sẵn instance rồi dùng đi dùng lại</strong>.</p>
+    <p>🔑 <strong>Hãy nhớ rằng mục tiêu tối thượng KHÔNG PHẢI là tiêu diệt GC.Alloc, mà là GIẢM THỜI GIAN XỬ LÝ MỖI FRAME.</strong></p>
+    </div>
+    <div class="col-en">
+    <p>There are many cases where the structure is chosen because the intention is to avoid GC.Alloc during runtime in games. However, it is not always possible to speed up the process by making everything a structure in order to reduce GC.Alloc.</p>
+    <p>One of the most common failures is that when structs are used to avoid GC.Alloc, the cost related to GC is reduced as expected, but the data size is so large that copying the value type becomes expensive, resulting in inefficient processing.</p>
+    <p>To avoid this, there are also methods that reduce copying costs by using pass-by-reference for method arguments. Although this may result in a speed-up, in this case, you should consider selecting a class from the beginning and implementing it in such a way that instances are pre-generated and used around.</p>
+    <p>Remember that the ultimate goal is not to eradicate GC.Alloc, but to reduce the processing time per frame.</p>
+    </div>
+    </div>
+
+---
+
+## 34. 📊 `for` vs `foreach` — sự thật từ IL
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Vòng lặp trở nên tốn thời gian tuỳ theo số lượng dữ liệu. Ngoài ra, các vòng lặp <strong>thoạt nhìn có vẻ giống hệt nhau</strong> lại có thể <strong>khác nhau về hiệu quả</strong> tuỳ vào cách viết code.</p>
+<p>Hãy xem kết quả <strong>decompile code từ IL về C#</strong> bằng <strong>SharpLab</strong>, với <code>foreach</code>/<code>for</code> trên <code>List</code> và trên mảng, chỉ đơn giản lấy nội dung từng phần tử.</p>
+</div>
+<div class="col-en">
+<p>As introduced in "2.6 Algorithms and computational complexity", loops become time-consuming depending on the number of data. Also, loops, which at first glance appear to be the same process, can vary in efficiency depending on how the code is written.</p>
+<p>Let's take a look at the results of decompiling the code from IL to C# using SharpLab, using foreach/for List and just getting the contents of the array one by one.</p>
+</div>
+</div>
+
+▼ **List 10.12** — Ví dụ lặp List bằng foreach
+
+```csharp
+var list = new List<int>(128);
+foreach (var val in list)
+{
+}
+```
+
+▼ **List 10.13** — Kết quả decompile của ví dụ lặp List bằng foreach
+
+```csharp
+List<int>.Enumerator enumerator = new List<int>(128).GetEnumerator();
+try
+{
+    while (enumerator.MoveNext())      // ⚠️ MoveNext() có nhiều lần kiểm tra size
+    {
+        int current = enumerator.Current;   // ⚠️ Thêm 1 lần truy cập property
+    }
+}
+finally
+{
+    ((IDisposable)enumerator).Dispose();    // ⚠️ Thêm try/finally + Dispose
+}
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Với trường hợp lặp bằng <code>foreach</code>, bạn thấy hiện thực là: lấy enumerator, tiến tới bằng <code>MoveNext()</code>, và tham chiếu giá trị qua <code>Current</code>. Hơn nữa, nhìn vào hiện thực của <code>MoveNext()</code> trong <code>list.cs</code>, có vẻ <strong>số lần truy cập property khác nhau — như kiểm tra size — tăng lên</strong>, và tiến trình <strong>xảy ra nhiều hơn so với truy cập trực tiếp bằng indexer</strong>.</p>
+</div>
+<div class="col-en">
+<p>In the case of turning with foreach, you can see that the implementation is to get the enumerator, move on with MoveNext(), and refer to the value with Current. Furthermore, looking at the implementation of MoveNext() in list.cs, it appears that the number of various property accesses, such as size checks, are increased, and that processing is more frequent than direct access by the indexer.</p>
+</div>
+</div>
+
+▼ **List 10.14** — Ví dụ lặp List bằng for
+
+```csharp
+var list = new List<int>(128);
+for (var i = 0; i < list.Count; i++)   // ⚠️ list.Count được truy cập MỖI VÒNG LẶP
+{
+    var val = list[i];
+}
+```
+
+▼ **List 10.15** — Kết quả decompile khi lặp List bằng for
+
+```csharp
+List<int> list = new List<int>(128);
+int num = 0;
+while (num < list.Count)      // ⚠️ Truy cập property Count tại MỖI lần lặp
+{
+    int num2 = list[num];
+    num++;
+}
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Trong C#, câu lệnh <code>for</code> là <strong>cú pháp đường (syntactic sugar)</strong> của câu lệnh <code>while</code>, và giá trị được lấy qua <strong>indexer</strong> (<code>public T this[int index]</code>).</p>
+<p>Nhìn kỹ câu lệnh <code>while</code> này, bạn sẽ thấy <strong>biểu thức điều kiện chứa <code>list.Count</code></strong>. Điều đó nghĩa là <strong>việc truy cập property <code>Count</code> được thực hiện tại MỖI lần lặp</strong>. Càng nhiều lần truy cập property <code>Count</code>, số lần truy cập càng tăng <strong>tỉ lệ thuận</strong>, và tuỳ số lần truy cập, tải trọng trở nên <strong>không thể bỏ qua</strong>.</p>
+<p>✅ Nếu <code>Count</code> không thay đổi bên trong vòng lặp, hãy <strong>cache nó trước vòng lặp</strong> để giảm tải truy cập property.</p>
+</div>
+<div class="col-en">
+<p>In C#, the for statement is a sugar-coated syntax for the while statement, and the indexer (public T this[int index]), and is obtained by reference by the indexer. Also, if you look closely at this while statement, you will see that the conditional expression contains list.Count. This means that the access to the Count property is performed each time the loop is repeated. The more the number of Count accesses to the property, the more the number of accesses to the property increases proportionally, and depending on the number of accesses, the load becomes non-negligible. If Count does not change within the loop, then the load on property accesses can be reduced by caching them before the loop.</p>
+</div>
+</div>
+
+▼ **List 10.16** — Lặp List bằng for: bản cải tiến
+
+```csharp
+var count = list.Count;              // ✅ Cache Count TRƯỚC vòng lặp
+for (var i = 0; i < count; i++)
+{
+    var val = list[i];
+}
+```
+
+▼ **List 10.17** — Kết quả decompile bản cải tiến
+
+```csharp
+List<int> list = new List<int>(128);
+int count = list.Count;
+int num = 0;
+while (num < count)          // ✅ So sánh với biến local, không truy cập property
+{
+    int num2 = list[num];
+    num++;
+}
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Cache <code>Count</code> đã giảm số lần truy cập property và làm nó nhanh hơn. Cả hai phép so sánh trong vòng lặp này <strong>đều không bị tải bởi GC.Alloc</strong> — khác biệt hoàn toàn đến từ <strong>sự khác nhau trong hiện thực</strong>.</p>
+<p>Với <strong>mảng</strong>, <code>foreach</code> <strong>cũng đã được tối ưu</strong> và gần như không khác gì so với <code>for</code>.</p>
+</div>
+<div class="col-en">
+<p>Caching Count reduced the number of property accesses and made it faster. Both of the comparisons in this loop are not loaded by GC.Alloc, and the difference is due to the difference in implementation.</p>
+<p>In the case of arrays, foreach has also been optimized and is almost unchanged from that described in for.</p>
+</div>
+</div>
+
+▼ **List 10.18 / 10.19** — Lặp mảng bằng foreach và kết quả decompile
+
+```csharp
+// List 10.18 — code gốc
+var array = new int[128];
+foreach (var val in array)
+{
+}
+```
+
+```csharp
+// List 10.19 — kết quả decompile: KHÔNG có enumerator, KHÔNG try/finally!
+int[] array = new int[128];
+int num = 0;
+while (num < array.Length)
+{
+    int num2 = array[num];
+    num++;
+}
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Để kiểm chứng, số lượng dữ liệu là <strong>10.000.000</strong> và các số ngẫu nhiên được gán trước. Tổng dữ liệu được tính. Môi trường kiểm chứng là <strong>Pixel 3a</strong> và <strong>Unity 2021.3.1f1</strong>.</p>
+</div>
+<div class="col-en">
+<p>For the purpose of verification, the number of data is 10,000,000 and random numbers are assigned in advance. List&lt;int&gt; The sum of the data is calculated. The verification environment was Pixel 3a and Unity 2021.3.1f1.</p>
+</div>
+</div>
+
+▼ **Table 10.1** — Kết quả đo cho từng cách viết
+
+| Type / Cách viết | Time (ms) |
+|---|---|
+| `List` : foreach | **66,43** |
+| `List` : for | **62,49** |
+| `List` : for (Count cache) | **55,11** |
+| `Array` : for | **30,53** |
+| `Array` : foreach | **23,75** ⭐ nhanh nhất |
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Với <code>List&lt;int&gt;</code>, so sánh với tập điều kiện chi tiết hơn cho thấy <code>for</code> và <code>for</code> có tối ưu <code>Count</code> <strong>đều nhanh hơn <code>foreach</code></strong>. <code>foreach</code> của <code>List</code> có thể được viết lại thành <code>for</code> với tối ưu <code>Count</code> để giảm overhead của <code>MoveNext()</code> và property <code>Current</code>, do đó nhanh hơn.</p>
+<p>🚨 Ngoài ra, khi so sánh tốc độ nhanh nhất của mỗi bên, <strong>mảng nhanh hơn <code>List</code> khoảng 2,3 LẦN</strong>. Ngay cả khi <code>foreach</code> và <code>for</code> được viết ra cùng kết quả IL, <strong><code>foreach</code> lại là kết quả nhanh hơn</strong>, và <code>foreach</code> của mảng đã <strong>được tối ưu đầy đủ</strong>.</p>
+<p>✅ Dựa trên kết quả trên, <strong>nên cân nhắc dùng mảng thay cho <code>List&lt;T&gt;</code></strong> trong các tình huống số lượng dữ liệu lớn và tốc độ xử lý phải nhanh.</p>
+<p>⚠️ Tuy nhiên, nếu việc viết lại <strong>chưa đủ</strong> — chẳng hạn khi <code>List</code> được khai báo ở field mà được tham chiếu <strong>không qua cache cục bộ</strong> — thì có thể <strong>không tăng tốc được</strong>.</p>
+</div>
+<div class="col-en">
+<p>In the case of List&lt;int&gt;, a comparison with a finer set of conditions shows that for and for with Count optimizations are even faster than foreach. List The foreach of can be rewritten to for with Count optimization to reduce the overhead of the MoveNext() and Current properties in the processing of foreach, thus making it faster.</p>
+<p>In addition, when comparing the respective fastest speeds of List and arrays, arrays are approximately 2.3 times faster than List. Even if foreach and for are written to have the same IL result, foreach is the faster result, and array's foreach is sufficiently optimized.</p>
+<p>Based on the above results, arrays should be considered instead of List&lt;T&gt; for situations where the number of data is large and processing speed must be fast.</p>
+<p>However, if the rewriting is insufficient, such as when List defined in a field is referenced without local caching, it may not be possible to speed up the process.</p>
+</div>
+</div>
+
+---
+
+## 35. ♻️ Object Pooling
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Như đã đề cập ở nhiều nơi, trong phát triển game điều quan trọng là <strong>sinh sẵn object và dùng đi dùng lại</strong> thay vì sinh động lúc runtime. Điều này gọi là <strong>object pooling</strong>.</p>
+<p>Ví dụ, các object sẽ được dùng trong <strong>phase game</strong> có thể được pool sẵn ở <strong>phase load</strong>, và khi dùng thì chỉ việc <strong>gán và tham chiếu</strong> tới object đã pool, nhờ đó <strong>tránh được GC.Alloc trong phase game</strong>.</p>
+<p>Ngoài việc giảm allocation, object pooling còn dùng được trong nhiều tình huống khác:</p>
+<ul>
+<li>Cho phép <strong>chuyển màn hình mà không phải tạo lại</strong> các object cấu thành màn hình mỗi lần.</li>
+<li><strong>Giảm thời gian load</strong>.</li>
+<li><strong>Tránh lặp lại các phép tính nặng</strong> bằng cách giữ lại kết quả của các tiến trình có chi phí tính toán rất cao.</li>
+</ul>
+<p>💡 Dù thuật ngữ "object" ở đây được dùng theo nghĩa rộng, nó áp dụng <strong>không chỉ cho đơn vị dữ liệu nhỏ nhất</strong>, mà cả <strong><code>Coroutine</code> và <code>Action</code></strong>.</p>
+<p>Ví dụ: hãy cân nhắc sinh sẵn nhiều <code>Coroutine</code> hơn số lần thực thi dự kiến, và dùng dần khi cần. Nếu một game mất <strong>2 phút</strong> để hoàn thành sẽ chạy tối đa <strong>20 lần</strong>, bạn có thể giảm chi phí sinh bằng cách <strong>tạo sẵn <code>IEnumerator</code></strong> và chỉ dùng <code>StartCoroutine</code> khi cần.</p>
+</div>
+<div class="col-en">
+<p>As we have mentioned in many places, it is important in game development to pre-generate objects and use them around instead of dynamically generating them. This is called object pooling. For example, objects that are to be used in the game phase can be pooled together in the load phase and handled while only assigning and referencing the pooled objects when they are used, thereby avoiding GC.Alloc during the game phase.</p>
+<p>In addition to reducing allocations, object pooling can also be used in a variety of other situations, such as enabling screen transitions without having to recreate the objects that make up the screen each time, reducing load times, and avoiding multiple heavy calculations by retaining the results of processes with very high calculation costs.</p>
+<p>Although the term "object" is used here in a broad sense, it applies not only to the smallest unit of data, but also to Coroutine and Action. For example, consider generating Coroutine more than the expected number of executions in advance, and use it when necessary to exhaust it. For example, if a game that takes 2 minutes to complete will be executed a maximum of 20 times, you can reduce the cost of generating by generating IEnumerator in advance and only using StartCoroutine when you need to use it.</p>
+</div>
+</div>
+
+!!! tip "🔑 Tư duy cốt lõi"
+    Pool **không chỉ dành cho GameObject**. Hãy pool cả: `IEnumerator` (coroutine), `Action`/delegate, `StringBuilder`, mảng buffer, kết quả tính toán nặng, và cả các màn hình UI.
+
+---
+
+## 36. 🧵 `string` — kẻ sát nhân thầm lặng
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Object <code>string</code> là một tập hợp tuần tự các object <code>System.Char</code> biểu diễn chuỗi. <strong>GC.Alloc có thể xảy ra rất dễ dàng chỉ với một cách dùng <code>string</code></strong>.</p>
+<p>Ví dụ, nối hai chuỗi bằng toán tử <code>+</code> sẽ tạo ra <strong>một object <code>string</code> MỚI</strong>. Giá trị của <code>string</code> <strong>không thể thay đổi (immutable)</strong> sau khi được tạo, nên một thao tác <em>trông có vẻ</em> thay đổi giá trị thực chất <strong>tạo ra và trả về một object <code>string</code> mới</strong>.</p>
+</div>
+<div class="col-en">
+<p>The string object is a sequential collection of System.Char objects representing strings. string GC.Alloc can easily occur with one usage. For example, concatenating two strings using the character concatenation operator + will result in the creation of a new string object. string The value of cannot be changed (immutable) after it is created, so an operation that appears to change the value creates and returns a new string object.</p>
+</div>
+</div>
+
+▼ **List 10.20** — Khi dùng nối chuỗi để tạo string
+
+```csharp
+private string CreatePath()
+{
+    var path = "root";
+    path += "/";        // ❌ Tạo string mới
+    path += "Hoge";     // ❌ Tạo string mới
+    path += "/";        // ❌ Tạo string mới
+    path += "Fuga";     // ❌ Tạo string mới
+    return path;
+}
+// 💀 TỔNG CỘNG: 164 Byte allocation
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Trong ví dụ trên, một chuỗi được tạo ra <strong>với MỖI phép nối</strong>, dẫn tới tổng cộng <strong>164 Byte</strong> allocation.</p>
+<p>Khi chuỗi bị thay đổi thường xuyên, dùng <strong><code>StringBuilder</code></strong> — thứ có giá trị <strong>thay đổi được</strong> — có thể ngăn việc sinh hàng loạt object <code>string</code>. Bằng cách thực hiện các thao tác như nối/xoá ký tự trong object <code>StringBuilder</code> rồi cuối cùng mới trích giá trị ra bằng <code>ToString()</code>, memory allocation <strong>chỉ giới hạn ở thời điểm lấy giá trị</strong>.</p>
+<p>⚠️ Ngoài ra, khi dùng <code>StringBuilder</code>, <strong>hãy chắc chắn đặt <code>Capacity</code></strong>. Khi không chỉ định, giá trị mặc định là <strong>16</strong>, và khi buffer bị mở rộng bởi nhiều ký tự hơn (như qua <code>Append</code>), <strong>memory allocation và việc copy giá trị sẽ chạy</strong>. Hãy đặt <code>Capacity</code> phù hợp để không gây mở rộng ngoài ý muốn.</p>
+</div>
+<div class="col-en">
+<p>In the above example, a string is created with each string concatenation, resulting in a total of 164Byte allocation.</p>
+<p>When strings are frequently changed, the use of StringBuilder, whose value can be changed, can prevent the mass generation of string objects. By performing operations such as character concatenation and deletion in the StringBuilder object and finally extracting the value and ToString() it to the string object, the memory allocation can be limited to only the time of acquisition.</p>
+<p>Also, when using StringBuilder, be sure to set Capacity. When unspecified, the default value is 16, and when the buffer is extended with more characters, such as Append, memory allocation and value copying will run. Be sure to set an appropriate Capacity that will not cause inadvertent expansion.</p>
+</div>
+</div>
+
+▼ **List 10.21** — Khi tạo string bằng StringBuilder
+
+```csharp
+// ✅ Sinh sẵn 1 lần (tốn 112 Byte tại thời điểm tạo), có chỉ định Capacity
+private readonly StringBuilder _stringBuilder = new StringBuilder(16);
+
+private string CreatePathFromStringBuilder()
+{
+    _stringBuilder.Clear();
+    _stringBuilder.Append("root");
+    _stringBuilder.Append("/");
+    _stringBuilder.Append("Hoge");
+    _stringBuilder.Append("/");
+    _stringBuilder.Append("Fuga");
+    return _stringBuilder.ToString();   // ⚠️ Chỉ 50 Byte alloc TẠI ĐÂY
+}
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Trong ví dụ dùng <code>StringBuilder</code>, nếu <code>StringBuilder</code> được sinh sẵn từ trước (trong ví dụ trên, <strong>112 Byte</strong> allocation tại thời điểm sinh), thì từ đó về sau <strong>chỉ cần 50 Byte</strong> allocation — phát sinh tại <code>ToString()</code> khi chuỗi được lấy ra.</p>
+<p>🚨 Tuy nhiên, <strong><code>StringBuilder</code> CŨNG KHÔNG được khuyến nghị</strong> khi bạn muốn tránh GC.Alloc, vì allocation chỉ <em>ít có khả năng xảy ra hơn</em> trong lúc thao tác giá trị, và như đã nói, object <code>string</code> vẫn <strong>sẽ được sinh ra khi <code>ToString()</code> được thực thi</strong>.</p>
+<p>💀 Hơn nữa, vì cú pháp <code>$""</code> được chuyển thành <code>string.Format</code>, và hiện thực nội bộ của <code>string.Format</code> <strong>dùng <code>StringBuilder</code></strong>, nên <strong>chi phí của <code>ToString()</code> rốt cuộc là không thể tránh khỏi</strong>.</p>
+<p>✅ Việc dùng object pool ở mục trước <strong>cũng nên được áp dụng ở đây</strong>: các chuỗi có thể được dùng trước nên được <strong>sinh sẵn thành object <code>string</code></strong> và dùng lại.</p>
+<p>Tuy nhiên, có những lúc trong game bắt buộc phải thao tác chuỗi và tạo object <code>string</code>. Trong trường hợp đó, cần có <strong>buffer sinh sẵn cho chuỗi</strong> và mở rộng nó để dùng trực tiếp. Hãy cân nhắc tự viết code kiểu <code>unsafe</code>, hoặc giới thiệu một thư viện có extension cho Unity như <strong>ZString</strong> (ví dụ: khả năng áp dụng NonAlloc cho TextMeshPro).</p>
+</div>
+<div class="col-en">
+<p>In the example using StringBuilder, if StringBuilder is generated in advance (in the above example, 112Byte allocation is made at the time of generation), then from onward, only 50Byte allocation is needed which is taken at ToString() when the generated string is retrieved.</p>
+<p>However, StringBuilder is also not recommended for use when you want to avoid GC.Alloc, since allocation is only less likely to occur during value manipulation, and as mentioned above, string objects will be generated when ToString() is executed. Also, since the $"" syntax is converted to string.Format and the internal implementation of string.Format uses StringBuilder, the cost of ToString() is ultimately unavoidable.</p>
+<p>The use of objects in the previous section should be applied here as well, and strings that may be used in advance should be pre-generated string objects and used. However, there are times during the game when string manipulation and the creation of string objects must be performed. In such cases, it is necessary to have a pre-generated buffer for strings and extend it so that it can be used as is. Consider implementing your own code like unsafe or introducing a library with extensions for Unity like ZString (e.g. NonAlloc applicability to TextMeshPro).</p>
+</div>
+</div>
+
+📊 **So sánh allocation:**
+
+| Cách làm | Allocation |
+|---|---|
+| Nối chuỗi bằng `+=` (List 10.20) | **164 Byte** mỗi lần gọi |
+| `StringBuilder` sinh sẵn | **112 Byte** một lần (khi tạo) + **50 Byte** mỗi `ToString()` |
+| Chuỗi sinh sẵn / pooled | **0 Byte** ✅ |
+
+---
+
+## 37. 🐌 LINQ và Lazy Evaluation
+
+### 37.1. Giảm GC.Alloc khi dùng LINQ
+
+▼ **List 10.22** — Ví dụ GC.Alloc xảy ra
+
+```csharp
+var oneToTen = Enumerable.Range(1, 11).ToArray();
+var query = oneToTen.Where(i => i % 2 == 0).Select(i => i * i);   // ❌ GC.Alloc
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Lý do GC.Alloc xảy ra ở List 10.22 là do <strong>hiện thực nội bộ của LINQ</strong>. Ngoài ra, một số method LINQ <strong>được tối ưu theo kiểu của bên gọi</strong>, nên <strong>kích thước GC.Alloc thay đổi tuỳ theo kiểu của caller</strong>.</p>
+</div>
+<div class="col-en">
+<p>The reason why GC.Alloc occurs in List 10.22 is due to the internal implementation of LINQ. In addition, some LINQ methods are optimized for the caller's type, so the size of GC.Alloc changes depending on the caller's type.</p>
+</div>
+</div>
+
+▼ **List 10.23** — Kiểm chứng tốc độ thực thi theo từng kiểu
+
+```csharp
+private int[] array;
+private List<int> list;
+private IEnumerable<int> ienumerable;
+
+public void GlobalSetup()
+{
+    array       = Enumerable.Range(0, 1000).ToArray();
+    list        = Enumerable.Range(0, 1000).ToList();
+    ienumerable = Enumerable.Range(0, 1000);
+}
+
+public void RunAsArray()
+{
+    var query = array.Where(i => i % 2 == 0);
+    foreach (var i in query){}
+}
+
+public void RunAsList()
+{
+    var query = list.Where(i => i % 2 == 0);
+    foreach (var i in query){}
+}
+
+public void RunAsIEnumerable()
+{
+    var query = ienumerable.Where(i => i % 2 == 0);
+    foreach (var i in query){}
+}
+```
+
+<img src="../assets/cb-linq-benchmark-by-type.png" alt="Bảng benchmark LINQ theo kiểu: RunAsArray 4.210us/48B, RunAsList 4.942us/72B, RunAsIEnumerable 7.326us/96B">
+
+<p><em>VI: Hình 10.1 — Benchmark so sánh tốc độ theo kiểu. <code>RunAsArray</code> = <strong>4,210 µs / 48 B</strong>; <code>RunAsList</code> = <strong>4,942 µs / 72 B</strong> (ratio <strong>1,17</strong>); <code>RunAsIEnumerable</code> = <strong>7,326 µs / 96 B</strong> (ratio <strong>1,74</strong>). Cột <strong>Allocated</strong> tăng dần theo thứ tự <code>T[]</code> → <code>List&lt;T&gt;</code> → <code>IEnumerable&lt;T&gt;</code>. / EN: Figure 10.1 — Comparison of Execution Speed by Type.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Kết quả cho thấy <strong>kích thước heap allocation tăng theo thứ tự <code>T[]</code> → <code>List&lt;T&gt;</code> → <code>IEnumerable&lt;T&gt;</code></strong>.</p>
+<p>✅ Như vậy, khi dùng LINQ, kích thước GC.Alloc có thể được giảm bằng cách <strong>ý thức về kiểu tại runtime</strong>.</p>
+</div>
+<div class="col-en">
+<p>The results show that the size of heap allocations increases in the order T[] → List&lt;T&gt; → IEnumerable&lt;T&gt;. Thus, when using LINQ, the size of GC.Alloc can be reduced by being aware of the runtime type.</p>
+</div>
+</div>
+
+!!! info "Nguyên nhân GC.Alloc trong LINQ — *Causes of GC.Alloc in LINQ*"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p>Một phần nguyên nhân GC.Alloc khi dùng LINQ nằm ở <strong>hiện thực nội bộ</strong> của nó. Nhiều method LINQ <strong>nhận <code>IEnumerable&lt;T&gt;</code> và trả về <code>IEnumerable&lt;T&gt;</code></strong>, và thiết kế API này cho phép mô tả trực quan bằng <strong>method chain</strong>.</p>
+    <p>Thực thể <code>IEnumerable&lt;T&gt;</code> được method trả về là <strong>một instance của class riêng cho mỗi chức năng</strong>. LINQ <strong>tạo instance nội bộ</strong> của một class hiện thực <code>IEnumerable&lt;T&gt;</code>, và hơn nữa, <strong>GC.Alloc xảy ra nội bộ vì các lời gọi tới <code>GetEnumerator()</code></strong> được thực hiện để hiện thực hoá xử lý vòng lặp.</p>
+    </div>
+    <div class="col-en">
+    <p>Part of the cause of GC.Alloc with the use of LINQ is the internal implementation of LINQ. Many LINQ methods take IEnumerable&lt;T&gt; and return IEnumerable&lt;T&gt;, and this API design allows for intuitive description using method chains. The entity IEnumerable&lt;T&gt; returned by a method is an instance of the class for each function. LINQ internally instantiates a class that implements IEnumerable&lt;T&gt;, and furthermore, GC.Alloc occurs internally because calls to GetEnumerator() are made to realize loop processing, etc.</p>
+    </div>
+    </div>
+
+### 37.2. ⏱️ Lazy Evaluation của LINQ
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Các method LINQ như <code>Where</code> và <code>Select</code> là <strong>lazy evaluation</strong> — trì hoãn việc đánh giá cho tới khi kết quả thực sự cần. Ngược lại, các method như <code>ToArray</code> được định nghĩa là <strong>immediate evaluation</strong> (đánh giá ngay).</p>
+</div>
+<div class="col-en">
+<p>LINQ methods such as Where and Select are lazy evaluations that delay evaluation until the result is actually needed. On the other hand, methods such as ToArray are defined for immediate evaluation.</p>
+</div>
+</div>
+
+▼ **List 10.24** — Method đánh giá ngay xen vào giữa
+
+```csharp
+private static void LazyExpression()
+{
+    var array = Enumerable.Range(0, 5).ToArray();
+    var sw = Stopwatch.StartNew();
+    // 💀 ToArray() ở cuối = immediate evaluation → HeavyProcess chạy NGAY TẠI ĐÂY
+    var query = array.Where(i => i % 2 == 0).Select(HeavyProcess).ToArray();
+    Console.WriteLine($"Query: {sw.ElapsedMilliseconds}");
+
+    foreach (var i in query)
+    {
+        Console.WriteLine($"diff: {sw.ElapsedMilliseconds}");
+    }
+}
+
+private static int HeavyProcess(int x)
+{
+    Thread.Sleep(1000);   // Giả lập xử lý nặng 1 giây
+    return x;
+}
+```
+
+▼ **List 10.25** — Kết quả khi thêm method đánh giá ngay
+
+```text
+Query: 3013     ← 💀 Toàn bộ 3 giây bị "đóng băng" NGAY khi gán vào query
+diff: 3032
+diff: 3032
+diff: 3032
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Bằng cách thêm <code>ToArray</code> ở cuối — vốn là <strong>immediate evaluation</strong> — kết quả của việc thực thi <code>Where</code> hoặc <code>Select</code> và đánh giá giá trị <strong>được trả về ngay khi gán vào <code>query</code></strong>. Vì vậy, <code>HeavyProcess</code> cũng được gọi, và bạn thấy <strong>thời gian xử lý bị tiêu tốn tại thời điểm <code>query</code> được sinh ra</strong>.</p>
+<p>🚨 Như bạn thấy, <strong>các lời gọi ngoài ý muốn tới method immediate evaluation của LINQ có thể tạo thành bottleneck ngay tại điểm đó</strong>. Các method cần <strong>duyệt toàn bộ chuỗi một lượt</strong> như <code>ToArray</code>, <code>OrderBy</code>, <code>Count</code> đều là immediate evaluation — hãy ý thức về chi phí khi gọi chúng.</p>
+</div>
+<div class="col-en">
+<p>The result of the execution of List 10.25 is the result. By adding ToArray at the end, which is an immediate evaluation, the result of executing the method Where or Select and evaluating the value is returned when the assignment is made to query. Therefore, since HeavyProcess is also called, you can see that processing time is taken at the timing when query is generated.</p>
+<p>As you can see, unintentional calls to LINQ's immediate evaluation methods can result in bottlenecks at those points. ToArray Methods that require looking at the entire sequence once, such as OrderBy, Count, and, are immediate evaluation, so be aware of the cost when calling them.</p>
+</div>
+</div>
+
+### 37.3. 🚨 Lựa chọn "KHÔNG dùng LINQ"
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Tiền đề là <strong>LINQ là tính năng ngôn ngữ hữu ích</strong>, nhưng việc dùng nó <strong>làm xấu đi heap allocation và tốc độ thực thi</strong> so với khi không dùng.</p>
+<p>Trên thực tế, khuyến nghị hiệu năng Unity của <strong>Microsoft</strong> nêu rõ <strong>"Avoid use of LINQ"</strong> (Tránh dùng LINQ).</p>
+</div>
+<div class="col-en">
+<p>The premise is that LINQ is a useful language feature, but its use will worsen heap allocation and execution speed compared to when it is not used. In fact, Microsoft's Unity performance recommendations clearly state "Avoid use of LINQ."</p>
+</div>
+</div>
+
+▼ **List 10.26** — So sánh hiệu năng có và không có LINQ
+
+```csharp
+private int[] array;
+
+public void GlobalSetup()
+{
+    array = Enumerable.Range(0, 100_000_000).ToArray();   // 100 TRIỆU phần tử
+}
+
+public void Pure()
+{
+    foreach (var i in array)
+    {
+        if (i % 2 == 0)
+        {
+            var _ = i * i;
+        }
+    }
+}
+
+public void UseLinq()
+{
+    var query = array.Where(i => i % 2 == 0).Select(i => i * i);
+    foreach (var i in query)
+    {
+    }
+}
+```
+
+<img src="../assets/cb-linq-vs-pure-benchmark.png" alt="Bảng benchmark: Pure 26.06ms/26B vs UseLinq 514.55ms/920B, ratio 19.75">
+
+<p><em>VI: Hình 10.2 — Kết quả so sánh. <code>Pure</code> = <strong>26,06 ms</strong> / <strong>26 B</strong> (ratio 1,00). <code>UseLinq</code> = <strong>514,55 ms</strong> / <strong>920 B</strong> — <strong>ratio 19,75 LẦN chậm hơn</strong> và cấp phát gấp <strong>~35 lần</strong>. / EN: Figure 10.2 — Performance Comparison Results with and without LINQ.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>So sánh thời gian thực thi cho thấy <strong>tiến trình có LINQ mất thời gian gấp 19 LẦN</strong> so với tiến trình không LINQ.</p>
+<p>Dù kết quả trên cho thấy rõ việc dùng LINQ làm suy giảm hiệu năng, <strong>vẫn có những trường hợp ý đồ của code được truyền đạt dễ dàng hơn khi dùng LINQ</strong>. Sau khi hiểu rõ những hành vi này, <strong>có thể có chỗ để thảo luận trong nội bộ dự án</strong> về việc có dùng LINQ hay không, và nếu có thì <strong>quy tắc dùng LINQ là gì</strong>.</p>
+</div>
+<div class="col-en">
+<p>The comparison of execution times shows that the process with LINQ takes 19 times longer than the process without LINQ.</p>
+<p>While the above results clearly show that the use of LINQ deteriorates performance, there are cases where the coding intent is more easily conveyed by using LINQ. After understanding these behaviors, there may be room for discussion within the project as to whether to use LINQ or not, and if so, the rules for using LINQ.</p>
+</div>
+</div>
+
+---
+
+## 38. ⚙️ Tránh overhead của `async`/`await`
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><code>async</code>/<code>await</code> là tính năng ngôn ngữ được thêm vào <strong>C# 5.0</strong>, cho phép viết xử lý bất đồng bộ như một tiến trình đồng bộ đơn nhất, không cần callback.</p>
+</div>
+<div class="col-en">
+<p>Async/await is a language feature added in C# 5.0 that allows asynchronous processing to be written as a single synchronous process without callbacks.</p>
+</div>
+</div>
+
+### 38.1. Tránh `async` ở nơi không cần thiết
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Các method định nghĩa <code>async</code> sẽ khiến <strong>compiler sinh ra code</strong> để hiện thực xử lý bất đồng bộ. Và <strong>nếu có từ khoá <code>async</code>, việc sinh code bởi compiler LUÔN LUÔN được thực hiện</strong>.</p>
+<p>Do đó, ngay cả những method <strong>có thể hoàn thành đồng bộ</strong> như List 10.27 <strong>vẫn thực sự bị compiler sinh code</strong>.</p>
+</div>
+<div class="col-en">
+<p>Methods defined async will have code generated by the compiler to achieve asynchronous processing. And if the async keyword is present, code generation by the compiler is always performed. Therefore, even methods that may complete synchronously, such as List 10.27, are actually code generated by the compiler.</p>
+</div>
+</div>
+
+▼ **List 10.27** — Xử lý bất đồng bộ có thể hoàn thành đồng bộ
+
+```csharp
+using System;
+using System.Threading.Tasks;
+
+namespace A {
+    public class B {
+        public async Task HogeAsync(int i) {
+            if (i == 0) {
+                Console.WriteLine("i is 0");
+                return;                      // 💀 Nhánh này hoàn thành ĐỒNG BỘ
+            }                                //    nhưng state machine VẪN bị sinh ra
+            await Task.Delay(TimeSpan.FromSeconds(1));
+        }
+
+        public void Main() {
+            int i = int.Parse(Console.ReadLine());
+            Task.Run(() => HogeAsync(i));
+        }
+    }
+}
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Trong trường hợp như List 10.27, chi phí sinh <strong>struct state machine hiện thực <code>IAsyncStateMachine</code></strong> — vốn không cần thiết khi hoàn thành đồng bộ — <strong>có thể được lược bỏ</strong> bằng cách <strong>tách <code>HogeAsync</code></strong> ra và hiện thực như List 10.28.</p>
+</div>
+<div class="col-en">
+<p>In cases such as List 10.27, the cost of generating a state machine structure for IAsyncStateMachine implementation, which is unnecessary in the case of synchronous completion, can be omitted by splitting HogeAsync, which may be completed synchronously, and implementing it as List 10.28.</p>
+</div>
+</div>
+
+▼ **List 10.28** — Hiện thực tách rời phần đồng bộ và bất đồng bộ
+
+```csharp
+using System;
+using System.Threading.Tasks;
+
+namespace A {
+    public class B {
+        public async Task HogeAsync(int i) {
+            await Task.Delay(TimeSpan.FromSeconds(1));   // ✅ Chỉ còn phần THỰC SỰ async
+        }
+
+        public void Main() {
+            int i = int.Parse(Console.ReadLine());
+            if (i == 0) {
+                Console.WriteLine("i is 0");             // ✅ Nhánh đồng bộ tách ra ngoài
+            } else {
+                Task.Run(() => HogeAsync(i));
+            }
+        }
+    }
+}
+```
+
+!!! info "Cơ chế hoạt động của async/await — *How async/await works*"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p>Cú pháp <code>async</code>/<code>await</code> được hiện thực bằng <strong>code generation của compiler tại thời điểm biên dịch</strong>. Các method có từ khoá <code>async</code> sẽ được <strong>thêm một tiến trình sinh struct hiện thực <code>IAsyncStateMachine</code></strong> lúc compile, và chức năng <code>async</code>/<code>await</code> được hiện thực bằng cách <strong>quản lý một state machine tiến trạng thái</strong> khi tiến trình được <code>await</code> hoàn thành.</p>
+    <p><code>IAsyncStateMachine</code> là interface được định nghĩa trong namespace <code>System.Runtime.CompilerServices</code> và <strong>chỉ dành cho compiler</strong>.</p>
+    </div>
+    <div class="col-en">
+    <p>The async/await syntax is realized using compiler code generation at compile time. Methods with the async keyword add a process to generate a structure implementing IAsyncStateMachine at compile time, and the async/await function is realized by managing a state machine that advances state when the process to be awaited completes. Also, this IAsyncStateMachine is an interface defined in the System.Runtime.CompilerServices namespace and is available only to the compiler.</p>
+    </div>
+    </div>
+
+### 38.2. Tránh capture synchronization context
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Cơ chế để <strong>quay lại thread gọi</strong> từ xử lý bất đồng bộ đã được lưu sang thread khác chính là <strong>synchronization context</strong>, và context trước đó có thể được <strong>capture</strong> bằng <code>await</code>.</p>
+<p>🚨 Vì synchronization context này <strong>bị capture MỖI LẦN <code>await</code> được thực thi</strong>, nên có <strong>overhead cho từng <code>await</code></strong>.</p>
+<p>✅ Vì lý do này, <strong>UniTask</strong> — thư viện được dùng rộng rãi trong phát triển Unity — được hiện thực <strong>KHÔNG dùng <code>ExecutionContext</code> và <code>SynchronizationContext</code></strong> để tránh overhead của việc capture synchronization context. Riêng với Unity, việc hiện thực các thư viện như vậy có thể cải thiện hiệu năng.</p>
+</div>
+<div class="col-en">
+<p>The mechanism to return to the calling thread from asynchronous processing that has been saved to another thread is synchronous context, and the previous context can be captured by await. Since this synchronous context is captured each time await is executed, there is an overhead for each await. For this reason, UniTask, which is widely used in Unity development, is implemented without ExecutionContext and SynchronizationContext to avoid the overhead of synchronous context capture. As far as Unity is concerned, implementing such libraries may improve performance.</p>
+</div>
+</div>
+
+---
+
+## 39. 📚 Tối ưu bằng `stackalloc`
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Cấp phát mảng dưới dạng <strong>biến cục bộ</strong> gây <strong>GC.Alloc mỗi lần</strong>, có thể dẫn tới <strong>spike</strong>. Ngoài ra, việc <strong>đọc/ghi vào vùng heap kém hiệu quả hơn một chút</strong> so với vùng stack.</p>
+<p>Vì vậy, trong C# có cú pháp <strong>chỉ dùng được trong <code>unsafe</code></strong> để cấp phát mảng <strong>trên stack</strong>. Thay vì dùng từ khoá <code>new</code>, mảng có thể được cấp phát trên stack bằng từ khoá <strong><code>stackalloc</code></strong>.</p>
+</div>
+<div class="col-en">
+<p>Allocating arrays as local variables causes GC.Alloc to occur each time, which can lead to spikes. In addition, reading and writing to the heap area is a little less efficient than to the stack area. Therefore, in C#, the unsafe code-only syntax for allocating arrays on the stack. Instead of using the new keyword, as in the following example, an array can be allocated on the stack using the stackalloc keyword.</p>
+</div>
+</div>
+
+▼ **List 10.29** — Cấp phát mảng trên stack bằng `stackalloc`
+
+```csharp
+// stackalloc is limited to unsafe
+unsafe
+{
+    // Allocating an array of ints on the stack
+    byte* buffer = stackalloc byte[BufferSize];   // ✅ 0 GC.Alloc
+}
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Từ <strong>C# 7.2</strong>, struct <strong><code>Span&lt;T&gt;</code></strong> có thể được dùng để cấp phát mảng trên stack <strong>MÀ KHÔNG CẦN <code>unsafe</code></strong>.</p>
+</div>
+<div class="col-en">
+<p>Since C# 7.2, the Span&lt;T&gt; structure can be used to allocate an array on the stack. The structure can now be used without unsafe stackalloc as shown in.</p>
+</div>
+</div>
+
+▼ **List 10.30** — Cấp phát mảng trên stack bằng struct `Span<T>`
+
+```csharp
+Span<byte> buffer = stackalloc byte[BufferSize];   // ✅ An toàn, không cần unsafe
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Với Unity, đây là <strong>tính năng chuẩn từ 2021.2</strong>. Với các phiên bản cũ hơn, <code>Span&lt;T&gt;</code> không tồn tại nên phải cài <strong><code>System.Memory.dll</code></strong>.</p>
+<p>⚠️ Mảng cấp phát bằng <code>stackalloc</code> <strong>CHỈ tồn tại trên stack</strong> và <strong>không thể được giữ trong field của class hay struct</strong>. Chúng phải được dùng như <strong>biến cục bộ</strong>.</p>
+<p>⚠️ Dù mảng được cấp phát trên stack, việc cấp phát mảng có <strong>số lượng phần tử lớn vẫn tốn một lượng thời gian xử lý nhất định</strong>. Nếu bạn muốn dùng mảng có nhiều phần tử ở những nơi cần tránh heap allocation — như trong vòng lặp update — <strong>tốt hơn là cấp phát mảng từ trước lúc khởi tạo</strong>, hoặc chuẩn bị một cấu trúc dữ liệu kiểu <strong>object pool</strong> và hiện thực theo cách <strong>cho mượn (rent) khi dùng</strong>.</p>
+</div>
+<div class="col-en">
+<p>For Unity, this is standard from 2021.2. For earlier versions, Span&lt;T&gt; does not exist, so System.Memory.dll must be installed.</p>
+<p>Arrays allocated with stackalloc are stack-only and cannot be held in class or structure fields. They must be used as local variables.</p>
+<p>Even though the array is allocated on the stack, it takes a certain amount of processing time to allocate an array with a large number of elements. If you want to use arrays with a large number of elements in places where heap allocation should be avoided, such as in an update loop, it is better to allocate the array in advance during initialization or to prepare a data structure like an object pool, and implement it in such a way that it can be rented out when used.</p>
+</div>
+</div>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🚨 Ngoài ra, hãy lưu ý rằng <strong>vùng stack được cấp phát bởi <code>stackalloc</code> KHÔNG được giải phóng cho tới khi hàm kết thúc</strong>.</p>
+<p>Ví dụ, code ở List 10.31 <strong>có thể gây Stack Overflow</strong> trong lúc lặp, vì <strong>TẤT CẢ các mảng cấp phát trong vòng lặp đều bị giữ lại</strong> và chỉ được giải phóng khi thoát khỏi method <code>Hoge</code>.</p>
+</div>
+<div class="col-en">
+<p>Also, note that the stack area allocated by stackalloc is not released until the function exits. For example, the code shown at List 10.31 may cause a Stack Overflow while looping, since all arrays allocated in the loop are retained and released when exiting the Hoge method.</p>
+</div>
+</div>
+
+▼ **List 10.31** — 💀 Cách dùng SAI gây Stack Overflow
+
+```csharp
+unsafe void Hoge()
+{
+    for (int i = 0; i < 10000; i++)
+    {
+        // 💀 Arrays are accumulated for the number of loops
+        //    10.000 × 10.000 byte = ~100 MB TRÊN STACK → STACK OVERFLOW
+        byte* buffer = stackalloc byte[10000];
+    }
+}
+```
+
+---
+
+## 40. 🔧 Tối ưu method invocation dưới IL2CPP bằng `sealed`
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Khi build với <strong>IL2CPP</strong> làm backend trong Unity, việc gọi method được thực hiện bằng cơ chế <strong>giống vtable của C++</strong> để hiện thực hoá lời gọi virtual method của class.</p>
+<p>Cụ thể, với <strong>mỗi định nghĩa lời gọi method của một class</strong>, code như List 10.32 <strong>được sinh ra tự động</strong>.</p>
+</div>
+<div class="col-en">
+<p>When building with IL2CPP as a backend in Unity, method invocation is performed using a C++ vtable-like mechanism to achieve virtual method invocation of the class. Specifically, for each method call definition of a class, the code shown at List 10.32 is automatically generated.</p>
+</div>
+</div>
+
+▼ **List 10.32** — Code C++ cho lời gọi method do IL2CPP sinh ra
+
+```cpp
+struct VirtActionInvoker0
+{
+    typedef void (*Action)(void*, const RuntimeMethod*);
+
+    static inline void Invoke (
+        Il2CppMethodSlot slot, RuntimeObject* obj)
+    {
+        const VirtualInvokeData& invokeData =
+            il2cpp_codegen_get_virtual_invoke_data(slot, obj);   // ⚠️ Tra cứu vtable
+        ((Action)invokeData.methodPtr)(obj, invokeData.method);
+    }
+};
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🚨 Nó sinh ra code C++ tương tự <strong>KHÔNG CHỈ cho các virtual method</strong>, mà còn cho <strong>các method non-virtual không được kế thừa tại thời điểm compile</strong>. Hành vi tự động sinh này dẫn tới <strong>phình to kích thước code</strong> và <strong>tăng thời gian xử lý cho các lời gọi method</strong>.</p>
+<p>✅ Vấn đề này có thể được tránh bằng cách <strong>thêm modifier <code>sealed</code></strong> vào định nghĩa class.</p>
+</div>
+<div class="col-en">
+<p>It generates similar C++ code not only for virtual methods, but also for non-virtual methods that do not inherit at compile time. This auto-generated behavior leads to bloated code size and increased processing time for method calls. This problem can be avoided by adding the sealed modifier to the class definition.</p>
+</div>
+</div>
+
+▼ **List 10.33** — Định nghĩa class và gọi method KHÔNG có `sealed`
+
+```csharp
+public abstract class Animal
+{
+    public abstract string Speak();
+}
+
+public class Cow : Animal          // ❌ Không sealed
+{
+    public override string Speak() {
+        return "Moo";
+    }
+}
+
+var cow = new Cow();
+// Calling the Speak method
+Debug.LogFormat("The cow says '{0}'", cow.Speak());
+```
+
+▼ **List 10.34** — Code C++ tương ứng lời gọi method của List 10.33
+
+```cpp
+// var cow = new Cow();
+Cow_t1312235562 * L_14 =
+    (Cow_t1312235562 *)il2cpp_codegen_object_new(
+        Cow_t1312235562_il2cpp_TypeInfo_var);
+Cow__ctor_m2285919473(L_14, /* hidden argument*/NULL);
+V_4 = L_14;
+Cow_t1312235562 * L_16 = V_4;
+
+// cow.Speak()
+// 💀 Gọi qua VirtFuncInvoker0 DÙ ĐÂY KHÔNG PHẢI virtual call!
+String_t* L_17 = VirtFuncInvoker0< String_t* >::Invoke(
+    4 /* String AssemblyCSharp.Cow::Speak() */, L_16);
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>List 10.34 cho thấy <code>VirtFuncInvoker0&lt; String_t* &gt;::Invoke</code> <strong>vẫn được gọi dù đây không phải lời gọi virtual method</strong>, tức là <strong>một lời gọi method kiểu virtual đang được thực hiện</strong>.</p>
+<p>Ngược lại, định nghĩa class <code>Cow</code> với modifier <code>sealed</code> như List 10.35 sẽ sinh ra code C++ như List 10.36.</p>
+</div>
+<div class="col-en">
+<p>List 10.34 shows that VirtFuncInvoker0&lt; String_t* &gt;::Invoke is called even though it is not a virtual method call, and that a method call like a virtual method is made. On the other hand, defining the Cow class of List 10.33 with the sealed modifier as shown in List 10.35 generates C++ code like List 10.36.</p>
+</div>
+</div>
+
+▼ **List 10.35** — Định nghĩa class và gọi method CÓ `sealed`
+
+```csharp
+public sealed class Cow : Animal       // ✅ sealed
+{
+    public override string Speak() {
+        return "Moo";
+    }
+}
+
+var cow = new Cow();
+// Calling the Speak method
+Debug.LogFormat("The cow says '{0}'", cow.Speak());
+```
+
+▼ **List 10.36** — Code C++ tương ứng lời gọi method của List 10.35
+
+```cpp
+// var cow = new Cow();
+Cow_t1312235562 * L_14 =
+    (Cow_t1312235562 *)il2cpp_codegen_object_new(
+        Cow_t1312235562_il2cpp_TypeInfo_var);
+Cow__ctor_m2285919473(L_14, /* hidden argument*/NULL);
+V_4 = L_14;
+Cow_t1312235562 * L_16 = V_4;
+
+// cow.Speak()
+// ✅ GỌI TRỰC TIẾP! Không qua vtable lookup
+String_t* L_17 = Cow_Speak_m1607867742(L_16, /* hidden argument*/NULL);
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Như vậy, ta thấy lời gọi method gọi thẳng <code>Cow_Speak_m1607867742</code> — tức <strong>gọi trực tiếp method</strong>.</p>
+<p>⚠️ Tuy nhiên, trong các bản Unity tương đối gần đây, Unity chính thức làm rõ rằng <strong>tối ưu như vậy đã được thực hiện TỰ ĐỘNG MỘT PHẦN</strong>. Nói cách khác, ngay cả khi bạn không chỉ định <code>sealed</code> tường minh, tối ưu đó <strong>có thể</strong> vẫn được thực hiện tự động.</p>
+<p>⚠️ Nhưng như đã đề cập trong forum <em>"[il2cpp] Is 'sealed' Not Worked As Said Anymore In Unity 2018.3?"</em>, hiện thực này <strong>chưa hoàn chỉnh tính đến tháng 4/2019</strong>.</p>
+<p>✅ Vì tình trạng hiện tại như vậy, <strong>nên kiểm tra code do IL2CPP sinh ra và quyết định việc đặt modifier <code>sealed</code> cho từng dự án</strong>. Để đảm bảo lời gọi method trực tiếp một cách chắc chắn hơn, và để đón đầu các tối ưu IL2CPP trong tương lai, việc <strong>đặt <code>sealed</code> như một dấu hiệu "có thể tối ưu"</strong> có thể là ý hay.</p>
+</div>
+<div class="col-en">
+<p>Thus, we can see that the method call calls Cow_Speak_m1607867742, which directly calls the method.</p>
+<p>However, in relatively recent Unity, the Unity official clarifies that such optimization is partially automatic. In other words, even if you do not explicitly specify sealed, it is possible that such optimization is done automatically. However, the "[il2cpp] Is 'sealed' Not Worked As Said Anymore In Unity 2018.3?" As mentioned in the forum, this implementation is not complete as of April 2019.</p>
+<p>Because of this current state of affairs, it would be a good idea to check the code generated by IL2CPP and decide on the setting of the sealed modifier for each project. For more reliable direct method calls, and in anticipation of future IL2CPP optimizations, it may be a good idea to set the sealed modifier as an optimizable mark.</p>
+</div>
+</div>
+
+---
+
+## 41. 🚀 Tối ưu bằng Inlining
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Lời gọi method <strong>có chi phí</strong>. Vì vậy, như một tối ưu chung — không chỉ cho C# mà cả các ngôn ngữ khác — các lời gọi method <strong>tương đối nhỏ</strong> được compiler tối ưu bằng <strong>inlining</strong>.</p>
+</div>
+<div class="col-en">
+<p>Method calls have some cost. Therefore, as a general optimization, not only for C# but also for other languages, relatively small method calls are optimized by compilers through inlining.</p>
+</div>
+</div>
+
+▼ **List 10.37 / 10.38** — Code trước và sau inlining
+
+```csharp
+// List 10.37 — TRƯỚC inlining
+int F(int a, int b, int c)
+{
+    var d = Add(a, b);      // ⚠️ 3 lời gọi method
+    var e = Add(b, c);
+    var f = Add(d, e);
+
+    return f;
+}
+
+int Add(int a, int b) => a + b;
+```
+
+```csharp
+// List 10.38 — SAU inlining: nội dung method được COPY & khai triển tại chỗ
+int F(int a, int b, int c)
+{
+    var d = a + b;          // ✅ 0 lời gọi method
+    var e = b + c;
+    var f = d + e;
+
+    return f;
+}
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Inlining được thực hiện bằng cách <strong>copy và khai triển nội dung bên trong method</strong>.</p>
+<p>🚨 Trong <strong>IL2CPP</strong>, <strong>không có tối ưu inlining cụ thể nào được thực hiện trong lúc sinh code</strong>.</p>
+<p>✅ Tuy nhiên, <strong>bắt đầu từ Unity 2020.2</strong>, bằng cách chỉ định thuộc tính <strong><code>MethodImpl</code></strong> cho method với tham số <strong><code>MethodOptions.AggressiveInlining</code></strong>, hàm tương ứng trong code C++ sinh ra <strong>sẽ được gắn specifier <code>inline</code></strong>. Nói cách khác, <strong>inlining ở mức code C++ giờ đây là khả thi</strong>.</p>
+</div>
+<div class="col-en">
+<p>Inlining is done by copying and expanding the contents within a method, such as List 10.38, and the call to the Add method within the Func method of List 10.37.</p>
+<p>In IL2CPP, no particular inlining optimization is performed during code generation. However, starting with Unity 2020.2, by specifying the MethodImpl attribute for a method and MethodOptions.AggressiveInlining for its parameter, the corresponding function in the generated C++ code will be given the inline specifier. In other words, inlining at the C++ code level is now possible.</p>
+</div>
+</div>
+
+```csharp
+// ✅ Cách dùng thực tế (Unity 2020.2+)
+using System.Runtime.CompilerServices;
+
+[MethodImpl(MethodImplOptions.AggressiveInlining)]
+public static float Dot(Vector3 a, Vector3 b)
+    => a.x * b.x + a.y * b.y + a.z * b.z;
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>💡 Ưu điểm của inlining là nó <strong>không chỉ giảm chi phí gọi method</strong>, mà còn <strong>tiết kiệm việc COPY các đối số</strong> được truyền vào lúc gọi.</p>
+<p>Ví dụ, các method tính toán nhận <strong>nhiều struct tương đối lớn</strong> làm đối số, như <code>Vector3</code> và <code>Matrix</code>. Nếu các struct được truyền nguyên vẹn làm đối số, chúng <strong>đều bị copy</strong> và truyền vào method theo kiểu <strong>pass-by-value</strong>. Nếu số lượng đối số và kích thước struct lớn, <strong>chi phí xử lý cho việc gọi method và copy đối số có thể rất đáng kể</strong>.</p>
+<p>Thêm nữa, các lời gọi method <strong>có thể trở thành gánh nặng không thể bỏ qua</strong> vì chúng thường được dùng trong xử lý định kỳ — như hiện thực physics và animation.</p>
+<p>Trong những trường hợp đó, <strong>tối ưu bằng inlining có thể rất hiệu quả</strong>. Thực tế, thư viện toán học mới của Unity — <strong><code>Unity.Mathematics</code></strong> — <strong>chỉ định <code>MethodOptions.AggressiveInlining</code> cho các lời gọi method ở khắp mọi nơi</strong>.</p>
+</div>
+<div class="col-en">
+<p>The advantage of inlining is that it not only reduces the cost of method calls, but also saves copying of arguments specified at the time of method invocation.</p>
+<p>For example, arithmetic methods take multiple relatively large structures as arguments, such as Vector3 and Matrix. If the structs are passed as arguments as they are, they are all copied and passed to the method as passed by value. If the number of arguments and the size of the passed structs are large, the processing cost may be considerable for method calls and argument copying. In addition, method calls may become a case that cannot be overlooked as a processing burden because they are often used in periodic processing, such as in the implementation of physical operations and animations.</p>
+<p>In such cases, optimization through inlining can be effective. In fact, Unity's new mathematics library Mathematics specifies MethodOptions.AggressiveInlining for method calls everywhere.</p>
+</div>
+</div>
+
+!!! warning "⚠️ Mặt trái của inlining"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p>Mặt khác, inlining có <strong>nhược điểm là kích thước code TĂNG LÊN</strong> cùng với việc khai triển tiến trình bên trong method.</p>
+    <p>Do đó, <strong>chỉ nên cân nhắc inlining cho các method được gọi thường xuyên trong một frame và nằm trên hot path</strong>. Cũng cần lưu ý rằng <strong>việc chỉ định thuộc tính KHÔNG phải lúc nào cũng dẫn tới inlining</strong>.</p>
+    <p>Inlining <strong>bị giới hạn cho các method có nội dung nhỏ</strong>, nên method bạn muốn inline <strong>phải được giữ nhỏ</strong>.</p>
+    <p>Ngoài ra, ở <strong>Unity 2020.2 trở về trước</strong>, specifier <code>inline</code> <strong>không</strong> được gắn theo thuộc tính, và <strong>không có gì đảm bảo inlining sẽ được thực hiện chắc chắn</strong> ngay cả khi specifier <code>inline</code> của C++ được chỉ định.</p>
+    <p>Vì vậy, nếu bạn muốn <strong>đảm bảo chắc chắn inlining</strong>, có thể cân nhắc <strong>inline THỦ CÔNG</strong> cho các method nằm trên hot path — dù nó sẽ làm giảm khả năng đọc code.</p>
+    </div>
+    <div class="col-en">
+    <p>On the other hand, inlining has the disadvantage that the code size increases with the expansion of the process within the method. Therefore, it is recommended to consider inlining especially for methods that are frequently called in a single frame and are hot-passed. It should also be noted that specifying an attribute does not always result in inlining. Inlining is limited to methods that are small in content, so methods that you want to inline must be kept small.</p>
+    <p>Also, in Unity 2020.2 and earlier, the inline specifier is not attached to attribute specifications, and there is no guarantee that inlining will be performed reliably even if the C++ inline specifier is specified. Therefore, if you want to ensure inlining, you may want to consider manual inlining for methods that are hotpaths, although it will reduce readability.</p>
+    </div>
+    </div>
+---
+
+# PHẦN E — PLAYER SETTINGS & THƯ VIỆN BÊN THỨ BA (Chương 11–12)
+
+---
+
+## 42. ⚙️ Tuning Practice — Player Settings
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Chương này giới thiệu các mục <strong>Player</strong> trong <strong>Project Settings</strong> có ảnh hưởng tới hiệu năng.</p>
+</div>
+<div class="col-en">
+<p>This chapter introduces the Player items in Project Settings that affect performance.</p>
+</div>
+</div>
+
+### 42.1. 🔑 Scripting Backend
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Unity cho phép bạn chọn giữa <strong>Mono</strong> và <strong>IL2CPP</strong> làm Scripting Backend trên các nền tảng như Android và Standalone (Windows, macOS, Linux).</p>
+<p>✅ <strong>Chúng tôi khuyến nghị chọn IL2CPP</strong> vì lợi ích hiệu năng như đã mô tả ở mục "IL2CPP" trong Chương 2 "Fundamentals".</p>
+</div>
+<div class="col-en">
+<p>Unity allows you to choose between Mono and IL2CPP as the Scripting Backend on platforms such as Android and Standalone (Windows, macOS, Linux). We recommend choosing IL2CPP because of the performance gains as described in "IL2CPP" of Chapter 2 "Fundamentals".</p>
+</div>
+</div>
+
+<img src="../assets/cb-scripting-backend-setting.png" alt="Player Settings với dropdown Scripting Backend chọn giữa Mono và IL2CPP">
+
+<p><em>VI: Hình 11.1 — Cấu hình <strong>Scripting Backend</strong> trong <code>Project Settings → Player → Configuration</code>. Dropdown cho phép chọn <strong>Mono</strong> hoặc <strong>IL2CPP</strong>. / EN: Figure 11.1 — Configuring Scripting Backend.</em></p>
+
+### 42.2. 🔧 C++ Compiler Configuration
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Ngoài ra, chuyển Scripting Backend sang <strong>IL2CPP</strong> cũng sẽ cho phép chọn <strong>C++ Compiler Configuration</strong>.</p>
+<p>Tại đây bạn có thể chọn giữa <strong>Debug</strong>, <strong>Release</strong> và <strong>Master</strong>; mỗi lựa chọn có <strong>đánh đổi giữa thời gian build và mức độ tối ưu</strong>, nên tốt nhất hãy dùng cái phù hợp nhất với mục tiêu build của bạn.</p>
+</div>
+<div class="col-en">
+<p>In addition, changing the Scripting Backend to IL2CPP will also change the C++ Compiler Configuration can be selected. Here you can choose between Debug, Release, and Master, each of which has a tradeoff between build time and degree of optimization, so it is best to use the one that best suits your build objectives.</p>
+</div>
+</div>
+
+<img src="../assets/cb-cpp-compiler-configuration.png" alt="Dropdown C++ Compiler Configuration với 3 lựa chọn Debug, Release, Master">
+
+<p><em>VI: Hình 11.2 — Thiết lập <strong>C++ Compiler Configuration</strong>: <code>Debug</code> / <code>Release</code> (mặc định) / <code>Master</code>. / EN: Figure 11.2 — Setting of C++ Compiler Configuration.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>11.1.1 Debug</strong> — Debug <strong>không cho hiệu năng tốt lúc runtime</strong> vì <strong>không có tối ưu nào được thực hiện</strong>, nhưng <strong>thời gian build ngắn nhất</strong> so với các thiết lập khác.</p>
+<p><strong>11.1.2 Release</strong> — Tối ưu giúp <strong>cải thiện hiệu năng runtime</strong> và <strong>giảm kích thước binary</strong> được build, nhưng <strong>tăng thời gian build</strong>.</p>
+<p><strong>11.1.3 Master</strong> — <strong>Tất cả các tối ưu khả dụng cho nền tảng đều được bật</strong>. Ví dụ, các bản build Windows sẽ dùng những tối ưu quyết liệt hơn như <strong>link-time code generation (LTCG)</strong>. Đổi lại, thời gian build <strong>còn dài hơn cả thiết lập Release</strong>. <strong>Unity khuyến nghị dùng thiết lập Master cho production build</strong> nếu điều này chấp nhận được.</p>
+</div>
+<div class="col-en">
+<p>Debug does not perform well at runtime because no optimization is performed, but build time is the shortest compared to the other settings.</p>
+<p>Release: Optimization improves run-time performance and reduces the size of built binaries, but increases build time.</p>
+<p>Master: All optimizations available for the platform are enabled. For example, Windows builds will use more aggressive optimizations such as link-time code generation (LTCG). In return, build times will be even longer than with the Release setting, but Unity recommends using the Master setting for production builds if this is acceptable.</p>
+</div>
+</div>
+
+📊 **Bảng so sánh 3 chế độ:**
+
+| Configuration | Tối ưu runtime | Thời gian build | Khuyến nghị dùng cho |
+|---|---|---|---|
+| **Debug** | ❌ Không có | ⭐ Ngắn nhất | Build lặp nhanh khi phát triển |
+| **Release** | ✅ Có (kèm giảm size binary) | ⚠️ Dài hơn | Build QA / kiểm thử hằng ngày |
+| **Master** | ✅✅ Toàn bộ (bao gồm **LTCG**) | 🚨 Dài nhất | **Production build** (Unity khuyến nghị) |
+
+### 42.3. ✂️ Strip Engine Code / Managed Stripping Level
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Strip Engine Code</strong> là tính năng của Unity, còn <strong>Managed Stripping Level</strong> hoạt động trên <strong>CIL bytecode</strong> sinh ra khi biên dịch C#; cả hai được kỳ vọng <strong>giảm kích thước binary</strong> được build bằng cách <strong>loại bỏ code không dùng tới</strong>.</p>
+<p>🚨 Tuy nhiên, vì việc xác định một đoạn code có được dùng hay không <strong>phụ thuộc mạnh vào phân tích tĩnh (static analysis)</strong>, nên các kiểu <strong>không được tham chiếu trực tiếp trong code</strong>, hoặc <strong>code được gọi động qua reflection</strong>, <strong>có thể bị loại bỏ NHẦM</strong>.</p>
+<p>✅ Trong trường hợp đó, hãy dùng file <strong><code>link.xml</code></strong> hoặc chỉ định thuộc tính <strong><code>Preserve</code></strong>.</p>
+</div>
+<div class="col-en">
+<p>Strip Engine Code is a Unity feature that allows you to set the Managed Stripping Level is from the CIL bytecode generated by compiling C#, and is expected to reduce the size of the built binary by removing unused code, respectively.</p>
+<p>However, since the determination of whether a given code is used relies strongly on static analysis, types that are not directly referenced in the code, or code that is dynamically called in reflection, may be mistakenly removed. In such cases, the link.xml file or by specifying the Preserve attribute.</p>
+</div>
+</div>
+
+```xml
+<!-- link.xml — giữ lại type/assembly khỏi bị strip nhầm -->
+<linker>
+  <assembly fullname="MyGame.Runtime" preserve="all"/>
+  <assembly fullname="Newtonsoft.Json">
+    <type fullname="Newtonsoft.Json.JsonConvert" preserve="all"/>
+  </assembly>
+</linker>
+```
+
+```csharp
+// Hoặc dùng thuộc tính Preserve ngay trong code
+[UnityEngine.Scripting.Preserve]
+public class ReflectionOnlyType { }
+```
+
+!!! danger "Bẫy kinh điển"
+    Bug do stripping thường **chỉ xuất hiện trên build thật, không bao giờ xuất hiện trong Editor** — vì Editor không strip code. Triệu chứng điển hình: `MissingMethodException` / `TypeLoadException` khi deserialize JSON hoặc gọi qua reflection.
+
+### 42.4. 📱 Accelerometer Frequency (iOS)
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Đây là thiết lập riêng cho iOS, cho phép thay đổi <strong>tần số lấy mẫu của cảm biến gia tốc</strong>.</p>
+<p>🚨 Thiết lập mặc định là <strong>60 Hz</strong>, vậy nên hãy đặt tần số cho phù hợp. <strong>Nếu bạn không dùng accelerometer, hãy chắc chắn TẮT thiết lập này.</strong></p>
+</div>
+<div class="col-en">
+<p>This is an iOS-specific setting that allows you to change the sampling frequency of the accelerometer. The default setting is 60 Hz, so set the frequency appropriately. If you are not using the accelerometer, be sure to disable the setting.</p>
+</div>
+</div>
+
+<img src="../assets/cb-accelerometer-frequency.png" alt="Dropdown Accelerometer Frequency với các lựa chọn Disabled, 15Hz, 30Hz, 60Hz, 100Hz">
+
+<p><em>VI: Hình 11.3 — Thiết lập tần số lấy mẫu. Các lựa chọn: <strong>Disabled</strong>, <strong>15 Hz</strong>, <strong>30 Hz</strong>, <strong>60 Hz</strong> (mặc định), <strong>100 Hz</strong>. / EN: Figure 11.3 — Sampling Frequency Setting.</em></p>
+
+---
+
+## 43. 🎬 DOTween
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Chương này giới thiệu một số điều cần lưu ý <strong>từ góc độ hiệu năng</strong> khi hiện thực các thư viện bên thứ ba thường dùng trong phát triển game Unity.</p>
+<p><strong>DOTween</strong> là thư viện cho phép script tạo ra các animation mượt mà. Ví dụ, một animation phóng to/thu nhỏ có thể được viết dễ dàng như code sau.</p>
+</div>
+<div class="col-en">
+<p>This chapter introduces some things to keep in mind from a performance perspective when implementing third-party libraries that are often used when developing games in Unity.</p>
+<p>DOTween is a library that allows scripts to create smooth animations. For example, an animation that zooms in and out can be easily written as the following code.</p>
+</div>
+</div>
+
+▼ **List 12.1** — Ví dụ dùng DOTween
+
+```csharp
+public class Example : MonoBehaviour {
+    public void Play() {
+        // ⚠️ Mỗi lần Play() → cấp phát Sequence + 2 Tweener MỚI
+        DOTween.Sequence()
+            .Append(transform.DOScale(Vector3.one * 1.5f, 0.25f))
+            .Append(transform.DOScale(Vector3.one, 0.125f));
+    }
+}
+```
+
+### 43.1. ♻️ `SetAutoKill` — tái sử dụng instance tween
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Vì tiến trình tạo tween — như <code>DOTween.Sequence()</code> hay <code>transform.DOScale(...)</code> — <strong>về cơ bản đều liên quan tới memory allocation</strong>, hãy cân nhắc <strong>tái sử dụng instance</strong> cho các animation được phát lại thường xuyên.</p>
+<p>Mặc định, <strong>tween bị tự động huỷ khi animation hoàn thành</strong>, nên <code>SetAutoKill(false)</code> sẽ <strong>chặn hành vi này</strong>.</p>
+</div>
+<div class="col-en">
+<p>Since the process of creating a tween, such as DOTween.Sequence() or transform.DOScale(...), basically involves memory allocation, consider reusing instances for animations that are frequently replayed. By default, the tween is automatically discarded when the animation completes, so SetAutoKill(false) suppresses this.</p>
+</div>
+</div>
+
+▼ **List 12.2** — Tái sử dụng instance tween
+
+```csharp
+private Tween _tween;
+
+private void Awake() {
+    _tween = DOTween.Sequence()
+        .Append(transform.DOScale(Vector3.one * 1.5f, 0.25f))
+        .Append(transform.DOScale(Vector3.one, 0.125f))
+        .SetAutoKill(false)     // ✅ Không tự huỷ khi hoàn thành → tái dùng được
+        .Pause();
+}
+
+public void Play() {
+    _tween.Restart();           // ✅ 0 allocation ở các lần phát sau
+}
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🚨 Lưu ý rằng <strong>một tween đã gọi <code>SetAutoKill(false)</code> SẼ RÒ RỈ nếu không được huỷ tường minh</strong>. Hãy gọi <code>Kill()</code> khi không còn cần, hoặc dùng <code>SetLink</code> được mô tả bên dưới.</p>
+</div>
+<div class="col-en">
+<p>Note that a tween that calls SetAutoKill(false) will leak if it is not explicitly destroyed. Call Kill() when it is no longer needed, or use the SetLink described below.</p>
+</div>
+</div>
+
+▼ **List 12.3** — Huỷ tween một cách tường minh
+
+```csharp
+private void OnDestroy() {
+    _tween.Kill();      // ✅ BẮT BUỘC khi đã SetAutoKill(false)
+}
+```
+
+### 43.2. 🔗 `SetLink` — buộc tween vào vòng đời GameObject
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Các tween gọi <code>SetAutoKill(false)</code>, hoặc được cho lặp vô hạn bằng <code>SetLoops(-1)</code>, sẽ <strong>không bị huỷ tự động</strong>, nên bạn phải <strong>tự quản lý vòng đời của chúng</strong>.</p>
+<p>✅ Khuyến nghị: buộc tween đó với một <code>GameObject</code> liên quan bằng <strong><code>SetLink(gameObject)</code></strong>, để khi <code>GameObject</code> bị <code>Destroy</code>, <strong>tween cũng bị huỷ theo</strong>.</p>
+</div>
+<div class="col-en">
+<p>Tweens that call SetAutoKill(false) or that are made to repeat indefinitely with SetLoops(-1) will not be automatically destroyed, so you will need to manage their lifetime on your own. It is recommended that such a tween be associated with an associated GameObject at SetLink(gameObject) so that when the GameObject is Destroyed, the tween is also destroyed.</p>
+</div>
+</div>
+
+▼ **List 12.4** — Buộc tween vào vòng đời của GameObject
+
+```csharp
+private void Awake() {
+    _tween = DOTween.Sequence()
+        .Append(transform.DOScale(Vector3.one * 1.5f, 0.25f))
+        .Append(transform.DOScale(Vector3.one, 0.125f))
+        .SetAutoKill(false)
+        .SetLink(gameObject)    // ✅ GameObject bị Destroy → tween tự Kill theo
+        .Pause();
+}
+```
+
+### 43.3. 🔍 DOTween Inspector
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Trong lúc playback ở Unity Editor, có một <code>GameObject</code> tên là <strong><code>[DOTween]</code></strong>. Bạn có thể <strong>kiểm tra trạng thái và thiết lập của DOTween từ Inspector</strong> bằng cách chọn GameObject này.</p>
+</div>
+<div class="col-en">
+<p>During playback in the Unity Editor, a GameObject named [DOTween] You can check the state and settings of the DOTween from the Inspector by selecting the GameObject named</p>
+</div>
+</div>
+
+<img src="../assets/cb-dotween-gameobject.png" alt="Hierarchy hiển thị GameObject [DOTween] dưới DontDestroyOnLoad">
+
+<p><em>VI: Hình 12.1 — GameObject <code>[DOTween]</code> nằm dưới <strong><code>DontDestroyOnLoad</code></strong> trong Hierarchy lúc chạy. / EN: Figure 12.1 — [DOTween] GameObject.</em></p>
+
+<img src="../assets/cb-dotween-inspector.png" alt="DOTween Inspector hiển thị Active tweens, Playing tweens, Paused tweens, Pooled tweens và các Settings">
+
+<p><em>VI: Hình 12.2 — DOTween Inspector: <strong>Active tweens: 2</strong>, <strong>Playing tweens: 1</strong>, <strong>Paused tweens: 1</strong>, <strong>Pooled tweens: 0</strong>, <strong>Tweens Capacity: 200 TW, 50 SE</strong>; phần SETTINGS/DEFAULTS cho biết <code>defaultAutoKill: True</code>, <code>defaultEaseType: OutQuad</code>. / EN: Figure 12.2 — DOTween Inspector.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>💡 Nó cũng hữu ích để <strong>phát hiện các tween object vẫn tiếp tục chạy dù GameObject liên quan đã bị huỷ</strong>, và <strong>các tween object đang ở trạng thái <code>Pause</code> và bị rò rỉ mà không được huỷ</strong>.</p>
+</div>
+<div class="col-en">
+<p>It is also useful to check for tween objects that continue to move even though their associated GameObjects have been discarded and for tween objects that are in a Pause state and leaking without being discarded.</p>
+</div>
+</div>
+
+---
+
+## 44. 🔄 UniRx
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>UniRx</strong> là thư viện hiện thực <strong>Reactive Extensions</strong> được tối ưu cho Unity. Với bộ operator và helper phong phú dành cho Unity, việc xử lý event với điều kiện phức tạp có thể được viết một cách ngắn gọn.</p>
+</div>
+<div class="col-en">
+<p>UniRx is a library implementing Reactive Extensions optimized for Unity. With a rich set of operators and helpers for Unity, event handling of complex conditions can be written in a concise manner.</p>
+</div>
+</div>
+
+### 44.1. 🚨 Unsubscribe — huỷ đăng ký
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>UniRx cho phép bạn <strong>subscribe</strong> vào <code>IObservable</code> — nơi phát stream — để nhận thông báo về các message của nó.</p>
+<p>Khi subscribe, <strong>các instance của object nhận thông báo, các callback xử lý message... đều được TẠO RA</strong>. Để tránh việc các instance này <strong>tồn tại trong bộ nhớ lâu hơn vòng đời của bên Subscribe</strong>, về cơ bản <strong>trách nhiệm của bên Subscribe là huỷ đăng ký</strong> khi không còn cần nhận thông báo.</p>
+<p>✅ Có nhiều cách để unsubscribe, nhưng <strong>xét về hiệu năng, tốt hơn là giữ lại giá trị trả về <code>IDisposable</code> của <code>Subscribe</code> và <code>Dispose</code> nó một cách tường minh</strong>.</p>
+</div>
+<div class="col-en">
+<p>UniRx allows you to subscribe (Subscribe) to the stream publisher IObservable to receive notifications of its messages.</p>
+<p>When subscribing, instances of objects to receive notifications, callbacks to process messages, etc. are created. To avoid these instances remaining in memory beyond the lifetime of the Subscribe party, it is basically the Subscribe party's responsibility to unsubscribe when it no longer needs to receive notifications.</p>
+<p>There are several ways to unsubscribe, but for performance considerations, it is better to explicitly Dispose retain the IDisposable return value of Subscribe.</p>
+</div>
+</div>
+
+▼ **List 12.5** — Giữ `IDisposable` và Dispose tường minh (khuyến nghị về hiệu năng)
+
+```csharp
+public class Example : MonoBehaviour {
+    private IDisposable _disposable;
+
+    private void Awake() {
+        _disposable = Observable.EveryUpdate()      // ✅ Giữ lại IDisposable
+            .Subscribe(_ => {
+                // Processes to be executed every frame
+            });
+    }
+
+    private void OnDestroy() {
+        _disposable.Dispose();                      // ✅ Huỷ đăng ký tường minh
+    }
+}
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Nếu class của bạn kế thừa từ <code>MonoBehaviour</code>, bạn cũng có thể gọi <strong><code>AddTo(this)</code></strong> để <strong>tự động unsubscribe vào thời điểm chính nó bị <code>Destroy</code></strong>.</p>
+<p>⚠️ Dù có <strong>overhead của việc gọi <code>AddComponent</code> nội bộ</strong> để giám sát sự kiện Destroy, đây vẫn là cách hay để dùng vì <strong>đơn giản hơn khi viết</strong>.</p>
+</div>
+<div class="col-en">
+<p>If your class inherits from MonoBehaviour, you can also call AddTo(this) to automatically unsubscribe at the timing of your own Destroy. Although there is an overhead of calling AddComponent internally to monitor the Destroy, it is a good idea to use this method, which is simpler to write.</p>
+</div>
+</div>
+
+▼ **List 12.6** — `AddTo(this)` — cách viết đơn giản hơn
+
+```csharp
+private void Awake() {
+    Observable.EveryUpdate()
+        .Subscribe(_ => {
+            // Processing to be executed every frame
+        })
+        .AddTo(this);   // ⚠️ Tiện hơn, nhưng nội bộ gọi AddComponent → có overhead
+}
+```
+
+📊 **So sánh 2 cách:**
+
+| Cách | Ưu điểm | Nhược điểm |
+|---|---|---|
+| Giữ `IDisposable` + `Dispose()` | ✅ **Không overhead**, kiểm soát chính xác thời điểm | Code dài hơn, dễ quên |
+| `.AddTo(this)` | ✅ Ngắn gọn, tự động theo vòng đời | ⚠️ Nội bộ `AddComponent` để giám sát Destroy → **có overhead** |
+
+---
+
+## 45. ⚡ UniTask
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>UniTask</strong> là thư viện mạnh mẽ cho xử lý bất đồng bộ hiệu năng cao trong Unity, với đặc trưng là <strong>xử lý bất đồng bộ ZERO-ALLOCATION</strong> nhờ kiểu <code>UniTask</code> dựa trên <strong>value type</strong>. Nó cũng có thể <strong>điều khiển thời điểm thực thi theo PlayerLoop của Unity</strong>, nhờ đó <strong>thay thế hoàn toàn coroutine truyền thống</strong>.</p>
+</div>
+<div class="col-en">
+<p>UniTask is a powerful library for high-performance asynchronous processing in Unity, featuring zero-allocation asynchronous processing with the value-based UniTask type. It can also control the execution timing according to Unity's PlayerLoop, thus completely replacing conventional coroutines.</p>
+</div>
+</div>
+
+### 45.1. UniTask v2
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>UniTask v2</strong> — bản nâng cấp lớn của UniTask — được phát hành vào <strong>tháng 6 năm 2020</strong>. UniTask v2 có những <strong>cải thiện hiệu năng đáng kể</strong>, như <strong>zero-allocation cho TOÀN BỘ async method</strong>, và bổ sung các tính năng như <strong>hỗ trợ async LINQ</strong> và <strong>hỗ trợ <code>await</code> cho asset bên ngoài</strong>.</p>
+<p>⚠️ Mặt khác, <strong>hãy cẩn thận khi cập nhật từ UniTask v1</strong>, vì nó bao gồm các <strong>thay đổi phá vỡ (destructive changes)</strong>, chẳng hạn:</p>
+<ul>
+<li><code>UniTask.Delay(...)</code> và các task khác trả về từ Factory <strong>được kích hoạt ngay tại thời điểm gọi</strong>.</li>
+<li><strong>Cấm <code>await</code> nhiều lần</strong> lên một instance <code>UniTask</code> thông thường.</li>
+</ul>
+<p>✅ Tuy nhiên, các tối ưu quyết liệt đã cải thiện hiệu năng hơn nữa, nên <strong>về cơ bản UniTask v2 là hướng đi nên chọn</strong>.</p>
+<p>💡 Chú thích của sách: bằng cách dùng <strong><code>UniTask.Preserve</code></strong>, UniTask v2 có thể chuyển đổi thành một <code>UniTask</code> có thể <code>await</code> nhiều lần.</p>
+</div>
+<div class="col-en">
+<p>UniTask v2, a major upgrade of UniTask, was released in June 2020. UniTask v2 features significant performance improvements, such as zero-allocation of the entire async method, and added features such as asynchronous LINQ support and await support for external assets.</p>
+<p>On the other hand, be careful when updating from UniTask v1, as it includes destructive changes, such as UniTask.Delay(...) and other tasks returned by Factory being invoked at invocation time, prohibiting multiple await to normal UniTask instances, and so on. However, aggressive optimizations have further improved performance, so basically UniTask v2 is the way to go.</p>
+<p>UniTask.Preserve: UniTask v2 can be converted to a UniTask that can be awaited multiple times by using it.</p>
+</div>
+</div>
+
+### 45.2. 🔍 UniTask Tracker
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>UniTask Tracker</strong> có thể được dùng để <strong>trực quan hoá các UniTask đang chờ</strong> và <strong>stack trace nơi chúng được tạo ra</strong>.</p>
+</div>
+<div class="col-en">
+<p>UniTask Tracker can be used to visualize waiting UniTasks and the stack trace of their creation.</p>
+</div>
+</div>
+
+<img src="../assets/cb-unitask-tracker.png" alt="Cửa sổ UniTask Tracker liệt kê các UniTask.DelayPromise đang Pending">
+
+<p><em>VI: Hình 12.3 — UniTask Tracker với các nút <strong>Enable AutoReload / Enable Tracking / Enable StackTrace</strong>. Bảng liệt kê <code>TaskType</code>, <code>Elapsed</code>, <code>Status</code>, <code>Position</code> — ở đây có <strong>2 <code>UniTask.DelayPromise</code></strong> ở trạng thái <strong><code>Pending</code></strong> sau <strong>00.70</strong> giây. / EN: Figure 12.3 — UniTask Tracker.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Ví dụ, giả sử bạn có một <code>MonoBehaviour</code> mà <code>_hp</code> giảm đi 1 mỗi khi va chạm với thứ gì đó.</p>
+</div>
+<div class="col-en">
+<p>For example, suppose you have a MonoBehaviour whose _hp is decremented by 1 when it collides with something.</p>
+</div>
+</div>
+
+▼ **List 12.7** — 💀 Code có thể rò rỉ task
+
+```csharp
+public class Example : MonoBehaviour {
+    private int _hp = 10;
+
+    public UniTask WaitForDeadAsync() {
+        return UniTask.WaitUntil(() => _hp <= 0);   // 💀 Nếu object bị Destroy trước
+    }                                               //    khi _hp cạn → task treo VĨNH VIỄN
+
+    private void OnCollisionEnter(Collision collision) {
+        _hp -= 1;
+    }
+}
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Nếu <code>MonoBehaviour</code> này bị <code>Destroy</code> <strong>trước khi <code>_hp</code> cạn hoàn toàn</strong>, <code>_hp</code> sẽ không giảm thêm nữa, nên <code>UniTask</code> — giá trị trả về của <code>WaitForDeadAsync</code> — <strong>sẽ mất cơ hội hoàn thành và tiếp tục chờ MÃI MÃI</strong>.</p>
+<p>✅ Khuyến nghị dùng công cụ này để <strong>kiểm tra UniTask bị rò rỉ do cấu hình sai điều kiện kết thúc</strong>.</p>
+</div>
+<div class="col-en">
+<p>If _hp of this MonoBehaviour is Destroyed before is fully depleted, _hp will not be depleted any further, so UniTask, the return value of WaitForDeadAsync, will lose the opportunity to complete, and will continue to wait.</p>
+<p>It is recommended that you use this tool to check for UniTask leaking due to a misconfiguration of termination conditions.</p>
+</div>
+</div>
+
+!!! danger "Ngăn chặn rò rỉ Task — *Preventing Task Leaks*"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p>Lý do code ví dụ bị rò rỉ task là vì nó <strong>không tính tới trường hợp bản thân task bị huỷ TRƯỚC KHI điều kiện kết thúc được thoả mãn</strong>.</p>
+    <p>Để xử lý, chỉ cần <strong>kiểm tra xem bản thân task đã bị huỷ chưa</strong>. Hoặc, <strong><code>CancellationToken</code></strong> lấy được bằng <code>this.GetCancellationTokenOnDestroy()</code> có thể được truyền vào <code>WaitForDeadAsync</code> để <strong>task bị huỷ khi object bị <code>Destroy</code></strong>.</p>
+    </div>
+    <div class="col-en">
+    <p>The reason why the example code leaks a task is that it does not take into account the case where the task itself is destroyed before the termination condition is met.</p>
+    <p>To do this, simply check to see if the task itself has been destroyed. Or, the CancellationToken obtained by this.GetCancellationTokenOnDestroy() to itself can be passed to WaitForDeadAsync so that the task is canceled when is Destroyed.</p>
+    </div>
+    </div>
+
+▼ **List 12.8** — ✅ Hai mẫu sửa lỗi rò rỉ task
+
+```csharp
+// Pattern for checking whether the user is Destroyed or not
+public UniTask WaitForDeadAsync() {
+    return UniTask.WaitUntil(() => this == null || _hp <= 0);   // ✅ Kiểm tra Destroy
+}
+
+// Pattern for passing a CancellationToken
+public UniTask WaitForDeadAsync(CancellationToken token) {
+    return UniTask.WaitUntil(
+        () => _hp <= 0,
+        cancellationToken: token);                              // ✅ Huỷ theo token
+}
+```
+
+▼ **List 12.9** — Ví dụ gọi `WaitForDeadAsync(CancellationToken)`
+
+```csharp
+Example example = ...
+var token = example.GetCancellationTokenOnDestroy();
+await example.WaitForDeadAsync(token);
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>⚠️ Tại thời điểm <code>Destroy</code>: <strong>mẫu đầu tiên khiến UniTask hoàn thành BÌNH THƯỜNG</strong>, trong khi <strong>mẫu sau NÉM RA <code>OperationCanceledException</code></strong>. Hành vi nào đáng mong muốn hơn <strong>tuỳ thuộc vào tình huống</strong>, và nên chọn cách hiện thực phù hợp.</p>
+</div>
+<div class="col-en">
+<p>At Destroy time, the former UniTask completes without incident, while the latter OperationCanceledException is thrown. Which behavior is preferable depends on the situation, and the appropriate implementation should be chosen.</p>
+</div>
+</div>
+
+---
+
+## 46. 🏁 Kết luận & Nhóm tác giả
+
+### 46.1. CONCLUSION
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Đây là phần kết của tài liệu này. Chúng tôi hy vọng rằng qua cuốn sách này, những ai <strong>"không tự tin về performance tuning"</strong> đã đi đến chỗ nghĩ rằng <strong>"Tôi hiểu đại khái rồi, và tôi muốn thử"</strong>. Khi càng nhiều người thực hành nó trong dự án của mình, họ sẽ có thể <strong>xử lý vấn đề nhanh hơn nhiều</strong>, và <strong>độ ổn định của dự án sẽ tăng lên</strong>.</p>
+<p>Bạn cũng có thể gặp những sự kiện phức tạp <strong>không thể giải quyết bằng thông tin trong cuốn sách này</strong>. Nhưng ngay cả trong trường hợp đó, <strong>những gì bạn sẽ làm vẫn y hệt</strong>: bạn vẫn cần <strong>profile, phân tích nguyên nhân, và hành động</strong>.</p>
+<p>Từ đây trở đi, hãy tận dụng tối đa <strong>kiến thức, kinh nghiệm và trí tưởng tượng của chính bạn</strong> qua thực hành. Tôi hy vọng bạn sẽ thấy performance tuning thú vị theo cách này. Cảm ơn bạn đã đọc tới cuối.</p>
+</div>
+<div class="col-en">
+<p>This is the end of this document. We hope that through this book, those of you who are "not confident about performance tuning" have come to think, "I kind of get it, and I want to try it." As more people practice it in their projects, they will be able to deal with problems much faster, and the stability of their projects will increase.</p>
+<p>You may also encounter complex events that cannot be solved with the information presented in this book. But even in such cases, what you will do will be the same. You will still need to profile, analyze the cause, and take some action.</p>
+<p>From this point forward, please make full use of your own knowledge, experience, and imagination through practice. I hope you will enjoy performance tuning in this way. Thank you for reading to the end.</p>
+</div>
+</div>
+
+### 46.2. 👥 Introduction of the Authors
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Dưới đây là danh sách các tác giả tham gia cuốn sách. Lưu ý rằng hồ sơ tác giả và các phần họ phụ trách là <strong>tại thời điểm viết sách</strong>.</p>
+</div>
+<div class="col-en">
+<p>The following is a list of the authors involved in this book. Please note that the profiles of the authors and the sections they are responsible for are current at the time of writing.</p>
+</div>
+</div>
+
+| Tác giả / Author | Đơn vị / Affiliation | Chương phụ trách / Chapters |
+|---|---|---|
+| **Takuya Iida** | Engineering Manager, SGE Core Technology Division, Grange Corporation | Ch.1 "Getting Started with Performance Tuning", Ch.3 "Profiling Tools" |
+| **Haruki Yano** (@harumak_11 / GitHub: Haruma-K) | SGE Core Technology Division, CyberAgent, Inc. — Client-Side Engineer | "2.2 Rendering", "2.3 Data Representation" và các bài khác của Ch.2 "Fundamentals". Vận hành blog Unity **LIGHT11** |
+| **Yusuke Ishiguro** | CyberAgent, Inc. SGE Core Technology Division | Một phần Ch.2 "Fundamentals", Ch.5 "Tuning Practice - AssetBundle". Từng phát triển hạ tầng AssetBundle **"Octo"** |
+| **Daiki Hakamata** | SGE Core Technology Division, CyberAgent, Inc. | **Ch.9 "Tuning Practice - Script (Unity)"** |
+| **Mitsutoshi Nakamura** (NAKAMURO. / @megalo_23) | Applibot, Inc. | Nửa đầu "2.5 C# Basics" và **Ch.10 "Tuning Practice - Script (C#)"** |
+| **Shunsuke Ohba** (@ohbashunsuke) | Engineering Manager, Samzap Inc. | Ch.4 "Tuning Practice - Asset". Blog "Shibuya Hottogisu Tsushin" |
+| **Gaku Ishii** | Samzap Inc. — Server & client-side engineer | **Ch.11 "Tuning Practice - Player Settings"**, **Ch.12 "Tuning Practice - Third Party"** |
+| **Shunsuke Saito** (@shun_shun_mummy) | Colorful Palette Inc. — Client-side Engineer | Một số bài của **Ch.10 "Tuning Practice - Script (C#)"** |
+| **Kazunori Tamura** | QualArts Corporation | Ch.8 "Tuning Practice - UI" |
+| **Tomoya Yamaguchi** (@togucchi) | Colorful Palette Co. — Client-side engineer | Ch.7 "Tuning Practice - Graphics" |
+| **Yuichiro Mukai** (@yucchiy_) | Applibot, Inc. — Client-side engineer | Ch.6 "Tuning Practice - Physics" và một phần **Ch.10** |
+
+!!! info "📖 Thông tin xuất bản"
+    **Unity Performance Tuning Bible** — Feb. 22, 2023, 1st Edition
+    **Author:** CyberAgent SGE Core Technology Team
+    **Design:** CyberAgent Smartphone Games & Entertainment Division
+    **Publisher:** CyberAgent, Inc. — © 2022 CyberAgent, Inc.
+---
+
+# PHẦN F — CASE STUDY: SENTRY ANR & DEADLOCK MAIN THREAD
+
+> Nguồn: **"Fixing Elusive Unity ANRs: How Amanotes Used Sentry to Cut Errors by 50%"** — blog.sentry.io, xuất bản **09/05/2025**. Guest post của **Thuan Do The** từ **Amanotes**, nhà phát hành game âm nhạc đang dùng Sentry cho game Unity **Duet Cats**.
+
+---
+
+## 47. 🚨 Bối cảnh: khi ANR là bóng ma không thể bắt
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Trong thế giới mobile-first ngày nay, người dùng kỳ vọng ứng dụng <strong>khởi động tức thì</strong> và <strong>phản hồi mượt mà</strong>. Với các nhà phát triển game, duy trì trải nghiệm mượt như bơ <strong>không chỉ là "có thì tốt"</strong> — nó <strong>thiết yếu cho retention và doanh thu</strong>. <em>Nhưng điều gì xảy ra khi hiệu năng bắt đầu sụp đổ mà không có nguyên nhân rõ ràng?</em></p>
+<p>Đó chính xác là nơi chúng tôi thấy mình ở Amanotes. Khi tiếp tục thêm tính năng mới vào một trong những game hàng đầu của mình — <strong>Duet Cats</strong>, game nhịp điệu âm nhạc với hơn <strong>10 TRIỆU lượt tải</strong> trên Google Play và App Store — chúng tôi nhận thấy một xu hướng đáng lo ngại: <strong>mỗi tính năng mới dường như LÀM ĐÔI số lỗi "Application Not Responding" (ANR)</strong>.</p>
+</div>
+<div class="col-en">
+<p>In today's mobile-first world, users expect apps to launch instantly and respond seamlessly. For game developers, maintaining that buttery-smooth experience isn't just a nice-to-have—it's essential for retention and revenue. <em>But what happens when performance starts breaking down, and there's no clear cause?</em></p>
+<p>That's exactly where we found ourselves at Amanotes. As we continued to add new features to one of our top games, <strong>Duet Cats</strong> – a music rhythm game with over 10 million downloads on Google Play and App Store – we noticed a troubling trend: every new feature seemed to double the number of "Application Not Responding" errors (ANRs).</p>
+</div>
+</div>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Với độ phức tạp của game và lượng fan tăng nhanh, <strong>hiệu năng trở thành nút thắt cổ chai lớn nhất của chúng tôi</strong>. Chúng tôi <strong>kiểm tra code ba lần</strong>, <strong>profile từng component mới</strong>, thậm chí <strong>so sánh các bản build từng dòng một</strong>. Kết quả? <strong>Không có thủ phạm rõ ràng nào.</strong> Mọi thứ trông đều sạch sẽ — nhưng ANR vẫn tăng vọt.</p>
+<p>🚨 <strong>Chúng tôi đang đuổi theo những bóng ma.</strong></p>
+</div>
+<div class="col-en">
+<p>With the game's complexity and fanbase quickly growing, <strong>performance became our biggest bottleneck</strong>. We triple-checked our code, profiled every new component, and even compared builds line-by-line. The results? No obvious culprits. Everything looked clean—yet ANRs were spiking.</p>
+<p><strong>We were chasing ghosts.</strong></p>
+</div>
+</div>
+
+!!! danger "💀 ANR là gì và vì sao nó chết người?"
+    **ANR (Application Not Responding)** là lỗi Android phát sinh khi **main thread bị chặn (blocked) quá lâu** — ngưỡng của Google là **5 giây**. Với Unity, main thread cũng chính là thread chạy `PlayerLoop`. Khi nó bị deadlock hoặc bị nghẽn bởi I/O đồng bộ, hệ điều hành hiển thị hộp thoại "App isn't responding" và người dùng **thoát game**. Google Play còn dùng **user-perceived ANR rate** làm chỉ số xếp hạng — vượt **"bad behavior threshold"** sẽ bị **giảm khả năng hiển thị trên store**.
+
+---
+
+## 48. 🔑 Bước ngoặt: tích hợp Sentry
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Đi tìm những hiểu biết sâu hơn, chúng tôi tìm đến <strong>Sentry</strong> — công cụ chủ yếu được biết đến với việc giám sát lỗi và hiệu năng cho web và mobile. <strong>Ban đầu chúng tôi hoài nghi</strong> — Unity không phải lãnh địa quen thuộc của nó. Nhưng ngay khi tích hợp Sentry, chúng tôi phát hiện điều đáng kinh ngạc: <strong>các mẫu hình rõ ràng hiện lên từ mớ hỗn độn!</strong></p>
+<p>🚨 <strong><code>Awake()</code> được kích hoạt RẤT MUỘN — sau 5 giây.</strong> Điều này quan trọng đến mức nào? <strong>CỰC KỲ!</strong> Nó có nghĩa là <strong>ANR hoàn toàn KHÔNG đến từ game logic của chúng tôi</strong> — <strong>ứng dụng đã bị đóng băng TRƯỚC KHI code của chúng tôi kịp chạy!</strong></p>
+</div>
+<div class="col-en">
+<p>In search of deeper insights, we turned to Sentry, a tool primarily known for error and performance monitoring for web and mobile. We were skeptical at first—Unity wasn't its typical domain. But as soon as we integrated Sentry, we discovered something remarkable: clear patterns emerging from the chaos!</p>
+<p><code>Awake()</code> was triggered very late, after 5s. How significant is this? Extremely! It means the ANRs weren't coming from our game logic at all—the app was freezing <em>before</em> our code even had a chance to run!</p>
+</div>
+</div>
+
+<img src="../assets/sentry-trace-view-app-start.png" alt="Sentry Trace View của transaction app.start - runtime.initialization trên Android 14">
+
+<p><em>VI: Sentry Trace View của transaction <code>app.start — runtime.initialization</code> (Android 14, release 1.4.60, production). Tổng <strong>6,39 s</strong>; trong đó <code>runtime.init</code> = <strong>6,38 s</strong>, <code>runtime.init.subsystem</code> = <strong>340,14 ms</strong>, <code>runtime.init.afterassemblies</code> = <strong>2,92 s</strong>, <code>runtime.init.splashscreen</code> = <strong>2,94 s</strong>, <code>runtime.init.firstscene</code> = <strong>173,24 ms</strong>. Các span <code>awake</code> chiếm <strong>54%</strong> nhưng từng cái chỉ 0,01–20,40 ms → <strong>thời gian bị nuốt TRƯỚC khi code game chạy</strong>. / EN: Sentry trace view showing the late triggered Awake().</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>💡 Bỗng nhiên, mọi thứ trở nên hiển nhiên vì sao các tối ưu của chúng tôi không hiệu quả: <strong>chúng tôi đã tune hiệu năng SAI CHỖ suốt từ đầu tới giờ!</strong></p>
+</div>
+<div class="col-en">
+<p>Suddenly, it was obvious why our optimizations didn't work: we'd been tuning performance in the wrong place all along!</p>
+</div>
+</div>
+
+### 48.1. 💀 Hai transaction nặng nhất — những "máy phát ANR" ẩn giấu
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Hai thao tác nổi bật lên như những <strong>kẻ giết hiệu năng thầm lặng</strong>.</p>
+</div>
+<div class="col-en">
+<p>Two operations stood out as silent performance killers.</p>
+</div>
+</div>
+
+<img src="../assets/sentry-transactions-p95.png" alt="Bảng transaction của Sentry, scene.loading có p95 24.18s">
+
+<p><em>VI: Danh sách transaction sắp theo TPM. <code>runtime.initialization</code> (op <code>app.start</code>): P50 = <strong>2,54 s</strong>, P95 = <strong>3,25 s</strong>. <code>scene.loading</code> (op <code>scene.load</code>): P50 = <strong>3,96 s</strong>, <strong>P95 = 24,18 s</strong> — con số được khoanh đỏ. / EN: Transactions in Sentry, highlighting the scene.loading transaction that took 24.18s for p95.</em></p>
+
+<img src="../assets/sentry-span-breakdown-loading.png" alt="Chi tiết span của transaction scene.loading, span Loading có p95 5.89s">
+
+<p><em>VI: Bóc tách chi tiết theo span của <code>scene.loading</code>, group by <code>span.description</code>, sắp theo <code>p95(span.duration)</code>: <strong>Loading = 5,89 s</strong> (khoanh đỏ), <strong>Main = 1,05 s</strong>, <strong>IronSourceEvents.IronSourceEvents = 303,74 ms</strong>, <strong>AppOpenAds.AppOpenAdController = 70,36 ms</strong>. / EN: Detailed breakdown in Sentry of the scene.loading transaction, highlighting the Loading span that took 5.89s for the p95 percentile.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Transaction-level view</strong> của Sentry cho chúng tôi một bản bóc tách mạnh mẽ về <strong>chính xác các span nào gây độ trễ</strong>. Bằng cách sắp xếp theo <strong>thời lượng percentile thứ 95</strong>, chúng tôi có thể xác định chính xác các thao tác chậm nhất ảnh hưởng tới <strong>top 5% người dùng</strong> — chính là nhóm <strong>dễ tổn thương nhất trước ANR</strong>.</p>
+<ul>
+<li>🚨 <strong>Scene nặng:</strong> <em>Loading</em> và <em>Main</em> nổi bật, với span <em>Loading</em> đạt đỉnh <strong>5,89 giây</strong> ở percentile p95 — <strong>NGUY HIỂM VƯỢT NGƯỠNG ANR</strong>.</li>
+<li>⚠️ <strong>Method nặng:</strong> tác động đáng kể, đặc biệt khi được khởi tạo quá sớm lúc startup:
+<ul>
+<li><code>IronSourceEvents.IronSourceEvents</code></li>
+<li><code>AppOpenAds.AppOpenAdController</code></li>
+</ul>
+</li>
+</ul>
+<p>✅ View này <strong>loại bỏ toàn bộ việc đoán mò</strong>. Giờ chúng tôi có <strong>danh sách ưu tiên tối ưu rõ ràng dựa trên hiệu năng THẾ GIỚI THỰC</strong>, không phải giả định. Và rồi mọi thứ cuối cùng cũng khớp lại — chúng tôi <strong>thấy rõ tại sao ANR xảy ra</strong>.</p>
+</div>
+<div class="col-en">
+<p>Sentry's transaction-level view gave us a powerful breakdown of the exact spans causing delays. Sorting by 95th percentile duration we were able to pinpoint the slowest operations affecting the top 5% of users—the ones most vulnerable to ANRs.</p>
+<ul>
+<li><strong>Heavy Scenes:</strong> <em>Loading</em> and <em>Main</em> stood out, with the <em>Loading</em> span peaking at 5.89 seconds for the p95 percentile—<em>dangerously above the ANR threshold.</em></li>
+<li><strong>Heavy Methods:</strong> significant impact, especially when initialized too early during startup: IronSourceEvents.IronSourceEvents, AppOpenAds.AppOpenAdController</li>
+</ul>
+<p>This view removed all guesswork. We now had a clear list of priority optimizations based on <em>real-world performance</em>, not assumptions. And then it finally clicked—we could clearly see why the ANRs were happening.</p>
+</div>
+</div>
+
+### 48.2. 🎯 Phát hiện chấn động: hệ thống mong manh chỉ chờ bị đẩy qua vực
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Bản build trước của chúng tôi <strong>chưa vượt ngưỡng ANR 5 giây</strong>, nhưng nó <strong>đã trượt sát mép vực một cách nguy hiểm</strong>. Với một phần đáng kể người dùng, một số thao tác đã mất tới <strong>4,9 giây</strong>.</p>
+<p>Các tính năng mới chúng tôi thêm vào? Chúng chỉ mang thêm <strong>0,1 giây</strong>. Nhưng cú hích tí hon đó <strong>đủ để đẩy nhiều thiết bị VỪA VẶN vượt qua giới hạn</strong> — kích hoạt một làn sóng ANR.</p>
+<p>🔑 <strong>Chúng tôi KHÔNG tạo ra vấn đề mới — chúng tôi đã vô tình đẩy một hệ thống mong manh qua bờ vực.</strong></p>
+</div>
+<div class="col-en">
+<p>Our previous build hadn't crossed the 5-second ANR threshold, but it was already skating dangerously close. For a significant portion of users, some operations were taking up to 4.9 seconds.</p>
+<p>The new features we added? They only introduced an extra 0.1 seconds. But that tiny bump was enough to push many devices <em>just</em> over the limit—triggering a wave of ANRs.</p>
+<p><strong>We hadn't introduced new issues—we had unknowingly tipped a fragile system over the edge.</strong></p>
+</div>
+</div>
+
+!!! danger "🚨 Bài học quan trọng nhất của case study này"
+    **4,9 s + 0,1 s = ANR.** Một hệ thống chạy sát ngưỡng an toàn **không phải là hệ thống an toàn** — nó là **bom hẹn giờ**. Bất kỳ tính năng nhỏ nào cũng có thể là giọt nước tràn ly. Đây là lý do bạn phải đo bằng **p95/p99**, không phải trung bình (P50 chỉ 3,96 s trong khi P95 lên tới **24,18 s**).
+
+---
+
+## 49. 📊 Kết quả thực tế — Real Gains
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Với khả năng nhìn sâu của Sentry, cuối cùng chúng tôi <strong>biết chính xác NƠI cần nhìn và ĐIỀU GÌ cần sửa</strong>.</p>
+<p>✅ <strong>Scene Loading Time:</strong> giảm từ <strong>17,8 s</strong> xuống <strong>3,71 s</strong> (<strong>~80% cải thiện</strong>)</p>
+</div>
+<div class="col-en">
+<p>With Sentry's deep visibility, we finally knew exactly <em>where</em> to look and <em>what</em> to fix.</p>
+<p><strong>Scene Loading Time:</strong> Reduced from 17.8s to 3.71s (~80% improvement)</p>
+</div>
+</div>
+
+<img src="../assets/sentry-scene-loading-before.png" alt="Biểu đồ Duration Percentiles của scene.loading TRƯỚC khi tối ưu: 17.80 giây tại p95">
+
+<p><em>VI: <strong>TRƯỚC</strong> — biểu đồ <strong>Duration Percentiles</strong> của transaction <code>scene.loading</code> (production, 3 ngày). Tại mốc <strong>95%</strong>, Duration = <strong>17,80 giây</strong>; đuôi 99% chạm gần <strong>25 s</strong>. / EN: Before — the scene.loading transaction taking 17.8s.</em></p>
+
+<img src="../assets/sentry-scene-loading-after.png" alt="Biểu đồ Duration Percentiles của scene.loading SAU khi tối ưu: 3.71 giây tại p95">
+
+<p><em>VI: <strong>SAU</strong> — cùng biểu đồ sau tối ưu. Tại mốc <strong>95%</strong>, Duration chỉ còn <strong>3,71 giây</strong>; trục Y co từ 30 s xuống <strong>7 s</strong>. / EN: After — the scene.loading transaction taking 3.71s.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>✅ <strong>ANR Rate:</strong> giảm từ <strong>0,98%</strong> xuống <strong>0,46%</strong> (<strong>~50% cải thiện</strong>)</p>
+</div>
+<div class="col-en">
+<p><strong>ANR Rate:</strong> Reduced from 0.98% to 0.46% (~50% improvement)</p>
+</div>
+</div>
+
+<img src="../assets/sentry-anr-rate-over-time.png" alt="Biểu đồ Google Play User-perceived ANR rate over time giảm từ 0.98% xuống 0.46%">
+
+<p><em>VI: Biểu đồ <strong>"User-perceived ANR rate over time"</strong> của Google Play Console. Ngày <strong>05/04/2025</strong>: <strong>This app = 0,46%</strong>, <strong>Peers' median = 0,72%</strong>, <strong>28-day rolling average = 0,55%</strong>, <strong>Bad behavior threshold = 0,47%</strong> — app đã <strong>tụt xuống DƯỚI ngưỡng cảnh báo</strong> và tốt hơn cả trung vị của nhóm đối thủ. / EN: Graph displaying the ANR rate over time, showing a decrease from 0.98% down to 0.46%.</em></p>
+
+📊 **Bảng tổng hợp kết quả:**
+
+| Chỉ số / Metric | Trước / Before | Sau / After | Cải thiện |
+|---|---|---|---|
+| Scene loading (p95) | **17,8 s** | **3,71 s** | **~80%** ⬇️ |
+| ANR rate | **0,98%** | **0,46%** | **~50%** ⬇️ |
+| So với Peers' median (0,72%) | Tệ hơn | **Tốt hơn** | ✅ |
+| So với Bad behavior threshold (0,47%) | Vượt xa | **Dưới ngưỡng** | ✅ |
+
+---
+
+## 50. 💡 Bài học 1 — Tối ưu khởi tạo (Initialization Optimization)
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Tối ưu startup và scene loading của Unity <strong>không cần phép màu</strong> — chỉ cần <strong>đúng công cụ để giám sát và đo lường</strong>.</p>
+<p>🚨 <strong>Unity cần thời gian để tự khởi tạo chính nó — và TẤT CẢ những việc này xảy ra trong FRAME ĐẦU TIÊN!</strong></p>
+</div>
+<div class="col-en">
+<p>Optimizing Unity startup and scene loading doesn't require magic—just the right tools for monitoring and measurement.</p>
+<p>Unity takes time to init itself - and all of this happens in the first frame!</p>
+</div>
+</div>
+
+<img src="../assets/sentry-unity-first-frame-profiler.png" alt="Unity Profiler Timeline của frame đầu tiên: Initialize Il2cpp, Initialize Player, Initialize Graphics">
+
+<p><em>VI: Unity Profiler Timeline của <strong>Frame: 1 / 1</strong> (khoanh đỏ) — toàn bộ diễn ra trong <strong>MỘT frame</strong>: <code>Initialize Il2cpp</code> = <strong>1214,41 ms</strong>, <code>Initialize Player</code> = <strong>83,80 ms</strong>, <code>Initialize Graphics</code> = <strong>5155,51 ms</strong> (bao gồm <code>Loading Global Managers</code> = <strong>304,98 ms</strong>, <code>LoadFileThreaded_LoadObjects</code> = <strong>113,58 ms</strong>). / EN: Screenshot from Unity showing a diagram of what is loaded on the very first frame.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Những gì xảy ra trong frame đầu tiên:</p>
+<ul>
+<li><strong>Initialize IL2CPP</strong> — khởi tạo runtime IL2CPP</li>
+<li><strong>Initialize Player</strong> — khởi tạo Player</li>
+<li><strong>Initialize Graphics</strong> (load managers) — khởi tạo đồ hoạ, nạp các manager</li>
+<li><strong>Scene đầu tiên LUÔN được load ĐỒNG BỘ (sync)</strong> 💀</li>
+</ul>
+</div>
+<div class="col-en">
+<ul>
+<li>Initialize IL2CPP</li>
+<li>Initialize Player</li>
+<li>Initialize Graphics (load managers)</li>
+<li>First scene always load in sync</li>
+</ul>
+</div>
+</div>
+
+### 50.1. ✅ Chiến lược tối ưu: Trì hoãn thao tác (Delaying operations)
+
+<div class="bilingual-row">
+<div class="col-vi">
+<ul>
+<li>🎯 <strong>Giữ scene đầu tiên TỐI THIỂU:</strong> dùng nó như một <strong>vỏ (shell)</strong> để làm nóng (warm up) các hệ thống <strong>một cách bất đồng bộ</strong>.</li>
+<li>🎯 <strong>Giữ danh sách shader / preload asset RỖNG:</strong> trì hoãn hoặc <strong>warm up shader thủ công</strong>.</li>
+<li>🎯 <strong>Tránh làm việc trong vài frame đầu tiên:</strong> <strong>KHÔNG network call, KHÔNG thao tác I/O, KHÔNG khởi tạo SDK, KHÔNG nạp asset</strong>.</li>
+</ul>
+</div>
+<div class="col-en">
+<ul>
+<li><strong>Keep the first scene minimal:</strong> Use it as a shell to warm up systems asynchronously.</li>
+<li><strong>Keep the shader / preload asset list empty:</strong> Delay or manually warm up shaders</li>
+<li><strong>Avoid work in the first several frames:</strong> No network calls, no I/O operation, no SDK inits, no asset loading</li>
+</ul>
+</div>
+</div>
+
+!!! tip "🔑 Áp dụng vào Duet Cats"
+    Chính hai method `IronSourceEvents.IronSourceEvents` (**303,74 ms**) và `AppOpenAds.AppOpenAdController` (**70,36 ms**) là ví dụ của **SDK init quá sớm**. Chúng phải được đẩy ra khỏi các frame đầu.
+
+---
+
+## 51. 💡 Bài học 2 — Tối ưu nạp Asset (Asset Loading Optimization)
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>⚠️ <strong>Scene cần thời gian để nạp TẤT CẢ asset được tham chiếu vào RAM.</strong></p>
+</div>
+<div class="col-en">
+<p>Scenes takes time to load all referenced assets to RAM</p>
+</div>
+</div>
+
+<img src="../assets/sentry-scene-load-assets-profiler.png" alt="Unity Profiler hiển thị LoadSceneOperation kéo dài 2182.79ms trên 38 frame ở thread PreloadManager">
+
+<p><em>VI: Unity Profiler cho thấy scene và asset của nó được nạp vào RAM. Tooltip <code>LoadSceneOperation</code>: <strong>16,66 ms</strong> ở frame này nhưng <strong>2182,79 ms tổng cộng trên 38 frame</strong> ở thread <strong><code>PreloadManager</code></strong>. Hàng cuối: <code>PlayerLoop</code> nhảy vọt lên <strong>2410,32 ms</strong> với <code>Application.LoadLevelAsync Integrate</code> = <strong>1571,89 ms</strong> và cả một dải <code>GC.Alloc</code> = <strong>9,63 ms</strong>. / EN: Unity screenshot showing a diagram of the scenes and their assets that are loaded to RAM.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🚨 <strong>Scene cần thời gian để tích hợp (integrate) / khởi tạo TẤT CẢ <code>gameObjects</code> và script trong hierarchy — và việc này xảy ra TRONG MỘT FRAME DUY NHẤT.</strong></p>
+</div>
+<div class="col-en">
+<p>Scenes takes time to integrate / Initialize all gameObjects and scripts in the hierarchy and this happens within a single frame</p>
+</div>
+</div>
+
+<img src="../assets/sentry-scene-integrate-single-frame.png" alt="Unity Profiler cho thấy Preload Single Step chiếm 1576.92ms trong một frame PlayerLoop 2410.32ms">
+
+<p><em>VI: Profiler timeline cho thấy các <code>gameObject</code> được tích hợp và khởi tạo <strong>trong MỘT frame</strong>. Tooltip: <strong><code>Preload Single Step</code> = 1576,92 ms</strong>. Frame <code>PlayerLoop</code> tổng <strong>2410,32 ms</strong>, gồm <code>EarlyUpdate.UpdatePreloading</code> = <strong>1576,94 ms</strong> và <code>Update.ScriptRunDelayedStartupFrame</code> / <code>CoroutinesDelayedCalls</code> = <strong>730,69 ms</strong>. <strong>CPU = 2.410,43 ms cho MỘT frame</strong> — gần một nửa ngưỡng ANR chỉ trong một nhịp. / EN: Unity diagram showing gameObjects that are integrated and initialized in a single frame.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Những gì diễn ra trong pha tích hợp đó:</p>
+<ul>
+<li><strong>Serialization callbacks</strong></li>
+<li><strong>Awake from load</strong></li>
+<li><strong>Callbacks cho <code>Start()</code>, <code>OnEnable()</code></strong></li>
+</ul>
+</div>
+<div class="col-en">
+<ul>
+<li>Serialization callbacks</li>
+<li>Awake from load</li>
+<li>Callbacks for Start(), OnEnable()</li>
+</ul>
+</div>
+</div>
+
+### 51.1. ✅ Chiến lược tối ưu: Giảm độ phức tạp (Reduce complexity)
+
+<div class="bilingual-row">
+<div class="col-vi">
+<ul>
+<li>🎯 <strong>Nạp scene BẤT ĐỒNG BỘ:</strong> nạp đồng bộ nghĩa là <strong>mọi thứ — texture, prefab, material — phải sẵn sàng trong RAM CHỈ TRONG MỘT FRAME</strong>. Đó là <strong>công thức tạo ra ANR</strong>.</li>
+<li>🎯 <strong>Giảm phụ thuộc:</strong> <strong>chia scene lớn thành nhiều scene nhỏ</strong>. Tránh prefab phình to. Dùng <strong>dependency graph</strong> nếu cần.</li>
+<li>🎯 <strong>Preload thông minh:</strong> trong các trường hợp phức tạp, <strong>preload các asset thiết yếu TRƯỚC KHI kích hoạt scene</strong>.</li>
+<li>🎯 <strong>Trì hoãn instantiation:</strong> <strong>đừng populate toàn bộ scene ngay từ đầu</strong>. Dùng <strong>object pool</strong>, <code>Resources.Load()</code>, hoặc <strong>Addressables</strong> để sinh object <strong>theo nhu cầu (on demand)</strong>.</li>
+</ul>
+</div>
+<div class="col-en">
+<ul>
+<li><strong>Load scenes asynchronously</strong>: Synchronous loads mean everything—textures, prefabs, materials—must be RAM-ready in one frame. That's a recipe for ANRs.</li>
+<li><strong>Reduce dependencies</strong>: Split large scenes into smaller ones. Avoid bloated prefabs. Use dependency graphs if needed.</li>
+<li><strong>Preload smartly</strong>: In complex cases, preload essential assets before activating the scene.</li>
+<li><strong>Defer instantiation</strong>: Don't populate entire scenes up front. Use object pools, Resources.Load(), or Addressables to spawn objects on demand.</li>
+</ul>
+</div>
+</div>
+
+```csharp
+// ✅ Mẫu nạp scene bất đồng bộ + trì hoãn kích hoạt (defer activation)
+private IEnumerator LoadGameSceneAsync()
+{
+    var op = SceneManager.LoadSceneAsync("Main", LoadSceneMode.Additive);
+    op.allowSceneActivation = false;          // ✅ Chưa integrate vội
+
+    // Chờ tới 90% (Unity dừng ở 0.9 khi allowSceneActivation = false)
+    while (op.progress < 0.9f)
+    {
+        UpdateProgressBar(op.progress);
+        yield return null;                    // ✅ Nhả main thread mỗi frame
+    }
+
+    // Preload asset thiết yếu TRƯỚC khi kích hoạt scene
+    yield return WarmUpShadersAsync();
+    yield return PreloadCriticalAssetsAsync();
+
+    op.allowSceneActivation = true;           // ✅ Giờ mới integrate
+}
+```
+
+---
+
+## 52. 🎯 Kết luận — Unity ANRs Don't Have to Be a Mystery
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Tại Amanotes, việc tích hợp Sentry vào quy trình Unity đã giúp chúng tôi <strong>xác định chính xác những vấn đề vô hình mà các công cụ profiling truyền thống BỎ SÓT</strong>. Những gì từng trông như <strong>treo máy ngẫu nhiên</strong> thực chất lại là <strong>những vách đá hiệu năng CÓ THỂ DỰ ĐOÁN ĐƯỢC</strong> — chỉ đang chờ bị vượt qua.</p>
+<p>Nếu bạn là Unity developer đang vật lộn với hiệu năng hoặc bị ám ảnh bởi những ANR không giải thích được, chúng tôi <strong>rất khuyến nghị thử Sentry for Unity</strong>. Nó <strong>không chỉ là một crash logger, mà là một CỬA SỔ nhìn vào hiệu năng THẾ GIỚI THỰC của game bạn</strong>.</p>
+<p>🎉 <strong>Người dùng của bạn (và chính bạn trong tương lai) sẽ cảm ơn bạn!</strong></p>
+</div>
+<div class="col-en">
+<p>At Amanotes, integrating Sentry into our Unity workflow helped us pinpoint the invisible issues that traditional profiling tools missed. What once looked like random hangs were, in fact, predictable performance cliffs—just waiting to be crossed.</p>
+<p>If you're a Unity developer struggling with performance or haunted by unexplained ANRs, we highly recommend giving Sentry for Unity a try. It's not just a crash logger, it's a window into your game's real-world performance.</p>
+<p><strong>Your users (and your future self) will thank you!</strong></p>
+</div>
+</div>
+
+!!! success "📋 Checklist chống ANR cho Unity mobile"
+    - [ ] Đo bằng **p95 / p99**, không dùng trung bình — P50 3,96 s có thể che giấu P95 **24,18 s**
+    - [ ] Scene đầu tiên **chỉ là shell rỗng**, warm up bất đồng bộ
+    - [ ] **Xoá sạch** shader preload list & preloaded assets
+    - [ ] **Không** SDK init / network / I/O trong vài frame đầu
+    - [ ] `LoadSceneAsync` + `allowSceneActivation = false` cho mọi scene lớn
+    - [ ] **Chia nhỏ** scene & prefab để giảm chi phí integrate trong một frame
+    - [ ] Object pool / Addressables thay cho instantiate hàng loạt lúc vào scene
+    - [ ] Giám sát liên tục **user-perceived ANR rate** so với **bad behavior threshold (0,47%)**
+---
+
+# PHẦN G — VERSION CONTROL, TỔ CHỨC DỰ ÁN & WORKFLOW
+
+> Nguồn: **"The Unity game designer playbook / Field Guide"** — © 2021 Unity Technologies (chương *Version control*, tr.18–21; *Project organization*, tr.22–25) và **"Optimize your mobile game performance"** — © 2021 Unity Technologies (chương *Project configuration*, tr.22–23; *Workflow and collaboration*, tr.48–49).
+
+---
+
+## 53. 🔀 Version control — Quản lý phiên bản
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Dù là <strong>Plastic</strong>, <strong>Git</strong>, <strong>Perforce</strong> hay hệ thống khác, Unity cho phép bạn <strong>chọn giải pháp source control phù hợp nhất</strong> với bạn và nhóm của bạn.</p>
+<p>Unity có <strong>tích hợp sẵn trong Editor</strong> với <strong>hai hệ thống version control hàng đầu ngành</strong>: <strong>Perforce</strong> và <strong>Plastic SCM</strong>. Bạn phải có server Perforce hoặc Plastic SCM được thiết lập cho dự án để dùng với Unity.</p>
+</div>
+<div class="col-en">
+<p>Whether it's Plastic, Git, Perforce, or another system, Unity allows you to choose which source control solution works best for you and your team.</p>
+<p>Unity has in-Editor integrations with two industry-leading version control systems, Perforce and Plastic SCM. You must have either a Perforce or Plastic SCM server set up for your project to use with Unity.</p>
+</div>
+</div>
+
+<img src="../assets/fg-plasticscm-banner.png" alt="Plastic SCM tích hợp trong Unity Editor với tab Pending changes">
+
+<p><em>VI: Plastic SCM làm cho version control trở nên đơn giản với giao diện tinh gọn — tab <strong>Pending changes</strong> hiển thị ngay trong Unity Editor cùng Project và Console. / EN: PlasticSCM makes version control simple with its streamlined interface.</em></p>
+
+### 53.1. ⚙️ Cấu hình bắt buộc trước khi dùng source control
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🚨 <strong>Trước khi dùng source control</strong>, hãy vào <strong><code>Project Settings → Editor</code></strong>. Xác nhận rằng <strong><code>Asset Serialization Mode</code> được đặt là <code>Force Text</code></strong>.</p>
+<p>Unity dùng <strong>serialization</strong> để nạp và lưu Asset ra/vào đĩa. <strong><code>Force Text</code></strong> nghĩa là Unity sẽ <strong>lưu file scene ở định dạng text</strong> — giúp ích cho việc <strong>merge trong version control</strong>.</p>
+<p><strong>Version Control trong Project Settings:</strong> vào <strong><code>Project Settings → Editor → Version Control</code></strong>. Tuỳ theo hệ thống version control của bạn, chuyển mode sang <strong><code>Plastic SCM</code></strong>, <strong><code>Perforce</code></strong>, hoặc <strong><code>Visible Meta Files</code></strong> (dành cho source control bên ngoài như Git).</p>
+</div>
+<div class="col-en">
+<p>Before using source control, navigate to Project Settings &gt; Editor. Confirm that Asset Serialization Mode is set to Force Text. Unity uses serialization to load and save Assets to and from disk. Force Text means that Unity will store the scene files in a text-based format to help with version control merges.</p>
+<p>Version Control in the Project Settings: Navigate to Project Settings &gt; Editor &gt; Version Control. According to your version control system, switch to the mode Plastic SCM, Perforce, or Visible Meta Files (for external source control like Git).</p>
+</div>
+</div>
+
+<img src="../assets/fg-version-control-settings.png" alt="Project Settings > Editor > Version Control với Mode = Visible Meta Files">
+
+<p><em>VI: Cửa sổ <strong>Project Settings → Version Control</strong> với <strong><code>Mode = Visible Meta Files</code></strong> — thiết lập bắt buộc khi dùng Git hoặc source control bên ngoài. / EN: Version Control in the Project Settings.</em></p>
+
+!!! danger "⚠️ Hai thiết lập KHÔNG ĐƯỢC QUÊN"
+    | Thiết lập | Giá trị bắt buộc | Hậu quả nếu sai |
+    |---|---|---|
+    | `Editor → Asset Serialization Mode` | **`Force Text`** | Scene/Prefab lưu dạng **binary** → **không thể merge, không thể diff** |
+    | `Editor → Version Control → Mode` | **`Visible Meta Files`** (với Git) | File `.meta` bị ẩn → **mất reference GUID** khi đồng đội pull về |
+
+### 53.2. 🌿 Plastic SCM — giải pháp Unity khuyến nghị
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Plastic SCM là hệ thống version control mà chúng tôi khuyến nghị</strong> cho phát triển game Unity. Giải pháp này mang lại <strong>trải nghiệm tốt nhất khi xử lý file binary lớn (&gt;500 MB)</strong>, để asset nghệ thuật của bạn có được mức độ quản lý ngang với code.</p>
+<p>Plastic SCM cho phép bạn làm việc với sự yên tâm rằng <strong>cả asset nghệ thuật lẫn asset lập trình đều được sao lưu an toàn</strong>. Ngoài ra, <strong>giao diện trực quan giúp đơn giản hoá việc branching và versioning</strong>.</p>
+<p>Một số <strong>lợi ích chính</strong> của Plastic SCM:</p>
+<ul>
+<li>⚡ <strong>Tốc độ (Speed):</strong> tạo branch trong một codebase lớn <strong>nhanh hơn ĐÁNG KỂ</strong> ở Plastic so với Perforce hay Git.</li>
+<li>🎨 <strong>Đơn giản cho người không code (Simplicity for non-coders):</strong> hoạ sĩ trong nhóm có thể làm việc ở <strong>chế độ Gluon</strong>. Workflow đơn giản hoá này cho phép họ <strong>check out phần của mình, làm việc và commit thay đổi</strong>, đồng thời <strong>loại bỏ các phần giao diện không liên quan</strong>.</li>
+<li>☁️ <strong>Cloud hosting:</strong> Plastic cung cấp giải pháp native tên là <strong>Plastic Cloud Edition</strong>, thiết kế cho các nhóm phân tán hoàn toàn. Nếu nhóm bạn <strong>không muốn tự chạy server</strong> và thích host mọi thứ online, hãy thử Plastic Cloud Edition.</li>
+<li>🌍 <strong>Distributed Version Control:</strong> thiết lập các repository khác nhau ở <strong>văn phòng từ xa</strong> để các nhóm luôn làm việc "cục bộ". Đây là <strong>workflow kiểu Git ở quy mô lớn hơn</strong>. Dùng giao diện đồ hoạ để push/pull thay đổi cũng như <strong>giải quyết xung đột từ xa</strong>.</li>
+<li>🔍 <strong>Diff window:</strong> Plastic có giao diện đầy đủ để xem file đã <strong>thay đổi, thêm mới, hoặc xoá</strong>. GUI còn bao gồm <strong>công cụ image diff riêng</strong> giúp bạn <strong>so sánh hai revision của một texture asset</strong>.</li>
+</ul>
+</div>
+<div class="col-en">
+<p>Plastic SCM is our recommended version control system for Unity game development. This solution offers the best experience when dealing with large binary files (&gt;500 MB), so your art assets can have the same level of management as you would expect for your code.</p>
+<p>Plastic SCM allows you to work knowing that both your art and programming assets are securely backed up. In addition, the intuitive visual interface simplifies branching and versioning. Here are some of the key benefits of Plastic SCM:</p>
+<ul>
+<li><strong>Speed:</strong> Creating branches in a large codebase is significantly faster in Plastic than in Perforce or Git.</li>
+<li><strong>Simplicity for non-coders:</strong> Artists on your team can work in Gluon mode. This simplified workflow allows them to check out their part of the project, work, and commit their changes, while removing irrelevant parts of the interface.</li>
+<li><strong>Cloud hosting:</strong> Plastic offers a native solution called Plastic Cloud Edition, designed with fully distributed teams in mind. If your team doesn't want to consider running its own servers and prefers hosting everything online, try Plastic Cloud Edition.</li>
+<li><strong>Distributed Version Control:</strong> Set up different repositories in remote offices so teams always work "locally." This is a Git-like workflow at a larger scale. Use the graphical interface to push and pull changes as well as solve remote conflicts.</li>
+<li><strong>Diff window:</strong> Plastic features a complete interface to view changed, added, or deleted files. The GUI also includes a separate image diff tool to help you compare two revisions of a texture asset.</li>
+</ul>
+</div>
+</div>
+
+<img src="../assets/fg-plastic-branch-explorer.png" alt="Plastic SCM Branch Explorer hiển thị đồ thị branch và cửa sổ diff hai phía">
+
+<p><em>VI: <strong>Branch Explorer</strong> của Plastic SCM — đồ thị các branch (<code>/main</code>, <code>/main/release</code>) cùng cửa sổ <strong>diff hai phía</strong> với các nút <strong>Next diff / Semantic diff / Visual diff / Skip format changes / Reformat</strong>. / EN: Plastic SCM branch explorer and diff view.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Khi dùng Plastic SCM, hãy mở cửa sổ Plastic SCM (<strong><code>Window → Plastic SCM</code></strong>) để xem các file trong changelist của bạn.</p>
+<p>Tab <strong>Pending changes</strong> liệt kê <strong>tất cả thay đổi cục bộ đang chờ commit</strong> vào version control. Tab <strong>Incoming changes</strong> cho phép bạn <strong>xem mọi thay đổi đến và xung đột</strong>, đồng thời cập nhật dự án cục bộ. Bất kỳ thay đổi nào với dự án đều tạo thông báo <strong>"Incoming changes"</strong> ở góc trên bên phải cửa sổ Plastic SCM.</p>
+</div>
+<div class="col-en">
+<p>When using Plastic SCM, open the Plastic SCM window (Window &gt; Plastic SCM) to view the files in your changelist.</p>
+<p>The Pending changes tab lists all of the local changes that are pending a commit into version control. The Incoming changes tab allows you to view all incoming changes and conflicts and update your local project. Any changes made to your project prompts an "Incoming changes" notification at the top right of the Plastic SCM window.</p>
+</div>
+</div>
+
+<img src="../assets/fg-plastic-scm-window.png" alt="Cửa sổ Plastic SCM trong Unity với tab Changesets liệt kê 5 changeset">
+
+<p><em>VI: Cửa sổ <strong>Plastic SCM</strong> trong Unity — Branch <code>/main @ SampleScene @ GameAcademy_School@cloud</code>. Ba tab <strong>Pending Changes / Incoming changes / Changesets</strong>; danh sách <strong>5 changesets</strong> kèm Name, Creation date, Created by, Comment, Branch, Repository, Guid. Panel dưới hiển thị <strong>Changes of changeset 4 → Changed: 1 item → /Assets/Scenes/SampleScene.unity</strong>. / EN: PlasticSCM window.</em></p>
+
+### 53.3. 🐙 Git
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Unity developer cũng có thể dùng các giải pháp source control bên ngoài như <strong>Git</strong>. Tuy nhiên, điều này <strong>đòi hỏi một chút thiết lập thủ công ban đầu</strong> cho dự án.</p>
+<p>Để dùng Git với Unity, hãy <strong>tạo một repository rỗng trên máy cục bộ</strong> và tuỳ chọn đồng bộ lên cloud qua GitHub. <strong>Hãy chắc chắn bao gồm Git LFS (Large File Support)</strong> để quản lý phiên bản hiệu quả hơn cho các asset lớn như tài nguyên đồ hoạ và âm thanh. <strong>Unity duy trì một file <code>.gitignore</code></strong> giúp bạn quyết định thứ gì nên và không nên vào Git repository.</p>
+<p>Để thuận tiện hơn khi làm việc với dịch vụ hosting GitHub, hãy cài <strong>plug-in GitHub for Unity</strong>. Extension mã nguồn mở này cho phép bạn <strong>xem lịch sử dự án, thử nghiệm trên branch, commit thay đổi và push code lên GitHub mà không cần rời khỏi Unity</strong>.</p>
+<p>Ngoài ra, hãy cân nhắc bất kỳ client đồ hoạ mạnh nào như <strong>GitKraken</strong>, <strong>SourceTree</strong>, hoặc <strong>GitHub Desktop</strong>.</p>
+</div>
+<div class="col-en">
+<p>Unity developers can also use external source control solutions such as Git. This, however, requires some initial manual setup of the project.</p>
+<p>To use Git with Unity, create an empty repository on your local machine and optionally sync this to the cloud via GitHub. Be sure to include Git LFS (Large File Support) for more efficient version control of your larger assets, like graphics and sound resources. Unity maintains a .gitignore file that can help you decide what should and shouldn't go into the Git repository.</p>
+<p>For the added convenience of working with the GitHub hosting service, install the GitHub for Unity plug-in. This open source extension allows you to view your project history, experiment in branches, commit your changes, and push your code to GitHub without leaving Unity.</p>
+<p>Also, consider any of the capable visual clients like GitKraken, SourceTree, or GitHub Desktop. For a walkthrough of setting up Unity with Git, watch the Introduction to Version Control video, which covers the basics of using a visual GitHub client with a sample project.</p>
+</div>
+</div>
+
+<img src="../assets/fg-github-unity-repo.png" alt="Trang GitHub của Unity Technologies với 528 repository">
+
+<p><em>VI: Tạo repository bằng GitHub. Trang tổ chức <strong>Unity Technologies</strong> (Copenhagen, Denmark — <strong>Verified</strong>) với <strong>528 repositories</strong>, <strong>61 People</strong>; repo <strong>Graphics</strong> có <strong>362 fork</strong>, <strong>1.081 star</strong>, <strong>161 pull request</strong>. / EN: Create a repository using GitHub.</em></p>
+
+<img src="../assets/fg-github-for-unity.png" alt="Tab GitHub trong Unity Editor với nút Initialize a git repository for this project">
+
+<p><em>VI: Extension <strong>GitHub for Unity</strong> — tab GitHub nằm cạnh Inspector, với nút <strong>"Initialize a git repository for this project"</strong> và các nút Initialize / Settings / Sign in. / EN: The GitHub for Unity extension.</em></p>
+
+```gitignore
+# .gitignore chuẩn cho Unity (rút gọn) — KHÔNG commit các thư mục sinh tự động
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]serSettings/
+
+# .gitattributes — bật Git LFS cho asset binary lớn
+# *.psd  filter=lfs diff=lfs merge=lfs -text
+# *.fbx  filter=lfs diff=lfs merge=lfs -text
+# *.wav  filter=lfs diff=lfs merge=lfs -text
+```
+
+### 53.4. 🔷 Perforce
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Nếu <strong>Perforce</strong> là lựa chọn source control của bạn, hãy dùng <strong>Helix Core</strong> để quản lý code, tài nguyên nghệ thuật và asset của game engine. <strong>Helix Core MIỄN PHÍ cho tối đa 5 người dùng và 20 workspace.</strong></p>
+<p>Perforce có <strong>hiệu năng tốt, ngay cả với các nhóm từ xa phân tán khắp thế giới</strong>. <strong>Nhiều studio game AAA hoặc indie dùng Perforce làm source control chính.</strong></p>
+<p>Để dùng nó:</p>
+<ul>
+<li>Làm theo quy trình thiết lập mô tả trong tài liệu <strong>Unity Version Control</strong>.</li>
+<li>Đọc cách thiết lập <strong>Perforce Helix Core với Unity</strong>.</li>
+<li>Tham khảo <strong>tài liệu Perforce</strong> để biết chi tiết hơn về Perforce Helix Core.</li>
+</ul>
+</div>
+<div class="col-en">
+<p>If Perforce is your source control of choice, use Helix Core to manage your code, artwork, and game engine assets. Helix Core is free for up to five users and 20 workspaces.</p>
+<p>Perforce has good performance, even with remote teams distributed around the world. Many AAA or indie game dev studios use Perforce as their primary source control.</p>
+<p>To use it: Follow the setup process described in the Unity Version Control documentation. Read how to set up Perforce Helix Core with Unity. Consult the Perforce documentation for more detail about Perforce Helix Core.</p>
+</div>
+</div>
+
+📊 **So sánh 3 giải pháp:**
+
+| Giải pháp | Điểm mạnh | Phù hợp với |
+|---|---|---|
+| **Plastic SCM** | Binary lớn (**&gt;500 MB**), branch nhanh, **Gluon mode** cho artist, image diff | Nhóm hỗn hợp code + art (Unity **khuyến nghị**) |
+| **Git** | Miễn phí, phổ biến, hệ sinh thái lớn | Nhóm nhỏ, thiên về code — **bắt buộc Git LFS** cho asset |
+| **Perforce (Helix Core)** | Hiệu năng tốt với nhóm phân tán toàn cầu; **miễn phí ≤ 5 user / 20 workspace** | Studio AAA & indie |
+
+---
+
+## 54. 📁 Project organization — Tổ chức dự án
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Khi dự án lớn dần, bạn sẽ cần <strong>duy trì một mức độ tổ chức</strong> để nó có thể <strong>mở rộng theo nhóm và yêu cầu của ứng dụng</strong>. Những gợi ý tổng quát sau sẽ giúp bạn thiết lập cấu trúc dự án và scene cơ bản.</p>
+</div>
+<div class="col-en">
+<p>As your project grows, you will need to maintain a level of organization so that it can scale with your team and application requirements. These general tips will help you to establish your basic project and scene structure.</p>
+</div>
+</div>
+
+### 54.1. 🔍 The Project view
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Cửa sổ <strong>Project</strong> hiển thị <strong>tất cả file liên quan tới dự án</strong>. Đây là thư mục nội dung nơi bạn tìm thấy asset và các file khác trong ứng dụng.</p>
+<p>Unity lưu <strong>file nguồn trực tiếp trong dự án</strong>, kèm theo các <strong>file <code>.meta</code> riêng lẻ</strong>. File meta chứa <strong>dữ liệu riêng cho engine và Editor</strong> của asset tương ứng.</p>
+<p>Unity cũng <strong>import mỗi asset vào một định dạng đã tối ưu</strong> mà engine dùng lúc runtime. Các asset đã xử lý này xuất hiện trong <strong>thư mục <code>Library</code></strong> — thư mục này đóng vai trò <strong>cache và KHÔNG cần thêm vào source control</strong>.</p>
+<p>Cửa sổ Project có vài tính năng UI hỗ trợ điều hướng:</p>
+<ul>
+<li><strong>Chuột phải</strong> để mở context menu cho các lệnh hay dùng (tạo/import asset, hiện đường dẫn đầy đủ trên đĩa, v.v.).</li>
+<li>Dùng ô <strong>Search</strong> để tìm asset khi dự án lớn dần. Nếu tìm một loại asset cụ thể, hãy <strong>lọc theo type bằng cú pháp <code>t:</code></strong> (ví dụ: <strong><code>t:Material</code></strong> sẽ lọc mọi material asset trong dự án).</li>
+<li><strong>Kéo một thư mục hay dùng vào ô <code>Favorites</code></strong> ở đầu giao diện. Bạn cũng có thể <strong>lưu một tìm kiếm vào Favorites</strong> bằng nút <strong>Save Search</strong>.</li>
+<li>Bạn cũng có thể <strong>đổi layout của cửa sổ</strong>. Chọn menu <strong>More Items</strong> ở góc trên bên phải và chọn <strong>One Column Layout</strong> hoặc <strong>Two Column Layout</strong>. Layout hai cột có thêm một pane với <strong>xem trước trực quan cho mỗi file</strong>.</li>
+</ul>
+</div>
+<div class="col-en">
+<p>The Project window displays all of the files related to your project. This is the content directory where you will find assets and other project files in your application.</p>
+<p>Unity stores the source files directly in the project, alongside individual .meta files. Meta files contain engine- and Editor-specific data for the associated asset. Unity also imports each asset into an optimized format which the engine uses at runtime. These processed assets appear in the Library folder, which serves as a cache and does not need to be added to source control.</p>
+<p>The project window has a few UI features to assist with navigation:</p>
+<ul>
+<li>Right-click to reveal the context menu for frequently used commands (creating/importing assets, revealing full path on disk, etc.).</li>
+<li>Use the Search field to locate assets as your project grows in size. If you're looking for a particular type of asset, filter by type using the t: syntax (e.g., t:Material will filter for all material assets in the project). This can help you to navigate large projects.</li>
+<li>Drag a frequently used folder into the Favorites field at the top of the interface. You can also save a search to the Favorites with the Save Search button.</li>
+<li>You can also change the layout of the window itself. Select the More Items menu in the top right of the window, and choose from either One Column Layout or Two Column Layout. The two-column layout has an extra pane with a visual preview of each file.</li>
+</ul>
+</div>
+</div>
+
+<img src="../assets/fg-project-window-layouts.png" alt="So sánh one-column layout và two-column layout của Project window">
+
+<p><em>VI: So sánh <strong>one-column layout</strong> (bên trái) và <strong>two-column layout</strong> (bên phải, có mục <strong>Favorites</strong> với các search đã lưu: All Materials, All Models, All Prefabs — cùng pane xem trước dạng icon thư mục). / EN: One-column vs two-column layout.</em></p>
+
+### 54.2. 📂 Thư mục Assets và các thư mục con thông dụng
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Bên trong cửa sổ Project là <strong>thư mục <code>Assets</code></strong>. Nó chứa các asset dùng để build game. Nếu bạn khởi tạo dự án bằng một template, bạn sẽ thấy các thư mục con đại diện cho một số asset thông dụng. Dù hầu hết do người dùng tự định nghĩa, <strong>Unity CÓ dành riêng một vài tên thư mục cho mục đích cụ thể</strong> — hãy chắc chắn bạn biết danh sách <strong>Special folder names</strong> này.</p>
+<p>Sau đây là một số thư mục con thông dụng bạn có thể dùng để tổ chức dự án, dù chúng <strong>thay đổi tuỳ theo nhóm và dự án</strong>. 🔑 <strong>Trên hết, hãy NHẤT QUÁN — tạo một style guide và tuân theo nó.</strong></p>
+</div>
+<div class="col-en">
+<p>Inside of the Project window is the Assets folder. This contains the assets used to build your game. If you've started your project with a template, you should see subfolders that represent several common assets. While most of these are user-defined, Unity does reserve a few folder names for specific purposes. Make sure you are aware of this list of Special folder names.</p>
+<p>The following are some common subdirectories that you might use to organize your project, although these vary by team and project according to preferences. Above all, stay consistent – create a style guide and follow it.</p>
+</div>
+</div>
+
+| Thư mục | Nội dung (VI) | Contents (EN) |
+|---|---|---|
+| **Animations** | Các animated motion clip và file controller của chúng, cũng như **Timeline asset** cho cinematic trong game hoặc thông tin rigging cho procedural animation | Animated motion clips and their controller files, as well as Timeline assets for in-game cinematics or rigging information for procedural animation |
+| **Audio** | Audio clip cũng như các **mixer** dùng để trộn hiệu ứng và nhạc | Sound assets include audio clips as well as the mixers used for blending effects and music |
+| **Editor** | Các **công cụ script** viết cho Unity Editor nhưng **KHÔNG xuất hiện trong target build** | Scripted tools made for use with the Unity Editor but not appearing in a target build |
+| **Fonts** | Các font dùng trong game | The fonts used in the game |
+| **Gizmos** | Icon Gizmo giúp **trực quan hoá GameObject** trong Scene/Game view, đặc biệt khi nó **không có mesh**. Lưu file ảnh của các icon này ở đây | Having a Gizmo icon can help visualize a GameObject in the Scene or Game view, especially if it does not have a mesh. Store the image files for these icons in the Gizmos folder |
+| **Materials** | Các asset mô tả **thuộc tính đổ bóng bề mặt** | These assets describe surface shading properties |
+| **Meshes** | Lưu **model tạo từ ứng dụng DCC bên ngoài** | Store models created in an external DCC application here |
+| **Particles** | Quản lý **mô phỏng hạt** tạo bằng ParticleSystem hoặc **Visual Effect Graph** | Manage particle simulations in Unity, created either with the ParticleSystem or Visual Effect Graph |
+| **Prefabs** | Các **GameObject tái sử dụng** với component dựng sẵn. Thêm vào scene để xây level và gameplay | Reusable GameObjects with prebuilt components. Add them to a scene to build your levels and gameplay |
+| **Scripts** | **Toàn bộ code gameplay** do người dùng phát triển | All user-developed code for gameplay appears here |
+| **Scenes** | Các phần nhỏ, có chức năng của dự án. Thường tương ứng với **một level hoặc một phần của level** | Unity stores small, functional portions of your project in scene assets. They often correspond to game levels or part of a level |
+| **Settings** | Asset lưu **thiết lập render pipeline** cho cả **HDRP và URP** | Assets store render pipeline settings for both HDRP and URP |
+| **Shaders** | Các chương trình **chạy trên GPU** như một phần của graphics pipeline | These programs run on the GPU as part of the graphics pipeline |
+| **Textures** | File ảnh: texture cho material và surfacing, phần tử UI overlay, và **lightmap** lưu thông tin ánh sáng | Image files can consist of texture files for materials and surfacing, UI overlay elements for user interface, and lightmaps to store lighting information |
+| **ThirdParty** | 🚨 Nếu có asset từ nguồn ngoài như Asset Store, **giữ chúng TÁCH BIỆT** khỏi phần còn lại của dự án. Điều này giúp **cập nhật asset/script bên thứ ba dễ hơn**. Asset bên thứ ba có thể có **cấu trúc cố định không thể thay đổi** | If you have assets from an external source like the Asset Store, keep them separated from the rest of your project here. This makes updating your third-party assets and scripts easier. Third-party assets may have a set structure that cannot be altered |
+
+<img src="../assets/fg-project-folder-structure.png" alt="Cấu trúc thư mục mẫu của HDRP template trong Project window">
+
+<p><em>VI: Scene mẫu với HDRP template bao gồm nhiều thư mục asset: <code>HDRPDefaultResources</code>, <code>Samples</code>, <code>SampleSceneAssets</code> (chứa <code>Animations</code>, <code>Materials/General</code>, <code>Meshes/Lighting|Props|Structure</code>, <code>Particles</code>, <code>Scripts</code>, <code>Settings</code>, <code>Textures</code>, <code>TutorialInfo</code>), <code>Scenes</code>, <code>Tests</code>, và <code>Packages</code>. / EN: The Sample Scene with the HDRP template includes several asset folders.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Trang manual <strong>Supported Asset Types</strong> mô tả chi tiết hơn về các asset phổ biến nhất. Bạn có thể dùng dự án <strong>Template</strong> hoặc <strong>Learn</strong> làm ví dụ về cách tổ chức thư mục hiệu quả. Dù bạn không bị giới hạn ở những tên thư mục này, danh sách trên là <strong>điểm khởi đầu tốt</strong> để mở rộng khi dự án lớn lên.</p>
+<p>Tất nhiên bạn <strong>tự do điều chỉnh cấu trúc thư mục</strong> theo nhu cầu cụ thể của dự án và sở thích của nhóm, như trong hình dưới.</p>
+</div>
+<div class="col-en">
+<p>The Supported Asset Types manual page describes the most common assets in more detail. You can use the Template or Learn projects as an example of how to organize your folders effectively. While you're not limited to these folder names, this list should give you a good starting point that you can expand upon as your project scales up.</p>
+<p>You are of course free to adapt the folder structure to your specific project's needs and team preferences, as in the image below.</p>
+</div>
+</div>
+
+<img src="../assets/fg-custom-folder-structure.png" alt="Cấu trúc thư mục tự tổ chức: Art, Audio, Code, Docs, Editor, Level, UI">
+
+<p><em>VI: Tổ chức thư mục theo nhu cầu dự án — nhưng <strong>hãy nhất quán một khi đã quyết định cấu trúc</strong>. Ví dụ: <code>Art</code> (Materials, Model, Textures → <em>meshes, textures, materials</em>), <code>Audio</code> (Music, Sounds → <em>sound effects and music</em>), <code>Code</code> (Scripts → <em>C# scripts</em>, Shaders → <em>shaders and shader graphs</em>), <code>Docs</code> → <em>documentation</em>, <code>Editor</code> → <em>Editor scripts</em>, <code>Level</code> (Prefabs, Scenes/SampleScene + <strong>LightingData</strong>), <code>UI</code>. / EN: Organize folders for your project needs, but stay consistent once you decide on a structure.</em></p>
+
+### 54.3. ✅ Cấu trúc thư mục và quy ước đặt tên
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Dù <strong>không có một cách duy nhất</strong> để tổ chức dự án, chúng tôi khuyến nghị bạn nhìn chung tuân theo các best practice sau:</p>
+<ul>
+<li>📝 <strong>Tài liệu hoá quy ước đặt tên và cấu trúc thư mục.</strong> Một style guide và/hoặc project template làm cho file <strong>dễ tìm và dễ tổ chức hơn</strong>.</li>
+<li>🔒 <strong>Dù chọn quy ước đặt tên nào, hãy chắc chắn bạn NHẤT QUÁN.</strong> Đừng lệch khỏi style guide hay template đã chọn. Nếu bạn <strong>cần sửa quy tắc đặt tên</strong>, hãy <strong>parse và rename toàn bộ asset bị ảnh hưởng CÙNG MỘT LÚC bằng script</strong>.</li>
+<li>🚫 <strong>KHÔNG dùng dấu cách trong tên file và thư mục.</strong> Các công cụ dòng lệnh của Unity <strong>gặp vấn đề với đường dẫn có dấu cách</strong>.</li>
+<li>🧪 <strong>Tách riêng khu vực test hoặc sandbox.</strong> Tạo thư mục riêng cho các scene và thử nghiệm không thuộc production. <strong>Thư mục con theo username</strong> có thể chia khu vực làm việc theo từng thành viên.</li>
+<li>📁 <strong>Tránh thư mục thừa ở cấp root.</strong> Nhìn chung, hãy lưu file nội dung <strong>bên trong thư mục <code>Assets</code></strong>. Đừng tạo thêm thư mục ở cấp root của dự án <strong>trừ khi thực sự cần thiết</strong>.</li>
+</ul>
+</div>
+<div class="col-en">
+<p>While there's no single way to organize your project, we recommend that you follow these best practices in general:</p>
+<ul>
+<li>Document your naming conventions and folder structure. A style guide and/or project template makes your files easier to find and organize.</li>
+<li>Whatever naming convention you choose, make sure you remain consistent. Don't deviate from your chosen style guide or template. If you do need to amend your naming rules, parse and rename your affected assets all at once with a script.</li>
+<li>Don't use spaces in file and folder names. Unity's command line tools have issues with path names that have spaces.</li>
+<li>Separate your testing or sandbox areas. Create a separate folder for non-production scenes and experimentation. Subfolders with usernames can divide your work area by team member.</li>
+<li>Avoid extra folders at the root level. In general, store your content files within the Assets folder. Don't create additional folders at the project's root level unless absolutely necessary.</li>
+</ul>
+</div>
+</div>
+
+### 54.4. 🎬 Scenes
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Scene</strong> là nơi bạn làm việc với nội dung trong Unity. Chúng chứa các object của game và có thể được dùng để tạo main menu, từng level riêng lẻ, và mọi thứ khác. Trong mỗi scene, bạn sẽ đặt môi trường, chướng ngại vật và trang trí — <strong>tương ứng đại khái với một level</strong> của game. Điều này cho phép bạn <strong>thiết kế và xây dựng ứng dụng từng mảnh một, giữ tính module</strong>.</p>
+<p>Bản thân file scene là <strong>asset lưu trên đĩa</strong>. Nếu bạn dùng <strong><code>Force Text</code> Mode cho Asset Serialization</strong>, chúng xuất hiện dưới dạng <strong>file text</strong>; nếu không, mặc định là <strong>binary</strong>.</p>
+<p>Scene thường đại diện cho một level hoặc một phần của level. Trong khi các demo và game đơn giản có thể chỉ dùng <strong>một scene duy nhất</strong>, hầu hết game thương mại có thể dùng <strong>một scene cho mỗi level</strong>, mỗi cái có môi trường, nhân vật, UI riêng.</p>
+<p>🚨 Bạn có thể tạo <strong>bao nhiêu scene tuỳ ý</strong> trong dự án, nhưng hãy lưu ý rằng <strong>cách bạn cấu trúc scene có thể có tác động ĐÁNG KỂ tới hiệu năng</strong>.</p>
+<p>Bạn sẽ cần tạo, nạp và lưu scene để thể hiện các phần khác nhau của game. Một <strong>"scene flow"</strong> điển hình gồm việc <strong>kích hoạt nạp một scene khác bằng một event</strong>. Ví dụ, bạn có thể có scene menu nạp scene gameplay chính khi người dùng nhấn vào giao diện. Lưu ý rằng bạn có thể <strong>nạp scene từng cái một, hoặc tách các phần tử ra và nạp scene theo kiểu additive</strong>.</p>
+<p>Khi tạo scene mới, Unity cho phép bạn chọn từ một bộ <strong>Scene Templates</strong>. Ví dụ, HDRP 3D Sample Scene đi kèm nhiều template. Bạn có thể <strong>tự định nghĩa scene template</strong> để tinh gọn workflow.</p>
+</div>
+<div class="col-en">
+<p>Scenes are where you work with content in Unity. They contain the objects of your game and can be used to create a main menu, individual levels, and anything else. In each unique scene, you will place the environments, obstacles, and decorations that roughly translate into one level of your game. This enables you to design and build your application piece by piece, keeping it modular.</p>
+<p>The scene files themselves are assets that are stored on disk. If you use Force Text Mode for Asset Serialization, they appear as text files; otherwise, they default to binaries.</p>
+<p>Scenes often represent a level of your game or a portion of a level. While demos and simple games might occupy just a single scene, most commercial games might use one scene per level, each with its own environments, characters, UI, etc.</p>
+<p>You can create any number of scenes in a project, but be aware that how you structure your scenes can have a significant performance impact. For more info on scene organization and performance, check out our mobile performance optimization guide.</p>
+<p>You'll need to create, load, and save scenes to represent different portions of your game and flesh out your application. A typical "scene flow" involves triggering the loading of another scene with an event. For example, you may have a menu scene that loads up a main gameplay scene when the user clicks the interface. Note that you can load scenes one at a time, or separate elements and load the scenes additively.</p>
+<p>When creating a new scene, Unity allows you to select from a set of Scene Templates. For example, the HDRP 3D Sample Scene comes with several templates. You can define your own scene templates to streamline your workflow.</p>
+</div>
+</div>
+
+---
+
+## 55. 🔧 Project configuration (Mobile) — Cấu hình dự án
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Có một vài <strong>Project Settings có thể tác động tới hiệu năng mobile</strong> của bạn.</p>
+</div>
+<div class="col-en">
+<p>There are a few Project Settings that can impact your mobile performance.</p>
+</div>
+</div>
+
+### 55.1. 📱 Giảm hoặc tắt Accelerometer Frequency
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Unity <strong>lấy mẫu (poll) cảm biến gia tốc của thiết bị vài lần MỖI GIÂY</strong>.</p>
+<p>✅ <strong>Hãy TẮT nó nếu không được dùng</strong> trong ứng dụng, hoặc <strong>giảm tần số</strong> để có hiệu năng tốt hơn.</p>
+</div>
+<div class="col-en">
+<p>Unity pools your mobile's accelerometer several times a second. Disable this if it's not being used in your application, or reduce its frequency for better performance.</p>
+</div>
+</div>
+
+<img src="../assets/fg-accelerometer-frequency-player.png" alt="Project Settings > Player với dropdown Accelerometer Frequency mở, chọn Disabled">
+
+<p><em>VI: Hãy đảm bảo <strong><code>Accelerometer Frequency</code> được đặt <code>Disabled</code></strong> nếu bạn không dùng nó trong game mobile. Ảnh chụp <code>Project Settings → Player</code> của dự án <strong>Boat Attack</strong> (<code>com.UnityTechnologies.BoatAttack</code>, Version 0.9) với <code>Scripting Backend = IL2CPP</code>, <code>Api Compatibility Level = .NET Standard 2.0</code>, <code>C++ Compiler Configuration = Release</code>, <code>Use incremental GC</code> đang bật. / EN: Ensure your Accelerometer Frequency is disabled if you are not making use of it in your mobile game.</em></p>
+
+### 55.2. ⚙️ Tắt các thiết lập Player hoặc Quality không cần thiết
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Trong <strong>Player settings</strong>, hãy <strong>tắt <code>Auto Graphics API</code></strong> cho các nền tảng không hỗ trợ để <strong>tránh sinh ra QUÁ NHIỀU shader variant</strong>. Tắt <strong><code>Target Architectures</code></strong> cho các CPU cũ nếu ứng dụng của bạn không hỗ trợ chúng.</p>
+<p>Trong <strong>Quality settings</strong>, hãy <strong>tắt các Quality level không cần thiết</strong>.</p>
+</div>
+<div class="col-en">
+<p>In the Player settings, disable Auto Graphics API for unsupported platforms to prevent generating excessive shader variants. Disable Target Architectures for older CPUs if your application is not supporting them. In the Quality settings, disable unneeded Quality levels.</p>
+</div>
+</div>
+
+### 55.3. 🧲 Tắt physics không cần thiết
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Nếu game của bạn <strong>không dùng physics</strong>, hãy <strong>bỏ chọn <code>Auto Simulation</code> và <code>Auto Sync Transforms</code></strong>. Chúng chỉ <strong>làm chậm ứng dụng mà KHÔNG mang lại lợi ích rõ rệt nào</strong>.</p>
+</div>
+<div class="col-en">
+<p>If your game is not using physics, uncheck Auto Simulation and Auto Sync Transforms. These will just slow down your application with no discernible benefit.</p>
+</div>
+</div>
+
+### 55.4. 🎞️ Chọn frame rate phù hợp
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Dự án mobile phải <strong>cân bằng frame rate với thời lượng pin và thermal throttling</strong>. Thay vì đẩy thiết bị tới giới hạn ở <strong>60 fps</strong>, hãy cân nhắc chạy ở <strong>30 fps</strong> như một thoả hiệp. <strong>Unity mặc định 30 fps cho mobile.</strong></p>
+<p>Bạn cũng có thể <strong>điều chỉnh frame rate ĐỘNG lúc runtime</strong> bằng <strong><code>Application.targetFrameRate</code></strong>. Ví dụ, bạn thậm chí có thể <strong>hạ xuống dưới 30 fps cho các scene chậm hoặc tương đối tĩnh</strong> và dành thiết lập fps cao hơn cho gameplay.</p>
+</div>
+<div class="col-en">
+<p>Mobile projects must balance frame rates against battery life and thermal throttling. Instead of pushing the limits of your device at 60 fps, consider running at 30 fps as a compromise. Unity defaults to 30 fps for mobile.</p>
+<p>You can also adjust the frame rate dynamically during runtime with Application.targetFrameRate. For example, you could even drop below 30 fps for slow or relatively static scenes and reserve higher fps settings for gameplay.</p>
+</div>
+</div>
+
+```csharp
+// Điều chỉnh frame rate động theo ngữ cảnh
+Application.targetFrameRate = 30;   // Gameplay mặc định trên mobile
+// Application.targetFrameRate = 20;   // Màn hình menu tĩnh → tiết kiệm pin
+```
+
+### 55.5. 🌳 Tránh hierarchy lớn
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Hãy chia nhỏ hierarchy của bạn!</strong> Nếu các GameObject <strong>không cần lồng nhau trong một hierarchy</strong>, hãy <strong>đơn giản hoá quan hệ cha-con</strong>.</p>
+<p>✅ <strong>Hierarchy nhỏ hơn được hưởng lợi từ multithreading</strong> khi refresh Transform trong scene. <strong>Hierarchy phức tạp gây ra các phép tính Transform không cần thiết và tốn kém hơn cho garbage collection.</strong></p>
+</div>
+<div class="col-en">
+<p>Split your hierarchies! If your GameObjects do not need to be nested in a hierarchy, simplify the parenting. Smaller hierarchies benefit from multithreading to refresh the Transforms in your scene. Complex hierarchies incur unnecessary Transform computations and more cost to garbage collection.</p>
+</div>
+</div>
+
+### 55.6. ⚡ Transform một lần, không phải hai
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Ngoài ra, khi di chuyển Transform, hãy dùng <strong><code>Transform.SetPositionAndRotation</code></strong> để <strong>cập nhật cả position và rotation CÙNG LÚC</strong>. Điều này <strong>tránh overhead của việc sửa transform HAI LẦN</strong>.</p>
+<p>Nếu bạn cần <code>Instantiate</code> một GameObject lúc runtime, một tối ưu đơn giản là <strong>gán parent và đặt vị trí NGAY TRONG lúc instantiate</strong>.</p>
+</div>
+<div class="col-en">
+<p>Also, when moving Transforms, use Transform.SetPositionAndRotation to update both position and rotation at once. This avoids the overhead of modifying a transform twice.</p>
+<p>If you need to Instantiate a GameObject at runtime, a simple optimization is to parent and reposition during instantiation.</p>
+</div>
+</div>
+
+```csharp
+// ✅ Gán parent + vị trí NGAY khi instantiate (tránh reparent/reposition sau đó)
+GameObject.Instantiate(prefab, parent);
+GameObject.Instantiate(prefab, parent, position, rotation);
+```
+
+!!! tip "🔗 Trùng khớp với CyberAgent"
+    Lời khuyên `SetPositionAndRotation` này **giống hệt** mục **30.4 (List 9.6)** của CyberAgent — hai nguồn độc lập cùng chỉ ra một tối ưu.
+
+### 55.7. 🖥️ Giả định Vsync luôn bật
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Nền tảng mobile KHÔNG render nửa frame.</strong> Ngay cả khi bạn tắt Vsync trong Editor (<code>Project Settings → Quality</code>), <strong>Vsync vẫn được BẬT ở mức PHẦN CỨNG</strong>.</p>
+<p>🚨 Nếu GPU <strong>không thể refresh đủ nhanh</strong>, <strong>frame hiện tại sẽ bị giữ lại</strong>, <strong>làm giảm fps của bạn một cách hiệu quả</strong>.</p>
+</div>
+<div class="col-en">
+<p>Mobile platforms won't render half-frames. Even if you disable Vsync in the Editor (Project Settings &gt; Quality), Vsync is enabled at the hardware level. If the GPU cannot refresh fast enough, the current frame will be held, effectively reducing your fps.</p>
+</div>
+</div>
+
+---
+
+## 56. 🤝 Workflow and collaboration — Quy trình & cộng tác
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Xây dựng một ứng dụng trong Unity là <strong>một nỗ lực lớn thường liên quan tới nhiều developer</strong>. Hãy đảm bảo dự án của bạn được <strong>thiết lập tối ưu cho cả nhóm</strong>.</p>
+</div>
+<div class="col-en">
+<p>Building an application in Unity is a large endeavor that will often involve many developers. Make sure that your project is set up optimally for your team.</p>
+</div>
+</div>
+
+### 56.1. 🔀 Dùng version control
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>MỌI NGƯỜI đều nên dùng một dạng version control nào đó.</strong> Hãy đảm bảo <strong>Editor Settings có <code>Asset Serialization Mode</code> đặt là <code>Force Text</code></strong>.</p>
+<p>Nếu bạn dùng hệ thống version control bên ngoài (như <strong>Git</strong>), trong Version Control settings hãy đảm bảo <strong><code>Mode</code> được đặt là <code>Visible Meta Files</code></strong>.</p>
+<p>💡 Unity còn có <strong>công cụ YAML tích hợp sẵn</strong> (YAML — một ngôn ngữ serialize dữ liệu dễ đọc với người) <strong>dành riêng cho việc MERGE Scene và Prefab</strong>. Xem thêm <strong>Smart Merge</strong> trong tài liệu Unity.</p>
+<p><strong>Version control là thiết yếu khi làm việc theo nhóm.</strong> Nó có thể giúp bạn <strong>truy vết bug và các revision xấu</strong>. Hãy tuân theo các thực hành tốt như <strong>dùng branch và tag để quản lý milestone và release</strong>.</p>
+</div>
+<div class="col-en">
+<p>Everyone should be using some type of version control. Make sure your Editor Settings have Asset Serialization Mode set to Force Text.</p>
+<p>If you're using an external version control system (such as Git) in the Version Control settings, make sure the Mode is set to Visible Meta Files.</p>
+<p>Unity also has a built-in YAML (a human-readable, data-serialization language) tool specifically for merging Scenes and Prefabs. For more information, see Smart Merge in the Unity documentation.</p>
+<p>Version control is essential for working as part of a team. It can help you track down bugs and bad revisions. Follow good practices like using branches and tags to manage milestones and releases. Check out Plastic SCM, our recommended version control solution for Unity game development.</p>
+</div>
+</div>
+
+### 56.2. ✂️ Chia nhỏ Scene lớn
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Các Scene Unity lớn, đơn khối KHÔNG phù hợp với cộng tác.</strong></p>
+<p>✅ Hãy <strong>chia level của bạn thành NHIỀU Scene nhỏ hơn</strong> để hoạ sĩ và designer có thể <strong>cộng tác tốt hơn trên cùng một level</strong> đồng thời <strong>giảm thiểu nguy cơ xung đột (conflict)</strong>.</p>
+<p>Lúc runtime, dự án có thể <strong>nạp Scene theo kiểu additive</strong> bằng <strong><code>SceneManager.LoadSceneAsync</code></strong> với tham số mode <strong><code>LoadSceneMode.Additive</code></strong>.</p>
+</div>
+<div class="col-en">
+<p>Large, single Unity Scenes do not lend themselves well to collaboration. Break your levels into many smaller Scenes so that artists and designers can collaborate better on a single level while minimizing the risk of conflicts.</p>
+<p>At runtime, your project can load Scenes additively using SceneManager.LoadSceneAsync passing the LoadSceneMode.Additive parameter mode.</p>
+</div>
+</div>
+
+```csharp
+// ✅ Nạp scene bất đồng bộ theo kiểu additive — vừa tốt cho cộng tác, vừa chống ANR
+SceneManager.LoadSceneAsync("Level01_Terrain", LoadSceneMode.Additive);
+SceneManager.LoadSceneAsync("Level01_Props",   LoadSceneMode.Additive);
+SceneManager.LoadSceneAsync("Level01_Lighting", LoadSceneMode.Additive);
+```
+
+!!! success "🔗 Liên kết với PHẦN F"
+    Lời khuyên **"chia nhỏ scene"** ở đây khớp chính xác với chiến lược **"Reduce dependencies: Split large scenes into smaller ones"** mà Amanotes dùng để giảm scene loading từ **17,8 s → 3,71 s** (mục **51.1**). Cùng một kỹ thuật giải quyết **hai vấn đề khác nhau**: xung đột merge **và** ANR.
+
+### 56.3. 🗑️ Loại bỏ tài nguyên không dùng
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🚨 Hãy <strong>cảnh giác với các asset không dùng đi kèm plug-in và thư viện bên thứ ba</strong>. Nhiều thứ trong đó chứa <strong>asset test và script nhúng sẵn</strong>, và chúng <strong>SẼ trở thành một phần bản build của bạn nếu bạn không xoá đi</strong>.</p>
+<p>✅ Hãy <strong>loại bỏ mọi tài nguyên không cần thiết còn sót lại từ giai đoạn prototype</strong>.</p>
+</div>
+<div class="col-en">
+<p>Watch out for any unused assets that come bundled with third-party plug-ins and libraries. Many include embedded test assets and scripts, which will become part of your build if you don't remove them. Strip out any unneeded resources left over from prototyping.</p>
+</div>
+</div>
+
+### 56.4. 🚀 Tăng tốc chia sẻ với Unity Accelerator
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>Unity Accelerator</strong> là một <strong>proxy và cache cho dịch vụ Collaborate</strong>, cho phép bạn <strong>chia sẻ nội dung Unity Editor nhanh hơn</strong>.</p>
+<p>✅ Nếu nhóm của bạn làm việc trên <strong>cùng một mạng cục bộ</strong>, bạn <strong>không cần rebuild lại các phần của dự án</strong>, qua đó <strong>giảm đáng kể thời gian download</strong>. Khi dùng cùng <strong>Unity Teams Advanced</strong>, Accelerator còn <strong>chia sẻ cả source asset</strong>.</p>
+</div>
+<div class="col-en">
+<p>The Unity Accelerator is a proxy and cache for the Collaborate service that allows you to share Unity Editor content faster. If your team is working on the same local network, you don't need to rebuild portions of your project, significantly reducing download time. When used with Unity Teams Advanced, the Accelerator also shares source assets.</p>
+</div>
+</div>
+
+### 56.5. 🏢 Unity Integrated Success & Project Review
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Nếu bạn cần sự hỗ trợ cá nhân hoá, hãy cân nhắc <strong>Unity Integrated Success</strong>. Integrated Success <strong>không chỉ là một gói hỗ trợ</strong> — khách hàng Integrated Success còn có <strong>tuỳ chọn thêm quyền đọc và chỉnh sửa source code của Unity</strong>. Quyền truy cập này dành cho các nhóm phát triển muốn <strong>đào sâu vào source code để tuỳ biến và tái sử dụng</strong> cho ứng dụng khác.</p>
+<p><strong>Project Review</strong> là một phần thiết yếu của gói Integrated Success. Bất cứ khi nào có thể, Unity <strong>đến tận nơi khách hàng và thường dành TRỌN HAI NGÀY</strong> để làm quen với dự án. Họ dùng <strong>nhiều công cụ profiling để phát hiện nút thắt hiệu năng</strong>, có tính tới các yêu cầu và quyết định thiết kế hiện có. Họ cũng <strong>xác định các điểm có thể tối ưu</strong> để đạt tốc độ, độ ổn định và hiệu quả cao hơn.</p>
+<p>Với các dự án <strong>có kiến trúc tốt và thời gian build thấp</strong> (scene dạng module, dùng nhiều AssetBundle...), họ <strong>thực hiện thay đổi NGAY tại chỗ và profile lại</strong> để phát hiện vấn đề mới.</p>
+<p>Trong trường hợp không thể giải quyết trực tiếp, họ <strong>thu thập càng nhiều thông tin càng tốt</strong>, rồi tiến hành điều tra thêm tại văn phòng Unity, <strong>tham vấn các developer chuyên biệt ở các bộ phận R&D</strong> nếu cần. Sản phẩm bàn giao thường là <strong>một báo cáo viết tay tổng hợp phát hiện và đưa ra khuyến nghị</strong>.</p>
+</div>
+<div class="col-en">
+<p>If you need personalized attention, consider Unity Integrated Success. Integrated Success is much more than a support package. Integrated Success customers also have the option to add read and modification access to Unity source code. This access is available for development teams that want to deep dive into the source code to adapt and reuse it for other applications.</p>
+<p>Project Reviews are an essential part of the Integrated Success package. Whenever possible, we travel to our customers and typically spend two full days familiarizing ourselves with their projects. We use various profiling tools to detect performance bottlenecks, factoring in existing requirements and design decisions. We also identify points where performance could be optimized for greater speed, stability, and efficiency.</p>
+<p>For well-architected projects that have low build times (modular scenes, heavy usage of AssetBundles, etc.), we perform changes while onsite and reprofile to uncover new issues. In instances where we are unable to solve problems directly, we capture as much information as possible. Then, we conduct further investigation back at the Unity offices, consulting specialized developers across our R&D departments if need be. Though deliverables can vary depending on the needs of the customers, typically a written report summarizes our findings and provides recommendations.</p>
+</div>
+</div>
+
+!!! info "📋 Checklist thiết lập dự án nhóm"
+    - [ ] `Editor → Asset Serialization Mode` = **`Force Text`**
+    - [ ] `Editor → Version Control → Mode` = **`Visible Meta Files`** (nếu dùng Git)
+    - [ ] Bật **Smart Merge (UnityYAMLMerge)** cho Scene & Prefab
+    - [ ] `.gitignore` chuẩn Unity + **Git LFS** cho asset binary
+    - [ ] Quy ước đặt tên **được tài liệu hoá** — **không dấu cách** trong tên file/thư mục
+    - [ ] Thư mục **`ThirdParty`** tách biệt; thư mục sandbox/test riêng theo username
+    - [ ] Scene **chia nhỏ**, nạp additive bằng `LoadSceneAsync`
+    - [ ] **Xoá sạch** asset test đi kèm plugin và tàn dư prototype
+    - [ ] Cân nhắc **Unity Accelerator** nếu nhóm chung mạng LAN
+
+---
+
+# PHẦN H — VERSION CONTROL & TỔ CHỨC DỰ ÁN (E-book 52 trang)
+
+> 📘 **Nguồn:** [***Version Control and Project Organization Best Practice Guide*** — 2020 LTS Edition, **52 trang**](https://cdn.bfldr.com/S5BC9Y64/at/pr233rvht6m6rwxpp8kjkn8/2022_ABMVersionControlandProjectOrganizationinUnity_EBook_Final.pdf) — bóc tách toàn văn + trích ảnh.
+
+<div class="bilingual-row">
+<div class="col-vi">
+<blockquote>
+<p><em>"Phát triển phần mềm <strong>trở thành một CON THÚ KHÁC HẲN khi bạn chuyển từ làm MỘT MÌNH sang làm VỚI MỘT ĐỘI.</strong> Lưu dự án ở đâu để MỌI thành viên đều truy cập được? Chuyện gì xảy ra nếu NHIỀU HƠN MỘT người làm việc trên CÙNG một file CÙNG lúc?</em></p>
+<p><em>🎨 <strong>Lập trình viên thường hiểu khái niệm source control, NHƯNG CÒN NGHỆ SĨ và các thành viên KHÔNG chuyên kỹ thuật thì sao? Làm sao TỐI THIỂU HOÁ lượng hỗ trợ họ cần từ lập trình viên, để họ KHÔNG phải lo lắng về việc làm sai điều gì đó?</strong>"</em></p>
+</blockquote>
+<p>📖 <strong>Thuật ngữ — "source control" vs "version control":</strong></p>
+<blockquote>
+<p><em>"Thuở ban đầu của tin học, <strong>MỌI phát triển phần mềm đều là CODE THUẦN TUÝ.</strong> Do đó, thuật ngữ <strong>'SOURCE CONTROL'</strong> được dùng để mô tả các hệ thống quản lý nội dung dự án, và <strong>SCM (source code management)</strong> là nhãn cho các công cụ đó.</em></p>
+<p><em>🎮 <strong>Bước vào kỷ nguyên HIỆN ĐẠI, ta giờ làm việc với NHIỀU HƠN CHỈ mã nguồn: định dạng model 3D như FBX, texture, material, file âm thanh… nghĩa là SCM giờ phải xử lý NHIỀU HƠN chỉ thay đổi file văn bản.</strong></em></p>
+<p><em>✅ <strong>Thuật ngữ 'source control' KHÔNG CÒN bao phủ được cái ta cần, và do đó 'VERSION CONTROL SYSTEM' (VCS) trở thành mô tả PHÙ HỢP HƠN.</strong> Khi nói về dự án Unity — vốn thường xử lý ASSET NHỊ PHÂN LỚN — <strong>'version control' và 'VCS' là CHÍNH XÁC NHẤT.</strong>"</em></p>
+</blockquote>
+<p>🥇 <em>"<strong>BA hệ thống version control CHÍNH hoạt động TỐT NHẤT với Unity là: PLASTIC SCM, GIT, và PERFORCE HELIX CORE.</strong>"</em> <em>(Plastic SCM gia nhập Unity năm 2020 ⇒ tích hợp CHẶT CHẼ vào Editor.)</em></p>
+</div>
+<div class="col-en">
+<blockquote>
+<p><em>"Software development <strong>becomes a DIFFERENT BEAST when you move from working ON YOUR OWN to WITH A TEAM.</strong> Where do you store the project so that EVERY team member has access? What happens if MORE THAN ONE person works on the SAME FILE at the SAME TIME?</em></p>
+<p><em>🎨 <strong>Programmers often understand the concepts behind source control, BUT WHAT ABOUT ARTISTS and other NON-TECHNICAL team members? How can you MINIMIZE the amount of support they need from programmers, so they DON'T have to worry about doing something wrong?</strong>"</em></p>
+</blockquote>
+<p>📖 <strong>Terminology — "source control" vs "version control":</strong></p>
+<blockquote>
+<p><em>"In the beginning of computing, <strong>ALL software development was PURE CODE.</strong> As such, the term <strong>'SOURCE CONTROL'</strong> was used to describe the systems managing the project's contents, and <strong>SCM (source code management)</strong> was the label given to those tools.</em></p>
+<p><em>🎮 <strong>Moving into the MODERN era, we now work with A LOT MORE than just source code: 3D model formats such as FBX, textures, materials, audio files and more — meaning SCMs now have to handle MORE THAN JUST text file changes.</strong></em></p>
+<p><em>✅ <strong>The term 'source control' NO LONGER covers what we need, and thus 'VERSION CONTROL SYSTEM' (VCS) became a MORE APT description.</strong> When talking about Unity projects that often deal with LARGE BINARY ASSETS, <strong>version control and VCS are MOST ACCURATE.</strong>"</em></p>
+</blockquote>
+<p>🥇 <em>"<strong>The THREE MAIN version control systems that work BEST with Unity are: PLASTIC SCM, GIT, and PERFORCE HELIX CORE.</strong>"</em> <em>(Plastic SCM joined the Unity family in 2020 ⇒ closely integrated into the Editor.)</em></p>
+</div>
+</div>
+
+## 57. 🏛️ Centralized vs Distributed — Chọn theo QUY MÔ ASSET
+
+| | **CENTRALIZED** *(tập trung)* | **DISTRIBUTED** *(phân tán)* |
+|---|---|---|
+| **Repo nằm ở đâu** | *"Nhiều công ty chọn tuỳ chọn TẬP TRUNG để **GIỮ SERVER host phần mềm ĐỘC QUYỀN của họ TẠI CHỖ (on-site). BẢO MẬT source control thường là yếu tố QUAN TRỌNG khi chọn loại hệ thống này.**"* ⚠️ *"Hệ thống tập trung KHÔNG BẮT BUỘC phải là server on-site vì repo VẪN có thể host trên cloud, **nhưng cấu hình này ÍT PHỔ BIẾN HƠN so với hệ phân tán**"* | *"Vẫn có MỘT vị trí DUY NHẤT nơi repo tồn tại, **thường trên dịch vụ cloud như GitHub, nhưng NGƯỜI DÙNG CLONE TOÀN BỘ LỊCH SỬ dự án về máy của mình**"* |
+| **Cách triển khai thay đổi** | *"Được xem là tuỳ chọn **THẲNG THẮN HƠN**. Thay đổi được **LẤY TỪ và GỬI TỚI repository TRỰC TIẾP** — gọi là **UPDATE từ** và **COMMIT tới** repo"* | *"Cho phép người dùng **làm việc trên BẢN SAO CỤC BỘ và COMMIT NHANH vì họ KHÔNG cần kết nối tới server trung tâm**"* |
+| **Nhược điểm** | 💀 *"Người dùng **PHẢI KẾT NỐI tới server để gửi BẤT KỲ công việc nào**"* | 💀 *Lịch sử file nhị phân LỚN nằm TRÊN MÁY MỖI NGƯỜI ⇒ **ngốn ổ cứng** (xem H5)* |
+| **Khoá file** | ✅ *"Để TRÁNH XUNG ĐỘT, người dùng có thể **KHOÁ file để sửa — gọi là CHECKING OUT — và nó NGĂN BẤT KỲ AI KHÁC commit thay đổi cho tới khi file được check back in**"* | ❌ *"**Locking nhìn chung KHÔNG được hỗ trợ trong workflow phân tán**"* |
+| **Trên máy người dùng có gì** | *"Người dùng **CHỈ CÓ phiên bản MỚI NHẤT của file dự án**, và **SERVER giữ TOÀN BỘ lịch sử**"* | *"**TOÀN BỘ lịch sử dự án nằm SẴN trên máy cục bộ**"* |
+
+### 57.1. 📖 Mười ba THUẬT NGỮ then chốt — nguyên văn
+
+| Thuật ngữ | Giải thích / Explanation |
+|---|---|
+| **Repository ("repo")** | *"File dự án được lưu trong một **CƠ SỞ DỮ LIỆU DÙNG CHUNG**"* |
+| **Commit** | *"Bạn có thể tạo NHIỀU thay đổi riêng lẻ và **'commit' chúng như MỘT NHÓM DUY NHẤT để versioning. Commit này nằm như MỘT ĐIỂM trên DÒNG THỜI GIAN của dự án**"* |
+| **Locking** | *"Khoá một file **NGĂN nó bị sửa bởi người dùng khác.** Bạn đang nói với server: **'Tôi đang làm việc trên cái này; xin ĐỪNG thay đổi gì khác.'** ⚠️ **Locking nhìn chung KHÔNG được hỗ trợ trong workflow phân tán**"* |
+| **Clone** | *"Trong workflow phân tán, clone một repo là cách bạn **LẤY BẢN SAO ĐẦU TIÊN của dự án VÀ TOÀN BỘ LỊCH SỬ về máy cục bộ**"* |
+| **Tags** | *"Ghi chú ĐẶC BIỆT có thể thêm vào một commit. **Thường dùng để ĐÁNH DẤU thời điểm một BUILD được tạo ra**"* |
+| **Branch** | *"Tạo một **BẢN SAO MỚI của codeline, có thể làm việc SONG SONG.** Cho phép ai đó **làm việc trên các phần của dự án TRONG SỰ CÔ LẬP — ví dụ một tính năng mới — mà KHÔNG ảnh hưởng dòng phát triển chính**"* |
+| **Merge** | *"Merge xảy ra **hoặc khi một branch HOÀN THÀNH và cần merge lại vào dòng chính, HOẶC chỉ đơn giản khi HAI NGƯỜI tạo thay đổi VÀO KHOẢNG CÙNG LÚC.** ✅ **HẦU HẾT merge có thể xử lý TỰ ĐỘNG**"* |
+| **Conflict** | 💀 *"Xung đột là thứ xảy ra **khi merge KHÔNG THỂ xử lý tự động. Thường do HAI NGƯỜI thay đổi CÙNG DÒNG code hoặc CÙNG file nhị phân.**"*<br>🚨 *"**Với file NHỊ PHÂN như Unity scene hay Prefab, việc merge một xung đột trở nên KHÓ HƠN RẤT NHIỀU. Tuy nhiên, đôi khi một CUỘC TRÒ CHUYỆN NHANH với người đóng góp kia là cách DỄ NHẤT để giải quyết.**"* |
+| **Pull request** | *"Khi công việc trên một branch hoàn tất, **thông lệ TỐT là MỞ một pull request. Việc này BÁO HIỆU cho phần còn lại của đội rằng công việc đã xong và SẴN SÀNG merge lại vào dòng chính.** ✅ **Hệ thống này cho team lead và/hoặc senior CƠ HỘI REVIEW thay đổi trước khi chấp nhận**"* |
+| **Head** | *"Chỉ **commit MỚI NHẤT trên bản làm việc của bạn**"* |
+| **Reset / revert** | *"Tuỳ VCS, dùng để **VỨT BỎ MỌI thay đổi cục bộ, quay về trạng thái ở head**"* |
+| **Index** | *"File Git mô tả **MỌI thay đổi hiện có trong bản làm việc. Những thay đổi này nằm ở STAGING AREA, nơi bạn CHỌN thay đổi nào muốn thêm vào commit tiếp theo**"* |
+| **Git stash** | *"NẾU bạn có thay đổi **CHƯA SẴN SÀNG commit, nhưng cần chuyển sang việc khác, bạn có thể dùng STASH để LƯU chúng vào file TẠM và reset bản làm việc về head**"* |
+
+---
+
+## 58. 📁 Tổ chức dự án — Sáu quy tắc THƯ MỤC
+
+<div class="bilingual-row">
+<div class="col-vi">
+<blockquote>
+<p><em>"<strong>Tuy KHÔNG CÓ MỘT CÁCH DUY NHẤT để tổ chức dự án, nhìn chung hãy theo các khuyến nghị sau.</strong>"</em></p>
+</blockquote>
+<ol>
+<li>📝 <strong>Tài liệu hoá quy ước đặt tên và cấu trúc thư mục.</strong> <em>"Một STYLE GUIDE và/hoặc PROJECT TEMPLATE khiến file DỄ TÌM và DỄ TỔ CHỨC hơn. <strong>Chọn cái phù hợp với đội bạn, và ĐẢM BẢO MỌI NGƯỜI đồng thuận với nó.</strong>"</em></li>
+<li>🔁 <strong>NHẤT QUÁN với quy ước đặt tên.</strong> <em>"ĐỪNG đi chệch khỏi style guide đã chọn. <strong>NẾU bạn CẦN sửa quy tắc đặt tên, hãy PHÂN TÍCH và ĐỔI TÊN các asset bị ảnh hưởng CÙNG MỘT LÚC.</strong> Nếu thay đổi ảnh hưởng SỐ LƯỢNG LỚN file, <strong>cân nhắc TỰ ĐỘNG HOÁ việc cập nhật bằng SCRIPT.</strong>"</em></li>
+<li>🚫 <strong>ĐỪNG dùng KHOẢNG TRẮNG trong tên file và thư mục.</strong> <em>"<strong>Công cụ dòng lệnh của Unity CÓ VẤN ĐỀ với đường dẫn có khoảng trắng. Dùng CamelCase thay cho khoảng trắng.</strong>"</em></li>
+<li>🧪 <strong>TÁCH RIÊNG khu vực test hoặc sandbox.</strong> <em>"Tạo thư mục RIÊNG cho scene KHÔNG-sản-xuất và thử nghiệm. <strong>Thư mục con theo TÊN NGƯỜI DÙNG có thể chia khu vực làm việc theo THÀNH VIÊN.</strong>"</em></li>
+<li>📂 <strong>TRÁNH thư mục THỪA ở cấp gốc.</strong> <em>"Nhìn chung, <strong>lưu file nội dung TRONG thư mục Assets. ĐỪNG tạo thư mục bổ sung ở cấp GỐC của dự án TRỪ KHI thực sự cần thiết.</strong>"</em></li>
+<li>📦 <strong>GIỮ asset NỘI BỘ TÁCH RIÊNG khỏi asset BÊN THỨ BA.</strong> <em>"Nếu bạn dùng asset từ Asset Store hay plug-in, <strong>khả năng cao chúng có CẤU TRÚC DỰ ÁN RIÊNG. Hãy giữ asset của bạn TÁCH RIÊNG.</strong>"</em></li>
+</ol>
+<p>💡 <strong>Mẹo bonus về asset bên thứ ba:</strong> <em>"NẾU bạn thấy mình đang SỬA một asset/plug-in bên thứ ba, <strong>version control THỰC SỰ giúp ích khi bạn cần lấy bản CẬP NHẬT MỚI NHẤT. Sau khi import bản cập nhật, bạn có thể XEM DIFF để tìm nơi các sửa đổi của bạn ĐÃ BỊ GHI ĐÈ và CÀI ĐẶT LẠI chúng.</strong>"</em></p>
+</div>
+<div class="col-en">
+<blockquote>
+<p><em>"<strong>Although there is NO SINGLE WAY to organize your project, in general, follow these recommendations.</strong>"</em></p>
+</blockquote>
+<ol>
+<li>📝 <strong>DOCUMENT your naming conventions and folder structure.</strong> <em>"A STYLE GUIDE and/or PROJECT TEMPLATE makes your files EASIER TO FIND and organize. <strong>Pick what works for your team, and MAKE SURE EVERYONE IS ON BOARD with it.</strong>"</em></li>
+<li>🔁 <strong>Be CONSISTENT with your naming convention.</strong> <em>"DON'T deviate from your chosen style guide. <strong>If you DO need to amend your naming rules, PARSE and RENAME your affected assets ALL AT ONCE.</strong> Where changes affect a LARGE NUMBER of files, <strong>consider AUTOMATING the update using a SCRIPT.</strong>"</em></li>
+<li>🚫 <strong>DON'T use SPACES in file and folder names.</strong> <em>"<strong>Unity's COMMAND LINE TOOLS have ISSUES with path names that have spaces. Use CamelCase as an alternative.</strong>"</em></li>
+<li>🧪 <strong>SEPARATE testing or sandbox areas.</strong> <em>"Create a SEPARATE folder for NON-PRODUCTION scenes and experimentation. <strong>Subfolders with USERNAMES can divide your work area by TEAM MEMBER.</strong>"</em></li>
+<li>📂 <strong>AVOID extra folders at the ROOT level.</strong> <em>"In general, <strong>store your content files WITHIN the Assets folder. DON'T create additional folders at the project's ROOT level UNLESS it's ABSOLUTELY NECESSARY.</strong>"</em></li>
+<li>📦 <strong>KEEP your INTERNAL assets SEPARATE from THIRD-PARTY ones.</strong> <em>"If you are using assets from the Asset Store or plug-ins, <strong>odds are they have their OWN project structure. Keep your assets SEPARATE.</strong>"</em></li>
+</ol>
+<p>💡 <strong>A bonus tip on third-party assets:</strong> <em>"If you find yourself MODIFYING a third-party asset or plug-in, <strong>version control can REALLY HELP when you need to get the LATEST UPDATE. Once the update is imported, you can look through the DIFF to find where your modifications may have been OVERWRITTEN and REIMPLEMENT them.</strong>"</em></p>
+</div>
+</div>
+
+**📂 Hai VÍ DỤ cấu trúc thư mục — nguyên văn từ sách**
+
+```text
+# Example 1
+Assets
++---Art
+|   +---Materials
+|   +---Models
+|   +---Textures
++---Audio
+|   +---Music
+|   \---Sound
++---Code
+|   +---Scripts      # C# scripts
+|   \---Shaders      # Shader files and shader graphs
++---Docs             # Wiki, concept art, marketing material
++---Level            # Anything related to game design in Unity
+|   +---Prefabs
+|   +---Scenes
+|   \---UI
+
+# Example 2
++---Art
+|   +---Materials
+|   +---Models
+|   +---Music
+|   +---Prefabs
+|   +---Sound
+|   +---Textures
+|   +---UI
++---Levels
++---Src
+|   +---Framework
+|   \---Shaders
+```
+
+**Bảng LOẠI ASSET và ý nghĩa thư mục** *(theo Template/Starter Project của Unity Hub)*
+
+| Thư mục | Ý nghĩa / Explanation |
+|---|---|
+| **Animations** | *"Chứa **clip chuyển động ĐÃ animate và file CONTROLLER** của chúng. Cũng có thể chứa **asset Timeline cho cinematic trong game hoặc thông tin RIGGING cho animation thủ tục**"* |
+| **Audio** | *"Gồm **audio clip cũng như MIXER dùng để trộn hiệu ứng và nhạc**"* |
+| **Editor** | *"Chứa **công cụ được script hoá dùng với Unity Editor NHƯNG KHÔNG xuất hiện trong bản BUILD đích**"* |
+| **Fonts** | *"Chứa font dùng trong game"* |
+| **Materials** | *"Asset mô tả **thuộc tính SHADING BỀ MẶT**"* |
+| **Meshes** | *"Lưu **model tạo trong ứng dụng DCC bên ngoài**"* |
+| **Particles** | *"Mô phỏng particle trong Unity, tạo bằng **Particle System hoặc Visual Effect Graph**"* |
+| **Prefabs** | *"**GameObject TÁI SỬ DỤNG với Component dựng sẵn**"* |
+| **Scripts** | *"MỌI code gameplay do người dùng phát triển"* |
+
+!!! danger "📄 File `.meta` — vì sao PHẢI commit dù nó tự sinh"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <blockquote>
+    <p><em>"Unity sinh ra một file <code>.meta</code> cho <strong>MỌI file khác trong dự án</strong>, và <strong>tuy nhìn chung KHÔNG NÊN đưa file TỰ SINH vào version control, file <code>.meta</code> thì HƠI KHÁC.</strong></em></p>
+    <p><em>⚙️ <strong>Chế độ VISIBLE META FILES nên được BẬT trong cửa sổ Version Control</strong> (trừ khi bạn dùng chế độ Plastic SCM hoặc Perforce dựng sẵn).</em></p>
+    <p><em>🔑 <strong>Tuy file <code>.meta</code> TỰ SINH, nó CŨNG GIỮ RẤT NHIỀU thông tin về file mà nó gắn với. Điều này PHỔ BIẾN với asset có IMPORT SETTINGS như Texture, mesh, audio clip…</strong></em></p>
+    <p><em>🚨 <strong>KHI bạn đổi BẤT KỲ import setting nào của những file này, thay đổi được GHI VÀO FILE <code>.meta</code>, KHÔNG PHẢI vào file asset. ĐÂY LÀ LÝ DO bạn PHẢI commit file <code>.meta</code> vào repository — để MỌI NGƯỜI làm việc với CÙNG setting file.</strong>"</em></p>
+    </blockquote>
+    <p>👉 <em>Nối trực tiếp với <a href="../04-tech-lead/01-gpu-urp-advanced-rendering.md">Module 4</a> và <a href="../03-senior/01-memory-addressables-networking.md">Module 3</a>: <strong>MỌI setting nén texture, mipmap, Read/Write, Vertex Compression bạn tinh chỉnh đều nằm trong <code>.meta</code></strong> — quên commit nó thì cả đội mất sạch công tối ưu.</em></p>
+    </div>
+    <div class="col-en">
+    <blockquote>
+    <p><em>"Unity generates a <code>.meta</code> file for <strong>EVERY OTHER FILE inside the project</strong>, and <strong>while it's typically INADVISABLE to include AUTO-GENERATED files in version control, the <code>.meta</code> file is A LITTLE DIFFERENT.</strong></em></p>
+    <p><em>⚙️ <strong>VISIBLE META FILES mode should be TURNED ON in the Version Control window</strong> (unless you're using the built-in Plastic SCM or Perforce modes).</em></p>
+    <p><em>🔑 <strong>While the <code>.meta</code> file is auto-generated, it ALSO HOLDS A LOT OF INFORMATION about the file it's associated with. This is COMMON with assets that have IMPORT SETTINGS, such as Textures, meshes, audio clips, etc.</strong></em></p>
+    <p><em>🚨 <strong>WHEN you change ANY import settings on these files, the changes are WRITTEN INTO THE <code>.meta</code> FILE, NOT the asset file. THIS IS WHY you commit the <code>.meta</code> files to your repository — so EVERYONE works with the SAME file settings.</strong>"</em></p>
+    </blockquote>
+    <p>👉 <em>Directly connected to <a href="../04-tech-lead/01-gpu-urp-advanced-rendering.md">Module 4</a> and <a href="../03-senior/01-memory-addressables-networking.md">Module 3</a>: <strong>EVERY texture compression, mipmap, Read/Write and Vertex Compression setting you tune lives in the <code>.meta</code> file</strong> — forget to commit it and the whole team loses your optimization work.</em></p>
+    </div>
+    </div>
+
+!!! warning "📭 THƯ MỤC RỖNG — điểm khác biệt giữa ba VCS"
+    **VI:** *"**Git và Perforce KHÔNG theo dõi thư mục RỖNG.** Cách giải quyết PHỔ BIẾN là **đặt một file `.keep` bên trong thư mục rỗng — đủ để thư mục được commit vào repository.** ✅ **Plastic SCM XỬ LÝ ĐƯỢC thư mục rỗng: thư mục được coi là THỰC THỂ và CÓ LỊCH SỬ PHIÊN BẢN.** 🚨 **Cái bẫy trong Unity: Unity sinh file `.meta` cho MỌI file, KỂ CẢ thư mục. Với Git và Perforce, người dùng DỄ DÀNG commit file `.meta` của một thư mục rỗng, NHƯNG BẢN THÂN THƯ MỤC LẠI KHÔNG được đưa vào version control. Khi người khác lấy thay đổi mới nhất, sẽ có một file `.meta` cho một THƯ MỤC KHÔNG TỒN TẠI trên máy họ — và Unity SẼ XOÁ file `.meta` đó."***
+
+    **EN:** *"**Git and Perforce do NOT track EMPTY folders.** A common workaround is to **place a `.keep` file inside an empty folder — this is enough for the folder to be committed.** ✅ **Plastic SCM CAN handle empty folders: directories are treated as ENTITIES and have a VERSION HISTORY.** 🚨 **The Unity trap: Unity generates a `.meta` file for EVERY file, INCLUDING folders. With Git and Perforce, a user can EASILY commit the `.meta` file for an empty folder, BUT THE FOLDER ITSELF WON'T END UP under version control. When another user gets the latest changes, there will be a `.meta` file for a folder THAT DOESN'T EXIST on their machine, and Unity WILL THEN DELETE the `.meta` file."***
+
+---
+
+## 59. ✏️ Năm chuẩn ĐẶT TÊN GameObject
+
+| Chuẩn / Standard | Ví dụ ĐÚNG | Ví dụ SAI |
+|---|---|---|
+| **Dùng tên MÔ TẢ, ĐỪNG viết tắt** — *"Dùng tên bạn SẼ NHỚ sau VÀI THÁNG. Cân nhắc liệu NGƯỜI KHÁC có hiểu ký hiệu của bạn, và chọn tên bạn có thể PHÁT ÂM và NHỚ được. **Lưu ý rằng VIẾT TẮT và LỖI CHÍNH TẢ có thể gây NHẦM LẪN.**"* | `largeButton` · `LargeButton` · `leftButton` | ❌ `lButton` |
+| **Dùng Camel case / Pascal case** — *"TRÁNH khoảng trắng trong tên object. **Camel case hoặc Pascal case CẢI THIỆN ĐỘ DỄ ĐỌC (và ĐỘ CHÍNH XÁC KHI GÕ theo nghiên cứu).**"* | `OutOfMemoryException` · `dateTimeFormat` | ❌ `Outofmemoryexception` · `datetimeformat` |
+| **Dùng gạch dưới (hoặc gạch ngang) TIẾT KIỆM** — *"TRÁNH gạch dưới và gạch ngang nói chung. **TUY NHIÊN chúng HỮU ÍCH trong một số trường hợp. Đặt gạch dưới ở ĐẦU tên sẽ đưa nó lên ĐẦU theo thứ tự bảng chữ cái. Bạn cũng có thể dùng gạch dưới để BIỂU THỊ BIẾN THỂ của một object cụ thể.**"* | **Trạng thái:** `EnterButton_Active`, `EnterButton_Inactive`<br>**Texture map:** `Foliage_Diffuse`, `Foliage_Normalmap`<br>**LOD:** `Building_LOD0`, `Building_LOD1` | — |
+| **Dùng HẬU TỐ SỐ để biểu thị TRÌNH TỰ** — *"Tương tự, **ĐỪNG thêm hậu tố số NẾU nó KHÔNG phải một phần của DANH SÁCH.**"* | `Node0`, `Node1`, `Node2`… | — |
+| **Theo đúng tên trong DESIGN DOCUMENT** | *"Nếu tài liệu thiết kế đặt tên địa điểm là `HighSpellTower` hay `RedDragonLair`, **hãy dùng CHÍNH XÁC những cách viết đó**"* | — |
+
+---
+
+## 60. ⚡ Tối ưu WORKFLOW — Chia nhỏ asset & Preset
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>✂️ Chia nhỏ asset — quy tắc CHỐNG XUNG ĐỘT quan trọng nhất:</strong></p>
+<blockquote>
+<p><em>"<strong>Scene Unity LỚN, ĐƠN LẺ KHÔNG PHÙ HỢP với cộng tác.</strong> <strong>Hãy CHIA level thành NHIỀU SCENE NHỎ HƠN để nghệ sĩ và designer CỘNG TÁC TỐT HƠN trên MỘT level, đồng thời TỐI THIỂU HOÁ rủi ro xung đột.</strong></em></p>
+<p><em>▶️ <strong>Lúc runtime, dự án có thể load scene THEO KIỂU CỘNG DỒN bằng <code>SceneManager.LoadSceneAsync</code> truyền tham số <code>LoadSceneMode.Additive</code>.</strong></em></p>
+<p><em>📦 <strong>Ngoài ra, hãy CHIA công việc thành PREFAB khi có thể. NẾU cần thay đổi sau này, bạn có thể đổi PREFAB thay vì đổi SCENE dùng nó — để TRÁNH xung đột với người đang làm trên scene đó. Thay đổi Prefab cũng THƯỜNG DỄ ĐỌC HƠN khi xem DIFF.</strong></em></p>
+<p><em>🔧 <strong>Và NẾU bạn vẫn gặp xung đột scene, Unity có công cụ YAML DỰNG SẴN dành riêng cho việc MERGE scene và Prefab</strong> — xem <strong>Smart merge</strong> trong tài liệu Unity."</em></p>
+</blockquote>
+<p>👉 <em>Đây chính là cơ sở tổ chức cho kiến trúc <strong>"streaming city"</strong> ở <a href="../04-tech-lead/01-gpu-urp-advanced-rendering.md">Module 4 §41.3</a> — chia scene nhỏ vừa TỐT cho cộng tác vừa TỐT cho hiệu năng.</em></p>
+</div>
+<div class="col-en">
+<p><strong>✂️ Split up your assets — the most important CONFLICT-AVOIDANCE rule:</strong></p>
+<blockquote>
+<p><em>"<strong>Large, SINGLE Unity scenes do NOT lend themselves well to COLLABORATION.</strong> <strong>BREAK your levels into MANY SMALLER SCENES so that artists and designers can COLLABORATE BETTER on a single level while MINIMIZING the risk of conflicts.</strong></em></p>
+<p><em>▶️ <strong>At runtime, your project can load scenes ADDITIVELY using <code>SceneManager.LoadSceneAsync</code> passing the <code>LoadSceneMode.Additive</code> parameter.</strong></em></p>
+<p><em>📦 <strong>Additionally, BREAK WORK UP into PREFABS where possible. If you need to make changes later, you can change the PREFAB rather than the SCENE it's used in — to AVOID conflicts with anyone working on the scene. Prefab changes can often be EASIER TO READ when doing a DIFF.</strong></em></p>
+<p><em>🔧 <strong>And if you end up with a scene conflict, Unity also has a BUILT-IN YAML tool SPECIFICALLY for MERGING scenes and Prefabs</strong> — see <strong>Smart merge</strong> in the Unity documentation."</em></p>
+</blockquote>
+<p>👉 <em>This is the organizational basis for the <strong>"streaming city"</strong> architecture in <a href="../04-tech-lead/01-gpu-urp-advanced-rendering.md">Module 4 §41.3</a> — splitting scenes is BOTH good for collaboration AND for performance.</em></p>
+</div>
+</div>
+
+!!! success "🎛️ PRESETS — công cụ ÉP CHUẨN mạnh nhất mà ít người dùng"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <blockquote>
+    <p><em>"Tính năng này cho phép bạn <strong>TUỲ BIẾN TRẠNG THÁI MẶC ĐỊNH của BẤT CỨ THỨ GÌ trong Inspector. Tạo một Preset cho phép bạn SAO CHÉP setting của một component hay asset, LƯU nó thành một ASSET, rồi ÁP DỤNG cùng setting đó cho item khác sau này.</strong></em></p>
+    <p><em>🎯 <strong>Dùng Preset để ÉP CHUẨN hoặc để áp GIÁ TRỊ MẶC ĐỊNH HỢP LÝ cho asset mới. Điều này ĐẢM BẢO chuẩn NHẤT QUÁN trong toàn đội, để những setting THƯỜNG BỊ BỎ SÓT KHÔNG ẢNH HƯỞNG tới hiệu năng dự án.</strong>"</em></p>
+    </blockquote>
+    <p><strong>Ba cách dùng Preset khác:</strong></p>
+    <ol>
+    <li><strong>Tạo GameObject với giá trị mặc định:</strong> <em>"KÉO THẢ một Preset asset vào Hierarchy để tạo GameObject MỚI với component tương ứng ĐÃ CÓ giá trị Preset"</em></li>
+    <li><strong>Gắn một KIỂU (Type) cụ thể với một Preset:</strong> <em>"Trong <code>Project Settings &gt; Preset Manager</code>, chỉ định MỘT HOẶC NHIỀU Preset cho MỖI KIỂU. Tạo component mới sẽ MẶC ĐỊNH theo giá trị Preset đã chỉ định"</em><br>💡 <em>Pro tip: <strong>"Tạo NHIỀU Preset cho mỗi kiểu, và dựa vào BỘ LỌC để gắn đúng Preset THEO TÊN"</strong></em></li>
+    <li><strong>Lưu và load setting của Manager:</strong> <em>"Dùng Preset cho cửa sổ Manager để setting TÁI SỬ DỤNG được. Ví dụ, nếu bạn định áp lại CÙNG tag và layer hoặc setting physics, <strong>Preset có thể GIẢM thời gian setup cho dự án TIẾP THEO</strong>"</em></li>
+    </ol>
+    <p>🔑 <em><strong>Vì sao đây là công cụ TỐI ƯU:</strong> Preset cho phép bạn ĐÓNG BĂNG những setting đã tinh chỉnh ở Module 3 và 4 (nén texture theo nền tảng, mipmap, Read/Write, ASTC…) thành CHUẨN TỰ ĐỘNG áp cho MỌI asset mới — thay vì hy vọng đồng đội nhớ.</em></p>
+    </div>
+    <div class="col-en">
+    <blockquote>
+    <p><em>"This feature allows you to <strong>CUSTOMIZE the DEFAULT STATE of ANYTHING in your Inspector. Creating a Preset lets you COPY the settings of a component or asset, SAVE it as an ASSET, then APPLY the same settings to another item later.</strong></em></p>
+    <p><em>🎯 <strong>Use Presets to ENFORCE STANDARDS or to apply REASONABLE DEFAULTS to new assets. This ENSURES CONSISTENT standards across your team, so COMMONLY OVERLOOKED settings DON'T IMPACT your project's PERFORMANCE.</strong>"</em></p>
+    </blockquote>
+    <p><strong>Three other ways to use Presets:</strong></p>
+    <ol>
+    <li><strong>Create a GameObject with defaults:</strong> <em>"DRAG AND DROP a Preset asset into the Hierarchy to create a NEW GameObject with the corresponding component that INCLUDES Preset values"</em></li>
+    <li><strong>Associate a specific Type with a Preset:</strong> <em>"In the <code>Project Settings &gt; Preset Manager</code>, specify ONE OR MORE Presets PER TYPE. Creating a new component will then DEFAULT to the specified Preset values"</em><br>💡 <em>Pro tip: <strong>"Create MULTIPLE Presets per type, and rely on the FILTER to associate the CORRECT Preset BY NAME"</strong></em></li>
+    <li><strong>Save and load manager settings:</strong> <em>"Use Presets for a Manager window so the settings can be REUSED. For example, if you plan to reapply the same tags and layers or physics settings, <strong>Presets can REDUCE SETUP TIME for your NEXT project</strong>"</em></li>
+    </ol>
+    <p>🔑 <em><strong>Why this is an OPTIMIZATION tool:</strong> Presets let you FREEZE the settings you tuned in Modules 3 and 4 (per-platform texture compression, mipmaps, Read/Write, ASTC…) into an AUTOMATIC STANDARD applied to EVERY new asset — instead of hoping teammates remember.</em></p>
+    </div>
+    </div>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><strong>📐 Chuẩn CODE — namespace và header:</strong></p>
+<blockquote>
+<p><em>"<strong>NAMESPACE giúp TỔ CHỨC code TỐT HƠN. Chúng cho phép bạn TÁCH các module bên trong dự án và TRÁNH XUNG ĐỘT với asset bên thứ ba nơi tên class có thể TRÙNG LẶP.</strong> ✅ <strong>Khi dùng namespace, hãy CHIA cấu trúc thư mục THEO NAMESPACE để tổ chức tốt hơn.</strong></em></p>
+<p><em>📝 <strong>HEADER CHUẨN cũng là thông lệ tốt. Đưa header chuẩn vào code template sẽ giúp TÀI LIỆU HOÁ MỤC ĐÍCH của class, NGÀY tạo, và thậm chí AI đã tạo. Tất cả thông tin này DỄ BỊ MẤT trong lịch sử dài của dự án, KỂ CẢ khi dùng version control.</strong>"</em></p>
+</blockquote>
+<p>📂 <strong>Vị trí template script của Unity:</strong></p>
+<ul>
+<li><strong>Windows:</strong> <code>C:\Program Files\Unity\Editor\Data\Resources\ScriptTemplates</code></li>
+<li><strong>Mac:</strong> <code>/Applications/Hub/Editor/[version]/Unity/Unity.app/Contents/Resources/ScriptTemplates</code></li>
+<li>Template MonoBehaviour mặc định: <strong><code>81-C# Script-NewBehaviourScript.cs.txt</code></strong></li>
+</ul>
+</div>
+<div class="col-en">
+<p><strong>📐 CODE standards — namespaces and headers:</strong></p>
+<blockquote>
+<p><em>"<strong>NAMESPACES help ORGANIZE your code BETTER. They allow you to SEPARATE MODULES inside your project and AVOID CONFLICTS with third-party assets where class names may end up REPEATING.</strong> ✅ <strong>When using namespaces, BREAK your folder structure UP BY THE NAMESPACE for better organization.</strong></em></p>
+<p><em>📝 <strong>A STANDARD HEADER is also good practice. Including one in your code template helps DOCUMENT the PURPOSE of a class, the DATE it was created, and even WHO created it. All of this is information that could EASILY GET LOST in the long history of a project, EVEN when using version control.</strong>"</em></p>
+</blockquote>
+<p>📂 <strong>Unity's script template location:</strong></p>
+<ul>
+<li><strong>Windows:</strong> <code>C:\Program Files\Unity\Editor\Data\Resources\ScriptTemplates</code></li>
+<li><strong>Mac:</strong> <code>/Applications/Hub/Editor/[version]/Unity/Unity.app/Contents/Resources/ScriptTemplates</code></li>
+<li>The default MonoBehaviour template: <strong><code>81-C# Script-NewBehaviourScript.cs.txt</code></strong></li>
+</ul>
+</div>
+</div>
+
+---
+
+## 61. 🗃️ Thiết lập Unity cho VCS — Ignore gì & File LỚN
+
+<img src="../assets/vc-plastic-ignore-config.png" alt="Adding files to the ignore list in Plastic SCM">
+<p><em>VI: Có thể thêm file vào danh sách BỎ QUA <strong>ngay trong Unity Editor</strong> khi dùng Plastic SCM. / EN: Files can be added to the ignored list directly from the Unity Editor when using Plastic SCM.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🚨 <strong>Quy tắc VÀNG về thư mục:</strong></p>
+<blockquote>
+<p><em>"Chỉ có <strong><code>Assets</code></strong> và <strong><code>ProjectSettings</code></strong> là NÊN được commit vào repository. <strong>Unity có thể TỰ ĐỘNG TÁI TẠO mọi thư mục khác.</strong></em></p>
+<p><em>💀 <strong>TUYỆT ĐỐI KHÔNG BAO GIỜ commit thư mục <code>Library</code>, vì thư mục này có thể trở nên RẤT LỚN và Unity SẼ TÁI TẠO nó khi khởi động Editor nếu nó không tồn tại.</strong>"</em></p>
+</blockquote>
+<p><strong>Cách làm theo từng VCS:</strong></p>
+<ul>
+<li><strong>Perforce</strong> — <em>"bạn cần <strong>THÊM TƯỜNG MINH thư mục <code>Assets</code> và <code>Project Settings</code> vào depot</strong>"</em></li>
+<li><strong>Plastic SCM</strong> — <em>"<strong>TỰ ĐỘNG chọn thư mục và file phù hợp</strong> khi được thiết lập từ Unity Editor. Có một danh sách lưu trong file <strong><code>ignore.conf</code></strong> ở gốc dự án"</em></li>
+<li><strong>Git</strong> — <em>"đòi hỏi file <strong><code>.gitignore</code></strong> để chỉ ra file nào KHÔNG BAO GIỜ được đưa vào"</em></li>
+</ul>
+<p>⚠️ <em>"Bạn cũng nên <strong>TRÁNH commit những thứ như file <code>.exe</code> hay <code>.apk</code>. Ngoài ra, dự án GRADLE và XCODE được build ra từ dự án Unity KHÔNG NÊN được thêm vào repository.</strong> Ngoại lệ nhỏ: nếu bạn thiết lập quy trình BUILD TỰ ĐỘNG cho chúng, <strong>thì chúng thường được commit vào MỘT REPOSITORY RIÊNG.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🚨 <strong>The GOLDEN RULE about folders:</strong></p>
+<blockquote>
+<p><em>"Only <strong><code>Assets</code></strong> and <strong><code>ProjectSettings</code></strong> folders should be committed to your repository. <strong>Unity can AUTOMATICALLY RECREATE all the other folders.</strong></em></p>
+<p><em>💀 <strong>UNDER NO CIRCUMSTANCE should you commit the <code>Library</code> folder, since this folder can get VERY LARGE and Unity WILL RECREATE it when launching the Editor if it doesn't exist.</strong>"</em></p>
+</blockquote>
+<p><strong>Per-VCS setup:</strong></p>
+<ul>
+<li><strong>Perforce</strong> — <em>"you need to <strong>EXPLICITLY ADD the <code>Assets</code> and <code>Project Settings</code> folders to your depot</strong>"</em></li>
+<li><strong>Plastic SCM</strong> — <em>"<strong>AUTOMATICALLY SELECTS the appropriate folders and files</strong> when set up from the Unity Editor. There is a list saved in the <strong><code>ignore.conf</code></strong> file at the project root"</em></li>
+<li><strong>Git</strong> — <em>"requires a <strong><code>.gitignore</code></strong> file to indicate what files should NEVER be included"</em></li>
+</ul>
+<p>⚠️ <em>"You should also <strong>AVOID committing things like <code>.exe</code> or <code>.apk</code> files. Additionally, GRADLE and XCODE projects built from your Unity project SHOULD NOT be added to the repository.</strong> A small exception: if you set up AUTOMATED BUILD processes for them, <strong>they would typically be committed to a repository OF THEIR OWN.</strong>"</em></p>
+</div>
+</div>
+
+!!! danger "🐘 FILE LỚN — vì sao Git một mình là KHÔNG ĐỦ cho dự án Unity"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <blockquote>
+    <p><em>"Dự án Unity gồm <strong>NHIỀU HƠN CHỈ code. Thực tế, script thường bị ÁP ĐẢO VỀ SỐ LƯỢNG bởi các file asset khác.</strong> Những asset này được lưu dưới dạng <strong>FILE NHỊ PHÂN</strong>: Texture, model, Prefab, audio clip, timeline… Điều này dẫn tới HAI hệ quả:</em></p>
+    <ol>
+    <li><em><strong>"Chúng KHÓ SO SÁNH giữa các revision"</strong></em></li>
+    <li><em>💀 <strong>"KHÔNG THỂ mô tả DIFF, nên TOÀN BỘ FILE được ghi lại khi một thay đổi được đẩy lên repo"</strong></em></li>
+    </ol>
+    <p><em>☠️ <strong>Trong môi trường PHÂN TÁN, TOÀN BỘ lịch sử dự án nằm trên máy cục bộ. NẾU bạn có lịch sử các file LỚN đã thay đổi NHIỀU LẦN trong thời gian DÀI, thì bạn sẽ có BẤY NHIÊU BẢN SAO của file đó lưu trên máy. Việc này có thể NGỐN NHANH CHÓNG một phần LỚN dung lượng ổ cứng!</strong></em></p>
+    <p><em>📜 <strong>ĐÂY LÀ LÝ DO LỊCH SỬ khiến các đội THÍCH workflow TẬP TRUNG hơn: các phiên bản lịch sử LỚN của file nhị phân CHỈ nằm trên SERVER TRUNG TÂM, còn người dùng cá nhân chỉ truy cập PHIÊN BẢN MỚI NHẤT trên máy mình.</strong></em></p>
+    </blockquote>
+    <p><strong>Giải pháp theo từng hệ thống:</strong></p>
+    <ul>
+    <li>✅ <strong>Perforce và Plastic SCM</strong> — <em>"đều là hệ TẬP TRUNG và <strong>XỬ LÝ TỐT file LỚN</strong>. Plastic SCM còn cho tuỳ chọn làm việc theo pipeline PHÂN TÁN"</em></li>
+    <li>💎 <strong>Plastic SCM — Dynamic Workspace</strong> — <em>"dựa trên <strong>HỆ THỐNG FILE ẢO</strong>: nó <strong>TẢI file THEO YÊU CẦU — nên trong khi bạn THẤY MỌI THỨ trong workspace, THỰC TẾ KHÔNG PHẢI mọi thứ đều đã được tải về</strong>"</em></li>
+    <li>⚠️ <strong>Git</strong> — <em>"vì phân tán, <strong>có thể CHẬT VẬT với file LỚN. HÃY CHẮC CHẮN dùng thêm GIT LFS nếu bạn làm việc với file lớn. Git LFS THAY THẾ file lớn trong thư mục <code>.git</code> bằng CON TRỎ VĂN BẢN, còn asset thật được lưu trên server như GitHub</strong>"</em></li>
+    </ul>
+    </div>
+    <div class="col-en">
+    <blockquote>
+    <p><em>"Unity projects are made up of <strong>A LOT MORE than just code. In fact, scripts can often be HEAVILY OUTNUMBERED by other asset files.</strong> These assets are stored as <strong>BINARY FILES</strong>: Textures, models, Prefabs, audio clips, timelines, and so on. This results in TWO things:</em></p>
+    <ol>
+    <li><em><strong>"They can be HARD TO COMPARE between revisions"</strong></em></li>
+    <li><em>💀 <strong>"The DIFF CANNOT be described, so THE WHOLE FILE IS WRITTEN when a change is pushed to the repo"</strong></em></li>
+    </ol>
+    <p><em>☠️ <strong>In a DISTRIBUTED environment, the ENTIRE project history is on a user's local machine. Now if you have a history of LARGE FILES that have had MANY CHANGES over a LONG TIME, then you will have THAT MANY COPIES of the file stored on your machine. This can QUICKLY CONSUME a LARGE PORTION of your hard drive space!</strong></em></p>
+    <p><em>📜 <strong>It's for THIS REASON that HISTORICALLY, teams PREFERRED a CENTRALIZED workflow. This way, large historical versions of binary files would ONLY live on a CENTRAL SERVER, with individual users only accessing the LATEST version on their machines.</strong></em></p>
+    </blockquote>
+    <p><strong>Per-system solutions:</strong></p>
+    <ul>
+    <li>✅ <strong>Perforce and Plastic SCM</strong> — <em>"are both CENTRALIZED systems that <strong>HANDLE LARGE FILES WELL</strong>. Plastic SCM also gives the option to work in a DISTRIBUTED pipeline"</em></li>
+    <li>💎 <strong>Plastic SCM — Dynamic Workspace</strong> — <em>"relies on a <strong>VIRTUAL FILESYSTEM</strong>: it <strong>DOWNLOADS FILES ON DEMAND — so, while you SEE everything in your workspace, IN REALITY NOT EVERYTHING is downloaded</strong>"</em></li>
+    <li>⚠️ <strong>Git</strong> — <em>"being distributed, <strong>can STRUGGLE with LARGE FILES. BE SURE to also include GIT LFS if you will be working with large files. Git LFS REPLACES your large files in the <code>.git</code> folder with TEXT POINTERS while storing the actual asset on a server such as GitHub</strong>"</em></li>
+    </ul>
+    </div>
+    </div>
+
+---
+
+## 62. ✅ Bảy thông lệ TỐT NHẤT về Version Control
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📋 <em>"Những mẹo này đến từ <strong>ĐỘI HỖ TRỢ DOANH NGHIỆP của Unity — những người đang giúp tối ưu các dự án THỰC TẾ cho MỘT SỐ studio LỚN NHẤT hiện nay.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📋 <em>"These tips come from the <strong>Unity ENTERPRISE SUPPORT TEAM, who are helping to optimize REAL-WORLD projects for some of the BIGGEST STUDIOS out there.</strong>"</em></p>
+</div>
+</div>
+
+| # | Thông lệ | Nội dung nguyên văn |
+|---|---|---|
+| **①** | **Commit ÍT, commit THƯỜNG XUYÊN** | *"Đây là **THAY ĐỔI DỄ NHẤT bạn có thể làm với workflow, NHƯNG lại là thứ MỘT SỐ lập trình viên CHẬT VẬT NHẤT.** 🔑 **Một commit CHỈ nên liên quan tới MỘT TASK hoặc MỘT TICKET** — trừ khi một dòng code THẦN KỲ sửa được vài bug. **Nếu bạn đang làm tính năng LỚN, hãy CHIA NHỎ thành các task nhỏ và commit cho từng task.** ✅ **Lợi thế LỚN NHẤT của commit nhỏ: khi có gì đó SAI, bạn sẽ TÌM RA thay đổi DỄ HƠN NHIỀU và có thể REVERT thay đổi xấu MÀ KHÔNG ảnh hưởng các thay đổi tốt khác.**"* |
+| **②** | **Giữ COMMIT MESSAGE SẠCH SẼ** | *"**Commit message MÔ TẢ LỊCH SỬ dự án của bạn.** 📖 **DỄ TÌM hơn NHIỀU nếu message là "Added high score tables to the menu" chứ KHÔNG PHẢI "bet you can't beat my score on these new tables!"** 💡 **Khi làm việc với hệ thống ticket như JIRA hay GitLab, càng TỐT HƠN nếu ĐƯA SỐ TICKET vào commit.**"* |
+| **③** | **TRÁNH commit BỪA BÃI** | *(Avoid indiscriminate commits — chỉ commit đúng những file cần thiết cho task)* |
+| **④** | **LẤY BẢN MỚI NHẤT** | *"**THƯỜNG XUYÊN NHẤT có thể, hãy PULL thay đổi mới nhất từ repo về bản làm việc. KHÔNG TỐT khi làm việc trong SỰ CÔ LẬP, vì việc này CHỈ LÀM TĂNG khả năng XUNG ĐỘT MERGE.**"* → xem bảng workflow dưới |
+| **⑤** | **HIỂU RÕ BỘ CÔNG CỤ của bạn** | *"**Dù đội bạn chọn VCS nào, hãy ĐẢM BẢO cả đội THOẢI MÁI dùng nó và HIỂU các công cụ có sẵn.** 🎨 **Nếu dùng Plastic SCM, hãy để NGHỆ SĨ làm quen với GLUON để đơn giản hoá workflow của họ. Gluon cho phép QUYẾT ĐỊNH file nào muốn làm việc và CHỈ TẢI VỀ những file đó — loại bỏ nhu cầu tải và quản lý TOÀN BỘ dự án. Nó cho phép KHOÁ file để ngăn người khác làm việc trên đó.** 🛠️ **Nếu dùng Perforce Helix Core, hãy dùng công cụ DỰNG SẴN trong Unity Editor để quản lý version control TRỰC TIẾP TỪ Editor** — cực kỳ hữu ích cho nghệ sĩ và cho việc xử lý scene, Prefab."* |
+| **⑥** | **FEATURE BRANCH & GIT FLOW** | *"Khi làm dự án DÀI HẠN với NHIỀU CHU KỲ PHÁT HÀNH, **feature branching có LỢI ÍCH KHỔNG LỒ.** … **Trong Git, workflow gọi là GIT FLOW tập trung vào việc dùng các BRANCH KHÁC NHAU cho TÍNH NĂNG, SỬA LỖI và PHÁT HÀNH.**"* |
+| **⑦** | **PULL REQUEST** | *"Khi hoàn thành công việc trên feature branch, **thông lệ TỐT là dùng pull request để đưa thay đổi về dòng chính. Pull request được TẠO bởi lập trình viên của tính năng, và THƯỜNG là trách nhiệm của SENIOR DEVELOPER hoặc DEVOPS để REVIEW trước khi chấp nhận.**"* |
+
+**🔄 Workflow HÀNG NGÀY theo từng hệ thống — nguyên văn**
+
+| **Git** | **Perforce** |
+|---|---|
+| `git pull` → rồi lặp lại tuỳ ý:<br>· *Make edits in your working copy*<br>· `git commit` your changes<br>· `git pull` the latest changes<br><br>Khi đã hài lòng với tập commit:<br>· `git pull` **MỘT LẦN NỮA**<br>· `git push` để gửi commit lên repo | · **Get latest**<br>· **Check out** files to work on<br>· **Make edits**<br>· **Submit changes** |
+
+| **Plastic SCM (centralized)** | **Plastic SCM (distributed)** | **Plastic SCM (multi-site)** |
+|---|---|---|
+| · Sync Repositories → **Pull visible**<br>· Check out files to work on<br>· Make edits<br>· Check in changes<br>· Sync Repositories → **Push visible** | · Pull changes from the server<br>· Check in changes to your **local copy**<br>· Pull any new changes<br>· Push your changes back up to the server | *"**Một dạng LAI của hai cái trên, tuỳ cấu hình của bạn**"* |
+
+<img src="../assets/vc-multisite-plastic.png" alt="Multi-site Plastic SCM configuration">
+<p><em>VI: Cấu hình <strong>MULTI-SITE</strong> của Plastic SCM — hai địa điểm (Boecillo và London), <strong>mỗi đội có server TẠI CHỖ</strong>, các server <strong>push/pull lẫn nhau qua internet</strong> để đồng bộ. / EN: Multi-site Plastic SCM configuration.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<blockquote>
+<p><em>"Ví dụ cấu hình multi-site: <strong>HAI đội · MỖI đội có MỘT server tại chỗ · Thành viên ở CẢ HAI nơi check in CỤC BỘ hoặc PHÂN TÁN nhưng HƯỞNG LỢI từ TỐC ĐỘ của server GẦN · Các server PUSH/PULL LẪN NHAU để giữ đồng bộ TOÀN PHẦN hoặc MỘT PHẦN.</strong>"</em></p>
+</blockquote>
+</div>
+<div class="col-en">
+<blockquote>
+<p><em>"An example multi-site setup: <strong>TWO teams · EACH team has an ON-SITE server · Team members at BOTH sites check in LOCALLY or DISTRIBUTED but BENEFIT from the SPEED of a CLOSE on-site server · Servers PUSH/PULL between one another to keep FULLY or PARTIALLY in sync.</strong>"</em></p>
+</blockquote>
+</div>
+</div>
+
+<img src="../assets/vc-git-flow.png" alt="Git Flow workflow diagram">
+<p><em>VI: <strong>Git Flow</strong> — sáu loại branch: <strong>Main · Hotfix · Release · Develop · Feature · Feature</strong>, với các mốc phát hành <strong>v0.1 → v0.2 → v1.0</strong>. Cho phép QUẢN LÝ PHÁT HÀNH dễ hơn. / EN: A Git Flow workflow allows for easier release management.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<blockquote>
+<p><em>"Một lập trình viên <strong>BẮT ĐẦU công việc trên tính năng mới TRONG MỘT BRANCH CÔ LẬP, và khi xong, nó được MERGE lại vào branch chính.</strong> Trong khi đó, <strong>người khác có thể phải HOTFIX trên bản phát hành TRƯỚC, sửa một bug, và phát hành phiên bản mới MỘT CÁCH AN TOÀN — MÀ KHÔNG kèm theo bất kỳ tính năng nào VẪN ĐANG PHÁT TRIỂN.</strong>"</em></p>
+</blockquote>
+<p>🔀 <strong>Plastic SCM — TASK BRANCH (khác Git Flow):</strong></p>
+<blockquote>
+<p><em>"Plastic SCM cũng có <strong>TASK BRANCH. Với mẫu này, bạn tạo MỘT BRANCH MỚI cho MỖI TASK bạn theo dõi.</strong></em></p>
+<p><em>⚖️ <strong>Trong khi ở Git Flow ta dùng feature branch để phát triển tính năng HOÀN CHỈNH, đôi khi LỚN, thì TASK BRANCH trong Plastic SCM có nghĩa là NGẮN HẠN. NẾU một task cần NHIỀU HƠN một nhúm commit để cài đặt, khả năng cao nó CÓ THỂ ĐƯỢC CHIA NHỎ thành các task nhỏ hơn.</strong>"</em></p>
+</blockquote>
+<p>🌊 <strong>Perforce — STREAMS:</strong></p>
+<blockquote>
+<p><em>"Perforce Helix Core dùng hệ thống gọi là <strong>STREAMS</strong>. Khi tạo depot, <strong>bạn cần thiết lập nó là kiểu STREAM DEPOT. Rồi dùng Stream Graph view để tạo stream mới. MỌI stream ngoài mainline stream đều PHẢI CÓ MỘT STREAM CHA, để thay đổi có thể được sao chép NGƯỢC LÊN.</strong></em></p>
+<p><em>⚡ <strong>Khi bạn CHUYỂN giữa các stream trên máy hoặc sao chép thay đổi ngược lên, CHỈ METADATA của file đã thay đổi được merge — khiến việc ĐỔI NGỮ CẢNH NHANH HƠN.</strong>"</em></p>
+</blockquote>
+</div>
+<div class="col-en">
+<blockquote>
+<p><em>"A developer <strong>STARTS OUT work on a new feature INSIDE AN ISOLATED BRANCH, and when they're finished, it's MERGED BACK into the main branch.</strong> Meanwhile, <strong>someone else may have had to do a HOTFIX on the PREVIOUS release, fixed a bug, and released a new version SAFELY — WITHOUT any of the features STILL UNDER DEVELOPMENT being included.</strong>"</em></p>
+</blockquote>
+<p>🔀 <strong>Plastic SCM — TASK BRANCHES (different from Git Flow):</strong></p>
+<blockquote>
+<p><em>"Plastic SCM also features <strong>TASK BRANCHES. For this pattern, you create a NEW BRANCH for EVERY TASK that you track.</strong></em></p>
+<p><em>⚖️ <strong>While in Git Flow we use feature branches to develop COMPLETE, sometimes LARGE features, TASK BRANCHES in Plastic SCM are meant to be SHORT-LIVED. If a task takes MORE THAN a handful of commits to implement, ODDS ARE it could be BROKEN DOWN into smaller tasks.</strong>"</em></p>
+</blockquote>
+<p>🌊 <strong>Perforce — STREAMS:</strong></p>
+<blockquote>
+<p><em>"Perforce Helix Core uses a system called <strong>STREAMS</strong>. When creating a depot, <strong>you need to set it up as a STREAM DEPOT type. Then use the Stream Graph view to create new streams. EVERY stream other than the mainline stream will need to have a PARENT STREAM, so changes can be COPIED BACK UP-STREAM.</strong></em></p>
+<p><em>⚡ <strong>When you SWITCH between streams on your local workstation or copy changes back upstream, ONLY THE METADATA for changed files gets merged — making the CONTEXT CHANGE QUICKER.</strong>"</em></p>
+</blockquote>
+</div>
+</div>
+
+<img src="../assets/vc-perforce-streams.png" alt="Perforce Helix Streams workflow">
+<p><em>VI: Workflow <strong>Perforce Helix Streams</strong> — biểu tượng desktop có thể KÉO giữa các stream để đổi workspace. <strong>Mũi tên XANH đi XUỐNG từ main</strong> = có thay đổi cần đưa vào stream <em>dev 1.0</em>. <strong>Mũi tên ĐỎ đi LÊN main</strong> = KHÔNG THỂ copy lên main cho tới khi ta có bản mới nhất. / EN: Perforce Helix Streams workflow.</em></p>
+
+<img src="../assets/vc-github-pull-request.png" alt="A closed pull request on GitHub">
+<p><em>VI: Một pull request ĐÃ ĐÓNG trên GitHub. / EN: A closed pull request on GitHub.</em></p>
+
+<img src="../assets/vc-plastic-branch-explorer.png" alt="Plastic SCM Branch Explorer">
+<p><em>VI: <strong>Branch Explorer</strong> của Plastic SCM — trực quan hoá toàn bộ cây branch/changeset, kèm panel Properties và các tuỳ chọn hiển thị (<em>Display branches · Display full branch names · Display merge links · Display cross-branch changeset links · Display labels…</em>). / EN: The Plastic SCM Branch Explorer.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🤖 <em>"<strong>Plastic SCM và Perforce ĐỀU có công cụ TỰ ĐỘNG để giúp quản lý việc merge branch về mainline. Plastic SCM làm điều đó với sự trợ giúp của MERGEBOT — thứ TỰ ĐỘNG merge các branch của repo SAU KHI chúng đã được review và VƯỢT QUA kiểm định. Perforce có nền tảng bổ sung là HELIX SWARM để quản lý code review, cũng có thể thiết lập kèm KIỂM THỬ TỰ ĐỘNG.</strong>"</em></p>
+<p>🎓 <strong>Lời kết của e-book:</strong></p>
+<blockquote>
+<p><em>"<strong>ĐIỀU RÚT RA LỚN NHẤT là TẦM QUAN TRỌNG của GIAO TIẾP RÕ RÀNG TRONG ĐỘI.</strong> Là một đội, <strong>bạn cần THỐNG NHẤT các hướng dẫn: CẤU TRÚC dự án thế nào, dùng VCS NÀO, và WORKFLOW trong hệ thống đó trông ra sao.</strong></em></p>
+<p><em>✅ <strong>Rồi, khi bạn bắt đầu tích hợp các công cụ khác như JIRA, GitLab, công cụ build, hay kiểm thử tự động, thì CÔNG SỨC BẠN ĐÃ BỎ RA để cấu trúc dự án và workflow SẼ THỰC SỰ PHÁT HUY GIÁ TRỊ.</strong>"</em></p>
+</blockquote>
+</div>
+<div class="col-en">
+<p>🤖 <em>"<strong>Plastic SCM and Perforce BOTH have AUTOMATED TOOLS to help manage merging branches back into the mainline. Plastic SCM does this with the help of MERGEBOT, which AUTOMATICALLY MERGES branches of a repo ONCE they've been reviewed and PASSED VALIDATION. Perforce has an additional platform, HELIX SWARM, for managing code reviews that can also be set up with AUTOMATED TESTING.</strong>"</em></p>
+<p>🎓 <strong>The e-book's closing words:</strong></p>
+<blockquote>
+<p><em>"<strong>The BIGGEST TAKEAWAY is the IMPORTANCE of CLEAR TEAM COMMUNICATION.</strong> As a team, <strong>you need to AGREE on your guidelines: how you should STRUCTURE your project, WHICH version control system to use, and how your WORKFLOW in that system looks.</strong></em></p>
+<p><em>✅ <strong>Then, when you start integrating other tools such as JIRA, GitLab, build tools, or automated testing, the work you've ALREADY DONE structuring your project and workflow WILL REALLY COME INTO ITS OWN.</strong>"</em></p>
+</blockquote>
+</div>
+</div>
+
+---
+
+# PHẦN I — 70+ MẸO TĂNG NĂNG SUẤT (E-book 62 trang)
+
+> 📗 **Nguồn:** [***70+ tips to increase productivity with Unity 2020 LTS***, **62 trang**](https://create.unity3d.com/ebook-improve-workflow) — bóc tách toàn văn + trích ảnh.
+
+<div class="bilingual-row">
+<div class="col-vi">
+<blockquote>
+<p><em>"Hướng dẫn này giúp người dùng Unity <strong>TIẾT KIỆM THỜI GIAN và TĂNG NĂNG SUẤT với HƠN 70 MẸO về cách làm việc NHANH HƠN với bộ công cụ của lập trình viên và nghệ sĩ, dù CÁ NHÂN hay THEO ĐỘI.</strong></em></p>
+<p><em>🏢 Nhiều đội tại Unity làm việc để cải thiện chất lượng cuộc sống cho người dùng, như <strong>đội ACCELERATE SOLUTIONS — những người đã đóng góp kiến thức GIÁ TRỊ cho hướng dẫn này. Họ XÁC ĐỊNH và GIÚP TỐI ƯU các điểm QUAN TRỌNG trong dự án về TỐC ĐỘ, ỔN ĐỊNH và HIỆU SUẤT.</strong>"</em></p>
+</blockquote>
+<p>💬 <strong>Triết lý — lời của Aras Pranckevičius</strong>, một trong những kỹ sư ĐẦU TIÊN của Unity, trưởng nhóm Quality of Life:</p>
+<blockquote>
+<p><em>"<strong>Unity nên là một NIỀM VUI khi sử dụng. Khi HÀNG TRIỆU người dùng lặp lại một tác vụ NHIỀU LẦN MỖI NGÀY, MỖI GIÂY hay MỖI CÚ CLICK CHUỘT ĐỀU CỘNG DỒN. Chúng tôi muốn người sáng tạo LÃNG PHÍ ÍT THỜI GIAN HƠN và NĂNG SUẤT HƠN.</strong>"</em></p>
+</blockquote>
+<p>🎯 <em><strong>Vì sao chương này thuộc về Module 5:</strong> ba Module đầu tối ưu <strong>GAME</strong>. Chương này tối ưu <strong>NGƯỜI LÀM GAME</strong> — thứ mà một Tech Lead chịu trách nhiệm ngang bằng.</em></p>
+</div>
+<div class="col-en">
+<blockquote>
+<p><em>"This guide helps Unity creators <strong>SAVE TIME and BOOST PRODUCTIVITY with OVER 70 TIPS on how to work FASTER with programmer and artist toolsets, INDIVIDUALLY or ON A TEAM.</strong></em></p>
+<p><em>🏢 Many teams at Unity work to improve quality of life for creators, such as the <strong>ACCELERATE SOLUTIONS team who contributed their VALUABLE KNOWLEDGE to this guide. They IDENTIFY, and HELP TO OPTIMIZE, CRITICAL POINTS in projects for SPEED, STABILITY, and EFFICIENCY.</strong>"</em></p>
+</blockquote>
+<p>💬 <strong>The philosophy — in the words of Aras Pranckevičius</strong>, one of Unity's FIRST engineers and leader of the Quality of Life team:</p>
+<blockquote>
+<p><em>"<strong>Unity should be a JOY to use. When MILLIONS of users REPEAT a task MULTIPLE TIMES PER DAY, EVERY SECOND or MOUSE CLICK ADDS UP. We want creators to WASTE LESS TIME and be MORE PRODUCTIVE.</strong>"</em></p>
+</blockquote>
+<p>🎯 <em><strong>Why this chapter belongs in Module 5:</strong> the first three modules optimize the <strong>GAME</strong>. This one optimizes the <strong>PEOPLE MAKING the game</strong> — something a Tech Lead is equally responsible for.</em></p>
+</div>
+</div>
+
+## 63. ⌨️ Editor workflows — Shortcuts Manager & phím tắt
+
+<div class="bilingual-row">
+<div class="col-vi">
+<blockquote>
+<p><em>"<strong>SHORTCUTS MANAGER là GIAO DIỆN TRỰC QUAN TƯƠNG TÁC giúp bạn QUẢN LÝ phím nóng của Editor.</strong> Ở đây bạn có thể <strong>GÁN phím tắt cho các NGỮ CẢNH (context) KHÁC NHAU và TRỰC QUAN HOÁ các binding hiện có.</strong></em></p>
+<p><em>⚠️ <strong>Danh mục BINDING CONFLICTS cũng XÁC ĐỊNH liệu bạn có phím tắt gán cho HAI LỆNH có thể thực thi CÙNG LÚC hay không.</strong></em></p>
+<p><em>💡 <strong>Lưu ý: bạn CÓ THỂ gán CÙNG một phím tắt cho NHIỀU LỆNH NẾU chúng ở NGỮ CẢNH KHÁC NHAU và KHÔNG THỂ thực thi cùng lúc.</strong>"</em></p>
+</blockquote>
+<p>📍 <strong>Mở Shortcuts Manager:</strong> Windows/Linux → <code>Edit &gt; Shortcuts</code> · macOS → <code>Unity &gt; Shortcuts</code></p>
+<p>🛠️ <em>"Dùng API trong namespace <strong><code>UnityEditor.ShortcutManagement</code></strong> để định nghĩa phím tắt TUỲ CHỈNH trong script và package của riêng bạn."</em></p>
+</div>
+<div class="col-en">
+<blockquote>
+<p><em>"<strong>The SHORTCUTS MANAGER is an INTERACTIVE VISUAL INTERFACE to help you MANAGE Editor hotkeys.</strong> Here, you can <strong>ASSIGN shortcuts to different CONTEXTS and VISUALIZE existing bindings.</strong></em></p>
+<p><em>⚠️ <strong>The BINDING CONFLICTS category also IDENTIFIES if you have a shortcut assigned to TWO COMMANDS that can be executed AT THE SAME TIME.</strong></em></p>
+<p><em>💡 <strong>Note: you CAN assign the SAME shortcut to MULTIPLE COMMANDS IF they are in DIFFERENT CONTEXTS and CANNOT execute at the same time.</strong>"</em></p>
+</blockquote>
+<p>📍 <strong>Open the Shortcuts Manager:</strong> Windows/Linux → <code>Edit &gt; Shortcuts</code> · macOS → <code>Unity &gt; Shortcuts</code></p>
+<p>🛠️ <em>"Use the API in the <strong><code>UnityEditor.ShortcutManagement</code></strong> namespace to define CUSTOM shortcuts in your own scripts and packages."</em></p>
+</div>
+</div>
+
+**⌨️ Bảng PHÍM TẮT mặc định — nguyên văn**
+
+| Hành động / Action | **Windows** | **Mac** |
+|---|---|---|
+| **Frame Selected** | `F` | `F` |
+| **Duplicate Items** | `Ctrl + D` | `Cmd + D` |
+| **Delete GameObject** | `Shift + Del` | `Cmd + Delete` |
+| **View / Move / Rotate / Rect / Transform** | `Q` / `W` / `E` / `R` / `T` | `Q` / `W` / `E` / `R` / `T` |
+| **Toggle Pivot Mode** | `Z` | `Z` |
+| **Toggle Pivot Rotation** | `X` | `X` |
+| **Vertex Snap** | `V` | `V` |
+| **Snap** | `Ctrl + LMB` | `Ctrl + LMB` |
+| **Toggle Maximize** | `Shift + spacebar` | `Shift + spacebar` |
+| **Edit Prefab in Context** | `P` | `P` |
+
+!!! tip "🔍 FOCUSED INSPECTOR — so sánh HAI GameObject cùng lúc"
+    **VI:** *"Unity 2020.1 giới thiệu cửa sổ **Focused Inspector**, cho phép bạn **KIỂM TRA thuộc tính của MỘT GameObject, component, hay asset CỤ THỂ. Nó LUÔN hiển thị thuộc tính của item bạn đã mở nó cho — NGAY CẢ KHI bạn chọn thứ khác trong Scene.**" ▶️ **Chuột phải vào GameObject/Component → chọn `Properties`.** Việc này mở một cửa sổ Inspector NỔI mà bạn có thể **di chuyển, dock, hoặc đổi kích thước.** 💡 **"Mở NHIỀU Focused Inspector CÙNG LÚC cho phép bạn THAM CHIẾU NHIỀU GameObject trong khi thay đổi Scene."** Bạn cũng có thể **focus vào một COMPONENT cụ thể, chiếm ÍT diện tích màn hình hơn.**"*
+
+    **EN:** *"Unity 2020.1 introduced the **Focused Inspector** window, which allows you to **INSPECT the properties for a SPECIFIC GameObject, component, or asset. It ALWAYS displays the properties of the item you opened it for, EVEN IF you select something else in the Scene.**" ▶️ **Right-click a GameObject/Component → choose `Properties`.** 💡 **"Opening MULTIPLE Focused Inspectors at the same time allows you to REFERENCE MULTIPLE GameObjects while making changes to the Scene."***
+
+### 63.1. 🎁 Mười mẹo NHỎ nhưng MẠNH cho Editor
+
+| # | Mẹo / Tip |
+|---|---|
+| **①** | **CẮT và DÁN GameObject trong cửa sổ Hierarchy.** *"Bạn cũng có thể **`Paste As Child`** từ context menu"* |
+| **②** | **Dùng phím `F` để FRAME object đã chọn trong Scene View.** *"Giờ nó XỬ LÝ ĐƯỢC NHIỀU LOẠI object HƠN và FRAME chúng TỐT HƠN."* 🎮 **"Trong Play Mode, bấm `Shift + F` để KHOÁ vào một GameObject ĐANG DI CHUYỂN."** |
+| **③** | **Hiển thị UV, normal, tangent và thông tin Mesh khác trong Inspector preview** |
+| **④** | **Xem Inspector preview CẢI TIẾN cho texture 3D** — *"như volumetric render, lát cắt texture 3D, hoặc signed distance field"* |
+| **⑤** | **Dùng menu Layers để TẮT hiển thị các Layer** *(như UI)* *"có thể CHE KHUẤT Scene view. **KHOÁ một Layer để TRÁNH đổi trạng thái của nó do vô ý.**"* |
+| **⑥** | **Lưu/nạp BỘ CHỌN (selection set)** — *"Nếu bạn THƯỜNG XUYÊN chọn cùng những object, **dùng tổ hợp phím nóng dưới `Edit > Selection` để LƯU hoặc NẠP nhanh một selection set**"* |
+| **⑦** | **Sửa NUMBERING SCHEME cho object trùng lặp** tại `Project Settings > Editor` — *"Định nghĩa tuỳ chọn đặt tên cũng như **PADDING và SPACING của số instance**"* |
+| **⑧** | 🔑 **Dùng tag `EditorOnly`** — *"để **chỉ định GameObject SẼ KHÔNG XUẤT HIỆN trong bản BUILD của ứng dụng**"* |
+| **⑨** | **Đổi MÀU trong Editor** tại `Unity > Preferences > Colors` — *"để tìm phần tử UI hoặc object NHANH HƠN. **Điều chỉnh PLAYMODE TINT để TỰ NHẮC MÌNH khi Play Mode đang bật, để bạn KHÔNG MẤT thay đổi định lưu khi thoát.**"*<br>💡 *"NẾU bạn tạo thay đổi trong Play Mode mà MUỐN GIỮ: dùng nút **More Items (⋮)** → **COPY giá trị component/transform khi đang chạy, rồi PASTE từ clipboard sau khi thoát Play Mode.** Hoặc nếu có NHIỀU thay đổi component, **KÉO RA một Prefab TẠM để lưu công việc ở đó.**"* |
+| **⑩** | **Căn Camera** — *"Dùng `GameObject > Align With View` để **căn Game camera KHỚP với Scene camera**. Hoặc ngược lại, dùng **`Align View to Selected`** để **căn Scene camera theo một camera khác trong Hierarchy.**"* |
+
+---
+
+## 64. 🎨 Artist workflows — Sprite Atlas & Prefab
+
+<div class="bilingual-row">
+<div class="col-vi">
+<blockquote>
+<p><em>"Một dự án 2D dùng SPRITE để tạo hình ảnh. <strong>Chúng CÓ THỂ chứa RẤT NHIỀU asset Texture và do đó ĐÒI HỎI RẤT NHIỀU DRAW CALL.</strong></em></p>
+<p><em>✅ <strong>Để TỐI ƯU tài nguyên, hãy dùng SPRITE ATLAS (<code>Asset &gt; Create &gt; Sprite Atlas</code>) THAY VÌ render từng Sprite và Texture riêng lẻ.</strong></em></p>
+<p><em>🔑 <strong>Khi các Texture đã được HỢP NHẤT, Unity có thể phát MỘT DRAW CALL DUY NHẤT để truy cập các Texture đã đóng gói với OVERHEAD HIỆU NĂNG NHỎ HƠN.</strong>"</em></p>
+</blockquote>
+<p>⚙️ <strong>Cách dùng:</strong> thêm Sprite vào danh sách <strong>Objects for Packing</strong>, bật <strong>Include in Build</strong>. <em>"Dùng tuỳ chọn <strong>Packing</strong> để xác định các Sprite có thể được xếp SÁT tới đâu trong atlas và liệu chúng có thể XOAY hay không."</em></p>
+<p>🚨 <strong>Điểm QUAN TRỌNG về cấu trúc UI — ít người biết:</strong></p>
+<blockquote>
+<p><em>"Trong hệ thống UI của Unity, <strong>ATLASING và CẤU TRÚC GameObject ĐỀU QUAN TRỌNG cho batching. Một SpriteAtlas có thể GIẢM draw call NẾU bạn TỔ CHỨC bố cục UI ĐÚNG CÁCH.</strong></em></p>
+<p><em>🔍 <strong>Unity QUÉT Hierarchy của GameObject TỪ TRÊN XUỐNG DƯỚI để batch những object dùng CÙNG texture và material.</strong>"</em></p>
+</blockquote>
+<p>👉 <em>Đây là điểm nối trực tiếp tới <a href="../02-junior/01-ui-physics-deep-dive.md">Module 2</a> (Optimizing Unity UI, mục Fill-rate/Canvases) và <a href="../04-tech-lead/01-gpu-urp-advanced-rendering.md">Module 4 §10</a> (batching).</em></p>
+<p>💎 <em>"<strong>SpriteAtlas API cung cấp thêm quyền KIỂM SOÁT LÚC RUNTIME.</strong> Bạn cũng có thể tạo <strong>Variant Sprite Atlas</strong> hoặc chuẩn bị Sprite Atlas cho hình thức phân phối THAY THẾ bằng <strong>Late Binding</strong> trong script."</em></p>
+</div>
+<div class="col-en">
+<blockquote>
+<p><em>"A 2D project uses SPRITES to create its visuals. <strong>These potentially contain MANY Texture assets and may thus REQUIRE MANY DRAW CALLS.</strong></em></p>
+<p><em>✅ <strong>To OPTIMIZE resources, use a SPRITE ATLAS (<code>Asset &gt; Create &gt; Sprite Atlas</code>) RATHER THAN rendering individual Sprites and Textures.</strong></em></p>
+<p><em>🔑 <strong>Once the Textures are CONSOLIDATED, Unity can issue a SINGLE DRAW CALL to access the packed Textures with a SMALLER PERFORMANCE OVERHEAD.</strong>"</em></p>
+</blockquote>
+<p>⚙️ <strong>How to use it:</strong> add Sprites into the <strong>Objects for Packing</strong> list, enable <strong>Include in Build</strong>. <em>"Use the <strong>Packing</strong> options to determine HOW CLOSELY the Sprites can be laid out in the atlas and whether they can be ROTATED."</em></p>
+<p>🚨 <strong>The IMPORTANT point about UI structure — few people know this:</strong></p>
+<blockquote>
+<p><em>"In Unity's UI system, <strong>ATLASING and the GameObject STRUCTURE BOTH MATTER for batching. A SpriteAtlas can REDUCE draw calls IF you ORGANIZE the UI layout CORRECTLY.</strong></em></p>
+<p><em>🔍 <strong>Unity SCANS the GameObjects' Hierarchy TOP-TO-BOTTOM in order to BATCH objects that use the SAME texture and material.</strong>"</em></p>
+</blockquote>
+<p>👉 <em>This connects directly to <a href="../02-junior/01-ui-physics-deep-dive.md">Module 2</a> (Optimizing Unity UI, the Fill-rate/Canvases section) and <a href="../04-tech-lead/01-gpu-urp-advanced-rendering.md">Module 4 §10</a> (batching).</em></p>
+<p>💎 <em>"<strong>The SpriteAtlas API provides ADDITIONAL CONTROL AT RUNTIME.</strong> You can also create a <strong>Variant Sprite Atlas</strong> or prepare Sprite Atlases for an ALTERNATE form of distribution with <strong>Late Binding</strong> in a script."</em></p>
+</div>
+</div>
+
+---
+
+## 65. 👨‍💻 Developer workflows — Enter Play Mode & ScriptableObject
+
+!!! danger "⚡ ENTER PLAY MODE SETTINGS — mẹo TIẾT KIỆM THỜI GIAN lớn nhất cho lập trình viên"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <blockquote>
+    <p><em>"<strong>MỖI LẦN bạn vào Play Mode trong Editor, Unity thực hiện HAI HÀNH ĐỘNG ĐÁNG KỂ:</strong></em></p>
+    <ol>
+    <li><em><strong>DOMAIN RELOAD: Unity SAO LƯU, GỠ TẢI, và TÁI TẠO trạng thái scripting</strong></em></li>
+    <li><em><strong>SCENE RELOAD: Unity HUỶ Scene và LOAD LẠI nó</strong></em></li>
+    </ol>
+    <p><em>💀 <strong>HAI hành động này TỐN NGÀY CÀNG NHIỀU THỜI GIAN khi script và Scene của bạn TRỞ NÊN PHỨC TẠP HƠN.</strong></em></p>
+    <p><em>✅ <strong>NẾU bạn KHÔNG định thay đổi script thêm nữa, Enter Play Mode Settings (<code>Edit &gt; Project Settings &gt; Editor</code>) có thể TIẾT KIỆM cho bạn KHÁ NHIỀU thời gian biên dịch. Unity cho bạn tuỳ chọn TẮT Domain Reload, Scene Reload, hoặc CẢ HAI. Việc này TĂNG TỐC việc vào và ra Play Mode.</strong></em></p>
+    <p><em>🚨 <strong>CHỈ CẦN NHỚ: NẾU bạn ĐỊNH thay đổi script tiếp, bạn PHẢI BẬT LẠI Domain Reload. Tương tự, NẾU bạn sửa Scene Hierarchy, bạn NÊN BẬT LẠI Scene Reload. Nếu không, HÀNH VI KHÔNG MONG ĐỢI CÓ THỂ XẢY RA.</strong>"</em></p>
+    </blockquote>
+    </div>
+    <div class="col-en">
+    <blockquote>
+    <p><em>"<strong>EACH TIME you enter Play Mode in the Editor, Unity performs TWO SIGNIFICANT ACTIONS:</strong></em></p>
+    <ol>
+    <li><em><strong>DOMAIN RELOAD: Unity BACKS UP, UNLOADS, and RECREATES scripting states</strong></em></li>
+    <li><em><strong>SCENE RELOAD: Unity DESTROYS the Scene and LOADS IT AGAIN</strong></em></li>
+    </ol>
+    <p><em>💀 <strong>These two actions take MORE AND MORE TIME as your scripts and Scenes become MORE COMPLEX.</strong></em></p>
+    <p><em>✅ <strong>IF you DON'T plan on making any more script changes, the Enter Play Mode Settings (<code>Edit &gt; Project Settings &gt; Editor</code>) can SAVE you a bit of COMPILE TIME. Unity gives you the option to DISABLE either Domain Reload, Scene Reload, or BOTH. This can SPEED UP entering and exiting Play Mode.</strong></em></p>
+    <p><em>🚨 <strong>JUST REMEMBER: IF you DO plan on making further script changes, you need to RE-ENABLE Domain Reload. Likewise, IF you modify the Scene Hierarchy, you SHOULD re-enable Scene Reload. OTHERWISE, UNEXPECTED BEHAVIOUR COULD RESULT.</strong>"</em></p>
+    </blockquote>
+    </div>
+    </div>
+
+<img src="../assets/wf-scriptableobject-sharing.png" alt="ScriptableObject asset shared by many GameObjects">
+<p><em>VI: <strong>MỘT ScriptableObject asset</strong> được THAM CHIẾU bởi <strong>NHIỀU GameObject/MonoBehaviour</strong> — dữ liệu KHÔNG bị nhân bản, TIẾT KIỆM bộ nhớ. / EN: One ScriptableObject asset referenced by many GameObjects — data is not duplicated, saving memory.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<blockquote>
+<p><em>"<strong>KHÁC với MonoBehaviour, dữ liệu lưu vào ScriptableObject được GHI RA ĐĨA dưới dạng ASSET và KHÔNG gắn vào GameObject. Do đó, nó có thể TỒN TẠI GIỮA CÁC PHIÊN LÀM VIỆC.</strong></em></p>
+<p><em>💾 <strong>NẾU Scene bỗng ĐẦY các unit, dữ liệu trên ScriptableObject asset KHÔNG BỊ NHÂN BẢN — TIẾT KIỆM BỘ NHỚ.</strong></em></p>
+<p><em>🔢 <strong>NGAY CẢ KHI bạn thêm MỘT NGHÌN instance của một Prefab vào Scene, chúng VẪN THAM CHIẾU tới CÙNG dữ liệu lưu trong asset của bạn. Thiết lập bộ giá trị CHỈ MỘT LẦN ĐẢM BẢO TÍNH NHẤT QUÁN.</strong></em></p>
+<p><em>🚀 <strong>KHÁC với việc phân tích dữ liệu từ JSON hay XML, việc ĐỌC một ScriptableObject asset SẼ KHÔNG SINH RÁC (và, thêm nữa, NÓ NHANH HƠN).</strong></em></p>
+<p><em>⚠️ <strong>ScriptableObject KHÔNG THAY THẾ việc lưu dữ liệu BỀN VỮNG cho file save của ứng dụng, nơi dữ liệu CÓ THỂ THAY ĐỔI trong lúc chơi. Nó là workflow PHÙ HỢP HƠN cho việc lưu SETTING và GIÁ TRỊ GAMEPLAY TĨNH.</strong>"</em></p>
+</blockquote>
+<p>💡 <strong>Mẹo TỐI ƯU kèm theo — về định dạng SAVE DATA:</strong></p>
+<blockquote>
+<p><em>"Chúng tôi <strong>KHUYẾN NGHỊ định dạng SERIALIZATION NHỊ PHÂN như MESSAGEPACK hoặc PROTOCOL BUFFERS cho dữ liệu save, THAY VÌ định dạng dựa trên VĂN BẢN như JSON hay XML.</strong></em></p>
+<p><em>📊 <strong>Trong các Project Review, những định dạng nhị phân này GIẢM các vấn đề về BỘ NHỚ và HIỆU NĂNG gắn với định dạng văn bản.</strong>"</em></p>
+</blockquote>
+<p>👉 <em>Khớp CHÍNH XÁC với phần <strong>Protobuf vs JSON</strong> ở <a href="../03-senior/01-memory-addressables-networking.md">Module 3</a>.</em></p>
+</div>
+<div class="col-en">
+<blockquote>
+<p><em>"<strong>UNLIKE MonoBehaviours, the data saved to ScriptableObjects is WRITTEN TO DISK as an ASSET and NOT attached to a GameObject. Thus, it can PERSIST BETWEEN SESSIONS.</strong></em></p>
+<p><em>💾 <strong>IF the Scene suddenly FILLS with units, the data on the ScriptableObject asset does NOT DUPLICATE — SAVING MEMORY.</strong></em></p>
+<p><em>🔢 <strong>EVEN IF you add A THOUSAND instances of a Prefab to your Scene, they STILL REFER to the SAME DATA stored in your asset. Setting up the set of values JUST ONCE GUARANTEES CONSISTENCY.</strong></em></p>
+<p><em>🚀 <strong>UNLIKE parsing data from JSON or XML, READING a ScriptableObject asset WON'T GENERATE GARBAGE (and, as a bonus, IT'S FASTER).</strong></em></p>
+<p><em>⚠️ <strong>ScriptableObjects DON'T REPLACE keeping PERSISTENT data for the rest of your application's SAVE FILES, where the data MAY CHANGE during gameplay. It's a workflow suited MORE for storing your STATIC gameplay settings and values.</strong>"</em></p>
+</blockquote>
+<p>💡 <strong>The accompanying OPTIMIZATION TIP — on SAVE DATA formats:</strong></p>
+<blockquote>
+<p><em>"We <strong>RECOMMEND BINARY SERIALIZATION formats such as MESSAGEPACK or PROTOCOL BUFFERS for save data, RATHER THAN TEXT-BASED ones such as JSON or XML.</strong></em></p>
+<p><em>📊 <strong>In Project Reviews, these binary serialization formats REDUCE the MEMORY and PERFORMANCE issues associated with the latter.</strong>"</em></p>
+</blockquote>
+<p>👉 <em>Matches the <strong>Protobuf vs JSON</strong> section in <a href="../03-senior/01-memory-addressables-networking.md">Module 3</a> EXACTLY.</em></p>
+</div>
+</div>
+
+<img src="../assets/wf-custom-menu.png" alt="Custom menu item in the Unity Editor">
+<p><em>VI: <strong>CUSTOM MENU</strong> — thêm mục menu riêng của dự án (<em>Dragon Crashers → Tools → Take Screenshot</em>) để tự động hoá thao tác lặp lại. / EN: A custom Editor menu item.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📦 <strong>Quản lý ASSEMBLY — vì sao mặc định là chưa đủ:</strong></p>
+<blockquote>
+<p><em>"Một <strong>ASSEMBLY là một THƯ VIỆN CODE C#, một tập hợp các kiểu và tài nguyên được build để làm việc CÙNG NHAU và tạo thành MỘT ĐƠN VỊ CHỨC NĂNG LOGIC.</strong></em></p>
+<p><em>⚠️ <strong>THEO MẶC ĐỊNH, Unity biên dịch GẦN NHƯ TẤT CẢ script game của bạn vào MỘT assembly ĐỊNH SẴN: <code>Assembly-CSharp.dll</code>. Việc này ỔN với dự án NHỎ, NHƯNG NÓ CÓ NHỮNG NHƯỢC ĐIỂM</strong> — <em>mọi thay đổi script nhỏ đều buộc BIÊN DỊCH LẠI TOÀN BỘ</em>."</em></p>
+</blockquote>
+<p>👉 <em>Giải pháp: <strong>Assembly Definition (<code>.asmdef</code>)</strong> — chia code thành nhiều assembly để chỉ phần THAY ĐỔI mới phải biên dịch lại, rút ngắn ĐÁNG KỂ vòng lặp iterate.</em></p>
+</div>
+<div class="col-en">
+<p>📦 <strong>Managing ASSEMBLIES — why the default is not enough:</strong></p>
+<blockquote>
+<p><em>"An <strong>ASSEMBLY is a C# CODE LIBRARY, a collection of types and resources that are built to work TOGETHER and form a LOGICAL UNIT of functionality.</strong></em></p>
+<p><em>⚠️ <strong>BY DEFAULT, Unity compiles ALMOST ALL of your game scripts into the PREDEFINED assembly, <code>Assembly-CSharp.dll</code>. This works for SMALL projects, BUT IT HAS SOME DRAWBACKS</strong> — <em>every tiny script change forces a FULL RECOMPILE</em>."</em></p>
+</blockquote>
+<p>👉 <em>The fix: <strong>Assembly Definitions (<code>.asmdef</code>)</strong> — split code into multiple assemblies so only the CHANGED part recompiles, SIGNIFICANTLY shortening the iteration loop.</em></p>
+</div>
+</div>
+
+---
+
+## 66. 👥 Team workflows — Source control, Accelerator & Build Server
+
+<img src="../assets/wf-github-for-unity.png" alt="GitHub for Unity extension">
+<p><em>VI: Extension <strong>GitHub for Unity</strong>. / EN: The GitHub for Unity extension.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🔗 <strong>Tích hợp Source Control:</strong></p>
+<blockquote>
+<p><em>"Unity có <strong>TÍCH HỢP với HAI hệ thống version control: PERFORCE và PLASTIC SCM.</strong> Đặt server Perforce hoặc Plastic SCM cho dự án tại <strong><code>Project Settings &gt; Editor</code></strong>. Cấu hình server (và thông tin đăng nhập với Perforce) dưới mục <strong>Version Control</strong>.</em></p>
+<p><em>🔧 <strong>Bạn CŨNG có thể dùng hệ thống BÊN NGOÀI như GIT, BAO GỒM Git LFS (Large File Support) để quản lý phiên bản HIỆU QUẢ HƠN cho asset LỚN như tài nguyên đồ hoạ và âm thanh.</strong></em></p>
+<p><em>💡 <strong>Để tiện làm việc với dịch vụ GitHub, hãy cài plug-in GITHUB FOR UNITY. Extension mã nguồn mở này cho phép bạn XEM lịch sử dự án, THỬ NGHIỆM trên branch, COMMIT thay đổi, và PUSH code lên GitHub MÀ KHÔNG CẦN RỜI KHỎI UNITY.</strong></em></p>
+<p><em>📄 <strong>Unity DUY TRÌ một file <code>.gitignore</code>. Nó giúp bạn quyết định cái gì NÊN và KHÔNG NÊN vào git repository và ÉP các quy tắc đó.</strong>"</em></p>
+</blockquote>
+</div>
+<div class="col-en">
+<p>🔗 <strong>Source Control integration:</strong></p>
+<blockquote>
+<p><em>"Unity has <strong>INTEGRATIONS with TWO version control systems: PERFORCE and PLASTIC SCM.</strong> Set the Perforce or Plastic SCM servers for your project in <strong><code>Project Settings &gt; Editor</code></strong>. Configure the server (and your user credentials for Perforce) under <strong>Version Control</strong>.</em></p>
+<p><em>🔧 <strong>You can ALSO use an EXTERNAL system, such as GIT, INCLUDING Git LFS (Large File Support) for MORE EFFICIENT version control of your LARGER assets, like graphics and sound resources.</strong></em></p>
+<p><em>💡 <strong>For the added convenience of working with GitHub, install the GITHUB FOR UNITY plug-in. This open source extension allows you to VIEW your project history, EXPERIMENT in branches, COMMIT your changes, and PUSH your code to GitHub WITHOUT LEAVING UNITY.</strong></em></p>
+<p><em>📄 <strong>Unity MAINTAINS a <code>.gitignore</code> file. This can help you decide what SHOULD and SHOULDN'T go into the git repository and ENFORCE those rules.</strong>"</em></p>
+</blockquote>
+</div>
+</div>
+
+!!! success "🚀 UNITY ACCELERATOR — loại bỏ thời gian CHỜ IMPORT của cả đội"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <blockquote>
+    <p><em>"<strong>Unity Accelerator LOẠI BỎ thời gian CHỜ bằng cách CACHE bản sao asset của đội bạn.</strong></em></p>
+    <p><em>🔑 <strong>Nghĩa là CHỈ MỘT NGƯỜI cần thực hiện việc IMPORT THẬT, và kết quả sẽ TỰ ĐỘNG được cache vào Unity Accelerator.</strong></em></p>
+    <p><em>⚡ <strong>LẦN TỚI khi một thành viên đội import CÙNG PHIÊN BẢN của asset đó, Unity Editor sẽ KIỂM TRA CACHE TRƯỚC khi bắt đầu quá trình import trên máy của họ.</strong></em></p>
+    <p><em>📊 <strong>Trong Unity 2020 LTS, giờ bạn có một BẢNG ĐIỀU KHIỂN QUẢN TRỊ CỤC BỘ cho Accelerator — cho phép CẤU HÌNH công cụ, XEM THỐNG KÊ như dung lượng đĩa đã dùng hay BAO NHIÊU THỜI GIAN BẠN ĐÃ TIẾT KIỆM, và CHẨN ĐOÁN vấn đề bằng log.</strong></em></p>
+    <p><em>☁️ <strong>Tuỳ chọn: Accelerator cũng có thể dùng với Unity Teams Advanced để CHIA SẺ asset nguồn Collaborate — GIẢM ĐÁNG KỂ thời gian tải xuống từ dịch vụ Collaborate.</strong>"</em></p>
+    </blockquote>
+    <p>🏗️ <strong>UNITY BUILD SERVER:</strong> <em>"Cân nhắc TĂNG CƯỜNG năng suất của đội bằng cách <strong>ĐẨY quá trình BUILD sang PHẦN CỨNG MẠNG dùng Unity Build Server.</strong>"</em></p>
+    <p>👉 <em>Cả hai công cụ này giải quyết vấn đề "thời gian chờ" ở tầng ĐỘI — bổ sung cho việc tối ưu "thời gian chạy" ở tầng GAME của Module 1–4.</em></p>
+    </div>
+    <div class="col-en">
+    <blockquote>
+    <p><em>"<strong>The Unity Accelerator REMOVES WAITING TIME by CACHING COPIES of your team's assets.</strong></em></p>
+    <p><em>🔑 <strong>This means that ONLY ONE PERSON needs to perform the ACTUAL IMPORT, and the results will AUTOMATICALLY be cached to the Unity Accelerator.</strong></em></p>
+    <p><em>⚡ <strong>The NEXT TIME a team member goes to import the SAME VERSION of the asset, the Unity Editor FIRST CHECKS THE CACHE before starting the import process on their local machine.</strong></em></p>
+    <p><em>📊 <strong>In Unity 2020 LTS, you now have a LOCAL ADMINISTRATOR DASHBOARD for the Accelerator that enables you to CONFIGURE the tool, SEE STATISTICS like disk space usage or HOW MUCH TIME YOU'VE SAVED, and DIAGNOSE issues with logs.</strong></em></p>
+    <p><em>☁️ <strong>Optionally, Accelerator can also be used with Unity Teams Advanced to SHARE Collaborate source assets, which SIGNIFICANTLY REDUCES download time from the Collaborate service.</strong>"</em></p>
+    </blockquote>
+    <p>🏗️ <strong>UNITY BUILD SERVER:</strong> <em>"Consider ENHANCING your team's productivity by <strong>OFFLOADING the BUILDING process to NETWORK HARDWARE using Unity Build Server.</strong>"</em></p>
+    <p>👉 <em>Both tools attack "waiting time" at the TEAM level — complementing the "runtime" optimizations at the GAME level from Modules 1–4.</em></p>
+    </div>
+    </div>
+
+---
+
+# PHẦN J — CHECKLIST TECH LEAD
+
+## 67. ✅ CHECKLIST — Quy trình & Hiệu năng theo CyberAgent
+
+!!! success "In ra và dùng khi khởi động dự án / khi nhận bàn giao một dự án đang chạy"
+
+### 67.1. 🚦 TRƯỚC khi viết dòng code tối ưu đầu tiên
+
+| ☐ | Việc cần làm | Tham chiếu |
+|---|---|---|
+| ☐ | **Chốt 5 CHỈ SỐ**: Frame rate · Memory · Transition time · Heat · Battery | <a href="#11-quyet-inh-1-nam-chi-so-phai-chot">§1.1</a> — *frame rate và memory là BẮT BUỘC* |
+| ☐ | **Chốt chỉ số TRƯỚC giai đoạn MASS PRODUCTION** | <a href="#1-chuan-bi-truoc-khi-tuning-bon-quyet-inh-phai-chot">§1</a> — *sau đó chi phí đổi spec là KHỔNG LỒ* |
+| ☐ | **Đo NGƯỠNG CRASH bộ nhớ trên thiết bị cấu hình THẤP NHẤT** | <a href="#12-quyet-inh-2-biet-nguong-crash-bo-nho-cua-thiet-bi">§1.2</a> — *máy 2 GB ⇒ giữ **≤ 1.3 GB*** |
+| ☐ | **Đo bằng CÔNG CỤ NATIVE (Xcode/Android Studio), KHÔNG chỉ Unity Profiler** | <a href="#12-quyet-inh-2-biet-nguong-crash-bo-nho-cua-thiet-bi">§1.2</a> — *Unity BỎ SÓT native plugin + **~100 MB IL2CPP metadata*** |
+| ☐ | **Chọn THIẾT BỊ BẢO ĐẢM dựa trên điểm SoC (Antutu), so theo SINGLE-CORE** | <a href="#13-quyet-inh-3-thiet-bi-bao-am-hoat-ong">§1.3</a>, <a href="#91-suc-manh-tinh-toan-clock-core-va-context-switch">§9.1</a> — *big.LITTLE khiến số nhân GÂY HIỂU LẦM* |
+| ☐ | **Định nghĩa 6 hạng mục QUALITY SETTINGS (High/Medium/Low)** | <a href="#14-quyet-inh-4-ac-ta-quality-settings">§1.4</a> |
+| ☐ | **Cài OVERLAY hiển thị FPS + BỘ NHỚ thường trực, có MÃ MÀU** | <a href="#2-phong-ngua-hien-thi-trang-thai-len-man-hinh">§2</a> — *bộ nhớ CHỈ phát hiện được qua CRASH* |
+| ☐ | **Tạo SCENE NẶNG NHẤT và kiểm chứng chỉ số TRƯỚC** | <a href="#1-chuan-bi-truoc-khi-tuning-bon-quyet-inh-phai-chot">§1</a> |
+
+### 67.2. 🔬 Khi ĐANG tuning
+
+| ☐ | Việc cần làm | Tham chiếu |
+|---|---|---|
+| ☐ | **ĐO và XÁC ĐỊNH nguyên nhân — ĐỪNG ĐOÁN** | <a href="#3-hai-thai-o-bat-buoc-khi-tuning">§3</a> |
+| ☐ | **SO SÁNH profile TRƯỚC/SAU trên TOÀN HỆ THỐNG, không chỉ chỗ vừa sửa** | <a href="#3-hai-thai-o-bat-buoc-khi-tuning">§3</a> — *sửa chỗ này có thể làm NẶNG chỗ khác* |
+| ☐ | **Phân loại đúng: CRASH · SCREEN DROPOUT · LONG LOADING** | <a href="#4-ba-loai-suy-giam-hieu-nang">§4</a> |
+| ☐ | **Nghi rò rỉ ⇒ lặp chuyển cảnh 3–5 LẦN rồi đo** | <a href="#51-ro-ri-bo-nho-quy-trinh-phat-hien-3-buoc">§5.1</a> |
+| ☐ | **Giảm bộ nhớ: CẮT TỪ CHỖ TO trước** | <a href="#53-giam-bo-nho-nguyen-tac-cat-tu-cho-to">§5.3</a> — *1.000 × 1 KB = 1 MB, nhưng 1 texture 10 MB → 2 MB = 8 MB* |
+| ☐ | **Rà 5 nơi: Assets · GC(Mono) · Other · Plug-ins · Đặc tả** | <a href="#53-giam-bo-nho-nguyen-tac-cat-tu-cho-to">§5.3</a> — *"xem lại ĐẶC TẢ" là biện pháp CUỐI CÙNG* |
+| ☐ | **Tách SPIKE khỏi STEADY trước khi sửa** | <a href="#6-truc-processing-time-spike-vs-steady">§6</a> |
+| ☐ | **Spike: cô lập GC vs xử lý nặng bằng Deep Profile** | <a href="#61-ieu-tra-tai-tuc-thoi-spike">§6.1</a> |
+| ☐ | **Steady: kiểm 2 dấu hiệu GPU-bound (hạ resolution có nhanh lên? có `Gfx.WaitForPresent`?)** | <a href="#62-ieu-tra-tai-on-inh-steady-state">§6.2</a> |
+| ☐ | **Profiling trên THIẾT BỊ THẬT, chỉ dùng Editor để lặp nhanh sau khi tái hiện được** | <a href="#18-nguyen-tac-o-editor-hay-thiet-bi-that">§18</a> |
+
+### 67.3. 🧠 Kiến thức NỀN cần nắm
+
+| ☐ | Điểm phải hiểu | Tham chiếu |
+|---|---|---|
+| ☐ | **Mobile: CPU và GPU CHIA SẺ băng thông bộ nhớ** *(khác PC)* | <a href="#10-gpu-vi-sao-no-khac-cpu-ve-cau-truc">§10</a> |
+| ☐ | **RẼ NHÁNH trong vòng lặp gây PIPELINE STALL** | <a href="#9-cpu-pipeline-stall-biglittle-va-cache">§9</a> |
+| ☐ | **Game DÙNG NHIỀU BỘ NHỚ bị OS GIẾT TRƯỚC khi ở background** | <a href="#11-memory-oom-swap-stack-vs-heap">§11</a> |
+| ☐ | **Phân mảnh = KHÔNG CÒN vùng LIÊN TIẾP, dù tổng còn trống** | <a href="#112-stack-vs-heap-vi-sao-heap-cham">§11.2</a> |
+| ☐ | **Storage ~100 MB/s ⇒ file 10 MB = 100 ms; NHIỀU file NHỎ còn CHẬM HƠN** | <a href="#12-storage-vi-sao-oc-file-lau-hon-ban-nghi">§12</a> |
+| ☐ | **Boehm GC: KHÔNG phân thế hệ + KHÔNG nén ⇒ "Stop the World"** | <a href="#161-managed-heap-boehm-gc">§16.1</a> |
+| ☐ | **MỌI lời gọi Unity API là NATIVE CALL — phải CACHE** | <a href="#151-c-il-il2cpp-va-unity-runtime">§15.1</a> |
+| ☐ | **`destroyedObject == null` trả `true` NHƯNG tham chiếu C# VẪN CÒN ⇒ RÒ RỈ** | <a href="#155-gameobject-cai-bay-null-gay-ro-ri-bo-nho">§15.5</a> |
+| ☐ | **Tính TAY được dung lượng: texture 1024² TrueColor = 4 MB; vertex đủ 5 thuộc tính = 60 B** | <a href="#141-bit-byte-va-bai-toan-texture-4-mb">§14.1</a>, <a href="#143-mesh-bang-dung-luong-moi-vertex">§14.3</a> |
+| ☐ | **Chọn collection theo ĐỘ PHỨC TẠP, không theo thói quen** | <a href="#171-nam-collection-c-chon-cai-nao-khi-nao">§17.1</a> — *`Dictionary` tra cứu O(1)* |
+
+### 67.4. 🤝 Quy trình ĐỘI & Vận hành
+
+| ☐ | Việc cần làm | Tham chiếu |
+|---|---|---|
+| ☐ | **Commit `.meta` — MỌI setting tối ưu nằm trong đó** | <a href="#58-to-chuc-du-an-sau-quy-tac-thu-muc">§58</a> |
+| ☐ | **CHỈ commit `Assets` + `ProjectSettings`; TUYỆT ĐỐI KHÔNG commit `Library`** | <a href="#61-thiet-lap-unity-cho-vcs-ignore-gi-file-lon">§61</a> |
+| ☐ | **Dùng Git LFS nếu chọn Git; cân nhắc Perforce/Plastic nếu NHIỀU asset nhị phân LỚN** | <a href="#61-thiet-lap-unity-cho-vcs-ignore-gi-file-lon">§61</a> |
+| ☐ | **CHIA scene lớn thành nhiều scene nhỏ + Prefab để chống XUNG ĐỘT** | <a href="#60-toi-uu-workflow-chia-nho-asset-preset">§60</a> |
+| ☐ | **Dùng PRESET để ÉP CHUẨN import settings toàn đội** | <a href="#60-toi-uu-workflow-chia-nho-asset-preset">§60</a> |
+| ☐ | **Commit NHỎ, THƯỜNG XUYÊN; message SẠCH kèm số ticket** | <a href="#62-bay-thong-le-tot-nhat-ve-version-control">§62</a> |
+| ☐ | **Tắt Domain/Scene Reload khi KHÔNG sửa script để vào Play Mode nhanh hơn** | <a href="#65-developer-workflows-enter-play-mode-scriptableobject">§65</a> |
+| ☐ | **Dùng ScriptableObject cho dữ liệu TĨNH — KHÔNG sinh rác, KHÔNG nhân bản** | <a href="#65-developer-workflows-enter-play-mode-scriptableobject">§65</a> |
+| ☐ | **Save data: dùng MessagePack/Protobuf thay JSON/XML** | <a href="#65-developer-workflows-enter-play-mode-scriptableobject">§65</a> |
+| ☐ | **Chia `.asmdef` để rút ngắn thời gian biên dịch** | <a href="#65-developer-workflows-enter-play-mode-scriptableobject">§65</a> |
+| ☐ | **Cân nhắc Unity Accelerator (cache import) và Build Server** | <a href="#66-team-workflows-source-control-accelerator-build-server">§66</a> |
+
+---
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🎓 <strong>Lời kết Module 5 — và của toàn bộ Hub.</strong></p>
+<p>Bốn Module đầu dạy bạn <strong>LÀM GÌ</strong>. Module này dạy <strong>LÀM THEO THỨ TỰ NÀO</strong> — và đó mới là thứ phân biệt một Tech Lead.</p>
+<blockquote>
+<p><em>"<strong>Workflow của performance tuning thì CÓ THỂ ĐÚC KHUÔN ĐƯỢC.</strong> Bằng cách đi theo dòng chảy đó, việc XÁC ĐỊNH nguyên nhân và tìm giải pháp phù hợp trở nên DỄ DÀNG."</em> — <strong>CyberAgent SGE Core Technology Team</strong></p>
+</blockquote>
+<p>💡 Ba câu đáng nhớ nhất của cuốn sách đều nói về <em>kỷ luật</em>, không phải kỹ thuật:</p>
+<ol>
+<li><em><strong>"ĐO và XÁC ĐỊNH nguyên nhân. ĐỪNG ĐOÁN."</strong></em></li>
+<li><em><strong>"Chìa khoá để giảm bộ nhớ là CẮT TỪ NHỮNG VÙNG LỚN."</strong></em></li>
+<li><em><strong>"NGAY CẢ KHI xảy ra một trường hợp KHÔNG được mô tả trong tài liệu này, nó SẼ KHÔNG phải vấn đề LỚN NẾU các NGUYÊN TẮC CƠ BẢN được tuân thủ."</strong></em></li>
+</ol>
+</div>
+<div class="col-en">
+<p>🎓 <strong>Closing note for Module 5 — and for the whole Hub.</strong></p>
+<p>The first four modules teach you <strong>WHAT to do</strong>. This one teaches <strong>IN WHAT ORDER</strong> — and that is what separates a Tech Lead.</p>
+<blockquote>
+<p><em>"<strong>The WORKFLOW of performance tuning CAN BE MOLDED.</strong> By following that flow, it becomes EASY to IDENTIFY the cause and find a solution that fits."</em> — <strong>CyberAgent SGE Core Technology Team</strong></p>
+</blockquote>
+<p>💡 The book's three most memorable lines are all about <em>discipline</em>, not technique:</p>
+<ol>
+<li><em><strong>"MEASURE and IDENTIFY the cause. DO NOT GUESS."</strong></em></li>
+<li><em><strong>"The KEY to reducing memory is to CUT FROM LARGE AREAS."</strong></em></li>
+<li><em><strong>"EVEN IF a case NOT DESCRIBED in this document occurs, it will NOT be a MAJOR PROBLEM IF the FUNDAMENTALS are followed."</strong></em></li>
+</ol>
 </div>
 </div>

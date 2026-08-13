@@ -99,12 +99,12 @@
 
 | # | Nguồn / Source | Trạng thái |
 |---|---|---|
-| 50 | [GitHub — CyberAgent Unity Performance Tuning Bible v1.0.5](https://github.com/CyberAgentGameEntertainment/UnityPerformanceTuningBible/releases/tag/v1.0.5) | ⏳ |
-| 51 | [blog.sentry.io — Fixing Unity ANRs with Sentry (Amanotes)](https://blog.sentry.io/fixing-unity-anrs-with-sentry-amanotes/) | ⏳ **Deadlock Main Thread** |
-| 52 | 📕 [**E-book PDF** — Unity Gamedev Field Guide (79 tr.)](https://content.cdntwrk.com/files/aT0xNDMwNzIwJnY9MSZpc3N1ZU5hbWU9dW5pdHktZ2FtZS1kZXYtZmllbGQtZ3VpZGUmY21kPWQmc2lnPTJmNGI2NGQzMzEyNDU4ODA1ODA0MWFiOTAwOTU3M2Qz) | 🟡 Đã tải — ch. Version control, Project organization |
-| 53 | [resources.unity.com — Version control & project organization best practices](https://resources.unity.com/games/version-control-project-organization-best-practices-ebook) | ⏳ |
-| 54 | [create.unity3d.com — 70+ tips to improve workflow](https://create.unity3d.com/ebook-improve-workflow) | ⏳ |
-| 55 | 📕 E-book Mobile Perf — ch. *Project configuration* (tr.22–23), *Workflow and collaboration* (tr.48–49) | 🟡 PDF đã tải |
+| 50 | 📕 [**PDF bản tiếng Anh, 323 trang, 12 chương** — CyberAgent Unity Performance Tuning Bible v1.0.5](https://github.com/CyberAgentGameEntertainment/UnityPerformanceTuningBible/releases/download/v1.0.5/UnityPerformanceTuningBible_EN.pdf) | ✅ **Tải + bóc tách TOÀN VĂN (267 hình)** → M5 Phần A–E |
+| 51 | [blog.sentry.io — Fixing Unity ANRs with Sentry (Amanotes)](https://blog.sentry.io/fixing-unity-anrs-with-sentry-amanotes/) | ✅ **Toàn văn + 9 ảnh** → M5 Phần F. Số liệu đã đối chiếu với nguồn: **p95 24,18s · 17,8s → 3,71s · ANR 0,98% → 0,46%** |
+| 52 | 📕 [**E-book PDF** — Unity Gamedev Field Guide (79 tr.)](https://content.cdntwrk.com/files/aT0xNDMwNzIwJnY9MSZpc3N1ZU5hbWU9dW5pdHktZ2FtZS1kZXYtZmllbGQtZ3VpZGUmY21kPWQmc2lnPTJmNGI2NGQzMzEyNDU4ODA1ODA0MWFiOTAwOTU3M2Qz) | ✅ ch. *Version control* + *Project organization* → M5 **Phần G** + 10 ảnh |
+| 53 | 📘 [**E-book PDF** — Version Control and Project Organization Best Practice Guide, **52 trang**](https://cdn.bfldr.com/S5BC9Y64/at/pr233rvht6m6rwxpp8kjkn8/2022_ABMVersionControlandProjectOrganizationinUnity_EBook_Final.pdf) | ✅ **Tải + bóc tách toàn văn** (grep landing page ra link PDF) → M5 **Phần H** (13 thuật ngữ, 6 quy tắc thư mục, 5 chuẩn đặt tên, `.meta`, Git LFS, 7 thông lệ, Git Flow) + 6 ảnh |
+| 54 | 📗 [**E-book PDF** — 70+ tips to increase productivity with Unity 2020 LTS, **62 trang**](https://create.unity3d.com/ebook-improve-workflow) | ✅ **Tải + bóc tách toàn văn** → M5 **Phần I** (bảng phím tắt, 10 mẹo Editor, Sprite Atlas, Enter Play Mode, ScriptableObject, Assembly, Accelerator) + 3 ảnh |
+| 55 | 📕 E-book Mobile Perf — ch. *Project configuration* (tr.22–23), *Workflow and collaboration* (tr.48–49) | ✅ Bóc tách → M5 **Phần G** (§55–§56) |
 
 ---
 
@@ -125,7 +125,7 @@
 | **M2 — Junior** | 9 | 0 | 0 | 2 | **11** |
 | **M3 — Senior** | 7 | 0 | 0 | 1 | **8** |
 | **M4 — Tech Lead** | 19 | 0 | 0 | 2 | **23** * |
-| **M5 — Tech Lead** | 0 | 2 | 4 | 0 | **6** |
+| **M5 — Tech Lead** | 6 | 0 | 0 | 0 | **6** |
 | Tham khảo ➖ | — | — | — | — | **2** |
 
 > \* M4 còn **2 mục ➖** (landing page rỗng · video YouTube) đã có nguồn thay thế — xem bảng M4 ở trên.
