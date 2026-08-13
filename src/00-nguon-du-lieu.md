@@ -29,7 +29,7 @@
 | 8 | [awesometuts.com — Optimize Unity Game](https://awesometuts.com/blog/optimize-unity-game/) | ✅ |
 | 9 | [unity.com — E-book: Optimize Your Mobile Game Performance (landing)](https://unity.com/resources/unity-e-book-optimize-your-mobile-game-performance) | ✅ (PDF ở #1) |
 | 10 | [learn.unity.com — Profiling Applications Made with Unity](https://learn.unity.com/tutorial/profiling-applications-made-with-unity) | ⚠️ **HTTP 404** — Unity Learn đã tái cấu trúc, tutorial không còn tồn tại |
-| 11 | [cgcookie.com — Maximizing your Unity game's performance](https://cgcookie.com/posts/maximizing-your-unity-games-performance) | ⚠️ Chặn bởi **Cloudflare JS challenge** (trả về 5.7 KB "Enable JavaScript") |
+| 11 | [cgcookie.com — Maximizing your Unity game's performance](https://cgcookie.com/posts/maximizing-your-unity-games-performance) | ✅ **ĐÃ GỠ CHẶN ở audit 3** — Cloudflare chặn `curl`, nhưng **Jina reader lấy được toàn văn (29 KB)**. 12 mục của bài: mục **3, 4, 5, 6, 10, 11, 12** (batching, atlas, culling, LOD/mipmap, bake light, shader, imposter) → **M4 §7.2, §10.6**; mục **2, 7, 8, 9** (Profiler, audio, physics, code) đã được phủ bằng nguồn Unity chính thức tương đương ở **M1, M2** |
 
 ---
 
@@ -69,27 +69,28 @@
 
 | # | Nguồn / Source | Trạng thái |
 |---|---|---|
-| 29 | [Unity Blog — Animation Instancing for SkinnedMeshRenderer](https://blog.unity.com/technology/animation-instancing-instancing-for-skinnedmeshrenderer) | ⚠️ **404 ở MỌI biến thể URL** (Unity đã gỡ) → khôi phục từ README repo + trích raw · M4 §12 |
+| 29 | [Unity Blog — Animation Instancing for SkinnedMeshRenderer](https://blog.unity.com/technology/animation-instancing-instancing-for-skinnedmeshrenderer) | ⚠️ **404 ở MỌI biến thể URL** (Unity đã gỡ). **Audit đã thử Wayback qua `curl` (timeout), `WebFetch` (bị chặn domain), Jina (chặn truy cập ẩn danh `web.archive.org`)** → khôi phục từ README repo + trích raw · M4 §12 |
 | 30 | [GitHub — Unity-Technologies/Animation-Instancing](https://github.com/Unity-Technologies/Animation-Instancing) | ✅ README bóc tách → M4 §12 (VertexCache) |
 | 31 | [docs.unity3d.com — GPU Instancing](https://docs.unity3d.com/Manual/GPUInstancing.html) | ✅ M4 §11 + §11.1 (bảng tương thích, 3 giới hạn) |
 | 32 | [Unity Blog — Understanding the Async Upload Pipeline (AUP)](https://blog.unity.com/technology/optimizing-loading-performance-understanding-the-async-upload-pipeline) | ✅ **TOÀN VĂN + 6 ảnh gốc** → M4 §25–§30 (5 bước command, 3 tham số, benchmark 575→245 ms, FAQ 4 câu) |
-| 33 | [ronja-tutorials.com](https://www.ronja-tutorials.com/) | ⚠️ **KHÔNG kết nối được** (curl và Jina reader đều timeout) |
+| 33 | [ronja-tutorials.com](https://www.ronja-tutorials.com/) | ⚠️ **KHÔNG kết nối được — thử lại 3 cách trong audit**: `curl` → `SSL_ERROR_SYSCALL` · Jina → `ERR_CONNECTION_CLOSED` · `WebFetch` → `Socket is closed`. **Server đóng kết nối, không phải bị chặn phía mình.** Chủ đề được phủ bằng nguồn Unity chính thức → M4 §38, §23.2 |
 | 34 | [theslidefactory.com — See-through objects with Stencil Buffers (URP)](https://www.theslidefactory.com/post/see-through-objects-with-stencil-buffers-using-unity-urp) | ✅ M4 §15 + §15.1 (shader Custom/Mask, cấu hình Forward Renderer, 3 cảnh báo) |
 | 35 | [Unity Blog — Expert tips on graphics and assets](https://blog.unity.com/technology/optimize-your-mobile-game-performance-expert-tips-on-graphics-and-assets) | ✅ Bóc tách → M4 Phần B, C |
 | 36 | [learn.unity.com — Optimizing Graphics in Unity](https://learn.unity.com/tutorial/optimizing-graphics-in-unity) | ⚠️ **404 — Unity đã gỡ** → nội dung khôi phục từ ghi chú raw + e-book, viết ở M4 §39.1 (Clear Flags, Skybox, Render Texture) |
 | 37 | [docs.unity3d.com — Baked Light Mode](https://docs.unity3d.com/Manual/LightMode-Baked.html) | ✅ M4 §17, §32.9 (Baked Indirect / Subtractive / Shadowmask) |
 | 38 | [gamedev.net — GPU Performance for Game Artists](https://www.gamedev.net/articles/programming/graphics/gpu-performance-for-game-artists-r4632/) | ✅ **TOÀN VĂN** → M4 Phần A + B (5 giai đoạn GPU, overshading 75%, bandwidth/mipmap). ⚠️ Ảnh sơ đồ **bị chặn hotlink** → diễn giải thành bảng |
-| 39 | [thegamedev.guru/blog](https://thegamedev.guru/blog) | ✅ Chủ đề (batching, overdraw, PSO) đã phủ trong M4 §5, §10, §14 từ nguồn Unity chính thức |
+| 39 | [thegamedev.guru/blog](https://thegamedev.guru/blog) — Ruben Torres Bonet | ✅ **Audit 3 cào lại THÀNH CÔNG qua Jina** → 3 bài chuyên sâu vào M4: *Draw Call Batching Ultimate Guide* (**§10.2–§10.6**: Batches vs SetPass, GPU Resident Drawer, Run-Time Batching API, 9 điều kiện phá dynamic batching) · *Static Batching May Not Reduce Draw Calls* (**§10.3**) · *Occlusion Culling The Sneaky Way* (**§21.1–§21.2**: Umbra, 3 tham số bake) |
+| 39b | ↩︎ [cgcookie.com — Maximizing Your Unity Game's Performance](https://cgcookie.com/posts/maximizing-your-unity-games-performance) *(đã liệt kê ở mục 11)* | ✅ Phần GPU → M4 **§10.6** (9 điều kiện phá dynamic batching, texture atlas/Megatexture, emissive fake lighting, imposter) và **§7.2** (mipmap bật mặc định) |
 | 40 | [forum.unity.com — URP e-book for advanced creators](https://forum.unity.com/threads/new-free-e-book-introduction-to-the-universal-render-pipeline-for-advanced-unity-creators.1323774/) | ✅ Từ đây tìm ra link PDF thật (mục 41) |
 | 41 | 📗 [**E-book PDF** — Introduction to URP for advanced creators, **125 trang**](https://cdn.bfldr.com/S5BC9Y64/at/5rmgtzhmbk347bj6pvqskb/Introduction_to_the_Universal_Render_Pipeline_for_advanced_Unity_creators_2021_LTS_edition.pdf) | ✅ **BÓC TÁCH TOÀN BỘ 125 TRANG — MỌI chương** → M4 §8, §16–§22, §31–§38. **18 ảnh trích từ PDF** |
 | 42 | [YouTube — T-HXmQAMhG0](https://www.youtube.com/watch?v=T-HXmQAMhG0) | ➖ Video shader — không bóc tách được văn bản; chủ đề đã phủ ở M4 §36 (viết custom shader URP) |
-| 43 | 📕 [**E-book PDF** — Optimize your console and PC game performance, 73 tr.](https://content.cdntwrk.com/files/aT0xNDI0NjkzJnY9MSZpc3N1ZU5hbWU9b3B0aW1pemUteW91ci1jb25zb2xlLWFuZC1wYy1nYW1lLXBlcmZvcm1hbmNlJmNtZD1kJnNpZz1hYjFkYjE2OTRhZWZhNzI4OTFkM2FiZjIyNTIyNTkyMQ%253D%253D) | ✅ ch. *Graphics* (tr.38–51) + ***GPU optimization* (tr.52–69)** → M4 Phần C, E, F, G (wavefront occupancy, Async Compute, Book of the Dead 45 ms → 30 fps) |
+| 43 | 📕 [**E-book PDF** — Optimize your console and PC game performance, 94 tr.](https://content.cdntwrk.com/files/aT0xNDI0NjkzJnY9MSZpc3N1ZU5hbWU9b3B0aW1pemUteW91ci1jb25zb2xlLWFuZC1wYy1nYW1lLXBlcmZvcm1hbmNlJmNtZD1kJnNpZz1hYjFkYjE2OTRhZWZhNzI4OTFkM2FiZjIyNTIyNTkyMQ%253D%253D) | ✅ ch. *Graphics* (tr.38–51) + ***GPU optimization* (tr.52–69)** → M4 Phần C, E, F, G. **Audit bổ sung TOÀN BỘ mục còn thiếu**: Benchmark the GPU (§3.1), Alternative debugging techniques (§3.2), Draw order & render queues (§5.4), Dynamic resolution (§22.2), Profile post-processing (§35.3) |
 | 44 | [unity.com — Optimize your console and PC game performance (landing)](https://unity.com/resources/optimize-your-console-and-pc-game-performance) | ➖ Landing page rỗng (JS-render + form gate) → PDF thật ở mục 43 |
-| 45 | 📕 E-book Mobile Perf — ch. *Graphics and GPU optimization* (tr.29–36) | ✅ Bóc tách → M4 §8, §10, §13, §22 (LOD, batching mobile, shader settings) |
+| 45 | 📕 E-book Mobile Perf — ch. *Graphics and GPU optimization* (tr.29–36) | ✅ **Bóc tách TOÀN BỘ chương** → M4 §8, §10, §13, §22 + **bổ sung sau audit**: `Screen.SetResolution` (§22.2), `BakeMesh` SkinnedMeshRenderer (§22.3), Limit Post-processing (§35) |
 | 21b | 📙 E-book Console/PC — ch. *User interface* (tr.70–72) · ***Physics* (tr.77–85, 14 mục)** · ***Animation* (tr.86–88)** | ✅ Bóc tách toàn văn + **10 ảnh** — chương Physics/Animation là phần **bổ sung sau audit** |
-| 46 | 📘 [**E-book PDF** — The Definitive Guide to Lighting in HDRP, 83 tr.](https://cdn.bfldr.com/S5BC9Y64/at/g9f4kvk4pk99t38jx86ph696/Unity_DefinitiveGuideToLightingInHDRP_eBook.pdf) | 🟡 Đã tải + bóc tách `.txt`. **Phần HDRP liên quan tối ưu đã đưa vào M4 §8, §18, §22.1, §23.4**; phần lighting nghệ thuật thuần HDRP nằm ngoài phạm vi tối ưu hoá |
-| 47 | 📘 [**E-book PDF** — HDRP Lighting 2021 LTS, 100 tr.](https://cdn.bfldr.com/S5BC9Y64/at/2tcfx5bgpknjvp3bksq8hcr/JW10283_Unity_ABMCampaign_Final.pdf) | 🟡 Đã tải + bóc tách `.txt` — như mục 46 |
-| 48 | 📕 [**E-book PDF** — Definitive guide to creating advanced VFX, 120 tr.](https://cdn.bfldr.com/S5BC9Y64/at/6qfsbqs59798rprm563f/The_definitive_guide_to_creating_advanced_visual_effects_in_Unity.pdf) | 🟡 Đã tải + bóc tách `.txt`. **Phần VFX Graph liên quan hiệu năng đã đưa vào M4 §24 + §38.1** |
+| 46 | 📘 [**E-book PDF** — The Definitive Guide to Lighting in HDRP, 83 tr.](https://cdn.bfldr.com/S5BC9Y64/at/g9f4kvk4pk99t38jx86ph696/Unity_DefinitiveGuideToLightingInHDRP_eBook.pdf) | ✅ **Bóc tách chương *Optimizing HDRP* + *Rendering Debugger* + mọi *Performance/Optimization tip*** → M4 **§26** (kèm 2 ảnh) · §8 · §18 · §22.1 · §23.4 |
+| 47 | 📘 [**E-book PDF** — HDRP Lighting 2021 LTS, 100 tr.](https://cdn.bfldr.com/S5BC9Y64/at/2tcfx5bgpknjvp3bksq8hcr/JW10283_Unity_ABMCampaign_Final.pdf) | ✅ Bóc tách — **hai danh sách tính năng cần TẮT (HDRP Asset + Frame Settings), bẫy Global Settings ↔ Pipeline Asset** → M4 **§26.1**, **§26.2** |
+| 48 | 📕 [**E-book PDF** — Definitive guide to creating advanced VFX, 120 tr.](https://cdn.bfldr.com/S5BC9Y64/at/6qfsbqs59798rprm563f/The_definitive_guide_to_creating_advanced_visual_effects_in_Unity.pdf) | ✅ **Bóc tách TOÀN BỘ chương OPTIMIZATION (tr.98–110)** — 7 nghi phạm, Bounds, Mesh LOD, octagon/low-res transparency, case study Spaceship → M4 **§25** (kèm 6 ảnh) · §24 · §40.1 |
 | 49 | [create.unity3d.com — Unity for Technical Artists](https://create.unity3d.com/tech-artists-key-toolsets) | ✅ Bộ công cụ TA (Shader Graph, VFX Graph, 2D Renderer) đã phủ ở M4 §37, §38 từ e-book URP |
 
 ---
@@ -120,10 +121,10 @@
 
 | Module | Đã cào ✅ | Đã tải 🟡 | Chờ ⏳ | Lỗi ⚠️ | Tổng |
 |---|---|---|---|---|---|
-| **M1 — Fresher** | 10 | 0 | 0 | 2 | **12** |
+| **M1 — Fresher** | 11 | 0 | 0 | 1 | **12** |
 | **M2 — Junior** | 9 | 0 | 0 | 2 | **11** |
 | **M3 — Senior** | 7 | 0 | 0 | 1 | **8** |
-| **M4 — Tech Lead** | 14 | 3 | 0 | 3 | **22** * |
+| **M4 — Tech Lead** | 19 | 0 | 0 | 2 | **23** * |
 | **M5 — Tech Lead** | 0 | 2 | 4 | 0 | **6** |
 | Tham khảo ➖ | — | — | — | — | **2** |
 

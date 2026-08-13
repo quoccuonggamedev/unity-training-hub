@@ -877,6 +877,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="05-tech-lead/01-cyberagent-bible-anr.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 5 — CyberAgent Bible & Sentry ANR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1108,7 +1136,7 @@
 <tr>
 <td>11</td>
 <td><a href="https://cgcookie.com/posts/maximizing-your-unity-games-performance">cgcookie.com — Maximizing your Unity game's performance</a></td>
-<td>⚠️ Chặn bởi <strong>Cloudflare JS challenge</strong> (trả về 5.7 KB "Enable JavaScript")</td>
+<td>✅ <strong>ĐÃ GỠ CHẶN ở audit 3</strong> — Cloudflare chặn <code>curl</code>, nhưng <strong>Jina reader lấy được toàn văn (29 KB)</strong>. 12 mục của bài: mục <strong>3, 4, 5, 6, 10, 11, 12</strong> (batching, atlas, culling, LOD/mipmap, bake light, shader, imposter) → <strong>M4 §7.2, §10.6</strong>; mục <strong>2, 7, 8, 9</strong> (Profiler, audio, physics, code) đã được phủ bằng nguồn Unity chính thức tương đương ở <strong>M1, M2</strong></td>
 </tr>
 </tbody>
 </table>
@@ -1242,7 +1270,7 @@
 <tr>
 <td>29</td>
 <td><a href="https://blog.unity.com/technology/animation-instancing-instancing-for-skinnedmeshrenderer">Unity Blog — Animation Instancing for SkinnedMeshRenderer</a></td>
-<td>⚠️ <strong>404 ở MỌI biến thể URL</strong> (Unity đã gỡ) → khôi phục từ README repo + trích raw · M4 §12</td>
+<td>⚠️ <strong>404 ở MỌI biến thể URL</strong> (Unity đã gỡ). <strong>Audit đã thử Wayback qua <code>curl</code> (timeout), <code>WebFetch</code> (bị chặn domain), Jina (chặn truy cập ẩn danh <code>web.archive.org</code>)</strong> → khôi phục từ README repo + trích raw · M4 §12</td>
 </tr>
 <tr>
 <td>30</td>
@@ -1262,7 +1290,7 @@
 <tr>
 <td>33</td>
 <td><a href="https://www.ronja-tutorials.com/">ronja-tutorials.com</a></td>
-<td>⚠️ <strong>KHÔNG kết nối được</strong> (curl và Jina reader đều timeout)</td>
+<td>⚠️ <strong>KHÔNG kết nối được — thử lại 3 cách trong audit</strong>: <code>curl</code> → <code>SSL_ERROR_SYSCALL</code> · Jina → <code>ERR_CONNECTION_CLOSED</code> · <code>WebFetch</code> → <code>Socket is closed</code>. <strong>Server đóng kết nối, không phải bị chặn phía mình.</strong> Chủ đề được phủ bằng nguồn Unity chính thức → M4 §38, §23.2</td>
 </tr>
 <tr>
 <td>34</td>
@@ -1291,8 +1319,13 @@
 </tr>
 <tr>
 <td>39</td>
-<td><a href="https://thegamedev.guru/blog">thegamedev.guru/blog</a></td>
-<td>✅ Chủ đề (batching, overdraw, PSO) đã phủ trong M4 §5, §10, §14 từ nguồn Unity chính thức</td>
+<td><a href="https://thegamedev.guru/blog">thegamedev.guru/blog</a> — Ruben Torres Bonet</td>
+<td>✅ <strong>Audit 3 cào lại THÀNH CÔNG qua Jina</strong> → 3 bài chuyên sâu vào M4: <em>Draw Call Batching Ultimate Guide</em> (<strong>§10.2–§10.6</strong>: Batches vs SetPass, GPU Resident Drawer, Run-Time Batching API, 9 điều kiện phá dynamic batching) · <em>Static Batching May Not Reduce Draw Calls</em> (<strong>§10.3</strong>) · <em>Occlusion Culling The Sneaky Way</em> (<strong>§21.1–§21.2</strong>: Umbra, 3 tham số bake)</td>
+</tr>
+<tr>
+<td>39b</td>
+<td>↩︎ <a href="https://cgcookie.com/posts/maximizing-your-unity-games-performance">cgcookie.com — Maximizing Your Unity Game's Performance</a> <em>(đã liệt kê ở mục 11)</em></td>
+<td>✅ Phần GPU → M4 <strong>§10.6</strong> (9 điều kiện phá dynamic batching, texture atlas/Megatexture, emissive fake lighting, imposter) và <strong>§7.2</strong> (mipmap bật mặc định)</td>
 </tr>
 <tr>
 <td>40</td>
@@ -1311,8 +1344,8 @@
 </tr>
 <tr>
 <td>43</td>
-<td>📕 <a href="https://content.cdntwrk.com/files/aT0xNDI0NjkzJnY9MSZpc3N1ZU5hbWU9b3B0aW1pemUteW91ci1jb25zb2xlLWFuZC1wYy1nYW1lLXBlcmZvcm1hbmNlJmNtZD1kJnNpZz1hYjFkYjE2OTRhZWZhNzI4OTFkM2FiZjIyNTIyNTkyMQ%253D%253D"><strong>E-book PDF</strong> — Optimize your console and PC game performance, 73 tr.</a></td>
-<td>✅ ch. <em>Graphics</em> (tr.38–51) + <strong><em>GPU optimization</em> (tr.52–69)</strong> → M4 Phần C, E, F, G (wavefront occupancy, Async Compute, Book of the Dead 45 ms → 30 fps)</td>
+<td>📕 <a href="https://content.cdntwrk.com/files/aT0xNDI0NjkzJnY9MSZpc3N1ZU5hbWU9b3B0aW1pemUteW91ci1jb25zb2xlLWFuZC1wYy1nYW1lLXBlcmZvcm1hbmNlJmNtZD1kJnNpZz1hYjFkYjE2OTRhZWZhNzI4OTFkM2FiZjIyNTIyNTkyMQ%253D%253D"><strong>E-book PDF</strong> — Optimize your console and PC game performance, 94 tr.</a></td>
+<td>✅ ch. <em>Graphics</em> (tr.38–51) + <strong><em>GPU optimization</em> (tr.52–69)</strong> → M4 Phần C, E, F, G. <strong>Audit bổ sung TOÀN BỘ mục còn thiếu</strong>: Benchmark the GPU (§3.1), Alternative debugging techniques (§3.2), Draw order &amp; render queues (§5.4), Dynamic resolution (§22.2), Profile post-processing (§35.3)</td>
 </tr>
 <tr>
 <td>44</td>
@@ -1322,7 +1355,7 @@
 <tr>
 <td>45</td>
 <td>📕 E-book Mobile Perf — ch. <em>Graphics and GPU optimization</em> (tr.29–36)</td>
-<td>✅ Bóc tách → M4 §8, §10, §13, §22 (LOD, batching mobile, shader settings)</td>
+<td>✅ <strong>Bóc tách TOÀN BỘ chương</strong> → M4 §8, §10, §13, §22 + <strong>bổ sung sau audit</strong>: <code>Screen.SetResolution</code> (§22.2), <code>BakeMesh</code> SkinnedMeshRenderer (§22.3), Limit Post-processing (§35)</td>
 </tr>
 <tr>
 <td>21b</td>
@@ -1332,17 +1365,17 @@
 <tr>
 <td>46</td>
 <td>📘 <a href="https://cdn.bfldr.com/S5BC9Y64/at/g9f4kvk4pk99t38jx86ph696/Unity_DefinitiveGuideToLightingInHDRP_eBook.pdf"><strong>E-book PDF</strong> — The Definitive Guide to Lighting in HDRP, 83 tr.</a></td>
-<td>🟡 Đã tải + bóc tách <code>.txt</code>. <strong>Phần HDRP liên quan tối ưu đã đưa vào M4 §8, §18, §22.1, §23.4</strong>; phần lighting nghệ thuật thuần HDRP nằm ngoài phạm vi tối ưu hoá</td>
+<td>✅ <strong>Bóc tách chương <em>Optimizing HDRP<em> + </em>Rendering Debugger<em> + mọi </em>Performance/Optimization tip</em></strong> → M4 <strong>§26</strong> (kèm 2 ảnh) · §8 · §18 · §22.1 · §23.4</td>
 </tr>
 <tr>
 <td>47</td>
 <td>📘 <a href="https://cdn.bfldr.com/S5BC9Y64/at/2tcfx5bgpknjvp3bksq8hcr/JW10283_Unity_ABMCampaign_Final.pdf"><strong>E-book PDF</strong> — HDRP Lighting 2021 LTS, 100 tr.</a></td>
-<td>🟡 Đã tải + bóc tách <code>.txt</code> — như mục 46</td>
+<td>✅ Bóc tách — <strong>hai danh sách tính năng cần TẮT (HDRP Asset + Frame Settings), bẫy Global Settings ↔ Pipeline Asset</strong> → M4 <strong>§26.1</strong>, <strong>§26.2</strong></td>
 </tr>
 <tr>
 <td>48</td>
 <td>📕 <a href="https://cdn.bfldr.com/S5BC9Y64/at/6qfsbqs59798rprm563f/The_definitive_guide_to_creating_advanced_visual_effects_in_Unity.pdf"><strong>E-book PDF</strong> — Definitive guide to creating advanced VFX, 120 tr.</a></td>
-<td>🟡 Đã tải + bóc tách <code>.txt</code>. <strong>Phần VFX Graph liên quan hiệu năng đã đưa vào M4 §24 + §38.1</strong></td>
+<td>✅ <strong>Bóc tách TOÀN BỘ chương OPTIMIZATION (tr.98–110)</strong> — 7 nghi phạm, Bounds, Mesh LOD, octagon/low-res transparency, case study Spaceship → M4 <strong>§25</strong> (kèm 6 ảnh) · §24 · §40.1</td>
 </tr>
 <tr>
 <td>49</td>
@@ -1430,10 +1463,10 @@
 <tbody>
 <tr>
 <td><strong>M1 — Fresher</strong></td>
-<td>10</td>
+<td>11</td>
 <td>0</td>
 <td>0</td>
-<td>2</td>
+<td>1</td>
 <td><strong>12</strong></td>
 </tr>
 <tr>
@@ -1454,11 +1487,11 @@
 </tr>
 <tr>
 <td><strong>M4 — Tech Lead</strong></td>
-<td>14</td>
-<td>3</td>
+<td>19</td>
 <td>0</td>
-<td>3</td>
-<td><strong>22</strong> *</td>
+<td>0</td>
+<td>2</td>
+<td><strong>23</strong> *</td>
 </tr>
 <tr>
 <td><strong>M5 — Tech Lead</strong></td>

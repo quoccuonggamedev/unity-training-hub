@@ -11,7 +11,7 @@
 | 🌱 **Fresher** | [Module 1 — Ultimate Guide to Profiling](01-fresher/01-ultimate-guide-to-profiling.md) | ✅ Hoàn thành — 18 chương, 102 khối song ngữ, 44 ảnh |
 | 🚀 **Junior** | [Module 2 — UI & Physics Deep Dive](02-junior/01-ui-physics-deep-dive.md) | ✅ Hoàn thành — 33 chương, 39 ảnh |
 | ⚔️ **Senior** | [Module 3 — Memory, Addressables & Networking](03-senior/01-memory-addressables-networking.md) | ✅ Hoàn thành — 14 chương, 21 ảnh |
-| 👑 **Tech Lead** | [Module 4 — GPU, URP & Advanced Rendering](04-tech-lead/01-gpu-urp-advanced-rendering.md) | ✅ Hoàn thành — 10 phần (A–J), 40 chương · 64 mục · 116 khối song ngữ · 37 bảng · 53 ảnh |
+| 👑 **Tech Lead** | [Module 4 — GPU, URP & Advanced Rendering](04-tech-lead/01-gpu-urp-advanced-rendering.md) | ✅ Hoàn thành + **audit 3 lần** — 43 chương · 88 mục · 153 khối song ngữ · 49 bảng · 65 ảnh |
 | 👑 **Tech Lead** | Module 5 — CyberAgent Bible & Sentry ANR | ⏳ Chờ duyệt |
 
 ## Cách đọc / How to read
