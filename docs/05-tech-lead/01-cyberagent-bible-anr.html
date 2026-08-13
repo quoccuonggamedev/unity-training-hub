@@ -9702,6 +9702,10 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 <p>🚨 <strong>Trước khi dùng source control</strong>, hãy vào <strong><code>Project Settings → Editor</code></strong>. Xác nhận rằng <strong><code>Asset Serialization Mode</code> được đặt là <code>Force Text</code></strong>.</p>
 <p>Unity dùng <strong>serialization</strong> để nạp và lưu Asset ra/vào đĩa. <strong><code>Force Text</code></strong> nghĩa là Unity sẽ <strong>lưu file scene ở định dạng text</strong> — giúp ích cho việc <strong>merge trong version control</strong>.</p>
 <p><strong>Version Control trong Project Settings:</strong> vào <strong><code>Project Settings → Editor → Version Control</code></strong>. Tuỳ theo hệ thống version control của bạn, chuyển mode sang <strong><code>Plastic SCM</code></strong>, <strong><code>Perforce</code></strong>, hoặc <strong><code>Visible Meta Files</code></strong> (dành cho source control bên ngoài như Git).</p>
+
+<img src="../assets/tip-vcs-mode-dropdown.png" alt="Project Settings Version Control mode">
+<p><em>VI: <strong>▲ <code>Project Settings › Version Control</code></strong> — dropdown <strong>Mode</strong> mở ra bốn lựa chọn: <strong>Hidden Meta Files · Visible Meta Files (đang chọn) · Perforce · PlasticSCM</strong>. / EN: The Version Control Mode dropdown in Project Settings.</em></p>
+
 </div>
 <div class="col-en">
 <p>Before using source control, navigate to Project Settings &gt; Editor. Confirm that Asset Serialization Mode is set to Force Text. Unity uses serialization to load and save Assets to and from disk. Force Text means that Unity will store the scene files in a text-based format to help with version control merges.</p>
@@ -10400,6 +10404,359 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 </tr>
 </tbody>
 </table>
+<h3 id="572-git-ma-nguon-mo-phan-tan-nhung-so-file-nhi-phan">57.2. 🐙 Git — mã nguồn mở, PHÂN TÁN, nhưng SỢ file nhị phân<a class="headerlink" href="#572-git-ma-nguon-mo-phan-tan-nhung-so-file-nhi-phan" title="Permanent link">&para;</a></h3>
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"<strong>Mã nguồn mở, MIỄN PHÍ và linh hoạt, Git là MỘT TRONG những hệ version control PHỔ BIẾN NHẤT hiện nay.</strong> Tuy nhiên, <strong>vì là thiết lập PHÂN TÁN nên nó có thể GÂY NGỢP với người dùng KHÔNG chuyên kỹ thuật.</strong>"</em></p>
+<p>🕰️ <em>"Được <strong>Linus Torvalds phát triển năm 2005</strong> để quản lý việc phát triển nhân Linux, nó vẫn được <strong>bảo trì tốt và mã nguồn mở</strong> kể từ đó. <strong>Git với tư cách một nền tảng là công cụ CHỈ CÓ DÒNG LỆNH.</strong> Nhưng <strong>NHIỀU GUI khác nhau đã được phát triển cho nó</strong>, làm hệ thống dễ tiếp cận hơn."</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"Open source, free, and flexible, Git is one of the most popular version control systems around. However, as a distributed setup it can be daunting to non-technical users."</em></p>
+<p>🕰️ <em>"Developed in 2005 by Linus Torvalds to control the Linux kernel development, it's remained well-maintained and open source since. Git as a platform is a command line-only tool. But many different GUIs have been developed for it, making the system more accessible to users."</em></p>
+</div>
+</div>
+
+<p><strong>SÁU GUI client cho Git — nguyên văn e-book / The SIX Git GUI clients, verbatim</strong></p>
+<table>
+<thead>
+<tr>
+<th>Client</th>
+<th>Mô tả nguyên văn</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Fork</strong></td>
+<td><em>"NHANH và thân thiện. </em><em>Về kỹ thuật là miễn phí, nhưng THỈNH THOẢNG có nhắc bạn trả tiền.</em><em>"</em></td>
+</tr>
+<tr>
+<td><strong>GitKraken</strong></td>
+<td><em>"Mang lại cách làm việc với Git </em><em>TRỰC QUAN và DỄ TIẾP CẬN HƠN</em><em> với UI thân thiện, cùng </em><em>sự linh hoạt CHUYỂN QUA LẠI giữa GUI và terminal CLI.</em><em>"</em></td>
+</tr>
+<tr>
+<td><strong>Visual Studio Code</strong></td>
+<td><em>"VS Code có </em><em>tích hợp source control SẴN BÊN TRONG</em><em>, và với mọi extension hiện có, </em><em>bạn có thể KHÔNG cần dùng chương trình riêng nào nữa.</em><em>"</em></td>
+</tr>
+<tr>
+<td><strong>Visual Studio</strong></td>
+<td><em>"Giống VS Code, Visual Studio cũng có </em><em>điều khiển Git tích hợp sẵn</em><em> và bao gồm </em><em>một extension GitHub.</em><em>"</em></td>
+</tr>
+<tr>
+<td><strong>SourceTree</strong></td>
+<td><em>"Thuộc nhóm sản phẩm Atlassian, SourceTree là </em><em>client Git MIỄN PHÍ cho Windows và Mac</em><em>, cũng giúp bạn </em><em>hình dung và quản lý repository Git dễ dàng.</em><em>"</em></td>
+</tr>
+<tr>
+<td><strong>Sublime Merge</strong></td>
+<td><em>"Hệ thống này </em><em>XUẤT SẮC ở việc TĂNG TỐC code review với diff SONG SONG và syntax highlighting.</em><em> Nó </em><em>NHẸ và HIỆU NĂNG CAO.</em><em>"</em></td>
+</tr>
+</tbody>
+</table>
+<div class="bilingual-row">
+<div class="col-vi">
+<p>⚔️ <strong>Điểm mạnh và điểm yếu CỐT LÕI:</strong></p>
+<p>💀 <em>"Git có <strong>khả năng branching và merging MẠNH, NHƯNG nó KHÔNG THỂ xử lý file nhị phân LỚN hiệu quả bằng các giải pháp khác trên thị trường.</strong> <strong>Git Large File Storage (LFS) khắc phục được PHẦN NÀO.</strong>"</em></p>
+<p>⚡ <em>"Vì Git là client PHÂN TÁN, <strong>TOÀN BỘ repository và TOÀN BỘ lịch sử nằm TRÊN MÁY lập trình viên.</strong> Điều này khiến các thao tác như <strong>chuyển branch hay revert về một điểm trong lịch sử trở nên CỰC NHANH.</strong> Nếu bạn làm dự án LỚN với nhiều branch tính năng và release, <strong>workflow Git có thể tiết kiệm VÔ SỐ GIỜ.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>⚔️ <strong>The core strength and weakness:</strong></p>
+<p>💀 <em>"Git features strong branching and merging capabilities, but it can't handle large binary files as effectively as other solutions on the market. Git Large File Storage (LFS) goes some way to rectifying this."</em></p>
+<p>⚡ <em>"Since Git is a distributed client, the entire repository and complete history is on the developer's machine. This makes actions such as switching branches or reverting back to a point in history extremely quick. If you're working on a large project with multiple features and release branches, a Git workflow can save countless hours."</em></p>
+</div>
+</div>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🧭 <strong>Git ≠ GitHub — điểm hay bị nhầm:</strong></p>
+<p><em>"Thường có <strong>SỰ NHẦM LẪN giữa Git và GitHub. GitHub là DỊCH VỤ HOSTING cho các repository Git, nhưng bạn CÓ THỂ dùng Git MÀ KHÔNG dùng GitHub.</strong> Dù vậy, <strong>GitHub rất phổ biến vì có bản MIỄN PHÍ (với một số giới hạn) và KHÔNG đòi hỏi thiết lập server tuỳ chỉnh nào.</strong>"</em></p>
+<p>🎁 <em>"<strong>Unity đã phát hành code C# của editor và engine ra CÔNG KHAI trên GitHub.</strong> Điều này <strong>CỰC HỮU ÍCH khi bạn cần biết một hàm hoạt động thế nào hoặc cách tái tạo một tính năng của Editor trong dự án của mình.</strong>"</em></p>
+<p>🔧 <em>"GitHub cũng có GUI Git riêng là <strong>GitHub Desktop</strong>. Khi làm việc trong Unity, bạn còn có thể dùng <strong>package GitHub for Unity để mang công cụ Git THẲNG vào Unity Editor.</strong>"</em></p>
+<p>☁️ <em>"GitHub KHÔNG phải dịch vụ hosting DUY NHẤT. Bạn cũng có thể dùng <strong>Bitbucket (của Atlassian) hoặc GitLab</strong>, vốn có <strong>NHIỀU tính năng DevOps hơn.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🧭 <strong>Git ≠ GitHub — the common confusion:</strong></p>
+<p><em>"There can often be some confusion between Git and GitHub. GitHub is a hosting service for Git repositories, but you can use Git without using GitHub. That said, GitHub is a very popular service because there is a free version (with some limitations), and it doesn't require any custom server setups."</em></p>
+<p>🎁 <em>"Unity has released their C# editor and engine code to the public on GitHub. This is incredibly useful when you need to know how some functions work or how to replicate a feature of the Editor inside your own project."</em></p>
+<p>🔧 <em>"GitHub also has its own Git GUI, GitHub Desktop. When working in Unity, you can also use the GitHub for Unity package to bring the Git tools directly into the Unity Editor."</em></p>
+<p>☁️ <em>"As mentioned, GitHub isn't the only hosting service available for your Git projects. You can also use Bitbucket (from Atlassian) or GitLab, which have many more DevOps features available to them, or one of the many other hosting services available."</em></p>
+</div>
+</div>
+
+<h3 id="573-perforce-helix-core-hang-doanh-nghiep-ea-va-ubisoft-ang-dung">57.3. 🔶 Perforce (Helix Core) — hàng DOANH NGHIỆP, EA và Ubisoft đang dùng<a class="headerlink" href="#573-perforce-helix-core-hang-doanh-nghiep-ea-va-ubisoft-ang-dung" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/vc-perforce-p4v.png" alt="Helix Core P4V interface"></p>
+<p><em>VI: <strong>▲ Giao diện Helix Core P4V</strong> — cây workspace bên trái, <strong>danh sách changelist đã submit</strong> ở giữa (kèm ngày, người submit, mô tả), và các hộp thoại <strong>Submitted Changelist</strong> / <strong>Change 27: File Diffs</strong>. Đây là client TẬP TRUNG: mọi thứ đọc thẳng từ server. / EN: The Helix Core P4V interface.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🏢 <em>"Helix Core là hệ version control <strong>CẤP DOANH NGHIỆP được các studio game LỚN như Electronic Arts và Ubisoft sử dụng.</strong> Các studio này dùng Perforce vì nó có <strong>repo TẬP TRUNG, thường host trên SERVER RIÊNG của họ.</strong>"</em></p>
+<p>⚠️ <em>"Nó <strong>KHÔNG có repo trực quan</strong>, nên <strong>việc tiếp nhận có thể KHÓ HƠN với lập trình viên không chuyên kỹ thuật</strong>, nhưng ở studio lớn <strong>sẽ có DevOps và Release Engineer giúp quản lý codebase.</strong> Ngoài ra, là giải pháp doanh nghiệp, nó <strong>bao gồm ĐỘI HỖ TRỢ TOÀN CẦU.</strong>"</em></p>
+<p>💰 <em>"Helix Core <strong>CŨNG dùng được cho nhóm NHỎ. Thực tế nó MIỄN PHÍ cho nhóm tới NĂM người dùng và HAI MƯƠI workspace.</strong> Và bạn <strong>vẫn có thể triển khai lên cloud qua các giải pháp như Amazon AWS hoặc Azure.</strong>"</em></p>
+<p>✅ <em>"Vì <strong>Helix Core xử lý file LỚN CỰC TỐT</strong>, nó có thể là <strong>lựa chọn PHỔ BIẾN cho dự án Unity.</strong> Cũng có <strong>tích hợp sẵn trong Unity Editor.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🏢 <em>"Helix Core is an enterprise-level version control system used by large game studios such as Electronic Arts and Ubisoft. These studios use Perforce because it features centralized repos that are most often hosted on their own servers."</em></p>
+<p>⚠️ <em>"It does not feature visual repos, so its adoption might be more challenging for non-technical developers, but in larger studios there will be DevOps and Release Engineers to help manage the code base. Plus, as an enterprise solution, it includes a global support team."</em></p>
+<p>💰 <em>"Helix Core can also be used by small teams. In fact, it's free for teams of up to five users and 20 workspaces. And you can still deploy to the cloud through solutions like Amazon AWS or Azure."</em></p>
+<p>✅ <em>"Because Helix Core handles large files exceptionally well, it can be a popular option for Unity projects. There is also built-in Unity Editor integration that's covered in a later section."</em></p>
+</div>
+</div>
+
+<h3 id="574-apache-subversion-svn-tap-trung-tot-voi-file-lon-nhung-merge-la-ac-mong">57.4. 🐢 Apache Subversion (SVN) — TẬP TRUNG, tốt với file lớn, nhưng MERGE là ÁC MỘNG<a class="headerlink" href="#574-apache-subversion-svn-tap-trung-tot-voi-file-lon-nhung-merge-la-ac-mong" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/vc-smartsvn-gui.png" alt="SmartSVN GUI"></p>
+<p><em>VI: <strong>▲ SmartSVN GUI</strong> — thanh công cụ <strong>Update · Switch · Merge · Commit</strong>, cây thư mục <code>trunk</code> với <code>.idea</code>, <code>build</code>, <code>misc (12165, fixed)</code>, <code>redistributables</code>, <code>src</code>; menu Merge cho chọn <strong>All from branch 'release-9.2' / '9.1' / '9'</strong>. / EN: The SmartSVN GUI.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"Giống Git, <strong>Apache Subversion (còn gọi là SVN) là hệ version control MIỄN PHÍ và MÃ NGUỒN MỞ. KHÁC Git, nó là VCS TẬP TRUNG CÓ THỂ xử lý file nhị phân LỚN.</strong> Tuy nhiên nó <strong>vẫn là hệ dòng lệnh, cần MỘT TRONG NHIỀU GUI client bên thứ ba để thân thiện hơn — một trong số đó là SmartSVN.</strong>"</em></p>
+<p>🕰️ <em>"<strong>TRƯỚC khi có Git LFS, SVN là lựa chọn PHỔ BIẾN khi làm việc trong Unity.</strong> Là giải pháp tập trung, <strong>nó ĐƠN GIẢN HƠN để làm việc và tốt hơn với file lớn.</strong>"</em></p>
+<p>💀 <em>"Chỗ <strong>SVN THUA các công cụ khác là khi bạn bắt đầu dùng BRANCH và cần MERGE giữa chúng. Merge trong SVN có RẤT NHIỀU nỗi đau, đặc biệt với xung đột — hoặc thậm chí XUNG ĐỘT GIẢ — giữa các file.</strong> 🚨 <strong>Một thao tác merge chỉ mất VÀI PHÚT ở VCS khác có thể mất HÀNG GIỜ làm thủ công trong SVN.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"Like Git, Apache Subversion (known as SVN) is a free and open-source version control system. Unlike Git, it's a centralized VCS that can handle large binary files. However, it's still a command line system that requires one of the many third-party GUI clients to be a bit more user friendly. One such client is SmartSVN."</em></p>
+<p>🕰️ <em>"Before Git LFS, SVN was a popular choice when working in Unity. As a centralized solution, it was simpler to work with and, as mentioned, better for working with large files."</em></p>
+<p>💀 <em>"Where SVN falls behind the other tools is when you start to use branches and need to merge between them. Merging in SVN has many pains, especially when it comes to conflicts – or even false conflicts – between files. A merge operation that would take minutes in another VCS may take hours to go through manually in SVN."</em></p>
+</div>
+</div>
+
+<h3 id="575-plastic-scm-linh-hoat-ca-hai-chieu-va-gluon-danh-rieng-cho-artist">57.5. 🌿 Plastic SCM — LINH HOẠT cả hai chiều, và Gluon dành riêng cho ARTIST<a class="headerlink" href="#575-plastic-scm-linh-hoat-ca-hai-chieu-va-gluon-danh-rieng-cho-artist" title="Permanent link">&para;</a></h3>
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"Plastic SCM là hệ version control <strong>LINH HOẠT hỗ trợ CẢ lập trình viên LẪN artist. Nó XUẤT SẮC ở việc xử lý repo LỚN và file nhị phân</strong>, và <strong>vì vừa dựa trên FILE vừa dựa trên CHANGESET, nó cho bạn khả năng CHỈ TẢI VỀ những file bạn đang làm, thay vì toàn bộ bản build dự án.</strong>"</em></p>
+<p>💰 <em>"Plastic SCM cung cấp <strong>hosting, bộ công cụ VCS, và GUI client TRONG CÙNG MỘT giải pháp. Nhóm NHỎ tới BA người có thể đăng ký bản Cloud Edition MIỄN PHÍ và nhận tới 5 GB lưu trữ cloud</strong>, cùng quyền truy cập bộ công cụ Plastic SCM, <strong>bao gồm Gluon.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"Plastic SCM is a flexible version control system that supports programmers and artists alike. It excels at handling large repos and binary files, and as both a file-based and changeset-based solution, it gives you the capability to download only the specific files you're working on, rather than the entire project build."</em></p>
+<p>💰 <em>"Plastic SCM offers hosting, the actual VCS tools, and a GUI client as part of the same solution. Small teams of up to three users can sign up for the free Cloud Edition of Plastic SCM and get up to 5GB of cloud storage, along with access to the Plastic SCM tools, including Gluon."</em></p>
+</div>
+</div>
+
+<p><img src="../assets/vc-gluon-artist-workflow.png" alt="Plastic SCM workflow designed for artists"></p>
+<p><em>VI: <strong>▲ Workflow dành riêng cho ARTIST</strong> — cột <strong>Status</strong> cho thấy <code>heavyparts.jpg</code> đang <strong>Controlled</strong> còn <code>rocketpack.jpg</code> <strong>Locked by 'pablo'</strong> (70.33 KB); bảng bên phải <strong>xem trước ảnh NGAY</strong> kèm metadata (Size 130.64 KB, Dimensions 1600×916, File attributes ReadOnly) và <strong>lịch sử changeset 497 / 496</strong>. / EN: Plastic offers a workflow especially designed for artists, making it easy to preview files and history as well as to check in changes.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🎨 <strong>Gluon — client "tinh gọn" cho người KHÔNG code:</strong></p>
+<p><em>"Gluon là <strong>client TINH GỌN thiết kế RIÊNG cho artist. Nó cho phép bạn CHỈ CHỌN những file bạn sắp làm việc và CHECK OUT chúng từ server, KHOÁ chúng khỏi bị người khác sửa. Khi xong việc, bạn CHECK file trở lại.</strong> ✅ <strong>GUI của Gluon LOẠI BỎ những khái niệm phức tạp vốn hợp với lập trình viên hơn là với người dùng ít kỹ thuật.</strong>"</em></p>
+<p>🖼️ <em>"Với artist, <strong>CẢ Plastic SCM LẪN Gluon đều có cách DIFF ẢNH. Công cụ image diff cho bạn SO SÁNH TRỰC QUAN hai phiên bản của cùng một file — tính năng mà NHIỀU hệ thống khác KHÔNG có.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🎨 <strong>Gluon — the slimline client for non-coders:</strong></p>
+<p><em>"Gluon is a slimline client designed specifically with artists in mind. It allows you to pick only the files that you're going to work on and check them out from the server, locking them from being modified by anyone else. Once you complete your work, you check the files back in. The Gluon GUI removes the more complex concepts that work better for programmers than for other, less technical users."</em></p>
+<p>🖼️ <em>"For artists, both Plastic SCM and Gluon include ways to diff images. The image diff tool lets you compare two versions of the same file visually, a feature that many other systems don't offer."</em></p>
+</div>
+</div>
+
+<p><img src="../assets/vc-plastic-image-diff-swipe.png" alt="Image diff showing the Swipe mode"></p>
+<p><em>VI: <strong>▲ Image diff ở chế độ Swipe</strong> — bốn chế độ <strong>Onion skin · Side by side · Differences · Swipe</strong>; thanh dọc ở giữa kéo qua lại để <strong>chuyển từ phiên bản này sang phiên bản kia</strong> (trái <code>ironman_armor.jpg#cs:1</code>, phải <code>#cs:2</code>) — thấy ngay <strong>bộ giáp đổi từ ĐỎ-VÀNG sang ĐỎ-TRẮNG</strong>. / EN: Image diff showing the Swipe mode where you can go from one version to the other by just dragging the swipe control. This is very useful to follow image evolution.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>👨‍💻 <strong>GUI chuẩn cho lập trình viên:</strong></p>
+<p><em>"GUI client tiêu chuẩn của Plastic SCM có <strong>MỌI tính năng đội lập trình cần và hơn thế. GUI có Branch Explorer TRỰC QUAN, TƯƠNG TÁC ĐƯỢC, cho thấy QUAN HỆ THỰC SỰ của TẤT CẢ branch trong dự án.</strong> Cũng có <strong>hệ thống Code Review tích hợp sẵn để bạn YÊU CẦU senior review công việc của mình.</strong>"</em></p>
+<p>🏠 <em>"<strong>Plastic SCM gia nhập gia đình Unity năm 2020</strong>, nghĩa là <strong>bộ công cụ giờ được tích hợp CHẶT vào Unity Editor.</strong>"</em></p>
+<p>🔀 <strong>Điểm mạnh THEN CHỐT — BA chế độ cấu hình:</strong></p>
+<ul>
+<li><strong>PHÂN TÁN hoàn toàn</strong> — <em>"lập trình viên làm việc với repository TRÊN MÁY CỤC BỘ, check in, branch và merge dễ dàng. Sau đó PUSH/PULL thay đổi lên server để chia sẻ khi sẵn sàng."</em></li>
+<li><strong>TẬP TRUNG</strong> — <em>"người dùng check out và check in thay đổi TRỰC TIẾP tới server để MỌI NGƯỜI đều làm trên thay đổi MỚI NHẤT."</em></li>
+<li><strong>MULTI-SITE</strong> — <em>"khi đội phát triển đã lớn thành tổ chức TOÀN CẦU, việc MỌI NGƯỜI giao tiếp với MỘT server trung tâm KHÔNG PHẢI LÚC NÀO CŨNG có lợi. Plastic SCM có thể cấu hình multi-site: <strong>server được đặt tại TỪNG SITE để đội check in vào server ĐỊA PHƯƠNG, giữ workflow NHANH và ổ cứng VUI VẺ.</strong> Rồi <strong>các server phân tán GIAO TIẾP VỚI NHAU tới một server trung tâm hoặc cloud.</strong>"</em></li>
+</ul>
+</div>
+<div class="col-en">
+<p>👨‍💻 <strong>The standard GUI for programmers:</strong></p>
+<p><em>"The standard Plastic SCM GUI client has all the features they would be looking for and more for the programming team. The GUI has an interactive visual Branch Explorer that shows the true relationships of all the branches in a project. There is also a built-in Code Review system that you can use to request the review of your work from a senior developer."</em></p>
+<p>🏠 <em>"Plastic SCM joined the Unity family in 2020, which means that the tools are now closely integrated into the Unity Editor."</em></p>
+<p>🔀 <strong>The key strength — THREE configuration modes:</strong></p>
+<ul>
+<li><strong>Fully distributed</strong> — <em>"developers work with a repository on their local machine, checking in, branching, and merging with ease. Developers will then push and pull changes to the server to share them when ready."</em></li>
+<li><strong>Centralized</strong> — <em>"users check out and check in their changes directly to the server so everyone is working on the latest changes."</em></li>
+<li><strong>Multi-site</strong> — <em>"However, as development teams have grown into global organizations, everyone communicating with one central server isn't always beneficial. Plastic SCM can also be configured to work in a multi-site system. In this system, servers are set up at each site, so teams can check in to their local server, keeping their workflow fast and hard drives happy. Then, the distributed servers communicate with each other to a central or cloud server."</em></li>
+</ul>
+</div>
+</div>
+
+<h3 id="576-bang-so-sanh-bon-he-nguyen-van-trang-34-cua-e-book">57.6. 📊 BẢNG SO SÁNH BỐN HỆ — nguyên văn trang 34 của e-book<a class="headerlink" href="#576-bang-so-sanh-bon-he-nguyen-van-trang-34-cua-e-book" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/vc-comparison-matrix.png" alt="Comparison matrix of Plastic, Git, Perforce and Subversion"></p>
+<p><em>VI: <strong>▲ Ma trận so sánh</strong> — 🟢 <strong>xanh = hỗ trợ ĐẦY ĐỦ</strong>, 🟡 <strong>vàng = hỗ trợ MỘT PHẦN</strong>, ô TRỐNG = không hỗ trợ. (Lưu ý: bản gốc của Unity viết SAI chính tả cột <em>"Preforce"</em>.) / EN: Comparison matrix — green = fully supported, yellow = partially supported.</em></p>
+
+<p><strong>Chuyển thành bảng đọc được / The matrix transcribed</strong> — 🟢 đầy đủ · 🟡 một phần · — không hỗ trợ</p>
+<table>
+<thead>
+<tr>
+<th>Nhóm</th>
+<th>Tiêu chí</th>
+<th style="text-align: center;"><strong>Plastic</strong></th>
+<th style="text-align: center;"><strong>Git</strong></th>
+<th style="text-align: center;"><strong>Perforce</strong></th>
+<th style="text-align: center;"><strong>Subversion</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Flexibility</strong></td>
+<td>Good to work <strong>centralized</strong> <em>(chỉ checkin, không push/pull)</em></td>
+<td style="text-align: center;">🟢</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">🟢</td>
+<td style="text-align: center;">🟢</td>
+</tr>
+<tr>
+<td><strong>Flexibility</strong></td>
+<td>Good to work <strong>distributed</strong> <em>(push/pull + repo cục bộ)</em></td>
+<td style="text-align: center;">🟢</td>
+<td style="text-align: center;">🟢</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr>
+<td><strong>Binaries</strong></td>
+<td>Good with <strong>huge repos</strong></td>
+<td style="text-align: center;">🟢</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">🟢</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr>
+<td><strong>Binaries</strong></td>
+<td>Good with <strong>huge files</strong></td>
+<td style="text-align: center;">🟢</td>
+<td style="text-align: center;">🟡</td>
+<td style="text-align: center;">🟢</td>
+<td style="text-align: center;">🟡</td>
+</tr>
+<tr>
+<td><strong>Binaries</strong></td>
+<td><strong>Can lock files</strong> to avoid merging</td>
+<td style="text-align: center;">🟢</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">🟢</td>
+<td style="text-align: center;">🟢</td>
+</tr>
+<tr>
+<td><strong>GUI</strong></td>
+<td><strong>Visualizes your repos</strong> <em>(khỏi cần "bằng tiến sĩ về branching")</em></td>
+<td style="text-align: center;">🟢</td>
+<td style="text-align: center;">🟡</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr>
+<td><strong>GUI</strong></td>
+<td>Comes with <strong>great GUIs</strong></td>
+<td style="text-align: center;">🟢</td>
+<td style="text-align: center;">🟢</td>
+<td style="text-align: center;">🟢</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr>
+<td><strong>GUI</strong></td>
+<td><strong>Special GUI and workflow for artists</strong> and non-coders</td>
+<td style="text-align: center;">🟢</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr>
+<td><strong>Workflow</strong></td>
+<td>Creates effective <strong>task branches</strong></td>
+<td style="text-align: center;">🟢</td>
+<td style="text-align: center;">🟢</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr>
+<td><strong>Merge</strong></td>
+<td>Very good <strong>detecting merges between branches</strong></td>
+<td style="text-align: center;">🟢</td>
+<td style="text-align: center;">🟢</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr>
+<td><strong>Merge</strong></td>
+<td>Comes with great <strong>diff and three-way merge tools</strong></td>
+<td style="text-align: center;">🟢</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">🟢</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr>
+<td><strong>Merge</strong></td>
+<td><strong>Tools help you understand the merge</strong></td>
+<td style="text-align: center;">🟢</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr>
+<td><strong>Merge</strong></td>
+<td>Good merging <strong>renames, moved files, directories, refactors</strong></td>
+<td style="text-align: center;">🟢</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr>
+<td><strong>Cloud</strong></td>
+<td>Can <strong>host repos in the cloud</strong></td>
+<td style="text-align: center;">🟢</td>
+<td style="text-align: center;">🟢</td>
+<td style="text-align: center;">🟡</td>
+<td style="text-align: center;">🟡</td>
+</tr>
+<tr>
+<td><strong>Cloud</strong></td>
+<td><strong>Cloud hosting is good with huge repos</strong></td>
+<td style="text-align: center;">🟢</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr>
+<td><strong>DIFF</strong></td>
+<td>Can <strong>diff code moved across files</strong></td>
+<td style="text-align: center;">🟢</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr>
+<td><strong>DIFF</strong></td>
+<td>Can show you the <strong>history of a method</strong></td>
+<td style="text-align: center;">🟢</td>
+<td style="text-align: center;">🟢</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr>
+<td><strong>Support</strong></td>
+<td><strong>Enterprise Support</strong></td>
+<td style="text-align: center;">🟢</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">🟢</td>
+<td style="text-align: center;">—</td>
+</tr>
+</tbody>
+</table>
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🎯 <strong>Đọc bảng này thế nào (góc nhìn Tech Lead):</strong></p>
+<ul>
+<li>🟢 <strong>CHỈ Plastic có ĐỦ CẢ 18 dòng</strong> — nhưng đây là e-book DO UNITY xuất bản, và <strong>Plastic SCM đã thuộc về Unity từ 2020</strong>. Hãy đọc bảng như <strong>danh sách TIÊU CHÍ cần cân nhắc</strong>, đừng đọc như bảng xếp hạng trung lập.</li>
+<li>⚔️ <strong>Git vs Perforce là ĐÁNH ĐỔI THẬT:</strong> Git thắng ở <strong>task branch · phát hiện merge · history của method</strong>; Perforce thắng ở <strong>repo khổng lồ · khoá file · three-way merge · hỗ trợ doanh nghiệp</strong>. Đúng như §57 đã nói: <strong>chọn theo QUY MÔ ASSET, không theo sở thích.</strong></li>
+<li>💀 <strong>Subversion KHÔNG thắng ở dòng nào mà hệ khác không thắng</strong> — nó chỉ ngang bằng ở centralized, khoá file và một phần file lớn/cloud. Phù hợp với nhận xét ở §57.4: <strong>merge là điểm chết.</strong></li>
+<li>🟡 <strong>Ô VÀNG mới là chỗ đau:</strong> "Git — huge files 🟡" chính là <strong>Git LFS</strong> (chắp vá, không phải tính năng gốc). "Perforce/SVN — cloud 🟡" nghĩa là <strong>làm được nhưng bạn phải TỰ dựng trên AWS/Azure.</strong></li>
+</ul>
+</div>
+<div class="col-en">
+<p>🎯 <strong>How to read this table (Tech Lead's view):</strong></p>
+<ul>
+<li>🟢 <strong>Only Plastic scores on all 18 rows</strong> — but this e-book is published BY Unity, and <strong>Plastic SCM has been part of Unity since 2020</strong>. Read the table as a <strong>checklist of criteria to weigh</strong>, not as a neutral ranking.</li>
+<li>⚔️ <strong>Git vs Perforce is a real trade-off:</strong> Git wins on <strong>task branches, merge detection, method history</strong>; Perforce wins on <strong>huge repos, file locking, three-way merge, enterprise support</strong>.</li>
+<li>💀 <strong>Subversion wins no row that another system doesn't</strong> — it only ties on centralized work, locking, and partially on large files/cloud.</li>
+<li>🟡 <strong>The yellow cells are where the pain is:</strong> "Git — huge files 🟡" is <strong>Git LFS</strong> (a bolt-on, not a native feature). "Perforce/SVN — cloud 🟡" means <strong>possible, but you host it yourself on AWS/Azure.</strong></li>
+</ul>
+</div>
+</div>
+
 <hr />
 <h2 id="58-to-chuc-du-an-sau-quy-tac-thu-muc">58. 📁 Tổ chức dự án — Sáu quy tắc THƯ MỤC<a class="headerlink" href="#58-to-chuc-du-an-sau-quy-tac-thu-muc" title="Permanent link">&para;</a></h2>
 <div class="bilingual-row">
@@ -10959,6 +11316,12 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 </div>
 </div>
 
+<p><img src="../assets/tip-shortcuts-manager.png" alt="The Shortcuts Manager"></p>
+<p><em>VI: <strong>▲ Shortcuts Manager</strong> — bàn phím TRỰC QUAN: phím <strong>ĐÃ GÁN tô nâu</strong>, phím trống là chưa gán; bảng dưới liệt kê <strong>Category</strong> (All Unity Commands · Binding Conflicts · Main Menu · 3D Viewport · Animation · Camera · Curve Editor · Grid · HDRP · Hierarchy View · ParticleSystem · Profiling · PropertyEditor) ↔ <strong>Command</strong> ↔ <strong>Shortcut</strong>. / EN: The Shortcuts Manager is an interactive visual interface.</em></p>
+
+<p><img src="../assets/tip-binding-conflicts.png" alt="Binding Conflicts in the Shortcuts Manager"></p>
+<p><em>VI: <strong>▲ Mục <code>Binding Conflicts</code></strong> — nơi Shortcuts Manager CHỈ THẲNG hai lệnh đang TRANH NHAU cùng một phím: <strong><code>HDRP/Decal: Handle swap between cropping and stretching UV</code></strong> và <strong><code>Main Menu/File/Close</code></strong>, cùng dùng <strong><code>⌘W</code></strong> (tam giác cảnh báo màu vàng). / EN: The Binding Conflicts category.</em></p>
+
 <p><strong>⌨️ Bảng PHÍM TẮT mặc định — nguyên văn</strong></p>
 <table>
 <thead>
@@ -11077,6 +11440,227 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 </tr>
 </tbody>
 </table>
+<p><img src="../assets/tip-layers-eye-lock.png" alt="Layers dropdown with eye and lock"></p>
+<p><em>VI: <strong>▲ Dropdown Layers</strong> — mỗi layer có <strong>biểu tượng MẮT (ẩn/hiện)</strong> và <strong>Ổ KHOÁ (chặn chọn)</strong>: Default · TransparentFX · Ignore Raycast · Water · UI · PostProcessing · Not in Reflection. / EN: The Layers dropdown with visibility and lock toggles.</em></p>
+
+<p><img src="../assets/tip-save-load-selection.png" alt="Save and Load Selection menu"></p>
+<p><em>VI: <strong>▲ Save / Load Selection</strong> — lưu tối đa <strong>MƯỜI bộ lựa chọn</strong>: <strong>Save Selection 1…0 = <code>⌥⌘1…0</code></strong>, gọi lại bằng <strong>Load Selection 1…0 = <code>⇧⌘1…0</code></strong>. / EN: The Save Selection / Load Selection menu.</em></p>
+
+<p><img src="../assets/tip-numbering-scheme.png" alt="Numbering Scheme in Editor settings"></p>
+<p><em>VI: <strong>▲ Numbering Scheme</strong> (<code>Project Settings › Editor</code>) — <strong>Game Object Naming: Prefab (1)</strong>, <strong>Game Object Digits: 1</strong>, <strong>Space Before Number in Asset Names ✓</strong>. Ô thông báo cho biết instance của prefab <code>Clap</code> sẽ thành <code>Clap</code>, <code>Clap (1)</code>, <code>Clap (2)</code>. / EN: The Numbering Scheme for duplicate objects.</em></p>
+
+<p><img src="../assets/tip-tag-editoronly.png" alt="Tag dropdown with EditorOnly"></p>
+<p><em>VI: <strong>▲ Tag <code>EditorOnly</code></strong> — mọi GameObject mang tag này sẽ <strong>KHÔNG được đưa vào build</strong>: dùng cho object hỗ trợ dựng cảnh. / EN: The EditorOnly tag.</em></p>
+
+<p><img src="../assets/tip-playmode-tint.png" alt="Playmode tint in Preferences"></p>
+<p><em>VI: <strong>▲ Playmode tint</strong> (<code>Preferences › Colors › General</code>) — đổi màu này để <strong>KHÔNG BAO GIỜ nhầm lẫn mình đang ở Play Mode</strong> mà sửa (rồi mất) dữ liệu. / EN: The Playmode tint in the Preferences window.</em></p>
+
+<p><img src="../assets/tip-align-with-view.png" alt="Align With View menu"></p>
+<p><em>VI: <strong>▲ <code>GameObject › Align With View</code> (<code>⇧⌘F</code>)</strong> — đưa object (thường là Camera) <strong>KHỚP CHÍNH XÁC góc nhìn Scene view</strong> hiện tại; cạnh đó là <strong>Align View to Selected</strong> và <strong>Move To View <code>⌘⌥F</code></strong>. / EN: The Align With View menu item.</em></p>
+
+<h3 id="632-focused-inspector-mo-nhieu-inspector-cung-luc">63.2. 🔍 Focused Inspector — mở NHIỀU Inspector cùng lúc<a class="headerlink" href="#632-focused-inspector-mo-nhieu-inspector-cung-luc" title="Permanent link">&para;</a></h3>
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"Mở <strong>NHIỀU Focused Inspector CÙNG LÚC</strong> cho phép bạn <strong>THAM CHIẾU nhiều GameObject TRONG KHI đang sửa Scene.</strong>"</em></p>
+<p>🎯 <em>"Bạn cũng có thể <strong>focus vào MỘT Component CỤ THỂ của một GameObject, cần ÍT diện tích màn hình hơn.</strong>"</em></p>
+<p>👉 <strong>Cách mở:</strong> chuột phải lên GameObject trong Hierarchy (hoặc lên tiêu đề Component) → <strong><code>Properties…</code></strong></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"Opening multiple Focused Inspectors at the same time allows you to reference multiple GameObjects while making changes to the Scene."</em></p>
+<p>🎯 <em>"You can also focus on a specific Component of a GameObject, requiring less screen space."</em></p>
+<p>👉 <strong>How:</strong> right-click the GameObject in the Hierarchy (or the Component header) → <strong><code>Properties…</code></strong></p>
+</div>
+</div>
+
+<p><img src="../assets/tip-focused-inspector.png" alt="Focused Inspector window"></p>
+<p><em>VI: <strong>▲ Focused Inspector</strong> — cửa sổ RỜI cho <code>PlayerControllerFPS</code> (viền đỏ) nổi trên Scene, hiển thị Transform (Position 24, 1, −2), <strong>Character Controller</strong> và <strong>Player Movement (Script)</strong>; Inspector CHÍNH bên phải vẫn hoạt động độc lập. / EN: Opening multiple Focused Inspectors at the same time.</em></p>
+
+<h3 id="633-presets-ep-chuan-cho-ca-oi-tranh-setting-bi-bo-quen">63.3. 🎛️ Presets — ÉP chuẩn cho cả đội, tránh setting bị bỏ quên<a class="headerlink" href="#633-presets-ep-chuan-cho-ca-oi-tranh-setting-bi-bo-quen" title="Permanent link">&para;</a></h3>
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"Tính năng này cho phép bạn <strong>TUỲ CHỈNH trạng thái MẶC ĐỊNH của BẤT KỲ THỨ GÌ trong Inspector.</strong> Tạo một Preset để <strong>COPY thiết lập của một component hay asset, LƯU nó thành asset, rồi ÁP dụng CÙNG thiết lập đó cho món khác về sau.</strong>"</em></p>
+<p>🛡️ <strong>Vì sao Tech Lead phải quan tâm:</strong> <em>"Dùng Preset để <strong>ÉP CHUẨN hoặc áp mặc định HỢP LÝ cho asset mới. Việc này đảm bảo chuẩn NHẤT QUÁN trong cả đội, để những setting HAY BỊ BỎ QUÊN KHÔNG làm ảnh hưởng hiệu năng dự án.</strong>"</em></p>
+<p>👉 <em>"Bấm <strong>icon Preset ở góc TRÊN BÊN PHẢI của component</strong>. Bấm <strong><code>Save current to…</code></strong> để lưu Preset thành asset. Bấm một Preset có sẵn để <strong>NẠP bộ giá trị.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"This feature allows you to customize the default state of anything in your Inspector. Creating a Preset lets you copy the settings of a component or asset, save it as an asset, then apply the same settings to another item later."</em></p>
+<p>🛡️ <strong>Why a Tech Lead should care:</strong> <em>"Use Presets to enforce standards or to apply reasonable defaults to new assets. This ensures consistent standards across your team, so commonly overlooked settings don't impact your project's performance."</em></p>
+<p>👉 <em>"Click the Preset icon to the top right of the component. Click Save current to… to save the Preset as an asset. Click one of the available Presets to load a set of values."</em></p>
+</div>
+</div>
+
+<p><strong>🧰 BA cách dùng Preset ÍT NGƯỜI BIẾT / Other handy ways to use Presets</strong></p>
+<table>
+<thead>
+<tr>
+<th>Cách</th>
+<th>Nguyên văn</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>① Tạo GameObject có sẵn mặc định</strong></td>
+<td><em>"<strong>KÉO-THẢ một Preset asset vào Hierarchy</strong> để tạo GameObject MỚI với component tương ứng đã được <strong>ĐIỀN SẴN giá trị Preset.</strong>"</em></td>
+</tr>
+<tr>
+<td><strong>② Gắn Preset cho một TYPE</strong></td>
+<td><em>"Trong <strong>Preset Manager</strong> (<code>Project Settings &gt; Preset Manager</code>), chỉ định <strong>MỘT hoặc NHIỀU Preset cho MỖI Type. Tạo component mới sẽ MẶC ĐỊNH lấy giá trị Preset đã chỉ định.</strong>"</em><br>💎 <strong>Pro tip nguyên văn:</strong> <em>"Tạo NHIỀU Preset cho mỗi Type, và dựa vào <strong>Filter để gắn ĐÚNG Preset THEO TÊN.</strong>"</em></td>
+</tr>
+<tr>
+<td><strong>③ Lưu &amp; nạp thiết lập Manager</strong></td>
+<td><em>"Dùng Preset cho một <strong>cửa sổ Manager</strong> để thiết lập được TÁI SỬ DỤNG; ví dụ nếu bạn định <strong>áp lại CÙNG bộ Tag &amp; Layer hay Physics settings, Preset có thể GIẢM thời gian set-up cho dự án TIẾP THEO.</strong>"</em></td>
+</tr>
+</tbody>
+</table>
+<p><img src="../assets/tip-preset-icon.png" alt="The Preset icon on a component"></p>
+<p><em>VI: <strong>▲ Icon Preset</strong> (viền đỏ) nằm ở <strong>góc trên bên phải</strong> component Transform — cạnh dấu <strong>?</strong> và nút ba chấm. / EN: The Preset icon is highlighted here in red.</em></p>
+
+<p><img src="../assets/tip-select-preset.png" alt="Select Preset window"></p>
+<p><em>VI: <strong>▲ Cửa sổ Select Preset</strong> — ví dụ của e-book: ba Preset chứa <strong>Import Settings KHÁC NHAU cho texture 2D tuỳ MỤC ĐÍCH</strong>: <strong>AlbedoTexture_D · NormalTexture · UtilityTexture</strong>, cùng nút <strong>Save current to…</strong> / EN: In this example, the Presets contain different Import Settings for 2D textures depending on usage (albedo, normal, or utility).</em></p>
+
+<h3 id="634-scenevisibility-isolation-view-an-ma-khong-deactivate">63.4. 👁️ SceneVisibility &amp; Isolation View — ẩn mà KHÔNG deactivate<a class="headerlink" href="#634-scenevisibility-isolation-view-an-ma-khong-deactivate" title="Permanent link">&para;</a></h3>
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"Khi Scene LỚN DẦN, bạn có thể <strong>TẠM ẨN các object cụ thể để chọn và sửa GameObject DỄ HƠN.</strong>"</em></p>
+<p>🚨 <strong>Điểm MẤU CHỐT:</strong> <em>"<strong>THAY VÌ DEACTIVATE GameObject (việc này có thể dẫn tới HÀNH VI NGOÀI Ý MUỐN)</strong>, hãy bật/tắt điều khiển <strong>SceneVisibility. Cách này ẩn/hiện object trong Scene view MÀ KHÔNG đổi khả năng hiển thị TRONG GAME.</strong>"</em></p>
+<p>🔎 <em>"Dùng <strong>Isolation View</strong> để tập trung vào MỘT object và các con của nó. Chọn GameObject trong Hierarchy rồi bấm <strong><code>Shift + H</code></strong> để bật/tắt. Chế độ này <strong>GHI ĐÈ mọi thiết lập SceneVisibility khác cho tới khi bạn thoát.</strong>"</em></p>
+<p>💎 <em>"Nhớ rằng bạn luôn có thể dùng <strong><code>Shift + Space</code> để PHÓNG TO viewport và ẩn phần còn lại của Editor.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"As your Scene grows larger, you can temporarily hide specific objects so that you can select and edit your GameObjects with more ease."</em></p>
+<p>🚨 <strong>The key point:</strong> <em>"Instead of deactivating the GameObjects (which can lead to unintended behavior), toggle the SceneVisibility controls. This allows you to hide and show objects in the Scene view, without changing their in-game visibility."</em></p>
+<p>🔎 <em>"Use Isolation View to concentrate on a specific object and its children. Select the GameObject in the Hierarchy window and press Shift + H to toggle it on and off. This overrides your other SceneVisibility settings until you exit."</em></p>
+<p>💎 <em>"Remember that you can always use the Shift + spacebar shortcut to maximize the viewport and hide the rest of the Editor as well."</em></p>
+</div>
+</div>
+
+<p><strong>👁️ BỐN trạng thái icon trong Hierarchy / The four SceneVisibility status icons</strong></p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Trạng thái — nguyên văn</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>①</strong></td>
+<td><em>"GameObject </em><em>HIỆN</em><em>, nhưng </em><em>MỘT SỐ CON của nó bị ẨN</em><em>."</em></td>
+</tr>
+<tr>
+<td><strong>②</strong></td>
+<td><em>"GameObject </em><em>BỊ ẨN</em><em>, nhưng </em><em>MỘT SỐ CON của nó HIỆN</em><em>."</em></td>
+</tr>
+<tr>
+<td><strong>③</strong></td>
+<td><em>"GameObject và các con </em><em>HIỆN</em><em>, nhưng </em><em>CHỈ xuất hiện khi bạn RÊ CHUỘT lên GameObject</em><em>."</em></td>
+</tr>
+<tr>
+<td><strong>④</strong></td>
+<td><em>"GameObject </em><em>và các con ĐỀU BỊ ẨN</em><em>."</em></td>
+</tr>
+</tbody>
+</table>
+<p><img src="../assets/tip-isolation-view.png" alt="Isolation View in the Scene view"></p>
+<p><em>VI: <strong>▲ Isolation View</strong> — thanh <strong>Isolation View / Exit</strong> hiện ở góc dưới phải Scene view; bộ đếm object bị ẩn trên toolbar nhảy lên <strong>948</strong>. / EN: Isolation View allows you to edit a GameObject without distractions.</em></p>
+
+<h3 id="635-scene-picking-chan-chon-nham-trong-scene-lon">63.5. 🖱️ Scene picking — CHẶN chọn nhầm trong scene lớn<a class="headerlink" href="#635-scene-picking-chan-chon-nham-trong-scene-lon" title="Permanent link">&para;</a></h3>
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"Bạn có thể <strong>sửa trạng thái CÓ THỂ CHỌN (pickability) của GameObject</strong>, tương tự SceneVisibility. Dùng toolbar để <strong>CHẶN các GameObject cụ thể KHỎI bị chọn trong Scene view. Điều này HỮU ÍCH để tránh chọn và sửa NHẦM GameObject trong scene LỚN.</strong>"</em></p>
+<p>🔀 <em>"Vì bạn có thể bật/tắt pickability cho <strong>CẢ NHÁNH hoặc MỘT object đơn lẻ</strong>, một số GameObject có thể <strong>CHỌN ĐƯỢC nhưng có CON hoặc CHA thì KHÔNG.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"You can modify the pickability state of GameObjects, similar to SceneVisibility. Use the toolbar to block specific GameObjects from being selected in the Scene view. This is useful to avoid selecting and editing an unintended GameObject in large scenes."</em></p>
+<p>🔀 <em>"Because you can toggle pickability for a whole branch or a single object, some GameObjects may be pickable but have children or parents that are not."</em></p>
+</div>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Trạng thái pickability — nguyên văn</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>①</strong></td>
+<td><em>"Bạn </em><em>CHỌN ĐƯỢC GameObject, nhưng KHÔNG chọn được MỘT SỐ CON của nó</em><em>."</em></td>
+</tr>
+<tr>
+<td><strong>②</strong></td>
+<td><em>"Bạn </em><em>KHÔNG chọn được GameObject, nhưng CHỌN ĐƯỢC một số CON</em><em>."</em></td>
+</tr>
+<tr>
+<td><strong>③</strong></td>
+<td><em>"Bạn </em><em>chọn được GameObject và các con</em><em> (chỉ hiện khi </em><em>RÊ CHUỘT</em><em> lên GameObject)."</em></td>
+</tr>
+<tr>
+<td><strong>④</strong></td>
+<td><em>"Bạn </em><em>KHÔNG chọn được GameObject LẪN các con</em><em>."</em></td>
+</tr>
+</tbody>
+</table>
+<p><img src="../assets/tip-scene-picking-icons.png" alt="Hierarchy pickability icons"></p>
+<p><em>VI: <strong>▲ Cột pickability trong Hierarchy</strong> (viền đỏ) — dấu con trỏ gạch chéo cho biết nhánh nào đã bị CHẶN chọn; ở đây <code>Props</code>, <code>Room 1</code>, <code>Ball_PF</code>, <code>Structure</code> mang trạng thái khác nhau. / EN: Hierarchy pickability.</em></p>
+
+<h3 id="636-searching-cu-phap-t-va-l">63.6. 🔎 Searching — cú pháp <code>t:</code> và <code>l:</code><a class="headerlink" href="#636-searching-cu-phap-t-va-l" title="Permanent link">&para;</a></h3>
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"Editor có <strong>chức năng tìm kiếm cho Scene view, cửa sổ Hierarchy và cửa sổ Project.</strong>"</em></p>
+<p>🏷️ <em>"Ngoài tìm theo TÊN, bạn có thể <strong>tìm theo TYPE. Dùng dropdown để chọn Type hoặc cú pháp VIẾT TẮT <code>t:</code>.</strong>"</em></p>
+<p>🔖 <em>"Nếu bạn dùng <strong>Asset Label</strong>, bạn cũng có thể dùng cú pháp viết tắt <strong><code>l:</code> để LỌC theo label.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"The Editor contains search functionality for the Scene view, Hierarchy window and Project window."</em></p>
+<p>🏷️ <em>"In addition to searching for names, you can search by type. Use the dropdown to select Type or the <code>t:</code> shorthand syntax."</em></p>
+<p>🔖 <em>"If you use Asset Labels, you can also use the <code>l:</code> shorthand to filter for labels."</em></p>
+</div>
+</div>
+
+<p><img src="../assets/tip-search-by-type.png" alt="Filtering the Hierarchy by type"></p>
+<p><em>VI: <strong>▲ Lọc bằng <code>t:Camera</code></strong> — Hierarchy chỉ còn các camera: <strong>Cinematic Physical Camera A/B · Main Camera · Screenshot Camera 1…10</strong>. / EN: Filtering by Type.</em></p>
+
+<h3 id="637-inspector-debug-mode-xem-ca-bien-private">63.7. 🐞 Inspector Debug Mode — xem cả biến <code>private</code><a class="headerlink" href="#637-inspector-debug-mode-xem-ca-bien-private" title="Permanent link">&para;</a></h3>
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"Bạn có thể <strong>chuyển Inspector của MỖI GameObject giữa chế độ Normal và Debug.</strong> Bấm nút <strong>More Items (⋮)</strong> để mở menu ngữ cảnh và chọn chế độ."</em></p>
+<p>🔬 <em>"<strong>Debug Mode CHỈ hiển thị property của component ĐANG CHỌN và GIÁ TRỊ của chúng. Nó CŨNG hiển thị các biến PRIVATE, mặc dù bạn KHÔNG SỬA được chúng.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"You can toggle each GameObject's Inspector between Normal and Debug mode. Click the More Items (⋮) button to open the context menu and choose the desired mode."</em></p>
+<p>🔬 <em>"Debug Mode only shows the selected component's properties and their values. It also displays private variables, although you cannot edit them."</em></p>
+</div>
+</div>
+
+<p><img src="../assets/tip-inspector-debug-mode.png" alt="Inspector Debug mode menu"></p>
+<p><em>VI: <strong>▲ Menu ⋮ của Inspector</strong> — <strong>Lock · Normal (✓) · Debug (đang bôi xanh) · Expand/Collapse All Components · Ping</strong>. / EN: Inspector Debug mode.</em></p>
+
+<h3 id="638-quicksearch-tim-moi-thu-trong-unity">63.8. ⚡ QuickSearch — tìm MỌI THỨ trong Unity<a class="headerlink" href="#638-quicksearch-tim-moi-thu-trong-unity" title="Permanent link">&para;</a></h3>
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"Nếu bạn muốn <strong>mở rộng tìm kiếm RA NGOÀI các cửa sổ đã nói, bạn có thể tìm BẤT CỨ THỨ GÌ trong Unity bằng package QuickSearch.</strong>"</em></p>
+<p>🆕 <em>"<strong>Unity 2021.1 TÍCH HỢP SẴN chức năng này vào Editor mà KHÔNG cần cài package riêng.</strong> Tìm nó ở <strong><code>Edit &gt; Search All</code> (<code>Ctrl + K</code> trên Windows / <code>Cmd + K</code> trên macOS).</strong>"</em></p>
+<p>👉 <em>"Sau khi cài từ Package Manager, kích hoạt QuickSearch từ <strong><code>Help &gt; QuickSearch</code></strong> hoặc tổ hợp phím <strong><code>Alt + '</code></strong>."</em></p>
+<p>🌐 <em>"QuickSearch cho phép bạn tìm ở <strong>NHIỀU KHU VỰC của Unity: asset, object trong scene, menu item, package, API, settings, v.v.</strong>"</em></p>
+<p>⚙️ <em>"Hãy chắc chắn <strong>chạy setup wizard để cấu hình thiết lập tìm kiếm cho kết quả TỐT NHẤT. Hiệu năng THAY ĐỔI tuỳ KÍCH THƯỚC dự án</strong>, nên hãy chọn thiết lập phù hợp nhất với nhu cầu của bạn."</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"If you want to extend your search beyond the windows discussed here, you can find anything in Unity using the QuickSearch package."</em></p>
+<p>🆕 <em>"Unity 2021.1 incorporates this functionality into the Editor without requiring a separate package installation. Look for it under Edit &gt; Search All (Ctrl + K on Windows / Cmd + K on macOS)."</em></p>
+<p>👉 <em>"Once installed from the PackageManager, activate QuickSearch from either Help &gt; QuickSearch or use the Alt + ' hotkey combination."</em></p>
+<p>🌐 <em>"QuickSearch enables you to search multiple areas of Unity: assets, scene objects, menu items, packages, APIs, settings, etc."</em></p>
+<p>⚙️ <em>"Make sure you run the setup wizard to configure the search settings for the best results. Performance varies depending on the size of your project, so choose the best settings for your individual needs."</em></p>
+</div>
+</div>
+
+<p><img src="../assets/tip-quicksearch-results.png" alt="QuickSearch results for Camera"></p>
+<p><em>VI: <strong>▲ QuickSearch tìm "Camera"</strong> — trả về LẪN LỘN vfxblock, script <code>SimpleCameraController.cs</code>, asset <code>CinematicPhysicalCamera.asset</code>, các file <code>.vfx</code>, và cả script trong <strong>Packages</strong>; dòng cuối ghi <em>"Searching Asset, Menu, Objects, Scene, Settings and found <strong>112 results in 11 ms</strong>"</em>. / EN: Comprehensive results from QuickSearch.</em></p>
+
+<p><img src="../assets/tip-quicksearch-setup.png" alt="Quick Search Setup wizard"></p>
+<p><em>VI: <strong>▲ Setup wizard</strong> — chọn <strong>quy mô dự án</strong>: <strong>Small</strong> (&lt; 1.000 asset) · <strong>Medium</strong> (mặc định) · <strong>Large</strong> (&gt; 20.000 asset); và <strong>mức index</strong>: <strong>Minimal</strong> · <strong>Default</strong> (File + Type information) · <strong>Extended</strong> (thêm <em>Asset properties</em> và <em>Asset dependencies</em>). Càng nhiều tuỳ chọn thì <strong>index đầu tiên càng LÂU.</strong> / EN: The Quick Search Setup wizard.</em></p>
+
 <hr />
 <h2 id="64-artist-workflows-sprite-atlas-prefab">64. 🎨 Artist workflows — Sprite Atlas &amp; Prefab<a class="headerlink" href="#64-artist-workflows-sprite-atlas-prefab" title="Permanent link">&para;</a></h2>
 <div class="bilingual-row">
@@ -11111,6 +11695,393 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 <p>💎 <em>"<strong>The SpriteAtlas API provides ADDITIONAL CONTROL AT RUNTIME.</strong> You can also create a <strong>Variant Sprite Atlas</strong> or prepare Sprite Atlases for an ALTERNATE form of distribution with <strong>Late Binding</strong> in a script."</em></p>
 </div>
 </div>
+
+<p><img src="../assets/tip-sprite-atlas-packed.png" alt="SpriteAtlas_UI_Battle packed"></p>
+<p><em>VI: <strong>▲ Kết quả PACK</strong> — <code>SpriteAtlas_UI_Battle</code> gom toàn bộ avatar, nút bấm, thanh máu, vòng tròn vào <strong>MỘT texture 2048×2048 · RGBA Compressed DXT5 sRGB · 4.0 MB</strong>. Mọi UI dùng atlas này gộp về <strong>1 draw call</strong> thay vì hàng chục. / EN: The packed SpriteAtlas_UI_Battle: 2048×2048 RGBA Compressed DXT5 sRGB, 4.0 MB.</em></p>
+
+<p><img src="../assets/tip-sprite-atlas-inspector.png" alt="Sprite Atlas Inspector"></p>
+<p><em>VI: <strong>▲ Inspector của Sprite Atlas</strong> — <strong>Type: Master · Include in Build ✓</strong>; nhóm <strong>Packing</strong> có <strong>Allow Rotation ✓ · Tight Packing ✗ · Padding 8</strong>; nhóm <strong>Texture</strong> có <strong>Read/Write ✗ · Generate Mip Maps ✗ · sRGB ✓ · Filter Mode Bilinear</strong>; <strong>Max Texture Size 2048 · Format RGBA Compressed DXT5</strong>; danh sách <strong>Objects for Packing</strong> nhận CẢ THƯ MỤC (Avatars, Banner, Buttons, Circles, HealthBar, SpecialCharge, Panel). / EN: The Sprite Atlas Inspector with its Packing and Texture settings.</em></p>
+
+<h3 id="641-muoi-meo-workflow-2d-nguyen-van">64.1. 🎮 Mười mẹo WORKFLOW 2D — nguyên văn<a class="headerlink" href="#641-muoi-meo-workflow-2d-nguyen-van" title="Permanent link">&para;</a></h3>
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"<strong>Unity đã phát triển bộ công cụ 2D NATIVE của mình để giúp bạn phát triển NHANH HƠN.</strong> Tiết kiệm thời gian với những mẹo hữu ích này."</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"Unity has evolved its native 2D tools to help you develop faster. Save time with these helpful tips."</em></p>
+</div>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Mẹo</th>
+<th>Nội dung nguyên văn</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>①</strong></td>
+<td><strong>2D Pixel Perfect Package</strong></td>
+<td><em>"Chứa một <strong>Pixel Perfect Camera</strong> đảm bảo <strong>pixel art của bạn LUÔN SẮC NÉT ở CÁC ĐỘ PHÂN GIẢI KHÁC NHAU</strong>, nên bạn <strong>TRÁNH được việc scale asset THỦ CÔNG.</strong>"</em> — case study: <strong>SouthPAW Games</strong> làm <em>Skul: The Hero Slayer</em></td>
+</tr>
+<tr>
+<td><strong>②</strong></td>
+<td><strong>PSDImporter Package</strong></td>
+<td><em>"Dùng nếu bạn muốn làm việc với file Photoshop. <strong>BỎ QUA bước export từng Sprite riêng, import THẲNG file .PSB</strong> (hỗ trợ ảnh LỚN HƠN .PSD nhưng chức năng giống nhau). Việc này cho phép <strong>import NHIỀU Sprite từ các layer khác nhau và SINH RA Sprite Sheet hoặc 2D Character Rig.</strong>"</em></td>
+</tr>
+<tr>
+<td><strong>③</strong></td>
+<td><strong>Tilemap</strong></td>
+<td><em>"Dùng Tilemap để tạo <strong>thế giới LỚN dựa trên lưới, gồm cả bản HEXAGONAL và ISOMETRIC, được TỐI ƯU về kích thước và hiệu năng.</strong>"</em></td>
+</tr>
+<tr>
+<td><strong>④</strong></td>
+<td><strong>2D skeletal animation</strong></td>
+<td><em>"Tạo animation xương 2D MƯỢT với <strong>rigging, tessellation và tạo bone. 2D Inverse Kinematics (IK) ĐƠN GIẢN HOÁ animation, TỰ TÍNH cách xương 2D chạm tới đích.</strong>"</em></td>
+</tr>
+<tr>
+<td><strong>⑤</strong></td>
+<td><strong>2D Lights</strong></td>
+<td><em>"Tăng chất lượng hình ảnh với 2D Lights. Đèn có các tham số <strong>DỄ cấu hình như màu, cường độ, fall-off và hiệu ứng blending.</strong>"</em></td>
+</tr>
+<tr>
+<td><strong>⑥</strong></td>
+<td><strong>2D Sprite Shape</strong></td>
+<td><em>"Cho bạn <strong>TỰ DO tạo môi trường 2D dạng FREE-FORM</strong> với workflow trực quan. Nó <strong>LÁT Sprite dọc theo đường viền của một hình, TỰ ĐỘNG BIẾN DẠNG và HOÁN ĐỔI chúng dựa trên GÓC của đường viền.</strong>"</em></td>
+</tr>
+<tr>
+<td><strong>⑦</strong></td>
+<td><strong>Custom Axis sorting</strong></td>
+<td><em>"Sắp xếp Sprite theo <strong>HƯỚNG bạn muốn.</strong> Hữu ích khi có nhiều Sprite <strong>CÙNG layer và CÙNG sorting order</strong> — hình dung một <strong>game bài nơi các lá bài CHỒNG LÊN nhau một chút.</strong>"</em> → <strong>Built-in RP</strong>: <code>Edit &gt; Project Settings &gt; Graphics</code> chọn <strong>Custom Axis</strong> cho <strong>Transparency Sort Mode</strong>, ví dụ <strong>(0, 1, 0)</strong> để sắp theo trục Y từ trên xuống. <strong>URP</strong>: đặt <code>Camera.transparencySortMode = TransparencySortMode.CustomAxis</code> rồi đặt <code>Camera.transparencySortAxis</code></td>
+</tr>
+<tr>
+<td><strong>⑧</strong></td>
+<td><strong>Shader Graph cho 2D</strong></td>
+<td><em>"Cần shader riêng? Shader Graph có <strong>HAI MasterNode thiết kế cho 2D: Sprite Lit và Sprite Unlit.</strong>"</em></td>
+</tr>
+<tr>
+<td><strong>⑨</strong></td>
+<td><strong>TRÁNH overdraw</strong></td>
+<td>💀 <em>"Để cải thiện hiệu năng, hãy <strong>chuyển Mesh Type sang TIGHT trong Import Settings của TỪNG Sprite. GỘP các hình chồng nhau vào MỘT Sprite bất cứ khi nào có thể, và TẮT những Sprite nằm ở layer nền mà game KHÔNG dùng tới.</strong> ✅ <strong>Việc này GIẢM vùng overdraw và khả năng chồng lấn với các Sprite lân cận.</strong>"</em></td>
+</tr>
+<tr>
+<td><strong>⑩</strong></td>
+<td><strong>Custom outline</strong></td>
+<td><em>"Bạn cũng có thể <strong>ĐỊNH NGHĨA đường viền RIÊNG quanh mỗi Sprite bằng 2D Sprite Editor để GIẢM THIỂU vùng KHÔNG dùng tới.</strong>"</em></td>
+</tr>
+</tbody>
+</table>
+<p><img src="../assets/tip-2d-packages.png" alt="2D packages in Package Manager"></p>
+<p><em>VI: <strong>▲ Bộ package 2D</strong> trong Package Manager — <strong>2D Animation 5.0.4 · 2D Common 4.0.3 · 2D PSD Importer 4.0.2 · 2D SpriteShape 5.1.1 · 2D Tilemap Editor 1.0.0 · 2D Tilemap Extras 1.6.3-preview</strong>. / EN: The 2D packages available in the Package Manager.</em></p>
+
+<p><img src="../assets/tip-isometric-tilemap.png" alt="Isometric Tilemap"></p>
+<p><em>VI: <strong>▲ Tilemap ISOMETRIC</strong> — cùng một bộ tile mô tả cả môi trường dạng lưới lẫn dạng isometric; bảng <strong>Active Tilemap</strong> bên phải chứa palette tile. / EN: Tilemaps can describe isometric or other grid-like environments.</em></p>
+
+<p><img src="../assets/tip-tilemap-renderer.png" alt="Tilemap Renderer settings"></p>
+<p><em>VI: <strong>▲ Tilemap + Tilemap Renderer</strong> — <strong>Tile Anchor X 0.5 Y 0.5</strong> · <strong>Orientation XY</strong>; phần Renderer: <strong>Sort Order: Bottom Left · Mode: Chunk · Detect Chunk Culling: Auto · Chunk Culling Bounds Y 1.98437</strong> · <strong>Sorting Layer Main · Order in Layer −1</strong>. <strong>Mode Chunk</strong> chính là chỗ Tilemap gom tile để GIẢM draw call. / EN: The Tilemap and Tilemap Renderer components.</em></p>
+
+<p><img src="../assets/tip-2d-skeletal-bones.png" alt="2D skeletal rig in Sprite Editor"></p>
+<p><em>VI: <strong>▲ Rig xương 2D</strong> — Sprite Editor ở chế độ <strong>Skinning Editor</strong> với bộ xương phủ lên con rồng (wing_base, neck, tail, leg…), Inspector bên phải hiển thị <strong>Sprite Library Asset</strong> và danh sách constraint <strong>LimbSolver2D / CCDSolver2D</strong> — chính là 2D IK. / EN: Animating the dragon character from Dragon Crashers.</em></p>
+
+<p><img src="../assets/tip-custom-sort-axis.png" alt="Custom sort axis diagram"></p>
+<p><em>VI: <strong>▲ Custom Axis</strong> — <strong>Transparency Sort Mode: Custom Axis</strong>, <strong>Sort Axis X 0 · Y 1 · Z 0</strong>. Sơ đồ cho thấy cùng ba thẻ A·B·C được xếp KHÁC NHAU tuỳ trục: <strong>(1,0,0)</strong> vs <strong>(−1,0,0)</strong> theo X, <strong>(0,1,0)</strong> vs <strong>(0,−1,0)</strong> theo Y. / EN: Transparency Sort Mode and Sort Axis.</em></p>
+
+<p><img src="../assets/tip-overdraw-2d.png" alt="Overdraw explained"></p>
+<p><em>VI: <strong>▲ Vì sao overdraw ĐẮT</strong> — game <strong>1920×1080 = 2.073.600 pixel @ 60 fps</strong>; ba lớp Sprite chồng nhau tạo ra <strong>1× → 2× → 3× Overdraw</strong>, và <em>"pixel trong vùng đó bị VẼ LẠI 4 LẦN MỖI FRAME"</em>. / EN: 1920×1080 game (2,073,600 pixels) @ 60 fps — pixels in that area are overdrawn 4x every frame.</em></p>
+
+<p><img src="../assets/tip-sprite-custom-outline.png" alt="Sprite Editor custom outline"></p>
+<p><em>VI: <strong>▲ Custom Outline trong Sprite Editor</strong> — thay vì quad chữ nhật, đường viền BÁM SÁT hình biển báo, <strong>cắt bỏ vùng trong suốt KHÔNG cần vẽ</strong>. / EN: The Sprite Editor with a custom outline.</em></p>
+
+<h3 id="642-prefab-workflows-prefab-mode-nested-prefab-variant">64.2. 🧱 Prefab workflows — Prefab Mode, Nested Prefab &amp; Variant<a class="headerlink" href="#642-prefab-workflows-prefab-mode-nested-prefab-variant" title="Permanent link">&para;</a></h3>
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"Prefab cho phép <strong>LƯU các GameObject đã cấu hình ĐẦY ĐỦ vào dự án để TÁI SỬ DỤNG.</strong>"</em></p>
+<p>🛡️ <strong>Quy tắc số 1 — sửa trong Prefab Mode:</strong> <em>"Tạo Prefab như một Asset trong Project, rồi <strong>sửa nó TRONG SỰ CÔ LẬP ở Prefab mode. Làm việc với Prefab MỘT MÌNH giúp NGĂN việc áp dụng override NGOÀI Ý MUỐN.</strong> Hãy thay đổi một cách tự tin với <strong>nền được LÀM XÁM.</strong>"</em></p>
+<p>🔀 <strong>Hai chế độ sửa:</strong> <em>"Sửa <strong>in Context</strong> để thấy Prefab TRONG TƯƠNG QUAN với các object khác trong Scene. <strong>CÔ LẬP</strong> Prefab ở Prefab mode để TRÁNH override ngoài ý muốn."</em></p>
+<p>🪆 <strong>Nested Prefab:</strong> <em>"Cho phép <strong>làm Prefab CON của Prefab khác.</strong> Bạn có thể tạo một Prefab LỚN — ví dụ một <strong>TOÀ NHÀ</strong> — <strong>cấu thành từ các Prefab NHỎ hơn cho phòng và nội thất.</strong> ✅ Việc này khiến việc <strong>CHIA nhỏ công việc cho NHIỀU artist và lập trình viên cùng làm SONG SONG trở nên HIỆU QUẢ.</strong>"</em></p>
+<p>🧬 <strong>Prefab Variant:</strong> <em>"Cho phép <strong>DẪN XUẤT một Prefab từ Prefab khác, GIỐNG KẾ THỪA trong lập trình hướng đối tượng.</strong> Để đổi Variant, chỉ cần <strong>override vài phần MÀ KHÔNG lo ảnh hưởng bản gốc.</strong> Bạn <strong>luôn có thể GỠ MỌI sửa đổi và quay về Prefab gốc.</strong> Ngược lại, nếu muốn <strong>đổi TẤT CẢ Variant CÙNG LÚC, hãy áp thay đổi TRỰC TIẾP lên Prefab gốc.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"Prefabs allow fully configured GameObjects to be saved in the project for reuse."</em></p>
+<p>🛡️ <strong>Rule #1 — edit in Prefab Mode:</strong> <em>"Create your Prefab as an Asset in the Project, then edit it in isolation in Prefab mode. Working with the Prefab by itself helps prevent applying unintended overrides. Make your changes with confidence with the background grayed out."</em></p>
+<p>🔀 <strong>Two edit modes:</strong> <em>"Edit in Context mode to see the Prefab relative to the other objects in the Scene. Isolate the Prefab in Prefab mode to avoid unintended overrides."</em></p>
+<p>🪆 <strong>Nested Prefabs:</strong> <em>"Nested Prefabs allow you to parent Prefabs to one another. You can now create a larger Prefab, such as a building, composed of smaller Prefabs for the rooms and furniture. This makes it efficient to split development of your assets over a team of multiple artists and developers, who can all work on different parts of the content simultaneously."</em></p>
+<p>🧬 <strong>Prefab Variant:</strong> <em>"A Prefab Variant allows you to derive a Prefab from other Prefabs, much like inheritance in object-oriented programming. To change the Variant, just override certain parts without worry of impacting the original. You can also remove all modifications and revert to the base Prefab at any time. Alternatively, if you want to change all of your Variants at once, apply changes directly onto the base Prefab itself."</em></p>
+</div>
+</div>
+
+<p><img src="../assets/tip-prefab-mode-in-context.png" alt="Prefab Mode in Context"></p>
+<p><em>VI: <strong>▲ Prefab Mode in Context</strong> — breadcrumb <em>Unit_Skeleton_Damak</em>, <strong>Context: Gray</strong>, và phần còn lại của Scene bị <strong>LÀM XÁM</strong> để bạn biết mình đang sửa Prefab chứ KHÔNG phải instance. / EN: Edit each Prefab, either in Context or in Isolation.</em></p>
+
+<p><img src="../assets/tip-prefab-overrides.png" alt="Prefab Overrides dropdown"></p>
+<p><em>VI: <strong>▲ Overrides dropdown</strong> — liệt kê MỌI khác biệt của <code>Unit_Skeleton_Damak</code> so với <code>Unit_Base</code>: Transform, 5 Script, <code>Unit_CharacterVisuals</code>, <code>Unit_Abilities</code>… Hai nút <strong>Revert All</strong> (huỷ override) và <strong>Apply All to Base</strong> (đẩy ngược lên Prefab gốc). / EN: Use Apply All to Base to propagate changes to the Base object or Revert All to undo the overrides.</em></p>
+
+<h3 id="643-textmeshpro-thay-the-ui-text-legacy-text-mesh">64.3. 🔤 TextMeshPro — thay thế UI Text &amp; legacy Text Mesh<a class="headerlink" href="#643-textmeshpro-thay-the-ui-text-legacy-text-mesh" title="Permanent link">&para;</a></h3>
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"<strong>TextMeshPro THAY THẾ UI Text của Unity và Text Mesh cũ.</strong> Cài qua Package Manager, TextMeshPro dùng <strong>shader RIÊNG và kỹ thuật render chữ TIÊN TIẾN</strong> để mang lại <strong>styling và texturing chữ LINH HOẠT.</strong>"</em></p>
+<p>🎁 <em>"Dùng TextMeshPro để có các tính năng như <strong>giãn cách ký tự, từ, dòng và đoạn; kerning; căn đều (justified); link; HƠN 30 rich text tag; hỗ trợ Multi Font và sprite; style tuỳ chỉnh</strong> và nhiều hơn nữa."</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"TextMeshPro replaces Unity's UI Text and the legacy Text Mesh. Installed via the PackageManager, TextMeshPro uses custom shaders and advanced text rendering techniques to deliver flexible text styling and texturing."</em></p>
+<p>🎁 <em>"Use TextMeshPro to get access to features like character, word, line, and paragraph spacing, kerning, justified text, links, over 30 rich text tags available, support for Multi Font and sprites, custom styles, and more."</em></p>
+</div>
+</div>
+
+<p><img src="../assets/tip-textmeshpro-inspector.png" alt="TextMeshPro Inspector"></p>
+<p><em>VI: <strong>▲ Inspector của TextMeshPro</strong> — shader <strong>TextMeshPro/Distance Field</strong>; các nhóm <strong>Face</strong> (Color, Texture, Tiling, Softness, Dilate), <strong>Outline</strong> (Color, Texture, Thickness 0.15), rồi <strong>Underlay · Lighting · Glow · Debug Settings</strong>. Con số <strong>−26</strong> đỏ trong game chính là damage vẽ bằng TMP. / EN: TextMeshPro example from Dragon Crashers.</em></p>
+
+<h3 id="644-snapping-ba-kieu-va-bang-phim-tat">64.4. 📐 Snapping — BA kiểu và bảng phím tắt<a class="headerlink" href="#644-snapping-ba-kieu-va-bang-phim-tat" title="Permanent link">&para;</a></h3>
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"Làm việc trên LƯỚI giúp bạn <strong>ghép các Prefab với nhau với ÍT PHỎNG ĐOÁN hơn và NHẤT QUÁN hơn.</strong> Hãy thiết kế màn chơi sao cho <strong>các mảnh KHỚP NHAU đúng tỉ lệ</strong>, khiến việc sắp xếp lại dễ dàng hơn."</em></p>
+<p>⚡ <em>"Thay vì <strong>GÕ TAY những con số tròn vào Inspector</strong>, hãy để <strong>công cụ grid snapping đặt Transform NHANH và CHÍNH XÁC hơn.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"Working on a grid helps you fit your Prefabs together with less guesswork and greater consistency. Design your level so the pieces connect at scale, making it easier to rearrange and reassemble them."</em></p>
+<p>⚡ <em>"Rather than manually typing in round numbers into the Inspector, consider letting the grid snapping tools set your Transforms more quickly and precisely."</em></p>
+</div>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>Kiểu snap</th>
+<th>Cách dùng — nguyên văn</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>① World grid snapping</strong></td>
+<td><em>"Đảm bảo công cụ <strong>Move</strong> đang để handle orientation là <strong>Global</strong>. Giữ <strong><code>Ctrl</code></strong> (Windows) hoặc <strong><code>Cmd</code></strong> (macOS) để snap object theo bước lưới thế giới đặt trong <code>Edit &gt; Grid and Snap Settings</code>."</em></td>
+</tr>
+<tr>
+<td><strong>② Surface snapping</strong></td>
+<td><em>"Giữ <strong><code>Shift</code> + <code>Ctrl</code></strong> (Windows) / <strong><code>Cmd</code></strong> (macOS) để snap object vào <strong>GIAO ĐIỂM của BẤT KỲ Collider nào.</strong>"</em></td>
+</tr>
+<tr>
+<td><strong>③ Vertex snapping</strong></td>
+<td><em>"Giữ phím <strong><code>V</code></strong> khi công cụ Move đang bật. Việc này <strong>DI CHUYỂN GameObject hiện tại tới vị trí VERTEX của mesh khác.</strong> Trước khi di chuyển, <strong>rê chuột lên MỘT vertex của GameObject đang chọn để vertex đó làm PIVOT. <code>Shift+V</code> bật/tắt chế độ Vertex snapping.</strong>"</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>🎯 KẾT HỢP Vertex + Surface — quy trình đặt vật thể NHANH / Combining Vertex and Surface snapping</strong></p>
+<div class="bilingual-row">
+<div class="col-vi">
+<ol>
+<li>Di chuyển GameObject bằng <strong>Vertex snapping</strong> với phím <code>V</code> hoặc <code>Shift+V</code>. Rê con trỏ lên một vertex để làm <strong>pivot</strong>. Snap sang vertex khác như bình thường.</li>
+<li>Giữ tổ hợp <strong><code>Shift</code> + <code>Ctrl</code></strong> (Windows) / <strong><code>Cmd</code></strong> (macOS) để <strong>KÉO dọc theo BỀ MẶT của Mesh đích.</strong></li>
+<li><strong>NHẢ chuột và phím <code>V</code></strong> khi object đã ở vị trí mong muốn.</li>
+</ol>
+</div>
+<div class="col-en">
+<ol>
+<li>Move the GameObject using Vertex snapping with the V key or Shift-V. Hover the cursor over a vertex as a pivot. Snap to another vertex as usual.</li>
+<li>Hold down the Shift and Ctrl (Windows) / Cmd (macOS) key combo to drag along the surface of the target Mesh.</li>
+<li>Release the mouse button and V key once the object is at the desired location.</li>
+</ol>
+</div>
+</div>
+
+<p><strong>⌨️ Phím tắt snapping MẶC ĐỊNH / The default grid snapping shortcuts</strong></p>
+<table>
+<thead>
+<tr>
+<th>Hành động</th>
+<th>Phím tắt mặc định</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Increase Grid Size</strong></td>
+<td><code>Ctrl + ]</code> (Windows) hoặc <code>Cmd + ]</code> (macOS)</td>
+</tr>
+<tr>
+<td><strong>Decrease Grid Size</strong></td>
+<td><code>Ctrl + [</code> (Windows) hoặc <code>Cmd + [</code> (macOS)</td>
+</tr>
+<tr>
+<td><strong>Nudge Grid Backward</strong></td>
+<td><code>Shift + [</code></td>
+</tr>
+<tr>
+<td><strong>Nudge Grid Forward</strong></td>
+<td><code>Shift + ]</code></td>
+</tr>
+<tr>
+<td><strong>Align Selection to Grid</strong></td>
+<td><code>Ctrl + \</code> (Windows) hoặc <code>Cmd + \</code> (macOS)</td>
+</tr>
+</tbody>
+</table>
+<p><img src="../assets/tip-grid-and-snap.png" alt="Grid and Snap window"></p>
+<p><em>VI: <strong>▲ Cửa sổ Grid and Snap</strong> — <strong>World Grid Size X/Y/Z = 1</strong>; <strong>Increment Snap: Move 1 · Rotate 15 · Scale 1</strong>; hàng <strong>Align Selection to Grid</strong> có nút <strong>All Axes · X · Y · Z</strong>. / EN: The Grid and Snap settings.</em></p>
+
+<p><img src="../assets/tip-grid-axis-opacity.png" alt="Grid Axis and Grid Settings"></p>
+<p><em>VI: <strong>▲ Menu lưới</strong> — <strong>Grid Axis: X · Y (đang chọn) · Z</strong> và <strong>Grid Settings › Opacity 0.5</strong>; menu ngữ cảnh có <strong>Reset</strong> và <strong>Edit Grid and Snap Settings…</strong> / EN: The grid visibility drop-down menu.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>💎 <em>"Cần kiểm soát NHIỀU HƠN NỮA? Cân nhắc dùng <strong>package ProGrids</strong> để kiểm soát snapping và mặt phẳng lưới <strong>MỊN HƠN.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>💎 <em>"Need even more control? Consider using the ProGrids package for even finer control of your snapping and grid planes."</em></p>
+</div>
+</div>
+
+<h3 id="645-animation-workflow-dopesheet-curves-animator-animation-rigging">64.5. 🕺 Animation workflow — Dopesheet ↔ Curves, Animator &amp; Animation Rigging<a class="headerlink" href="#645-animation-workflow-dopesheet-curves-animator-animation-rigging" title="Permanent link">&para;</a></h3>
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"Bạn có thể <strong>animate GẦN NHƯ MỌI property trong Unity MÀ KHÔNG viết DÒNG CODE NÀO</strong> bằng Animation Window (<code>Window &gt; Animation &gt; Animation</code>). Ngoài chuyển động, bạn <strong>còn có thể ĐIỀU KHIỂN cả tham số định nghĩa trong script RIÊNG của bạn.</strong>"</em></p>
+<p>🎬 <em>"Tạo Animation Clip ở đây, hoặc làm trong DCC bên thứ ba (Autodesk® Maya®, Blender…). <strong>Hãy nghĩ mỗi clip là MỘT ĐƠN VỊ chuyển động.</strong>"</em></p>
+<p>⌨️ <strong>Phím tắt cần thuộc:</strong> <em>"Sửa AnimationClip Asset trong cửa sổ ở chế độ <strong>Dopesheet</strong> hoặc <strong>Curve</strong> — dùng phím <strong><code>K</code></strong> và <strong><code>C</code></strong> để chuyển qua lại. Dùng <strong><code>A</code> để frame TOÀN BỘ keyframe</strong>, <strong><code>F</code> để frame keyframe ĐANG CHỌN.</strong>"</em></p>
+<p>🕸️ <em>"Khi đã có vài Animation Clip, <strong>AnimatorController đóng vai trò MÁY TRẠNG THÁI, tạo đồ thị dạng LƯU ĐỒ giữa chúng.</strong> ✅ Điều này cho phép <strong>artist tạo animation TINH VI với sự ĐỘC LẬP LỚN HƠN khỏi lập trình viên.</strong>"</em></p>
+<p>🦾 <em>"Mở rộng thêm bằng <strong>package Animation Rigging</strong> — cung cấp <strong>thư viện các ràng buộc rig và inverse kinematic có thể tạo chuyển động THỦ TỤC (procedural).</strong> Bộ xương animate nhờ đó <strong>TƯƠNG TÁC được với môi trường bằng 'runtime rigging'</strong>, hoặc ràng buộc dựa trên vật lý có thể <strong>thêm chuyển động PHỤ động.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"You can animate just about any property in Unity without writing a single line of code using the Animation Window (Window &gt; Animation &gt; Animation). In addition to modifying movement, you can even drive parameters defined in your custom scripts."</em></p>
+<p>🎬 <em>"Create Animation Clips here, or work in a third-party DCC package of your choice (Autodesk® Maya®, Blender, etc). Think of each clip as an individual unit of motion."</em></p>
+<p>⌨️ <strong>Shortcuts to memorize:</strong> <em>"Edit the AnimationClip Asset within the window in either Dopesheet or Curve mode. Use K or C shortcuts, respectively, to toggle between the two. Use standard shortcuts to frame all keyframes (A) or frame selected keyframes (F)."</em></p>
+<p>🕸️ <em>"Once you have several Animation Clips for your GameObject, the AnimatorController acts as a state machine to create a flowchart-like graph between them. This allows artists to produce sophisticated animation with greater independence from programmers."</em></p>
+<p>🦾 <em>"Extend this further using the Animation Rigging package. This package provides a library of rig and inverse kinematic constraints that can create procedural motion. Animated skeletons can thus interact with the environment with 'runtime rigging,' or physics-based constraints can add dynamic secondary motion."</em></p>
+</div>
+</div>
+
+<p><img src="../assets/tip-animation-curves.png" alt="Animation window in Curves mode"></p>
+<p><em>VI: <strong>▲ Chế độ Curves</strong> (phím <code>C</code>) — cùng dữ liệu <code>AnimClip_Character_Dragon_Idle</code> hiển thị dạng ĐƯỜNG CONG cho từng kênh (<code>hip:Rotation.z = 91.121</code>, <code>abdomen</code>, <code>chest</code>, <code>neck01..05</code>, <code>head</code>). / EN: The Animation window as curves.</em></p>
+
+<p><img src="../assets/tip-animation-dopesheet.png" alt="Animation window in Dopesheet mode"></p>
+<p><em>VI: <strong>▲ Chế độ Dopesheet</strong> (phím <code>K</code>) — CÙNG animation đó nhưng chỉ hiện <strong>vị trí keyframe</strong> dạng hình thoi, dễ chỉnh TIMING hơn. / EN: The same animation data as a dopesheet.</em></p>
+
+<p><img src="../assets/tip-animator-state-machine.png" alt="AnimatorController state machine"></p>
+<p><em>VI: <strong>▲ AnimatorController</strong> — máy trạng thái với <strong>Entry → Idle</strong>, <strong>Any State → Get Hit</strong>, <strong>Get Hit → Die</strong>, và <strong>Exit</strong>. Đây là "lưu đồ" mà artist tự dựng được. / EN: The AnimatorController links the Animation Clips in a visual graph.</em></p>
+
+<p><img src="../assets/tip-animation-rigging.png" alt="Animation Rigging Multi-Position constraint"></p>
+<p><em>VI: <strong>▲ Animation Rigging — ràng buộc Multi-Position</strong>: cột trái <strong>Animation</strong> (chuyển động gốc), giữa <strong>Constraints</strong>, phải <strong>Result</strong> — ràng buộc SỬA animation NGAY LÚC CHẠY. / EN: Constraints can modify your animation at runtime.</em></p>
+
+<div class="admonition danger">
+<p class="admonition-title">⚠️ Mẹo TỐI ƯU — hai cái bẫy của Animator / Optimization tip</p>
+<p><div class="bilingual-row">
+<div class="col-vi">
+<p>💀 <strong>① ĐỪNG lạm dụng Animator, nhất là với UI:</strong> <em>"Animator khiến <strong>UI Canvas PHẢI REBUILD MỖI FRAME, KỂ CẢ khi KHÔNG có animation nào đang chạy.</strong> Bất cứ khi nào có thể, hãy <strong>dùng component Animation CŨ (legacy) cho UI hoặc các animation đơn giản.</strong> Cũng nên cân nhắc <strong>viết hàm tweening hoặc dùng thư viện bên thứ ba (ví dụ DOTween).</strong>"</em></p>
+<p>💀 <strong>② Generic rig vs Humanoid rig:</strong> <em>"Theo mặc định Unity import model animate với <strong>generic rig</strong>, nhưng lập trình viên thường <strong>ĐỔI sang humanoid rig</strong> khi animate nhân vật. 🚨 <strong>Humanoid rig TÍNH inverse kinematics và animation retargeting MỖI FRAME, KỂ CẢ KHI KHÔNG DÙNG.</strong> ✅ Nếu bạn KHÔNG cần những tính năng đó, hãy <strong>TIẾT KIỆM thời gian CPU và dùng generic rig.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>💀 <strong>① Avoid overusing Animators, particularly with UI:</strong> <em>"Animators cause the UI Canvas to rebuild each frame, even if no animation is playing. Whenever possible, use the legacy Animation components for UI or simple animations. Also, consider creating tweening functions or using a third-party library (e.g., DOTween)."</em></p>
+<p>💀 <strong>② Generic vs humanoid rig:</strong> <em>"By default, Unity imports animated models with the generic rig, but developers often switch to the humanoid rig when animating a character. A humanoid rig calculates inverse kinematics and animation retargeting each frame, even when not in use. If you don't need these specific features, save on CPU time and use the generic rig."</em></p>
+</div>
+</div></p>
+</div>
+<h3 id="646-custom-gizmos-icons">64.6. 🧭 Custom gizmos &amp; icons<a class="headerlink" href="#646-custom-gizmos-icons" title="Permanent link">&para;</a></h3>
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"Gizmo là <strong>đồ hoạ overlay NHỎ gắn với GameObject của bạn. Dùng chúng để ĐIỀU HƯỚNG viewport hoặc ĐỊNH VỊ các object cụ thể.</strong>"</em></p>
+<p>🎨 <em>"Đổi icon cho GameObject bằng menu <strong>Select Icon</strong>. Chọn <strong>Other</strong> để định nghĩa icon RIÊNG của bạn."</em></p>
+<p>🧩 <em>"Bạn cũng có thể <strong>TẠO gizmo bằng SCRIPT và khiến chúng TƯƠNG TÁC ĐƯỢC.</strong> Ví dụ, một gizmo có thể giúp bạn <strong>ĐỊNH NGHĨA một VOLUME hoặc VÙNG ẢNH HƯỞNG cho component tuỳ chỉnh.</strong>"</em></p>
+<p>🎚️ <em>"Dùng hộp thoại <strong>Gizmos trong Scene control bar</strong> để bật/tắt từng gizmo hoặc <strong>bật/tắt TOÀN BỘ.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"Gizmos are small overlay graphics associated with your GameObjects. Use them to navigate the viewport or locate specific objects."</em></p>
+<p>🎨 <em>"Modify the icons for a GameObject using the Select Icon menu. Choose Other to define your own icon."</em></p>
+<p>🧩 <em>"You can also create gizmos with scripts and make them interactive. For example, a gizmo could help you define a volume or area of influence for a custom component."</em></p>
+<p>🎚️ <em>"Use the Gizmos dialogue in the Scene control bar to toggle specific gizmos or globally enable/disable all of them."</em></p>
+</div>
+</div>
+
+<p><img src="../assets/tip-select-icon.png" alt="Select Icon menu"></p>
+<p><em>VI: <strong>▲ Menu Select Icon</strong> — bảng màu nhãn (xám, xanh dương, xanh ngọc, xanh lá, vàng, cam, đỏ, tím) ở hai dạng nhãn dài và chấm tròn; nút <strong>Other…</strong> (viền đỏ) để nạp icon RIÊNG. / EN: Select a custom gizmo using the Other… option.</em></p>
+
+<p><img src="../assets/tip-custom-icon-scene.png" alt="Custom gizmo icon in the Scene"></p>
+<p><em>VI: <strong>▲ Icon tuỳ chỉnh hiển thị trong Scene</strong> — GameObject <code>Relic</code> (Position −17.98, −1.13, 12.46) mang icon riêng; script <code>Relic (Script)</code> có field <strong>Relic Type: Bladed Pinchers</strong> — ví dụ gizmo ĐỔI THEO lựa chọn. / EN: In this example, a script changes the gizmo based on a selection.</em></p>
+
+<h3 id="647-progressive-lightmapper-sau-cach-rut-ngan-thoi-gian-bake">64.7. 💡 Progressive Lightmapper — SÁU cách rút ngắn thời gian bake<a class="headerlink" href="#647-progressive-lightmapper-sau-cach-rut-ngan-thoi-gian-bake" title="Permanent link">&para;</a></h3>
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"Lightmapping cho phép <strong>TÍNH TRƯỚC cả ánh sáng TRỰC TIẾP lẫn GIÁN TIẾP</strong>, rồi lưu kết quả vào một Texture gọi là <strong>lightmap</strong>. Dù <strong>hình học đã lightmap chạy RẤT NHANH lúc runtime, việc BAKE lightmap trong lịch sử là RẤT ĐẮT.</strong>"</em></p>
+<p>⚡ <em>"<strong>Progressive Lightmapper là một path tracer NHANH: nó cho ra kết quả NGAY rồi TINH CHỈNH DẦN theo thời gian.</strong> ✅ Nhờ vậy bạn có thể <strong>NGẮT tiến trình để thay đổi MÀ KHÔNG phải chờ bake xong</strong>, giúp lặp NHANH HƠN."</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"Lightmapping allows you to precalculate both direct and indirect lighting, then store the result in a Texture called a lightmap for later use. Though lightmapped geometry is performant at runtime, baking a lightmap has historically been expensive."</em></p>
+<p>⚡ <em>"The Progressive Lightmapper is a fast path tracer that produces a result quickly, then refines the render over time. You can thus interrupt the process to make changes without waiting for the final bake to complete, allowing you to iterate more rapidly."</em></p>
+</div>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Mẹo tăng tốc bake</th>
+<th>Nguyên văn</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>①</strong></td>
+<td><strong>Prioritize View</strong></td>
+<td><em>"Bật để Progressive Lightmapper <strong>xử lý các texel ĐANG NHÌN THẤY trong Scene view TRƯỚC</strong> rồi mới tới phần ngoài tầm nhìn."</em></td>
+</tr>
+<tr>
+<td><strong>②</strong></td>
+<td><strong>Giảm Samples &amp; Bounces</strong></td>
+<td><em>"Giảm <strong>Direct và Indirect Samples</strong> không cần thiết, và <strong>Bounces — HAI là thường ĐỦ; chỉ tăng nếu THỰC SỰ cần.</strong>"</em></td>
+</tr>
+<tr>
+<td><strong>③</strong></td>
+<td><strong>Lightmap Resolution &amp; texel count</strong></td>
+<td>🚨 <em>"Số texel <strong>ĐẠI DIỆN cho KHỐI LƯỢNG công việc lightmapper phải làm. Vì lightmap là texture 2D, GẤP ĐÔI độ phân giải sẽ GẤP BỐN khối lượng công việc.</strong>"</em></td>
+</tr>
+<tr>
+<td><strong>④</strong></td>
+<td><strong>Giảm texel ở nơi KHÔNG đáng</strong></td>
+<td><em>"Giảm texel trên <strong>bề mặt BỊ CHE, vật thể NHỎ hoặc MỎNG</strong>, hay bất cứ đâu lightmap không tạo khác biệt. <strong>Mỗi MeshRenderer đóng góp vào GI đều có tuỳ chọn <code>Scale in Lightmap</code> để GIẢM kích thước UV tương đối của nó trong lightmap.</strong>"</em></td>
+</tr>
+<tr>
+<td><strong>⑤</strong></td>
+<td><strong>Chọn đúng Lighting Mode</strong></td>
+<td><em>"<strong>Baked Indirect · Subtractive · ShadowMask.</strong> ✅ <strong>Bạn KHÔNG cần bake bóng nếu định hướng nghệ thuật không đòi hỏi.</strong>"</em></td>
+</tr>
+<tr>
+<td><strong>⑥</strong></td>
+<td><strong>Progressive GPU Lightmapper</strong></td>
+<td><em>"Progressive <strong>CPU</strong> Lightmapper hiện tại dùng <strong>CPU và RAM</strong> của máy. Bản mới <strong>Progressive GPU Lightmapper (Preview) dùng GPU và VRAM, có thể tăng tốc bake ĐÁNG KỂ</strong> — nếu máy bạn đạt yêu cầu phần cứng, nó có thể <strong>tăng tốc workflow ánh sáng ĐÁNG KINH NGẠC (GẤP MƯỜI LẦN trong một số trường hợp).</strong>"</em></td>
+</tr>
+</tbody>
+</table>
+<p><img src="../assets/tip-progressive-lightmapper.png" alt="Lightmapping Settings with Progressive GPU"></p>
+<p><em>VI: <strong>▲ Thiết lập bake</strong> — <strong>Lighting Mode: Baked Indirect</strong>; <strong>Lightmapper: Progressive GPU (Preview)</strong> (menu đang mở, cho thấy cả <em>Enlighten (Deprecated)</em> và <em>Progressive CPU</em>); <strong>Direct Samples 512 · Indirect Samples 512 · Max Bounces 10 · Min Bounces 5</strong>; <strong>Filtering: Advanced</strong> với <strong>Direct/Indirect Denoiser: Optix</strong>, <strong>A-Trous</strong> filter Sigma 0.3/1. Cuối bảng: <strong>6 Directional Lightmaps 6×2048×2048px — 64.0 MB</strong>. / EN: The Lighting settings with the Progressive GPU Lightmapper.</em></p>
+
+<p><img src="../assets/tip-baked-lightmaps.png" alt="Baked lightmaps list"></p>
+<p><em>VI: <strong>▲ Tab Baked Lightmaps</strong> — <strong>SÁU lightmap Index 0…5</strong>, mỗi cái <strong>2048×2048 · Format DXT5 · Compressed</strong>. Đây chính là dung lượng bạn phải TRẢ để có ánh sáng bake. / EN: The Baked Lightmaps tab of the Lighting window.</em></p>
+
+<h3 id="648-light-probes-thay-lightmap-o-cho-mat-khong-e-y">64.8. 🔵 Light Probes — thay lightmap ở chỗ MẮT KHÔNG ĐỂ Ý<a class="headerlink" href="#648-light-probes-thay-lightmap-o-cho-mat-khong-e-y" title="Permanent link">&para;</a></h3>
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"Global Illumination cho ánh sáng gián tiếp ĐẸP, <strong>nhưng TỐN KÉM để tính và LƯU trên đĩa.</strong> Nếu bạn có <strong>đồ trang trí hoặc mesh tĩnh KHÔNG THỰC SỰ CẦN lightmap, hãy cân nhắc LOẠI chúng khỏi bake và dùng Light Probes THAY THẾ.</strong>"</em></p>
+<p>🔄 <em>"<strong>TRƯỚC ĐÂY chỉ dành cho object ĐỘNG, Light Probes NAY áp dụng được cho CẢ mesh TĨNH.</strong> Trong component <strong>MeshRenderer</strong>, tìm dropdown <strong><code>Receive Global Illumination</code> và chuyển từ <code>Lightmaps</code> sang <code>Light Probes</code>.</strong>"</em></p>
+<p>⚡ <strong>Hai lợi ích KỸ THUẬT:</strong></p>
+<ul>
+<li><em>"Chiếu sáng bằng Light Probe <strong>KHÔNG đòi hỏi UV đúng chuẩn — TIẾT KIỆM cho bạn bước UNWRAP mesh.</strong>"</em></li>
+<li><em>"Các hàm cơ sở <strong>Spherical Harmonics</strong> dùng trong probe lighting khiến nó <strong>tính NHANH so với lightmapping.</strong> Probe lighting <strong>thường bake NHANH HƠN lightmapping.</strong>"</em></li>
+</ul>
+</div>
+<div class="col-en">
+<p>📖 <em>"Global Illumination produces beautiful indirect lighting, but this can be expensive to calculate and store on disk. If you have set dressing or other static meshes that don't absolutely require lightmapping, consider removing them from your lightmap bakes and use Light Probes instead."</em></p>
+<p>🔄 <em>"Formerly reserved for dynamic objects, Light Probes can apply to static meshes as well. In the MeshRenderer component, locate the Receive Global Illumination dropdown and toggle it from Lightmaps to Light Probes."</em></p>
+<p>⚡ <strong>Two technical benefits:</strong></p>
+<ul>
+<li><em>"Light Probe illumination does not require proper UVs, saving you the extra step of unwrapping your meshes."</em></li>
+<li><em>"The Spherical Harmonics basis functions used in probe lighting make it fast to calculate relative to lightmapping. Probe lighting typically bakes faster than lightmapping."</em></li>
+</ul>
+</div>
+</div>
+
+<p><img src="../assets/tip-receive-gi-light-probes.png" alt="Receive Global Illumination set to Light Probes"></p>
+<p><em>VI: <strong>▲ Công tắc THEN CHỐT</strong> — trong <strong>Mesh Renderer</strong> của <code>build_tower_01</code>, mục <strong>Lighting › Receive Global Illumination</strong> đang mở dropdown với hai lựa chọn <strong>Lightmaps</strong> và <strong>Light Probes</strong> (đang chọn). / EN: Toggle Receive Global Illumination from Lightmaps to Light Probes.</em></p>
+
+<p><img src="../assets/tip-light-probe-group.png" alt="Light Probe Group in the scene"></p>
+<p><em>VI: <strong>▲ Light Probe Group</strong> — các probe (chấm VÀNG) rải khắp mái nhà và khoảng không, nối nhau bằng <strong>mạng lưới TỨ DIỆN (tetrahedral) màu tím</strong>. Unity nội suy ánh sáng cho object bên trong mỗi tứ diện. / EN: A Light Probe Group with Light Probes spread across the level.</em></p>
 
 <hr />
 <h2 id="65-developer-workflows-enter-play-mode-scriptableobject">65. 👨‍💻 Developer workflows — Enter Play Mode &amp; ScriptableObject<a class="headerlink" href="#65-developer-workflows-enter-play-mode-scriptableobject" title="Permanent link">&para;</a></h2>
@@ -11201,6 +12172,600 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 </div>
 </div>
 
+<h3 id="651-attributes-chin-attribute-ang-thuoc">65.1. 🏷️ Attributes — CHÍN attribute đáng thuộc<a class="headerlink" href="#651-attributes-chin-attribute-ang-thuoc" title="Permanent link">&para;</a></h3>
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"Unity có <strong>NHIỀU Attribute có thể ĐẶT PHÍA TRÊN một class, property hoặc function để BÁO HIỆU hành vi ĐẶC BIỆT.</strong> C# đặt tên attribute trong <strong>dấu ngoặc VUÔNG.</strong>"</em></p>
+<p>🎁 <em>"Đây <strong>CHỈ là một MẪU NHỎ trong VÔ SỐ Attribute.</strong> Bạn muốn <strong>ĐỔI TÊN biến MÀ KHÔNG MẤT giá trị?</strong> Hay <strong>gọi logic MÀ KHÔNG cần GameObject rỗng?</strong> Xem Scripting API để có danh sách ĐẦY ĐỦ. Bạn <strong>thậm chí có thể TẠO PropertyAttribute RIÊNG</strong> để định nghĩa Attribute tuỳ chỉnh cho biến của mình."</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"Unity has a variety of Attributes that can be placed above a class, property, or function to indicate special behavior. C# contains attribute names within square brackets."</em></p>
+<p>🎁 <em>"This is just a small sample of the numerous Attributes. Do you want to rename your variables without losing their values? Or invoke some logic without needing an empty GameObject? See the Scripting API for a complete list of Attributes for everything that's possible. You can even create your own PropertyAttribute to define custom Attributes for your script variables."</em></p>
+</div>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Mô tả nguyên văn</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>SerializeField</code></strong></td>
+<td><em>"</em><em>ÉP Unity serialize một field PRIVATE và khiến nó HIỆN trong Inspector.</em><em>"</em><br>⚠️ <strong>Ghi chú nguyên văn:</strong> <em>"Bạn có thể gặp </em><em>cảnh báo 0649</em><em> khi áp <code>[SerializeField]</code> cho biến private. Để ngăn điều này, chỉ cần </em><em>KHỞI TẠO biến ngay khi khai báo</em><em> — tiện nhất là dùng từ khoá </em><em><code>default</code></em><em>."</em></td>
+</tr>
+<tr>
+<td><strong><code>Range</code></strong></td>
+<td><em>"Nhận một biến </em><em>float hoặc int BỊ GIỚI HẠN trong một khoảng cụ thể.</em><em> Field sẽ </em><em>hiện dạng THANH TRƯỢT trong Inspector.</em><em>"</em></td>
+</tr>
+<tr>
+<td><strong><code>HideInInspector</code></strong></td>
+<td><em>"Khiến biến </em><em>KHÔNG hiện trong Inspector NHƯNG VẪN được serialize.</em><em>"</em></td>
+</tr>
+<tr>
+<td><strong><code>RequireComponent</code></strong></td>
+<td><em>"</em><em>TỰ ĐỘNG THÊM các component bắt buộc như PHỤ THUỘC để tránh lỗi thiết lập.</em><em>"</em><br>⚠️ <em>"Attribute này </em><em>CHỈ kiểm tra tại THỜI ĐIỂM Component được THÊM vào GameObject.</em><em>"</em></td>
+</tr>
+<tr>
+<td><strong><code>Tooltip</code></strong></td>
+<td><em>"</em><em>Hiện tooltip khi người dùng RÊ CHUỘT lên một field trong Inspector.</em><em>"</em></td>
+</tr>
+<tr>
+<td><strong><code>Space</code></strong></td>
+<td><em>"</em><em>Thêm khoảng TRỐNG nhỏ giữa các field</em><em> (không kèm chữ) để </em><em>PHÂN TÁCH thị giác.</em><em>"</em></td>
+</tr>
+<tr>
+<td><strong><code>Header</code></strong></td>
+<td><em>"Thêm </em><em>chữ IN ĐẬM và khoảng cách</em><em> để giúp </em><em>TỔ CHỨC biến trong Inspector.</em><em> ⚠️ </em><em>CHỈ thêm vào field ĐẦU TIÊN của nhóm.</em><em>"</em></td>
+</tr>
+<tr>
+<td><strong><code>Multiline</code></strong></td>
+<td><em>"Khiến string </em><em>sửa được bằng ô text NHIỀU DÒNG.</em><em> Truyền thêm một <code>int</code> để chỉ định </em><em>số dòng.</em><em>"</em><br>💎 <strong>Mẹo nguyên văn:</strong> <em>"Dùng cái này để </em><em>GHI CHÚ vào script cho chính bạn hoặc người khác.</em><em>"</em></td>
+</tr>
+<tr>
+<td><strong><code>SelectionBase</code></strong></td>
+<td><em>"</em><em>HỮU ÍCH để chọn một GameObject RỖNG mà các con của nó chứa mesh.</em><em> Thêm attribute vào bất kỳ component nào trên object gốc. </em><em>Khi chọn object trong Editor, GameObject chứa <code>[SelectionBase]</code> sẽ ĐƯỢC CHỌN THAY VÌ các con.</em><em>"</em></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-103-1" name="__codelineno-103-1" href="#__codelineno-103-1"></a><span class="c1">// Ví dụ nguyên văn từ e-book / Verbatim examples from the e-book</span>
+<a id="__codelineno-103-2" name="__codelineno-103-2" href="#__codelineno-103-2"></a><span class="na">[SerializeField]</span>
+<a id="__codelineno-103-3" name="__codelineno-103-3" href="#__codelineno-103-3"></a><span class="k">private</span><span class="w"> </span><span class="n">GameObject</span><span class="w"> </span><span class="n">myObject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span><span class="w">          </span><span class="c1">// dùng `default` để tránh cảnh báo 0649</span>
+<a id="__codelineno-103-4" name="__codelineno-103-4" href="#__codelineno-103-4"></a>
+<a id="__codelineno-103-5" name="__codelineno-103-5" href="#__codelineno-103-5"></a><span class="na">[Range(1, 6)]</span><span class="w">     </span><span class="k">public</span><span class="w"> </span><span class="kt">int</span><span class="w">   </span><span class="n">integerRange</span><span class="p">;</span>
+<a id="__codelineno-103-6" name="__codelineno-103-6" href="#__codelineno-103-6"></a><span class="na">[Range(0.2f, 0.8f)]</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">floatRange</span><span class="p">;</span>
+<a id="__codelineno-103-7" name="__codelineno-103-7" href="#__codelineno-103-7"></a>
+<a id="__codelineno-103-8" name="__codelineno-103-8" href="#__codelineno-103-8"></a><span class="na">[HideInInspector]</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+<a id="__codelineno-103-9" name="__codelineno-103-9" href="#__codelineno-103-9"></a>
+<a id="__codelineno-103-10" name="__codelineno-103-10" href="#__codelineno-103-10"></a><span class="c1">// PlayerScript requires the GameObject to have a Rigidbody</span>
+<a id="__codelineno-103-11" name="__codelineno-103-11" href="#__codelineno-103-11"></a><span class="na">[RequireComponent(typeof(Rigidbody))]</span>
+<a id="__codelineno-103-12" name="__codelineno-103-12" href="#__codelineno-103-12"></a><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">PlayerScript</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">MonoBehaviour</span>
+<a id="__codelineno-103-13" name="__codelineno-103-13" href="#__codelineno-103-13"></a><span class="p">{</span>
+<a id="__codelineno-103-14" name="__codelineno-103-14" href="#__codelineno-103-14"></a><span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="n">Rigidbody</span><span class="w"> </span><span class="n">rBody</span><span class="p">;</span>
+<a id="__codelineno-103-15" name="__codelineno-103-15" href="#__codelineno-103-15"></a>
+<a id="__codelineno-103-16" name="__codelineno-103-16" href="#__codelineno-103-16"></a><span class="w">    </span><span class="na">[Tooltip(&quot;Health value between 0 and 100.&quot;)]</span>
+<a id="__codelineno-103-17" name="__codelineno-103-17" href="#__codelineno-103-17"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">health</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-103-18" name="__codelineno-103-18" href="#__codelineno-103-18"></a>
+<a id="__codelineno-103-19" name="__codelineno-103-19" href="#__codelineno-103-19"></a><span class="w">    </span><span class="na">[Space(10)]</span><span class="w">                                  </span><span class="c1">// 10 pixel of spacing added</span>
+<a id="__codelineno-103-20" name="__codelineno-103-20" href="#__codelineno-103-20"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+<a id="__codelineno-103-21" name="__codelineno-103-21" href="#__codelineno-103-21"></a>
+<a id="__codelineno-103-22" name="__codelineno-103-22" href="#__codelineno-103-22"></a><span class="w">    </span><span class="na">[Header(&quot;Health Settings&quot;)]</span>
+<a id="__codelineno-103-23" name="__codelineno-103-23" href="#__codelineno-103-23"></a><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">health2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-103-24" name="__codelineno-103-24" href="#__codelineno-103-24"></a><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">maxHealth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
+<a id="__codelineno-103-25" name="__codelineno-103-25" href="#__codelineno-103-25"></a>
+<a id="__codelineno-103-26" name="__codelineno-103-26" href="#__codelineno-103-26"></a><span class="w">    </span><span class="na">[Header(&quot;Shield Settings&quot;)]</span>
+<a id="__codelineno-103-27" name="__codelineno-103-27" href="#__codelineno-103-27"></a><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">shield</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-103-28" name="__codelineno-103-28" href="#__codelineno-103-28"></a><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">maxShield</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-103-29" name="__codelineno-103-29" href="#__codelineno-103-29"></a>
+<a id="__codelineno-103-30" name="__codelineno-103-30" href="#__codelineno-103-30"></a><span class="w">    </span><span class="na">[Multiline]</span><span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">textToEdit</span><span class="p">;</span>
+<a id="__codelineno-103-31" name="__codelineno-103-31" href="#__codelineno-103-31"></a><span class="w">    </span><span class="na">[Multiline(20)]</span><span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">moreTextToEdit</span><span class="p">;</span>
+<a id="__codelineno-103-32" name="__codelineno-103-32" href="#__codelineno-103-32"></a>
+<a id="__codelineno-103-33" name="__codelineno-103-33" href="#__codelineno-103-33"></a><span class="w">    </span><span class="k">void</span><span class="w"> </span><span class="nf">Start</span><span class="p">()</span>
+<a id="__codelineno-103-34" name="__codelineno-103-34" href="#__codelineno-103-34"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-103-35" name="__codelineno-103-35" href="#__codelineno-103-35"></a><span class="w">        </span><span class="n">rBody</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GetComponent</span><span class="o">&lt;</span><span class="n">Rigidbody</span><span class="o">&gt;</span><span class="p">();</span>
+<a id="__codelineno-103-36" name="__codelineno-103-36" href="#__codelineno-103-36"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-103-37" name="__codelineno-103-37" href="#__codelineno-103-37"></a><span class="p">}</span>
+<a id="__codelineno-103-38" name="__codelineno-103-38" href="#__codelineno-103-38"></a>
+<a id="__codelineno-103-39" name="__codelineno-103-39" href="#__codelineno-103-39"></a><span class="c1">// add this to the base GameObject</span>
+<a id="__codelineno-103-40" name="__codelineno-103-40" href="#__codelineno-103-40"></a><span class="na">[SelectionBase]</span>
+<a id="__codelineno-103-41" name="__codelineno-103-41" href="#__codelineno-103-41"></a><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">PlayerBase</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">MonoBehaviour</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p><img src="../assets/tip-attributes-annotated.png" alt="Attributes affecting the Inspector fields"></p>
+<p><em>VI: <strong>▲ Attribute NHÌN THẤY ĐƯỢC trong Inspector</strong> — <strong>header</strong> ("Player attributes", "Health attributes"), <strong>serialized fields</strong> (Player Object, Player Rigidbody), <strong>ranged fields</strong> (Health <strong>100</strong>, Armor <strong>0.35</strong> dạng thanh trượt), <strong>space</strong>, và <strong>multi-line field</strong> (ô Description). / EN: Attributes affecting the Inspector fields.</em></p>
+
+<h3 id="652-custom-windows-inspectors-ui-toolkit-vs-imgui">65.2. 🪟 Custom windows &amp; Inspectors — UI Toolkit vs IMGUI<a class="headerlink" href="#652-custom-windows-inspectors-ui-toolkit-vs-imgui" title="Permanent link">&para;</a></h3>
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"<strong>MỘT TRONG những tính năng MẠNH NHẤT của Unity là Editor MỞ RỘNG ĐƯỢC.</strong> Dùng <strong>package UI Toolkit</strong> hoặc <strong>IMGUI (immediate mode)</strong> để tạo UI Editor như cửa sổ và Inspector tuỳ chỉnh."</em></p>
+<p>🌐 <strong>UI Toolkit:</strong> <em>"Có workflow <strong>GIỐNG phát triển WEB tiêu chuẩn.</strong> Dùng <strong>ngôn ngữ đánh dấu lấy cảm hứng từ HTML/XML là UXML</strong> để định nghĩa giao diện và <strong>template UI TÁI SỬ DỤNG ĐƯỢC.</strong> Sau đó áp <strong>Unity Style Sheets (USS)</strong> để đổi style và hành vi."</em></p>
+<p>⚡ <strong>IMGUI:</strong> <em>"Hoặc bạn có thể dùng IMGUI immediate mode. <strong>Kế thừa từ lớp cơ sở <code>Editor</code>, rồi dùng attribute <code>CustomEditor</code>.</strong> ✅ <strong>CẢ HAI giải pháp đều tạo được Inspector tuỳ chỉnh.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"One of Unity's most powerful features is its extensible Editor. Use the UI Toolkit package or the immediate mode IMGUI to create Editor UIs such as custom windows and Inspectors."</em></p>
+<p>🌐 <strong>UI Toolkit:</strong> <em>"UI Toolkit has a workflow similar to standard web development. Use its HTML and XML inspired markup language, UXML, to define user interfaces and reusable UI templates. Then, apply Unity Style Sheets (USS) to modify the visual style and behaviors of your UIs."</em></p>
+<p>⚡ <strong>IMGUI:</strong> <em>"Alternatively, you can use immediate mode IMGUI. Derive from the Editor base class, then use the CustomEditor attribute. Either solution can make a custom Inspector."</em></p>
+</div>
+</div>
+
+<p><img src="../assets/tip-custom-inspector-sliders.png" alt="A custom Editor for the MyPlayer script"></p>
+<p><em>VI: <strong>▲ Inspector TUỲ CHỈNH</strong> — script <code>My Player</code> hiển thị <strong>Damage 35</strong> và <strong>Armor 75</strong> dưới dạng <strong>thanh tiến độ có nhãn</strong> thay vì ô số trơ trọi. / EN: A custom Editor modifies how the MyPlayer script displays in the Inspector.</em></p>
+
+<h3 id="653-custom-menus-menuitem">65.3. 📜 Custom menus — <code>MenuItem</code><a class="headerlink" href="#653-custom-menus-menuitem" title="Permanent link">&para;</a></h3>
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"Unity có cách <strong>ĐƠN GIẢN để tuỳ chỉnh menu và menu item của Editor: attribute <code>MenuItem</code>. Bạn có thể áp nó cho BẤT KỲ phương thức <code>static</code> nào trong script.</strong>"</em></p>
+<p>🛠️ <em>"Nếu bạn có những hàm <strong>DÙNG THƯỜNG XUYÊN cho dự án, hãy TỔ CHỨC chúng thành menu item. Việc này cho phép bạn dựng một giao diện người dùng CƠ BẢN chỉ với MỘT modifier PropertyAttribute duy nhất.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"Unity includes a simple way to customize Editor menus and menu items, the MenuItem Attribute. You can apply this to any static method in your scripts."</em></p>
+<p>🛠️ <em>"If you have functions for your project that you will use frequently, organize them into menu items. This allows you to build a basic user interface with just a single PropertyAttribute modifier."</em></p>
+</div>
+</div>
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-104-1" name="__codelineno-104-1" href="#__codelineno-104-1"></a><span class="k">using</span><span class="w"> </span><span class="nn">UnityEditor</span><span class="p">;</span>
+<a id="__codelineno-104-2" name="__codelineno-104-2" href="#__codelineno-104-2"></a><span class="k">using</span><span class="w"> </span><span class="nn">UnityEngine</span><span class="p">;</span>
+<a id="__codelineno-104-3" name="__codelineno-104-3" href="#__codelineno-104-3"></a><span class="k">using</span><span class="w"> </span><span class="nn">System</span><span class="p">;</span>
+<a id="__codelineno-104-4" name="__codelineno-104-4" href="#__codelineno-104-4"></a><span class="k">using</span><span class="w"> </span><span class="nn">System.IO</span><span class="p">;</span>
+<a id="__codelineno-104-5" name="__codelineno-104-5" href="#__codelineno-104-5"></a>
+<a id="__codelineno-104-6" name="__codelineno-104-6" href="#__codelineno-104-6"></a><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">ScreenshotTaker</span>
+<a id="__codelineno-104-7" name="__codelineno-104-7" href="#__codelineno-104-7"></a><span class="p">{</span>
+<a id="__codelineno-104-8" name="__codelineno-104-8" href="#__codelineno-104-8"></a><span class="w">    </span><span class="na">[MenuItem(&quot;Dragon Crashers/Tools/Take Screenshot&quot;)]</span>
+<a id="__codelineno-104-9" name="__codelineno-104-9" href="#__codelineno-104-9"></a><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">TakeScreenshot</span><span class="p">()</span>
+<a id="__codelineno-104-10" name="__codelineno-104-10" href="#__codelineno-104-10"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-104-11" name="__codelineno-104-11" href="#__codelineno-104-11"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">Directory</span><span class="p">.</span><span class="n">Exists</span><span class="p">(</span><span class="s">&quot;Screenshots&quot;</span><span class="p">))</span>
+<a id="__codelineno-104-12" name="__codelineno-104-12" href="#__codelineno-104-12"></a><span class="w">            </span><span class="n">Directory</span><span class="p">.</span><span class="n">CreateDirectory</span><span class="p">(</span><span class="s">&quot;Screenshots&quot;</span><span class="p">);</span>
+<a id="__codelineno-104-13" name="__codelineno-104-13" href="#__codelineno-104-13"></a>
+<a id="__codelineno-104-14" name="__codelineno-104-14" href="#__codelineno-104-14"></a><span class="w">        </span><span class="n">ScreenCapture</span><span class="p">.</span><span class="n">CaptureScreenshot</span><span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">Format</span><span class="p">(</span><span class="s">&quot;Screenshots/{0}.png&quot;</span><span class="p">,</span>
+<a id="__codelineno-104-15" name="__codelineno-104-15" href="#__codelineno-104-15"></a><span class="w">            </span><span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">.</span><span class="n">ToString</span><span class="p">(</span><span class="s">&quot;yyyy-MM-dd HH.mm.ss&quot;</span><span class="p">)));</span>
+<a id="__codelineno-104-16" name="__codelineno-104-16" href="#__codelineno-104-16"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-104-17" name="__codelineno-104-17" href="#__codelineno-104-17"></a><span class="p">}</span>
+</code></pre></div>
+<p><img src="../assets/tip-menuitem-code.png" alt="MenuItem attribute in code"></p>
+<p><em>VI: <strong>▲ Một dòng attribute</strong> (viền đỏ) là đủ để tạo menu. / EN: The MenuItem Attribute in code.</em></p>
+
+<p><img src="../assets/tip-custom-menu.png" alt="The resulting custom menu"></p>
+<p><em>VI: <strong>▲ Kết quả trên thanh menu</strong> — <strong>Dragon Crashers › Tools › Take Screenshot</strong>, nằm ngang hàng với Jobs / Window / Help. / EN: The MenuItem Attribute creates a simple interface to attach the static method (Take Screenshot).</em></p>
+
+<h3 id="654-enter-play-mode-settings-so-o-hai-nhanh">65.4. ⏱️ Enter Play Mode settings — sơ đồ HAI nhánh<a class="headerlink" href="#654-enter-play-mode-settings-so-o-hai-nhanh" title="Permanent link">&para;</a></h3>
+<p><img src="../assets/tip-domain-scene-reload.png" alt="Effects of disabling Reload Domain and Reload Scene"></p>
+<p><em>VI: <strong>▲ So sánh HAI nhánh</strong> — <strong>BẬT</strong> (trên): <code>PlayModeStateChanged ExitingEditMode</code> → <code>Backup open scenes</code> → <strong>Backup, unload and recreate C# state</strong> → <strong>Destroy and load scene</strong> → <code>Update</code> → <code>EnteredPlayMode</code>. <strong>TẮT</strong> (dưới): hai bước tô xanh biến thành <strong>"Simulate destroy and reset scene"</strong> — <strong>BỎ HẲN bước tạo lại C# state.</strong> / EN: The effects of disabling the Reload Domain and Reload Scene settings.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🚨 <strong>Cảnh báo nguyên văn — ĐỪNG QUÊN bật lại:</strong></p>
+<p><em>"Chỉ cần nhớ rằng <strong>NẾU bạn có kế hoạch thay đổi script thêm nữa, bạn PHẢI BẬT LẠI Domain Reload.</strong> Tương tự, <strong>nếu bạn SỬA Scene Hierarchy, bạn NÊN BẬT LẠI Scene Reload. NẾU KHÔNG, hành vi BẤT NGỜ có thể xảy ra.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🚨 <strong>The verbatim warning — remember to turn them back on:</strong></p>
+<p><em>"Just remember that if you do plan on making further script changes, you need to re-enable Domain Reload. Likewise, if you modify the Scene Hierarchy, you should re-enable Scene Reload. Otherwise, unexpected behavior could result."</em></p>
+</div>
+</div>
+
+<h3 id="655-script-templates-sua-khuon-e-ca-oi-viet-giong-nhau">65.5. 📄 Script templates — sửa khuôn để CẢ ĐỘI viết giống nhau<a class="headerlink" href="#655-script-templates-sua-khuon-e-ca-oi-viet-giong-nhau" title="Permanent link">&para;</a></h3>
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"Bạn có thấy mình <strong>làm CÙNG những sửa đổi MỖI LẦN tạo script mới?</strong> Có <strong>theo phản xạ thêm namespace hoặc XOÁ hàm <code>Update</code>?</strong> ✅ <strong>Hãy tiết kiệm vài lần gõ phím và TẠO SỰ NHẤT QUÁN TRONG ĐỘI bằng cách thiết lập script template theo điểm khởi đầu bạn muốn.</strong>"</em></p>
+<p>📁 <strong>Vị trí template</strong> — <code>%EDITOR_PATH%\Data\Resources\ScriptTemplates</code>:</p>
+<ul>
+<li><strong>Windows:</strong> <code>C:\Program Files\Unity\Editor\Data\Resources\ScriptTemplates</code></li>
+<li><strong>Mac:</strong> <code>/Applications/Hub/Editor/[version]/Unity/Unity.app/Contents/Resources/ScriptTemplates</code></li>
+</ul>
+<p>👉 <em>"Template MonoBehaviour mặc định là <strong><code>81-C# Script-NewBehaviourScript.cs.txt</code></strong>. Cũng có template cho <strong>shader, các script behavior khác, và assembly definition.</strong>"</em></p>
+<p>💎 <strong>Cho RIÊNG dự án:</strong> <em>"Tạo thư mục <strong><code>Assets/ScriptTemplates</code></strong>. Copy template vào đó để <strong>GHI ĐÈ bản mặc định.</strong> Bạn cũng có thể sửa thẳng template mặc định cho MỌI dự án, <strong>nhưng hãy CHẮC CHẮN SAO LƯU bản gốc trước khi sửa.</strong>"</em></p>
+<p>🔑 <strong>HAI từ khoá:</strong></p>
+<ul>
+<li><code>#SCRIPTNAME#</code> — <em>"chỉ tên file đã nhập hoặc tên mặc định (ví dụ <code>NewBehaviourScript</code>)."</em></li>
+<li><code>#NOTRIM#</code> — <em>"đảm bảo <strong>cặp ngoặc CHỨA một dòng khoảng trắng.</strong>"</em></li>
+</ul>
+<p>♻️ <em>"<strong>KHỞI ĐỘNG LẠI Unity Editor</strong> và thay đổi của bạn sẽ xuất hiện mỗi lần tạo MonoBehaviour."</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"Do you find that you make the same changes every time you create a new script? Do you instinctively add a namespace or delete the update event function? Save yourself a few keystrokes and create consistency across the team by setting up the script template for your preferred starting point."</em></p>
+<p>📁 <strong>Template location</strong> — <code>%EDITOR_PATH%\Data\Resources\ScriptTemplates</code>:</p>
+<ul>
+<li><strong>Windows:</strong> <code>C:\Program Files\Unity\Editor\Data\Resources\ScriptTemplates</code></li>
+<li><strong>Mac:</strong> <code>/Applications/Hub/Editor/[version]/Unity/Unity.app/Contents/Resources/ScriptTemplates</code></li>
+</ul>
+<p>👉 <em>"The default Monobehaviour template is this one: <code>81-C# Script-NewBehaviourScript.cs.txt</code>. There are also templates for shaders, other behavior scripts, and assembly definitions."</em></p>
+<p>💎 <strong>Project-specific:</strong> <em>"For project-specific script templates, create an Assets/ScriptTemplates folder. Copy the script templates into this folder to override the defaults. You can also modify the default script templates directly for all projects, but make sure that you back up the originals before making any changes."</em></p>
+<p>🔑 <strong>Two keywords:</strong></p>
+<ul>
+<li><code>#SCRIPTNAME#</code> — <em>"indicates the filename entered or the default filename (for example, NewBehaviourScript)."</em></li>
+<li><code>#NOTRIM#</code> — <em>"ensures that the brackets contain a line of whitespace."</em></li>
+</ul>
+<p>♻️ <em>"Relaunch the Unity Editor, and your changes should appear every time you create a custom Monobehaviour."</em></p>
+</div>
+</div>
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-105-1" name="__codelineno-105-1" href="#__codelineno-105-1"></a><span class="c1">// Bản GỐC / The original 81-C# Script-NewBehaviourScript.cs.txt</span>
+<a id="__codelineno-105-2" name="__codelineno-105-2" href="#__codelineno-105-2"></a><span class="k">using</span><span class="w"> </span><span class="nn">System.Collections</span><span class="p">;</span>
+<a id="__codelineno-105-3" name="__codelineno-105-3" href="#__codelineno-105-3"></a><span class="k">using</span><span class="w"> </span><span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<a id="__codelineno-105-4" name="__codelineno-105-4" href="#__codelineno-105-4"></a><span class="k">using</span><span class="w"> </span><span class="nn">UnityEngine</span><span class="p">;</span>
+<a id="__codelineno-105-5" name="__codelineno-105-5" href="#__codelineno-105-5"></a>
+<a id="__codelineno-105-6" name="__codelineno-105-6" href="#__codelineno-105-6"></a><span class="err">#</span><span class="n">ROOTNAMESPACEBEGIN</span><span class="err">#</span>
+<a id="__codelineno-105-7" name="__codelineno-105-7" href="#__codelineno-105-7"></a><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="err">#</span><span class="n">SCRIPTNAME</span><span class="err">#</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">MonoBehaviour</span>
+<a id="__codelineno-105-8" name="__codelineno-105-8" href="#__codelineno-105-8"></a><span class="p">{</span>
+<a id="__codelineno-105-9" name="__codelineno-105-9" href="#__codelineno-105-9"></a><span class="w">    </span><span class="c1">// Start is called before the first frame update</span>
+<a id="__codelineno-105-10" name="__codelineno-105-10" href="#__codelineno-105-10"></a><span class="w">    </span><span class="k">void</span><span class="w"> </span><span class="nf">Start</span><span class="p">()</span>
+<a id="__codelineno-105-11" name="__codelineno-105-11" href="#__codelineno-105-11"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-105-12" name="__codelineno-105-12" href="#__codelineno-105-12"></a><span class="w">        </span><span class="err">#</span><span class="n">NOTRIM</span><span class="err">#</span>
+<a id="__codelineno-105-13" name="__codelineno-105-13" href="#__codelineno-105-13"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-105-14" name="__codelineno-105-14" href="#__codelineno-105-14"></a>
+<a id="__codelineno-105-15" name="__codelineno-105-15" href="#__codelineno-105-15"></a><span class="w">    </span><span class="c1">// Update is called once per frame</span>
+<a id="__codelineno-105-16" name="__codelineno-105-16" href="#__codelineno-105-16"></a><span class="w">    </span><span class="k">void</span><span class="w"> </span><span class="nf">Update</span><span class="p">()</span>
+<a id="__codelineno-105-17" name="__codelineno-105-17" href="#__codelineno-105-17"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-105-18" name="__codelineno-105-18" href="#__codelineno-105-18"></a><span class="w">        </span><span class="err">#</span><span class="n">NOTRIM</span><span class="err">#</span>
+<a id="__codelineno-105-19" name="__codelineno-105-19" href="#__codelineno-105-19"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-105-20" name="__codelineno-105-20" href="#__codelineno-105-20"></a><span class="p">}</span>
+<a id="__codelineno-105-21" name="__codelineno-105-21" href="#__codelineno-105-21"></a><span class="err">#</span><span class="n">ROOTNAMESPACEEND</span><span class="err">#</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-106-1" name="__codelineno-106-1" href="#__codelineno-106-1"></a><span class="c1">// Bản SỬA của e-book — thêm sẵn #region để giữ code ngăn nắp</span>
+<a id="__codelineno-106-2" name="__codelineno-106-2" href="#__codelineno-106-2"></a><span class="cm">/*</span>
+<a id="__codelineno-106-3" name="__codelineno-106-3" href="#__codelineno-106-3"></a><span class="cm"> * Modified template by Unity Support.</span>
+<a id="__codelineno-106-4" name="__codelineno-106-4" href="#__codelineno-106-4"></a><span class="cm"> */</span>
+<a id="__codelineno-106-5" name="__codelineno-106-5" href="#__codelineno-106-5"></a><span class="k">using</span><span class="w"> </span><span class="nn">UnityEngine</span><span class="p">;</span>
+<a id="__codelineno-106-6" name="__codelineno-106-6" href="#__codelineno-106-6"></a>
+<a id="__codelineno-106-7" name="__codelineno-106-7" href="#__codelineno-106-7"></a><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="err">#</span><span class="n">SCRIPTNAME</span><span class="err">#</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">MonoBehaviour</span>
+<a id="__codelineno-106-8" name="__codelineno-106-8" href="#__codelineno-106-8"></a><span class="p">{</span>
+<a id="__codelineno-106-9" name="__codelineno-106-9" href="#__codelineno-106-9"></a><span class="w">    </span><span class="cp">#region Public Fields</span>
+<a id="__codelineno-106-10" name="__codelineno-106-10" href="#__codelineno-106-10"></a><span class="w">    </span><span class="cp">#endregion</span>
+<a id="__codelineno-106-11" name="__codelineno-106-11" href="#__codelineno-106-11"></a>
+<a id="__codelineno-106-12" name="__codelineno-106-12" href="#__codelineno-106-12"></a><span class="w">    </span><span class="cp">#region Unity Methods</span>
+<a id="__codelineno-106-13" name="__codelineno-106-13" href="#__codelineno-106-13"></a><span class="w">    </span><span class="k">void</span><span class="w"> </span><span class="nf">Start</span><span class="p">()</span>
+<a id="__codelineno-106-14" name="__codelineno-106-14" href="#__codelineno-106-14"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-106-15" name="__codelineno-106-15" href="#__codelineno-106-15"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-106-16" name="__codelineno-106-16" href="#__codelineno-106-16"></a>
+<a id="__codelineno-106-17" name="__codelineno-106-17" href="#__codelineno-106-17"></a><span class="w">    </span><span class="k">void</span><span class="w"> </span><span class="nf">Update</span><span class="p">()</span>
+<a id="__codelineno-106-18" name="__codelineno-106-18" href="#__codelineno-106-18"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-106-19" name="__codelineno-106-19" href="#__codelineno-106-19"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-106-20" name="__codelineno-106-20" href="#__codelineno-106-20"></a><span class="w">    </span><span class="cp">#endregion</span>
+<a id="__codelineno-106-21" name="__codelineno-106-21" href="#__codelineno-106-21"></a>
+<a id="__codelineno-106-22" name="__codelineno-106-22" href="#__codelineno-106-22"></a><span class="w">    </span><span class="cp">#region Private Methods</span>
+<a id="__codelineno-106-23" name="__codelineno-106-23" href="#__codelineno-106-23"></a><span class="w">    </span><span class="cp">#endregion</span>
+<a id="__codelineno-106-24" name="__codelineno-106-24" href="#__codelineno-106-24"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="656-addressables-ia-chi-hoa-asset-e-khong-nap-thu-chua-can">65.6. 📦 Addressables — địa chỉ hoá asset để KHÔNG nạp thứ chưa cần<a class="headerlink" href="#656-addressables-ia-chi-hoa-asset-e-khong-nap-thu-chua-can" title="Permanent link">&para;</a></h3>
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"Sau khi ĐÁNH DẤU, asset tương ứng xuất hiện trong cửa sổ <strong><code>Window &gt; Asset Management &gt; Addressables &gt; Groups</code></strong>. Trong Addressables Groups, bạn thấy <strong>ĐỊA CHỈ TUỲ CHỈNH của từng asset, ghép cặp với VỊ TRÍ của nó.</strong>"</em></p>
+<p>✂️ <em>"Cho tiện, bạn có thể <strong>đổi tên TỪNG địa chỉ trong ô <code>Address</code> riêng của asset, hoặc ĐƠN GIẢN HOÁ TẤT CẢ CÙNG LÚC</strong> (menu chuột phải <strong><code>Simplify Addressable Names</code></strong>)."</em></p>
+<p>🌍 <em>"Dùng <strong>build script mặc định để SINH RA asset bundle của Addressable Group.</strong> Bundle những asset này để <strong>host TRÊN SERVER nơi khác hoặc phân phối CỤC BỘ cùng dự án. Dù asset nằm ở ĐÂU, hệ thống VẪN ĐỊNH VỊ được nó bằng chuỗi Addressable Name.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"Once marked, the corresponding assets appear in the Window &gt; Asset Management &gt; Addressables &gt; Groups window. In Addressables Groups, you can see each asset's custom address, paired with its location."</em></p>
+<p>✂️ <em>"For convenience, you can either rename each address in the asset's individual Address field or simplify them at once."</em></p>
+<p>🌍 <em>"Use the default build script to generate an Addressable Group asset bundle. Bundle these assets to be hosted on a server elsewhere or distribute them locally with your project. Wherever each asset resides, the system will locate it using the Addressable Name string."</em></p>
+</div>
+</div>
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-107-1" name="__codelineno-107-1" href="#__codelineno-107-1"></a><span class="c1">// ❌ KHÔNG Addressables — Prefab được tham chiếu sẽ NẠP VÀO BỘ NHỚ</span>
+<a id="__codelineno-107-2" name="__codelineno-107-2" href="#__codelineno-107-2"></a><span class="c1">//    KỂ CẢ khi scene KHÔNG cần tới nó.</span>
+<a id="__codelineno-107-3" name="__codelineno-107-3" href="#__codelineno-107-3"></a><span class="k">public</span><span class="w"> </span><span class="n">GameObject</span><span class="w"> </span><span class="n">prefabToCreate</span><span class="p">;</span>
+<a id="__codelineno-107-4" name="__codelineno-107-4" href="#__codelineno-107-4"></a>
+<a id="__codelineno-107-5" name="__codelineno-107-5" href="#__codelineno-107-5"></a><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">CreatePrefab</span><span class="p">()</span>
+<a id="__codelineno-107-6" name="__codelineno-107-6" href="#__codelineno-107-6"></a><span class="p">{</span>
+<a id="__codelineno-107-7" name="__codelineno-107-7" href="#__codelineno-107-7"></a><span class="w">    </span><span class="n">GameObject</span><span class="p">.</span><span class="n">Instantiate</span><span class="p">(</span><span class="n">prefabToCreate</span><span class="p">);</span>
+<a id="__codelineno-107-8" name="__codelineno-107-8" href="#__codelineno-107-8"></a><span class="p">}</span>
+<a id="__codelineno-107-9" name="__codelineno-107-9" href="#__codelineno-107-9"></a>
+<a id="__codelineno-107-10" name="__codelineno-107-10" href="#__codelineno-107-10"></a><span class="c1">// ✅ CÓ Addressables — nạp theo CHUỖI ĐỊA CHỈ, chỉ khi THỰC SỰ gọi.</span>
+<a id="__codelineno-107-11" name="__codelineno-107-11" href="#__codelineno-107-11"></a><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">prefabByAddress</span><span class="p">;</span>
+<a id="__codelineno-107-12" name="__codelineno-107-12" href="#__codelineno-107-12"></a>
+<a id="__codelineno-107-13" name="__codelineno-107-13" href="#__codelineno-107-13"></a><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">CreatePrefabWithAddress</span><span class="p">()</span>
+<a id="__codelineno-107-14" name="__codelineno-107-14" href="#__codelineno-107-14"></a><span class="p">{</span>
+<a id="__codelineno-107-15" name="__codelineno-107-15" href="#__codelineno-107-15"></a><span class="w">    </span><span class="n">Addressables</span><span class="p">.</span><span class="n">Instantiate</span><span class="p">(</span><span class="n">prefabByAddress</span><span class="p">,</span><span class="w"> </span><span class="n">instantiationParameters</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="p">);</span>
+<a id="__codelineno-107-16" name="__codelineno-107-16" href="#__codelineno-107-16"></a><span class="p">}</span>
+</code></pre></div>
+<div class="bilingual-row">
+<div class="col-vi">
+<p>💀 <strong>Nhược điểm của cách CŨ — nguyên văn:</strong> <em>"Bất kỳ Prefab được tham chiếu nào (như <code>prefabToCreate</code>) <strong>ĐỀU NẠP VÀO BỘ NHỚ, KỂ CẢ khi scene KHÔNG đòi hỏi nó.</strong>"</em></p>
+<p>✅ <strong>Lợi ích của Addressables:</strong> <em>"Cách này <strong>nạp asset BẰNG CHUỖI ĐỊA CHỈ của nó. Prefab KHÔNG nạp vào bộ nhớ CHO TỚI KHI CẦN</strong> (khi ta gọi <code>Addressables.Instantiate</code>). Ngoài ra, <strong>Addressables cung cấp ĐẾM THAM CHIẾU cấp cao và TỰ ĐỘNG GỠ TẢI bundle cùng asset liên quan khi chúng KHÔNG CÒN được dùng.</strong>"</em></p>
+<p>☁️ <strong>Game LIVE — Cloud Content Delivery (CCD):</strong> <em>"Nếu bạn đang vận hành game live, hãy cân nhắc dùng <strong>giải pháp Cloud Content Delivery (CCD) của Unity cùng Addressables.</strong> Addressables <strong>LƯU và LẬP DANH MỤC asset</strong> để chúng được tìm và gọi tự động, rồi <strong>CCD ĐẨY những asset đó THẲNG tới người chơi, HOÀN TOÀN TÁCH KHỎI code của bạn.</strong> 🎯 <strong>Việc này GIẢM kích thước build và LOẠI BỎ nhu cầu bắt người chơi TẢI và CÀI phiên bản game MỚI mỗi lần bạn muốn cập nhật.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>💀 <strong>The drawback of the old way — verbatim:</strong> <em>"The disadvantage here is that any referenced Prefab (like prefabToCreate) would load into memory, even if the scene didn't require it."</em></p>
+<p>✅ <strong>The benefit of Addressables:</strong> <em>"This loads the asset by its address string. The Prefab does not load into memory until it's needed (when we invoke Addressables.Instantiate inside CreatedPrefabWithAddress). In addition, Addressables provides high-level reference counting and automatically unloads bundles and their associated assets when they're no longer in use."</em></p>
+<p>☁️ <strong>Live games — Cloud Content Delivery (CCD):</strong> <em>"If you are operating a live game, then you might want to consider using Unity's Cloud Content Delivery (CCD) solution with Addressables. The Addressables system stores and catalogs game assets so that they can be automatically found and called, and then CCD pushes those assets directly to your players, completely separate from your code. This reduces your build size and eliminates the need to have your players download and install new game versions whenever you want to make an update."</em></p>
+</div>
+</div>
+
+<p><img src="../assets/tip-addressables-groups.png" alt="Addressables Groups window"></p>
+<p><em>VI: <strong>▲ Cửa sổ Addressables Groups</strong> — nhóm <strong>Inventory Items (Default)</strong> chứa ba asset; cột trái là <strong>Addressable Name</strong>, cột phải là <strong>Path</strong> thật (<code>Assets/Weapons/Prefabs/BossSword.prefab</code>…). / EN: In Addressables Groups, you can see each asset's custom address, paired with its location.</em></p>
+
+<p><img src="../assets/tip-simplify-addressable-names.png" alt="Simplify Addressable Names"></p>
+<p><em>VI: <strong>▲ Trước và sau <code>Simplify Addressable Names</code></strong> — địa chỉ gốc là <strong>đường dẫn ĐẦY ĐỦ</strong> (trên), sau khi đơn giản hoá chỉ còn <strong><code>BossSword</code> · <code>Shield</code> · <code>Sword</code></strong> (dưới); menu chuột phải ở giữa cũng có <strong>Move Addressables to Group · Remove Addressables · Export Addressables · Create New Group</strong>. / EN: Simplify the Addressable Names with a single menu action, or rename them individually.</em></p>
+
+<h3 id="657-preprocessor-directives-bien-dich-theo-nen-tang">65.7. 🧬 Preprocessor directives — biên dịch theo NỀN TẢNG<a class="headerlink" href="#657-preprocessor-directives-bien-dich-theo-nen-tang" title="Permanent link">&para;</a></h3>
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"Tính năng <strong>Platform Dependent Compilation</strong> cho phép bạn <strong>PHÂN VÙNG script để biên dịch và thực thi code CHO MỘT NỀN TẢNG ĐÍCH CỤ THỂ.</strong>"</em></p>
+<p>🏗️ <em>"Dùng <strong><code>DEVELOPMENT_BUILD</code></strong> để <strong>XÁC ĐỊNH script có đang chạy trong player được build với tuỳ chọn Development Build hay không.</strong> Bạn <strong>cũng có thể biên dịch CÓ CHỌN LỌC cho phiên bản Unity cụ thể và/hoặc scripting backend.</strong>"</em></p>
+<p>👉 <em>"Bạn có thể <strong>cung cấp <code>#define</code> RIÊNG khi test trong Editor.</strong> Mở panel <strong><code>Other Settings</code> của Player settings</strong>, tới <strong><code>Scripting Define Symbols</code>.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"The Platform Dependent Compilation feature allows you to partition your scripts to compile and execute code for a specifically targeted platform."</em></p>
+<p>🏗️ <em>"Use the DEVELOPMENT_BUILD #define to identify whether your script is running in a player which was built with the Development Build option. You can also compile selectively for specific Unity versions and/or scripting backends."</em></p>
+<p>👉 <em>"You can supply your own custom #define directives when testing in the Editor. Open the Other Settings panel of the Player settings, and navigate to Scripting Define Symbols."</em></p>
+</div>
+</div>
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-108-1" name="__codelineno-108-1" href="#__codelineno-108-1"></a><span class="k">using</span><span class="w"> </span><span class="nn">UnityEngine</span><span class="p">;</span>
+<a id="__codelineno-108-2" name="__codelineno-108-2" href="#__codelineno-108-2"></a><span class="k">using</span><span class="w"> </span><span class="nn">System.Collections</span><span class="p">;</span>
+<a id="__codelineno-108-3" name="__codelineno-108-3" href="#__codelineno-108-3"></a>
+<a id="__codelineno-108-4" name="__codelineno-108-4" href="#__codelineno-108-4"></a><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">PlatformDefines</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">MonoBehaviour</span>
+<a id="__codelineno-108-5" name="__codelineno-108-5" href="#__codelineno-108-5"></a><span class="p">{</span>
+<a id="__codelineno-108-6" name="__codelineno-108-6" href="#__codelineno-108-6"></a><span class="w">    </span><span class="k">void</span><span class="w"> </span><span class="nf">Start</span><span class="p">()</span>
+<a id="__codelineno-108-7" name="__codelineno-108-7" href="#__codelineno-108-7"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-108-8" name="__codelineno-108-8" href="#__codelineno-108-8"></a><span class="w">        </span><span class="cp">#if UNITY_EDITOR</span>
+<a id="__codelineno-108-9" name="__codelineno-108-9" href="#__codelineno-108-9"></a><span class="w">            </span><span class="n">Debug</span><span class="p">.</span><span class="n">Log</span><span class="p">(</span><span class="s">&quot;Unity Editor&quot;</span><span class="p">);</span>
+<a id="__codelineno-108-10" name="__codelineno-108-10" href="#__codelineno-108-10"></a><span class="w">        </span><span class="cp">#endif</span>
+<a id="__codelineno-108-11" name="__codelineno-108-11" href="#__codelineno-108-11"></a>
+<a id="__codelineno-108-12" name="__codelineno-108-12" href="#__codelineno-108-12"></a><span class="w">        </span><span class="cp">#if UNITY_IOS</span>
+<a id="__codelineno-108-13" name="__codelineno-108-13" href="#__codelineno-108-13"></a><span class="w">            </span><span class="n">Debug</span><span class="p">.</span><span class="n">Log</span><span class="p">(</span><span class="s">&quot;Iphone&quot;</span><span class="p">);</span>
+<a id="__codelineno-108-14" name="__codelineno-108-14" href="#__codelineno-108-14"></a><span class="w">        </span><span class="cp">#endif</span>
+<a id="__codelineno-108-15" name="__codelineno-108-15" href="#__codelineno-108-15"></a>
+<a id="__codelineno-108-16" name="__codelineno-108-16" href="#__codelineno-108-16"></a><span class="w">        </span><span class="cp">#if UNITY_STANDALONE_OSX</span>
+<a id="__codelineno-108-17" name="__codelineno-108-17" href="#__codelineno-108-17"></a><span class="w">            </span><span class="n">Debug</span><span class="p">.</span><span class="n">Log</span><span class="p">(</span><span class="s">&quot;Stand Alone OSX&quot;</span><span class="p">);</span>
+<a id="__codelineno-108-18" name="__codelineno-108-18" href="#__codelineno-108-18"></a><span class="w">        </span><span class="cp">#endif</span>
+<a id="__codelineno-108-19" name="__codelineno-108-19" href="#__codelineno-108-19"></a>
+<a id="__codelineno-108-20" name="__codelineno-108-20" href="#__codelineno-108-20"></a><span class="w">        </span><span class="cp">#if UNITY_STANDALONE_WIN</span>
+<a id="__codelineno-108-21" name="__codelineno-108-21" href="#__codelineno-108-21"></a><span class="w">            </span><span class="n">Debug</span><span class="p">.</span><span class="n">Log</span><span class="p">(</span><span class="s">&quot;Stand Alone Windows&quot;</span><span class="p">);</span>
+<a id="__codelineno-108-22" name="__codelineno-108-22" href="#__codelineno-108-22"></a><span class="w">        </span><span class="cp">#endif</span>
+<a id="__codelineno-108-23" name="__codelineno-108-23" href="#__codelineno-108-23"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-108-24" name="__codelineno-108-24" href="#__codelineno-108-24"></a><span class="p">}</span>
+</code></pre></div>
+<p><img src="../assets/tip-scripting-define-symbols.png" alt="Scripting Define Symbols"></p>
+<p><em>VI: <strong>▲ <code>Player Settings › Other Settings › Script Compilation</code></strong> — ô <strong>Scripting Define Symbols</strong> đang chứa <strong><code>CUSTOM_DEFINE</code></strong>; các nút <strong>Copy Defines · Revert · Apply</strong>. / EN: The Scripting Define Symbols field.</em></p>
+
+<h3 id="658-scriptableobject-createassetmenu-va-asset-tren-ia">65.8. 🗃️ ScriptableObject — <code>CreateAssetMenu</code> và asset trên đĩa<a class="headerlink" href="#658-scriptableobject-createassetmenu-va-asset-tren-ia" title="Permanent link">&para;</a></h3>
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"ScriptableObject là <strong>KHO CHỨA DỮ LIỆU lưu LƯỢNG LỚN dữ liệu, ĐỘC LẬP với các instance của class. ScriptableObject có thể GIẢM mức dùng bộ nhớ của dự án bằng cách TRÁNH các BẢN SAO giá trị.</strong>"</em></p>
+<p>💾 <em>"KHÁC với MonoBehaviour, <strong>dữ liệu lưu vào ScriptableObject được GHI XUỐNG ĐĨA dưới dạng ASSET và KHÔNG gắn với GameObject nào. Nhờ vậy nó TỒN TẠI QUA CÁC PHIÊN LÀM VIỆC.</strong>"</em></p>
+<p>🎮 <strong>Ca sử dụng của Dragon Crashers:</strong> <em>"Một class <strong><code>UnitInfoData</code> kế thừa từ ScriptableObject.</strong> Mỗi instance chứa <strong>tên unit, sprite và thiết lập máu. Dữ liệu này KHÔNG ĐỔI suốt gameplay, khiến nó ĐẶC BIỆT PHÙ HỢP để lưu bên trong ScriptableObject.</strong>"</em></p>
+<p>📜 <em>"Attribute <strong><code>CreateAssetMenu</code> SINH RA một menu item ngữ cảnh</strong> giúp bạn <strong>tạo asset trên đĩa.</strong> Mỗi unit còn có thêm ScriptableObject RIÊNG cho <strong>hiệu ứng âm thanh và kỹ năng đặc biệt.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"A ScriptableObject is a data container that saves large amounts of data, independent of class instances. ScriptableObjects can reduce your project's memory usage by avoiding copies of values."</em></p>
+<p>💾 <em>"Unlike with MonoBehaviours, the data saved to ScriptableObjects is written to disk as an asset and not attached to a GameObject. Thus, it can persist between sessions."</em></p>
+<p>🎮 <strong>The Dragon Crashers use case:</strong> <em>"A UnitInfoData class inherits from ScriptableObject. Each of its instances contains the unit's name, sprite, and health settings. This data remains constant over the course of gameplay, making it especially suitable for storage inside a ScriptableObject."</em></p>
+<p>📜 <em>"The CreateAssetMenu attribute generates a context menu item to help you generate an asset on disk. Each unit has additional ScriptableObjects for sound effects and special abilities."</em></p>
+</div>
+</div>
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-109-1" name="__codelineno-109-1" href="#__codelineno-109-1"></a><span class="k">using</span><span class="w"> </span><span class="nn">UnityEngine</span><span class="p">;</span>
+<a id="__codelineno-109-2" name="__codelineno-109-2" href="#__codelineno-109-2"></a>
+<a id="__codelineno-109-3" name="__codelineno-109-3" href="#__codelineno-109-3"></a><span class="k">namespace</span><span class="w"> </span><span class="nn">DragonCrashers</span>
+<a id="__codelineno-109-4" name="__codelineno-109-4" href="#__codelineno-109-4"></a><span class="p">{</span>
+<a id="__codelineno-109-5" name="__codelineno-109-5" href="#__codelineno-109-5"></a><span class="w">    </span><span class="na">[CreateAssetMenu(fileName = &quot;Data_Unit_&quot;,</span>
+<a id="__codelineno-109-6" name="__codelineno-109-6" href="#__codelineno-109-6"></a><span class="na">                     menuName = &quot;Dragon Crashers/Unit/Info Data&quot;, order = 1)]</span>
+<a id="__codelineno-109-7" name="__codelineno-109-7" href="#__codelineno-109-7"></a><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">UnitInfoData</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ScriptableObject</span>
+<a id="__codelineno-109-8" name="__codelineno-109-8" href="#__codelineno-109-8"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-109-9" name="__codelineno-109-9" href="#__codelineno-109-9"></a><span class="w">        </span><span class="na">[Header(&quot;Display Infos&quot;)]</span>
+<a id="__codelineno-109-10" name="__codelineno-109-10" href="#__codelineno-109-10"></a><span class="w">        </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">unitName</span><span class="p">;</span>
+<a id="__codelineno-109-11" name="__codelineno-109-11" href="#__codelineno-109-11"></a><span class="w">        </span><span class="k">public</span><span class="w"> </span><span class="n">Sprite</span><span class="w"> </span><span class="n">unitAvatar</span><span class="p">;</span>
+<a id="__codelineno-109-12" name="__codelineno-109-12" href="#__codelineno-109-12"></a>
+<a id="__codelineno-109-13" name="__codelineno-109-13" href="#__codelineno-109-13"></a><span class="w">        </span><span class="na">[Header(&quot;Health Settings&quot;)]</span>
+<a id="__codelineno-109-14" name="__codelineno-109-14" href="#__codelineno-109-14"></a><span class="w">        </span><span class="k">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">totalHealth</span><span class="p">;</span>
+<a id="__codelineno-109-15" name="__codelineno-109-15" href="#__codelineno-109-15"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-109-16" name="__codelineno-109-16" href="#__codelineno-109-16"></a><span class="p">}</span>
+</code></pre></div>
+<p><img src="../assets/tip-createassetmenu-code.png" alt="CreateAssetMenu attribute in code"></p>
+<p><em>VI: <strong>▲ <code>[CreateAssetMenu]</code> trong code</strong> — <code>fileName = "Data_Unit_"</code>, <code>menuName = "Dragon Crashers/Unit/Info Data"</code>, <code>order = 1</code>; bên dưới là hai nhóm <code>[Header("Display Infos")]</code> và <code>[Header("Health Settings")]</code>. / EN: The CreateAssetMenu attribute in code.</em></p>
+
+<p><img src="../assets/tip-scriptableobject-shared.png" alt="A ScriptableObject shared by multiple GameObjects"></p>
+<p><em>VI: <strong>▲ MỘT ScriptableObject asset — BA GameObject dùng CHUNG</strong>. Dữ liệu nằm ở MỘT nơi trên đĩa, các MonoBehaviour chỉ TRỎ TỚI ⇒ <strong>KHÔNG nhân bản giá trị trong bộ nhớ.</strong> / EN: A ScriptableObject defines a data container object.</em></p>
+
+<p><img src="../assets/tip-scriptableobject-asset.png" alt="ScriptableObject asset in the Inspector"></p>
+<p><em>VI: <strong>▲ Asset sinh ra</strong> — <code>UnitData_Skeleton_Info_Jabban (Unit Info Data)</code> với <strong>Unit Name: Skele Jabban</strong>, <strong>Unit Avatar: None (Sprite)</strong>, <strong>Total Health: 235</strong>. Bên trái là cây asset: mỗi unit có <strong>Info · Ability · SFX</strong> riêng. / EN: The generated ScriptableObject asset in the Inspector.</em></p>
+
+<h3 id="659-ide-support-ba-lua-chon-chinh-thuc">65.9. 💻 IDE support — BA lựa chọn chính thức<a class="headerlink" href="#659-ide-support-ba-lua-chon-chinh-thuc" title="Permanent link">&para;</a></h3>
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"Unity hỗ trợ các IDE sau: <strong>Visual Studio</strong> (IDE mặc định trên Windows và macOS) · <strong>Visual Studio Code</strong> (Windows, macOS, Linux) · <strong>JetBrains Rider</strong> (Windows, macOS, Linux). <strong>Tích hợp IDE cho CẢ BA đều xuất hiện dưới dạng PACKAGE trong Package Manager.</strong>"</em></p>
+<p>👉 <em>"Visual Studio được <strong>cài SẴN khi bạn cài Unity trên Windows và macOS.</strong> Muốn dùng IDE khác, chỉ cần trỏ tới trình soạn thảo ở <strong><code>Unity &gt; Preferences &gt; External Tools &gt; External Script Editor</code>.</strong>"</em></p>
+<p>🧠 <em>"<strong>Rider</strong> được xây trên nền <strong>ReSharper và có HẦU HẾT tính năng của nó. Nó hỗ trợ debug C# trên scripting runtime .NET 4.6 trong Unity (C# 8.0).</strong>"</em></p>
+<p>🪶 <em>"<strong>VS Code</strong> là trình soạn thảo <strong>MIỄN PHÍ, tinh gọn, hỗ trợ debug, chạy task và version control.</strong> ⚠️ <strong>Lưu ý Unity ĐÒI HỎI Mono (macOS và Linux), Visual Studio Code C#, và Visual Studio Code Debugger for Unity (KHÔNG được hỗ trợ chính thức) khi dùng VSCode.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"Unity offers support for the following integrated development environments (IDEs): Visual Studio (default IDE on Windows and macOS); Visual Studio Code (Windows, macOS, Linux); JetBrains Rider (Windows, macOS, Linux). IDE integrations for all three of these environments appear as packages in the Package Manager."</em></p>
+<p>👉 <em>"Visual Studio is installed by default when you install Unity on Windows and macOS. If you want to use another IDE, simply browse for the editor in Unity &gt; Preferences &gt; External Tools &gt; External Script Editor."</em></p>
+<p>🧠 <em>"Rider is built on top of ReSharper and includes most of its features. It supports C# debugging on the .NET 4.6 scripting runtime in Unity (C# 8.0)."</em></p>
+<p>🪶 <em>"VS Code is a free, streamlined code editor with support for debugging, task running, and version control. Note that Unity requires Mono (macOS and Linux), Visual Studio Code C#, and Visual Studio Code Debugger for Unity (not officially supported) when using VSCode."</em></p>
+</div>
+</div>
+
+<p><img src="../assets/tip-visual-studio-editor-pkg.png" alt="IDE integrations as packages"></p>
+<p><em>VI: <strong>▲ Tích hợp IDE là PACKAGE</strong> — Package Manager liệt kê <strong>JetBrains Rider Editor 2.0.7 · Visual Studio Code Editor 1.2.3 · Visual Studio Editor 2.0.7</strong>. / EN: IDE integrations as packages.</em></p>
+
+<h3 id="6510-debugging-quy-trinh-gan-debugger-tam-meo-debug">65.10. 🐞 Debugging — quy trình gắn debugger &amp; TÁM mẹo <code>Debug</code><a class="headerlink" href="#6510-debugging-quy-trinh-gan-debugger-tam-meo-debug" title="Permanent link">&para;</a></h3>
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"<strong>Unity Debugger cho phép bạn debug code C# TRONG KHI Unity đang ở Play Mode.</strong> Bạn có thể <strong>gắn breakpoint trong trình soạn thảo để KIỂM TRA trạng thái code và các biến hiện tại LÚC CHẠY.</strong>"</em></p>
+<p>⚙️ <strong>Bước 1 — bật Debug mode:</strong> <em>"Đặt <strong>Code Optimization mode thành <code>Debug</code> ở GÓC DƯỚI BÊN PHẢI của Status Bar.</strong> Bạn cũng có thể đổi lúc khởi động tại <strong><code>Edit &gt; Preferences &gt; General &gt; Code Optimization On Startup</code>.</strong>"</em></p>
+<p>🔴 <strong>Bước 2 — đặt breakpoint:</strong> <em>"Trong trình soạn thảo, <strong>bấm vào LỀ TRÁI (gutter) nơi bạn muốn bật breakpoint</strong> (hoặc chuột phải để có thêm tuỳ chọn). <strong>Một VÒNG TRÒN ĐỎ xuất hiện cạnh số dòng.</strong>"</em></p>
+<p>🔌 <strong>Bước 3 — gắn vào Unity:</strong> <em>"Chọn <strong><code>Attach to Unity</code></strong> trong trình soạn thảo. Trong Unity Editor, chạy dự án."</em> — <em>"Để gắn vào <strong>Unity PLAYER</strong>, chọn <strong>ĐỊA CHỈ IP (hoặc tên máy) và CỔNG của player</strong>, rồi tiếp tục bình thường với tuỳ chọn <code>Attach To Unity</code>."</em></p>
+<p>🎮 <strong>Bước 4 — điều khiển:</strong> <em>"Dùng <strong>Continue Execution · Step Over · Step Into · Step Out</strong> để điều hướng luồng điều khiển."</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"The Unity Debugger allows you to debug your C# code while the Unity Entity is in Play Mode. You can attach breakpoints within the code editor in order to inspect the state of your script code and its current variables at runtime."</em></p>
+<p>⚙️ <strong>Step 1 — enable Debug mode:</strong> <em>"Set the Code Optimization mode to Debug in the bottom right of the Unity Editor Status Bar. You can also change this mode on startup at Edit &gt; Preferences &gt; General &gt; Code Optimization On Startup."</em></p>
+<p>🔴 <strong>Step 2 — set a breakpoint:</strong> <em>"In the code editor, set a breakpoint where you want the debugger to pause execution. Simply click over the left margin/gutter area where you want to toggle a breakpoint. A red circle appears next to the line number of the highlighted line."</em></p>
+<p>🔌 <strong>Step 3 — attach to Unity:</strong> <em>"Select Attach to Unity in your code editor. In the Unity Editor, run the project."</em> — <em>"To attach the code editor to the Unity Player, select the IP address (or machine name) and port of your player. Then proceed normally in Visual Studio with the Attach To Unity option."</em></p>
+<p>🎮 <strong>Step 4 — controls:</strong> <em>"Use the Continue Execution, Step Over, Step Into and Step Out controls to navigate the control flow."</em></p>
+</div>
+</div>
+
+<p><img src="../assets/tip-debug-release-mode.png" alt="Code Optimization mode Debug vs Release"></p>
+<p><em>VI: <strong>▲ Công tắc Code Optimization</strong> — hộp thoại ghi rõ: <em>"<strong>Release mode TẮT debug C# NHƯNG CẢI THIỆN hiệu năng C#. Chuyển sang release mode sẽ BIÊN DỊCH LẠI và NẠP LẠI TOÀN BỘ script.</strong>"</em> / EN: Debug Mode — "Release mode disables C# debugging but improves C# performance."</em></p>
+
+<p><img src="../assets/tip-breakpoint-watch.png" alt="Inspecting variables at a breakpoint"></p>
+<p><em>VI: <strong>▲ Soi biến tại breakpoint</strong> — chấm ĐỎ ở lề trái dòng <code>tmp = Instantiate(...)</code>; bảng watch bên phải cho thấy <code>pooledObjects</code> <strong>Count = 14</strong> với từng phần tử <code>"PlayerLaser(Clone) (UnityEngine.GameObject)"</code> — đúng như e-book mô tả: <em>"xem danh sách được XÂY DẦN từng bước trong lúc thực thi"</em>. / EN: Debugging variables — watching the list build up one step at a time during execution.</em></p>
+
+<p><strong>🧰 TÁM mẹo <code>Debug</code> bổ sung — nguyên văn / Eight additional debugging tips, verbatim</strong></p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Mẹo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>①</strong></td>
+<td><em>"</em><em>TẠM DỪNG thực thi bằng <code>Debug.Break</code>.</em><em> HỮU ÍCH khi bạn muốn </em><em>kiểm tra vài giá trị trong Inspector nhưng ứng dụng KHÓ dừng thủ công.</em><em>"</em></td>
+</tr>
+<tr>
+<td><strong>②</strong></td>
+<td><em>"Bạn nên quen với </em><em><code>Debug.Log</code>, <code>Debug.LogWarning</code>, <code>Debug.LogError</code></em><em>. Cũng tiện là </em><em><code>Debug.Assert</code>, khẳng định một điều kiện và ghi LỖI khi thất bại</em><em> (chỉ hoạt động nếu symbol </em><em><code>UNITY_ASSERTIONS</code></em><em> được định nghĩa)."</em></td>
+</tr>
+<tr>
+<td><strong>③</strong></td>
+<td><em>"Khi dùng <code>Debug.Log</code>, bạn có thể </em><em>truyền vào một object làm <code>context</code>. Bấm vào thông điệp trong Console, Unity sẽ TÔ SÁNG GameObject đó trong Hierarchy.</em><em>"</em></td>
+</tr>
+<tr>
+<td><strong>④</strong></td>
+<td><em>"Dùng </em><em>Rich Text</em><em> để đánh dấu câu lệnh <code>Debug.Log</code> — giúp </em><em>NÂNG CẤP báo cáo lỗi trong Console.</em><em>"</em></td>
+</tr>
+<tr>
+<td><strong>⑤</strong></td>
+<td>💀 <em>"</em><em>Unity KHÔNG TỰ ĐỘNG LOẠI BỎ các API Debug logging khỏi build KHÔNG-development.</em><em> ✅ </em><em>Hãy BỌC lời gọi Debug Log trong phương thức RIÊNG và gắn attribute <code>[Conditional]</code>.</em><em> Gỡ Scripting Define Symbol tương ứng khỏi Player Settings sẽ </em><em>biên dịch BỎ toàn bộ Debug Log CÙNG LÚC</em><em> — tương đương bọc chúng trong <code>#if… #endif</code>."</em></td>
+</tr>
+<tr>
+<td><strong>⑥</strong></td>
+<td><em>"Đang gỡ rối </em><em>PHYSICS</em><em>? </em><em><code>Debug.DrawLine</code> và <code>Debug.DrawRay</code> giúp bạn HÌNH DUNG raycasting.</em><em>"</em></td>
+</tr>
+<tr>
+<td><strong>⑦</strong></td>
+<td><em>"Nếu bạn </em><em>CHỈ muốn code chạy khi Development Build được bật</em><em>, hãy kiểm tra </em><em><code>Debug.isDebugBuild</code></em><em> trả về <code>true</code>."</em></td>
+</tr>
+<tr>
+<td><strong>⑧</strong></td>
+<td>💀 <em>"Dùng </em><em><code>Application.SetStackTraceLogType</code></em><em> hoặc các ô tick tương đương trong PlayerSettings để </em><em>quyết định loại log nào KÈM stack trace. Stack trace có ích, NHƯNG chúng CHẬM và SINH RÁC (garbage).</em><em>"</em></td>
+</tr>
+</tbody>
+</table>
+<p><img src="../assets/tip-debug-drawline.png" alt="Debug.DrawLine visualization"></p>
+<p><em>VI: <strong>▲ <code>Debug.DrawLine</code></strong> — các đường TÍM vẽ từ mỗi quả cầu xuống mặt đất, giúp thấy ngay raycast đang chạm ở đâu. / EN: Debug.DrawLine.</em></p>
+
+<h3 id="6511-phim-tat-visual-studio-device-simulator-console-log-entry">65.11. ⌨️ Phím tắt Visual Studio, Device Simulator &amp; Console Log Entry<a class="headerlink" href="#6511-phim-tat-visual-studio-device-simulator-console-log-entry" title="Permanent link">&para;</a></h3>
+<p><strong>⌨️ Bảng phím tắt Visual Studio — nguyên văn / The Visual Studio shortcuts, verbatim</strong></p>
+<table>
+<thead>
+<tr>
+<th>Hành động</th>
+<th>Windows</th>
+<th>Mac</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tìm BẤT CỨ THỨ GÌ trong toàn dự án</strong></td>
+<td><code>Ctrl + T</code></td>
+<td><code>Cmd + .</code></td>
+</tr>
+<tr>
+<td><strong>Implement Unity Messages</strong> (boilerplate)</td>
+<td><code>Ctrl + Shift + M</code></td>
+<td><code>Cmd + Shift + M</code></td>
+</tr>
+<tr>
+<td><strong>Comment khối code</strong></td>
+<td><code>Ctrl + K</code> / <code>Ctrl + C</code></td>
+<td><code>Cmd + /</code></td>
+</tr>
+<tr>
+<td><strong>Uncomment khối code</strong></td>
+<td><code>Ctrl + K</code> / <code>Ctrl + U</code></td>
+<td><code>Cmd + /</code></td>
+</tr>
+<tr>
+<td><strong>Dán từ LỊCH SỬ clipboard</strong></td>
+<td><code>Ctrl + Shift + V</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>Xem task list</strong></td>
+<td><code>Ctrl + T</code></td>
+<td><em>không có mặc định, gán được</em></td>
+</tr>
+<tr>
+<td><strong>Chèn snippet BAO QUANH</strong> (ví dụ namespace)</td>
+<td><code>Ctrl + K + S</code></td>
+<td><em>không có mặc định, gán được</em></td>
+</tr>
+<tr>
+<td><strong>Đổi tên biến + cập nhật MỌI tham chiếu</strong></td>
+<td><code>Ctrl + R</code></td>
+<td><code>Cmd + R</code></td>
+</tr>
+<tr>
+<td><strong>Biên dịch code</strong></td>
+<td><code>Ctrl + Shift + B</code></td>
+<td><code>Cmd + Shift + B</code></td>
+</tr>
+</tbody>
+</table>
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📱 <strong>Device Simulator:</strong> <em>"Nếu bạn phát triển cho MOBILE, <strong>Device Simulator (hiện là Preview Package) giúp bạn MÔ PHỎNG ứng dụng trên các thiết bị khác nhau. KỂ CẢ khi bạn có ĐỦ phần cứng đích trong tay, việc BUILD nội dung cho TỪNG thiết bị VẪN TỐN THỜI GIAN.</strong>"</em></p>
+<p>✂️ <em>"Dùng Device Simulator để <strong>xem trước NHANH TRƯỚC KHI phải build thật. Bạn có thể mô phỏng ĐỘ PHÂN GIẢI hoặc ĐIỀU KIỆN PHẦN CỨNG cụ thể và ĐIỀU CHỈNH UI theo NOTCH/CUTOUT vật lý ngay trong Game view.</strong>"</em></p>
+<p>⚙️ <em>"Device Simulator <strong>còn XẤP XỈ HIỆU NĂNG của phần cứng. Điều chỉnh quality settings theo RAM, chipset và các thông số khác</strong>, và code game của bạn sẽ mô phỏng theo."</em></p>
+<p>📋 <em>"Package đi kèm <strong>DANH SÁCH điện thoại và tablet định sẵn</strong> (trong thư mục <code>com.unity.device-simulator/com.unity.device-simulator</code>). <strong>Định nghĩa thiết bị lưu trong file JSON, và danh sách MỞ RỘNG THƯỜNG XUYÊN qua các bản cập nhật package.</strong>"</em></p>
+<p>📰 <strong>Console Log Entry:</strong> <em>"Theo mặc định, Console Log Entry hiển thị <strong>HAI DÒNG. Để DỄ ĐỌC HƠN, bạn có thể cấu hình còn MỘT DÒNG</strong> — hoặc dùng <strong>NHIỀU DÒNG hơn nếu muốn mục dài hơn.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📱 <strong>Device Simulator:</strong> <em>"If you're developing for mobile, the Device Simulator (currently a Preview Package) can help you simulate your application on different devices. Even if you have physical access to all of your targeted hardware, building the content for each device can be time consuming."</em></p>
+<p>✂️ <em>"Use the Device Simulator to run a quick preview before you need to make an actual build. You can simulate specific resolutions or hardware conditions and adjust your UI to the physical notch/cutouts in Game view."</em></p>
+<p>⚙️ <em>"The Device Simulator also approximates the hardware's performance. Adjust quality settings based on the RAM, chipset, and other hardware specs, and your game code will simulate playback on the platform accordingly."</em></p>
+<p>📋 <em>"A list of predefined phones and tablets comes with the package (in the com.unity.device-simulator/com.unity.device-simulator folder). Device definitions are stored in JSON files, and the list of devices regularly expands through package updates."</em></p>
+<p>📰 <strong>Console Log Entry:</strong> <em>"By default, the Console Log Entry shows two lines. For improved readability, you can configure this to be more streamlined with one line. Alternatively, you can also use more lines if you want longer entries."</em></p>
+</div>
+</div>
+
+<p><img src="../assets/tip-device-simulator-iphone8.png" alt="The Device Simulator"></p>
+<p><em>VI: <strong>▲ Device Simulator</strong> — <strong>Apple iPhone 8</strong>: <strong>OS iOS 12.4.1 · Chipset N/A · CPU arm64 · GPU N/A · Resolution 750×1334</strong>; phần <strong>Allowed Orientations</strong> tick sẵn Portrait / Landscape Left / Landscape Right. / EN: The Device Simulator.</em></p>
+
+<p><img src="../assets/tip-device-simulator-safearea.png" alt="Adjusting the UI to the device's physical screen"></p>
+<p><em>VI: <strong>▲ Chỉnh UI theo màn hình VẬT LÝ</strong> — <strong>iPhone XS Max</strong> (<strong>iOS 12.1 · arm64 · Metal · 1242×2688</strong>) xoay ngang; khung XANH LÁ là <strong>Highlight Safe Area</strong>, cho thấy notch ĂN VÀO mép trái. / EN: Adjusting the UI to the device's physical screen.</em></p>
+
+<p><img src="../assets/tip-console-log-entry.png" alt="The Console Log Entry options"></p>
+<p><em>VI: <strong>▲ Menu ⋮ của Console</strong> — <strong>Open Player Log · Open Editor Log · Show Timestamp ✓ · Log Entry ▸ (1 Line ✓ … 10 Lines) · Stack Trace Logging ▸ · UI Toolkit Debugger fn+F5</strong>. / EN: The Console Log Entry options.</em></p>
+
+<h3 id="6512-custom-compiler-status-cua-so-noi-bao-ang-bien-dich">65.12. 🚦 Custom Compiler status — cửa sổ nổi báo "đang biên dịch"<a class="headerlink" href="#6512-custom-compiler-status-cua-so-noi-bao-ang-bien-dich" title="Permanent link">&para;</a></h3>
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"Khi Unity biên dịch, <strong>icon ở góc dưới bên phải RẤT KHÓ THẤY.</strong> Dùng script Editor này để gọi <strong><code>EditorApplication.isCompiling</code>. Nó khiến trạng thái Compiler DỄ THẤY HƠN trong một CỬA SỔ NỔI.</strong>"</em></p>
+<p>👉 <em>"Gọi <strong>MenuItem để khởi tạo cửa sổ.</strong> Tuỳ chọn: bạn có thể <strong>sửa giao diện bằng một <code>GUIStyle</code> MỚI cho hợp ý mình.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"When Unity compiles, the icon in the lower right corner is hard to see. Use this custom Editor script to call EditorApplication.isCompiling. This makes the Compiler status more visible in a floating window."</em></p>
+<p>👉 <em>"Launch the MenuItem to initialize the window. Optionally, you can modify its appearance with a new GUIStyle to suit your preferences."</em></p>
+</div>
+</div>
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-110-1" name="__codelineno-110-1" href="#__codelineno-110-1"></a><span class="k">using</span><span class="w"> </span><span class="nn">UnityEditor</span><span class="p">;</span>
+<a id="__codelineno-110-2" name="__codelineno-110-2" href="#__codelineno-110-2"></a><span class="k">using</span><span class="w"> </span><span class="nn">UnityEngine</span><span class="p">;</span>
+<a id="__codelineno-110-3" name="__codelineno-110-3" href="#__codelineno-110-3"></a>
+<a id="__codelineno-110-4" name="__codelineno-110-4" href="#__codelineno-110-4"></a><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">CustomCompileWindow</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">EditorWindow</span>
+<a id="__codelineno-110-5" name="__codelineno-110-5" href="#__codelineno-110-5"></a><span class="p">{</span>
+<a id="__codelineno-110-6" name="__codelineno-110-6" href="#__codelineno-110-6"></a><span class="w">    </span><span class="na">[MenuItem(&quot;Examples/CustomCompileWindow&quot;)]</span>
+<a id="__codelineno-110-7" name="__codelineno-110-7" href="#__codelineno-110-7"></a><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Init</span><span class="p">()</span>
+<a id="__codelineno-110-8" name="__codelineno-110-8" href="#__codelineno-110-8"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-110-9" name="__codelineno-110-9" href="#__codelineno-110-9"></a><span class="w">        </span><span class="n">EditorWindow</span><span class="w"> </span><span class="n">window</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GetWindowWithRect</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="n">CustomCompileWindow</span><span class="p">),</span>
+<a id="__codelineno-110-10" name="__codelineno-110-10" href="#__codelineno-110-10"></a><span class="w">                                                </span><span class="k">new</span><span class="w"> </span><span class="nf">Rect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w"> </span><span class="mi">200</span><span class="p">));</span>
+<a id="__codelineno-110-11" name="__codelineno-110-11" href="#__codelineno-110-11"></a><span class="w">        </span><span class="n">window</span><span class="p">.</span><span class="n">Show</span><span class="p">();</span>
+<a id="__codelineno-110-12" name="__codelineno-110-12" href="#__codelineno-110-12"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-110-13" name="__codelineno-110-13" href="#__codelineno-110-13"></a>
+<a id="__codelineno-110-14" name="__codelineno-110-14" href="#__codelineno-110-14"></a><span class="w">    </span><span class="k">void</span><span class="w"> </span><span class="nf">OnGUI</span><span class="p">()</span>
+<a id="__codelineno-110-15" name="__codelineno-110-15" href="#__codelineno-110-15"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-110-16" name="__codelineno-110-16" href="#__codelineno-110-16"></a><span class="w">        </span><span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">LabelField</span><span class="p">(</span><span class="s">&quot;Compiling:&quot;</span><span class="p">,</span>
+<a id="__codelineno-110-17" name="__codelineno-110-17" href="#__codelineno-110-17"></a><span class="w">            </span><span class="n">EditorApplication</span><span class="p">.</span><span class="n">isCompiling</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s">&quot;Yes&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s">&quot;No&quot;</span><span class="p">);</span>
+<a id="__codelineno-110-18" name="__codelineno-110-18" href="#__codelineno-110-18"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="n">Repaint</span><span class="p">();</span>
+<a id="__codelineno-110-19" name="__codelineno-110-19" href="#__codelineno-110-19"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-110-20" name="__codelineno-110-20" href="#__codelineno-110-20"></a><span class="p">}</span>
+</code></pre></div>
 <hr />
 <h2 id="66-team-workflows-source-control-accelerator-build-server">66. 👥 Team workflows — Source control, Accelerator &amp; Build Server<a class="headerlink" href="#66-team-workflows-source-control-accelerator-build-server" title="Permanent link">&para;</a></h2>
 <p><img src="../assets/wf-github-for-unity.png" alt="GitHub for Unity extension"></p>
@@ -11255,6 +12820,9 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 </div></p>
 </div>
 <hr />
+<p><img src="../assets/tip-accelerator-diskspace.png" alt="Unity Accelerator disk space configuration"></p>
+<p><em>VI: <strong>▲ Cấu hình dung lượng của Unity Accelerator</strong> — hai chế độ <strong>Basic</strong> (chỉ có <em>Max Usage</em>) và <strong>Custom</strong>: đặt <strong>Percent available to use 45%</strong> / <strong>Percent to remain free 15%</strong>, hoặc <strong>Bytes available to use 100.0 GB</strong> / <strong>Bytes to remain free 10.7 GB</strong>. Mô tả nguyên văn: <em>"accelerator sẽ dùng NHIỀU dung lượng nhất được cấp; bỏ tick một giá trị sẽ GỠ giới hạn đó"</em>. Cột trái là các mục <strong>Logs · Collaborate · Asset Import Pipeline · Maintenance · Data Policy</strong>. / EN: The Unity Accelerator disk space usage configuration.</em></p>
+
 <h1 id="phan-j-checklist-tech-lead">PHẦN J — CHECKLIST TECH LEAD<a class="headerlink" href="#phan-j-checklist-tech-lead" title="Permanent link">&para;</a></h1>
 <h2 id="67-checklist-quy-trinh-hieu-nang-theo-cyberagent">67. ✅ CHECKLIST — Quy trình &amp; Hiệu năng theo CyberAgent<a class="headerlink" href="#67-checklist-quy-trinh-hieu-nang-theo-cyberagent" title="Permanent link">&para;</a></h2>
 <div class="admonition success">

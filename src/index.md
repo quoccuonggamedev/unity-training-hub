@@ -12,21 +12,18 @@
 | 🚀 **Junior** | [Module 2 — UI & Physics Deep Dive](02-junior/01-ui-physics-deep-dive.md) | ✅ Hoàn thành — 33 chương, 39 ảnh |
 | ⚔️ **Senior** | [Module 3 — Memory, Addressables & Networking](03-senior/01-memory-addressables-networking.md) | ✅ Hoàn thành — 14 chương, 21 ảnh |
 | 👑 **Tech Lead** | [Module 4 — GPU, URP & Advanced Rendering](04-tech-lead/01-gpu-urp-advanced-rendering.md) | ✅ Hoàn thành + **audit 3 lần** — 43 chương · 88 mục · 153 khối song ngữ · 49 bảng · 65 ảnh |
-| 👑 **Tech Lead** | [Module 5 — CyberAgent Bible & Sentry ANR](05-tech-lead/01-cyberagent-bible-anr.md) | ✅ Hoàn thành + **audit 2 lần** — 10 phần (A–J), 67 chương · 149 mục · 346 khối song ngữ · 72 bảng · 177 ảnh |
+| 👑 **Tech Lead** | [Module 5 — CyberAgent Bible & Sentry ANR](05-tech-lead/01-cyberagent-bible-anr.md) | ✅ Hoàn thành + **audit 3 lần** — 10 phần (A–J), 67 chương · 181 mục · 386 khối song ngữ · 84 bảng · 243 ảnh |
 
 ## 🔊 Nghe thay vì đọc / Listen instead of reading
 
-Góc **trên bên phải** mỗi trang có bảng **🔊 Đọc tiếng Việt**. Nó dùng thẳng **engine text-to-speech của hệ điều hành** (macOS/iOS · Windows · Android) qua Web Speech API — không cần cài gì thêm, không gửi dữ liệu ra ngoài.
+Góc **trên bên phải** mỗi trang có một thanh nhỏ **⏮ ▶ ⏭ ⚙**. Nó dùng thẳng **engine text-to-speech của hệ điều hành** (macOS/iOS · Windows · Android) qua Web Speech API — không cần cài gì thêm, không gửi dữ liệu ra ngoài.
 
 | Điều khiển | Tác dụng |
 |---|---|
-| ⏮ / ⏭ | Lùi / tiến **một đoạn** |
+| ⏮ / ⏭ | Lùi / tiến **một đoạn** (phím **←** / **→**) |
 | ▶ / ⏸ | Phát / tạm dừng (phím **Space**) |
-| ⏹ | Dừng hẳn (phím **Esc**) |
-| Ô chọn giọng | Liệt kê **mọi giọng tiếng Việt máy bạn có**; giọng **miền Nam** được ưu tiên xếp đầu nếu hệ điều hành cung cấp |
-| Ô tốc độ | 0.8× → 1.75× |
+| ⚙ | Mở khay chọn **giọng**, **tốc độ** (0.8×–1.75×) và nút **Dừng** (phím **Esc**) |
 | **Nháy đúp** vào một đoạn | Đọc **bắt đầu từ đúng đoạn đó** |
-| Phím **A** | Thu gọn / mở lại bảng điều khiển |
 
 Trình đọc **chỉ đọc cột tiếng Việt** — bỏ qua cột English, code block và bảng. Đoạn đang đọc được **tô sáng kèm thanh tiến độ chạy theo lời**, và trang **tự cuộn theo**.
 

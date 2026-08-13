@@ -29,7 +29,7 @@
   var qi = 0;
   var playing = false;
   var voices = [];
-  var prefs = { voiceURI: '', rate: 1, collapsed: false };
+  var prefs = { voiceURI: '', rate: 1 };
   var charDone = 0, charTotal = 1, rafId = null, tStart = 0, gotBoundary = false;
   var keepAlive = null;
 
@@ -287,35 +287,30 @@
     prev: '<svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm12 0v12l-9-6z"/></svg>',
     next: '<svg viewBox="0 0 24 24"><path d="M16 6h2v12h-2zM6 6l9 6-9 6z"/></svg>',
     stop: '<svg viewBox="0 0 24 24"><path d="M6 6h12v12H6z"/></svg>',
-    spk: '<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4z"/></svg>'
+    gear: '<svg viewBox="0 0 24 24"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm9.4 4a7.4 7.4 0 0 1-.1 1.2l2 1.6-1.9 3.3-2.4-1a7.6 7.6 0 0 1-2 1.2l-.4 2.6h-3.8l-.4-2.6a7.6 7.6 0 0 1-2-1.2l-2.4 1L2.7 14.8l2-1.6A7.4 7.4 0 0 1 4.6 12c0-.4 0-.8.1-1.2l-2-1.6 1.9-3.3 2.4 1a7.6 7.6 0 0 1 2-1.2L9.4 3h3.8l.4 2.6c.7.3 1.4.7 2 1.2l2.4-1 1.9 3.3-2 1.6c.1.4.1.8.1 1.3z"/></svg>'
   };
 
   function buildUI() {
-    panel = el('div', 'tts-panel' + (prefs.collapsed ? ' tts-collapsed' : ''));
+    panel = el('div', 'tts-panel');
     panel.setAttribute('role', 'region');
     panel.setAttribute('aria-label', 'Trình đọc tiếng Việt');
 
-    var head = el('div', 'tts-head');
-    var tog = el('button', 'tts-toggle', ICON.spk + '<span>Đọc tiếng Việt</span>');
-    tog.title = 'Thu gọn / mở rộng (phím A)';
-    tog.onclick = function () {
-      prefs.collapsed = !prefs.collapsed; savePrefs();
-      panel.classList.toggle('tts-collapsed', prefs.collapsed);
-    };
-    head.appendChild(tog);
-    panel.appendChild(head);
-
-    var body = el('div', 'tts-body');
-
-    var row = el('div', 'tts-row');
+    /* Thanh chính: viên thuốc gọn — ⏮ ▶ ⏭ ⚙ */
+    var bar = el('div', 'tts-bar');
     var bPrev = el('button', 'tts-btn', ICON.prev); bPrev.title = 'Đoạn trước (←)'; bPrev.onclick = prev;
-    btnPlay = el('button', 'tts-btn tts-main', ICON.play); btnPlay.title = 'Phát / Tạm dừng (Space)';
+    btnPlay = el('button', 'tts-btn tts-main', ICON.play);
+    btnPlay.title = 'Phát / Tạm dừng (Space) · Esc để dừng';
     btnPlay.onclick = function () { playing ? pause() : play(); };
     var bNext = el('button', 'tts-btn', ICON.next); bNext.title = 'Đoạn sau (→)';
     bNext.onclick = function () { next(false); };
-    var bStop = el('button', 'tts-btn', ICON.stop); bStop.title = 'Dừng hẳn (Esc)'; bStop.onclick = stop;
-    [bPrev, btnPlay, bNext, bStop].forEach(function (b) { row.appendChild(b); });
-    body.appendChild(row);
+    var bGear = el('button', 'tts-btn tts-gear', ICON.gear); bGear.title = 'Giọng & tốc độ';
+    bGear.onclick = function (e) { e.stopPropagation(); panel.classList.toggle('tts-open'); };
+    [bPrev, btnPlay, bNext, bGear].forEach(function (b) { bar.appendChild(b); });
+    panel.appendChild(bar);
+
+    /* Khay tuỳ chọn — chỉ hiện khi bấm ⚙ */
+    var pop = el('div', 'tts-pop');
+    pop.onclick = function (e) { e.stopPropagation(); };
 
     selVoice = el('select', 'tts-sel');
     selVoice.title = 'Giọng đọc (lấy từ hệ điều hành)';
@@ -323,10 +318,10 @@
       prefs.voiceURI = selVoice.value; savePrefs();
       if (playing) playChunk(idx);
     };
-    body.appendChild(selVoice);
+    pop.appendChild(selVoice);
 
     selRate = el('select', 'tts-sel');
-    [['0.8', '0.8×'], ['0.9', '0.9×'], ['1', '1× tốc độ'], ['1.15', '1.15×'], ['1.3', '1.3×'], ['1.5', '1.5×'], ['1.75', '1.75×']]
+    [['0.8', '0.8×'], ['0.9', '0.9×'], ['1', '1×'], ['1.15', '1.15×'], ['1.3', '1.3×'], ['1.5', '1.5×'], ['1.75', '1.75×']]
       .forEach(function (o) {
         var op = el('option', null, o[1]); op.value = o[0];
         if (parseFloat(o[0]) === parseFloat(prefs.rate)) op.selected = true;
@@ -336,29 +331,31 @@
       prefs.rate = parseFloat(selRate.value); savePrefs();
       if (playing) playChunk(idx);
     };
-    body.appendChild(selRate);
+    pop.appendChild(selRate);
 
-    lblPos = el('div', 'tts-pos', '');
-    body.appendChild(lblPos);
+    var foot = el('div', 'tts-foot');
+    lblPos = el('span', 'tts-pos', '');
+    var bStop = el('button', 'tts-stop', 'Dừng'); bStop.title = 'Dừng hẳn (Esc)'; bStop.onclick = stop;
+    foot.appendChild(lblPos); foot.appendChild(bStop);
+    pop.appendChild(foot);
 
-    warn = el('div', 'tts-warn', '');
-    body.appendChild(warn);
+    warn = el('div', 'tts-warn', '');   // chỉ dùng khi máy KHÔNG có giọng Việt nào
+    pop.appendChild(warn);
 
-    panel.appendChild(body);
+    panel.appendChild(pop);
     document.body.appendChild(panel);
+
+    document.addEventListener('click', function () { panel.classList.remove('tts-open'); });
   }
 
   function fillVoices() {
     if (!selVoice) return;
     selVoice.innerHTML = '';
+    warn.innerHTML = '';
     if (!voices.length) {
-      var op = el('option', null, 'Không tìm thấy giọng tiếng Việt');
-      selVoice.appendChild(op);
+      selVoice.appendChild(el('option', null, 'Chưa có giọng tiếng Việt'));
       selVoice.disabled = true;
-      warn.innerHTML = 'Máy chưa cài giọng <b>Tiếng Việt</b>. ' +
-        'macOS: <i>Cài đặt › Trợ năng › Nội dung nói › Giọng nói hệ thống › Quản lý giọng nói</i>. ' +
-        'Windows: <i>Settings › Time&nbsp;&amp;&nbsp;language › Speech › Add voices</i>. ' +
-        'Android: cài <i>Google Text-to-speech</i> + gói tiếng Việt.';
+      warn.innerHTML = 'Cài gói giọng <b>Tiếng Việt</b> trong cài đặt máy để dùng.';
       return;
     }
     selVoice.disabled = false;
@@ -369,11 +366,6 @@
       selVoice.appendChild(op);
     });
     if (!prefs.voiceURI) { prefs.voiceURI = voices[0].voiceURI; selVoice.value = prefs.voiceURI; }
-    var south = SOUTH.some(function (k) { return (currentVoice().name || '').toLowerCase().indexOf(k) >= 0; });
-    warn.innerHTML = south
-      ? 'Đang dùng giọng <b>miền Nam</b>.'
-      : 'Hệ điều hành đang cấp <b>' + voices.length + '</b> giọng Việt; ' +
-        'nếu chưa có giọng miền Nam, hãy cài thêm gói giọng trong cài đặt máy rồi chọn ở ô trên.';
   }
 
   function render() {
@@ -381,7 +373,7 @@
     btnPlay.innerHTML = playing ? ICON.pause : ICON.play;
     panel.classList.toggle('tts-playing', playing);
     lblPos.textContent = chunks.length
-      ? 'Đoạn ' + (idx >= 0 ? idx + 1 : 0) + ' / ' + chunks.length
+      ? (idx >= 0 ? idx + 1 : 0) + ' / ' + chunks.length
       : '';
   }
 
@@ -415,10 +407,6 @@
       else if (e.key === 'ArrowRight' && playing) { e.preventDefault(); next(false); }
       else if (e.key === 'ArrowLeft' && playing) { e.preventDefault(); prev(); }
       else if (e.key === 'Escape') { stop(); }
-      else if (e.key === 'a' || e.key === 'A') {
-        prefs.collapsed = !prefs.collapsed; savePrefs();
-        panel.classList.toggle('tts-collapsed', prefs.collapsed);
-      }
     });
 
     window.addEventListener('beforeunload', function () { synth.cancel(); });

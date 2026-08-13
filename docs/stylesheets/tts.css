@@ -1,110 +1,123 @@
 /* =============================================================================
  * tts.css — giao diện trình đọc tiếng Việt (xem src/javascripts/tts-reader.js)
+ * Thiết kế: một "viên thuốc" nhỏ ⏮ ▶ ⏭ ⚙ ở góc phải trên.
  * ========================================================================== */
 
 :root {
   --tts-accent: #7c4dff;
-  --tts-bg: rgba(255, 255, 255, .96);
-  --tts-fg: #37474f;
-  --tts-border: rgba(0, 0, 0, .12);
-  --tts-hl: rgba(124, 77, 255, .28);
-  --tts-hl-weak: rgba(124, 77, 255, .10);
+  --tts-bg: rgba(255, 255, 255, .92);
+  --tts-fg: #546e7a;
+  --tts-border: rgba(0, 0, 0, .10);
+  --tts-hl: rgba(124, 77, 255, .26);
+  --tts-hl-weak: rgba(124, 77, 255, .09);
 }
 
 [data-md-color-scheme="slate"] {
-  --tts-bg: rgba(32, 34, 48, .96);
-  --tts-fg: #e0e0e0;
-  --tts-border: rgba(255, 255, 255, .16);
-  --tts-hl: rgba(179, 136, 255, .34);
-  --tts-hl-weak: rgba(179, 136, 255, .12);
+  --tts-bg: rgba(32, 34, 48, .92);
+  --tts-fg: #b0bec5;
+  --tts-border: rgba(255, 255, 255, .14);
+  --tts-hl: rgba(179, 136, 255, .32);
+  --tts-hl-weak: rgba(179, 136, 255, .11);
 }
 
-/* ------------------------------------------------------------- bảng điều khiển */
+/* --------------------------------------------------------------- viên thuốc */
 .tts-panel {
   position: fixed;
-  top: 3.4rem;
-  right: .8rem;
+  top: 3.2rem;
+  right: .7rem;
   z-index: 12;
-  width: 13.6rem;
-  padding: .45rem;
-  border: 1px solid var(--tts-border);
-  border-radius: .5rem;
-  background: var(--tts-bg);
-  backdrop-filter: blur(6px);
-  box-shadow: 0 .2rem .8rem rgba(0, 0, 0, .18);
-  font-size: .62rem;
+  font-size: .6rem;
   color: var(--tts-fg);
-  transition: width .18s ease, padding .18s ease;
 }
 
-.tts-head { display: flex; }
-
-.tts-toggle {
+.tts-bar {
   display: flex;
   align-items: center;
-  gap: .3rem;
-  width: 100%;
-  padding: .1rem .15rem;
-  border: 0;
-  background: none;
-  color: var(--tts-accent);
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
+  gap: .05rem;
+  padding: .1rem;
+  border: 1px solid var(--tts-border);
+  border-radius: 999px;
+  background: var(--tts-bg);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 .1rem .4rem rgba(0, 0, 0, .12);
 }
 
-.tts-toggle svg { width: .95rem; height: .95rem; fill: currentColor; flex: 0 0 auto; }
-.tts-toggle span { white-space: nowrap; overflow: hidden; }
-
-.tts-panel.tts-collapsed { width: 2rem; padding: .35rem; }
-.tts-panel.tts-collapsed .tts-body,
-.tts-panel.tts-collapsed .tts-toggle span { display: none; }
-
-.tts-body { margin-top: .4rem; display: flex; flex-direction: column; gap: .35rem; }
-
-.tts-row { display: flex; gap: .25rem; }
-
 .tts-btn {
-  flex: 1 1 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 1.7rem;
-  border: 1px solid var(--tts-border);
-  border-radius: .35rem;
-  background: transparent;
+  width: 1.3rem;
+  height: 1.3rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
   color: var(--tts-fg);
   cursor: pointer;
-  transition: background .12s ease, color .12s ease;
+  opacity: .75;
+  transition: opacity .12s ease, background .12s ease, color .12s ease;
 }
 
-.tts-btn svg { width: 1rem; height: 1rem; fill: currentColor; }
-.tts-btn:hover { background: var(--tts-hl-weak); color: var(--tts-accent); }
+.tts-btn svg { width: .8rem; height: .8rem; fill: currentColor; }
+.tts-btn:hover { opacity: 1; color: var(--tts-accent); background: var(--tts-hl-weak); }
 
-.tts-btn.tts-main { flex: 1.5 1 0; background: var(--tts-accent); border-color: var(--tts-accent); color: #fff; }
-.tts-btn.tts-main:hover { filter: brightness(1.1); background: var(--tts-accent); color: #fff; }
+.tts-btn.tts-main { color: var(--tts-accent); opacity: 1; }
+.tts-btn.tts-gear svg { width: .72rem; height: .72rem; }
+
+.tts-panel.tts-playing .tts-main { background: var(--tts-accent); color: #fff; }
+
+/* --------------------------------------------- khay tuỳ chọn (bấm ⚙ mới hiện) */
+.tts-pop {
+  display: none;
+  position: absolute;
+  top: calc(100% + .25rem);
+  right: 0;
+  width: 10.5rem;
+  padding: .35rem;
+  border: 1px solid var(--tts-border);
+  border-radius: .4rem;
+  background: var(--tts-bg);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 .2rem .6rem rgba(0, 0, 0, .16);
+}
+
+.tts-panel.tts-open .tts-pop { display: block; }
 
 .tts-sel {
   width: 100%;
-  padding: .2rem .25rem;
+  margin-bottom: .25rem;
+  padding: .15rem .2rem;
   border: 1px solid var(--tts-border);
-  border-radius: .3rem;
+  border-radius: .25rem;
   background: transparent;
   color: var(--tts-fg);
   font: inherit;
-  font-size: .58rem;
+  font-size: .55rem;
 }
 
-.tts-pos { font-size: .55rem; opacity: .7; text-align: center; }
-.tts-warn { font-size: .52rem; line-height: 1.35; opacity: .72; }
-.tts-warn b { color: var(--tts-accent); }
+.tts-foot { display: flex; align-items: center; justify-content: space-between; }
+.tts-pos { font-size: .52rem; opacity: .6; }
 
-.tts-panel.tts-playing { border-color: var(--tts-accent); }
+.tts-stop {
+  padding: .1rem .3rem;
+  border: 1px solid var(--tts-border);
+  border-radius: .25rem;
+  background: none;
+  color: var(--tts-fg);
+  font: inherit;
+  font-size: .52rem;
+  cursor: pointer;
+}
+.tts-stop:hover { color: var(--tts-accent); border-color: var(--tts-accent); }
+
+.tts-warn { margin-top: .25rem; font-size: .52rem; line-height: 1.35; opacity: .75; }
+.tts-warn b { color: var(--tts-accent); }
+.tts-warn:empty { display: none; }
 
 /* -------------------------------------------------- đoạn đang được đọc ----- */
 .tts-active {
   border-radius: .25rem;
-  box-shadow: -.25rem 0 0 0 var(--tts-accent);
+  box-shadow: -.2rem 0 0 0 var(--tts-accent);
   /* lớp 1: thanh tiến độ chạy theo lời đọc — lớp 2: nền mờ của cả đoạn */
   background-image:
     linear-gradient(90deg, var(--tts-hl) 0, var(--tts-hl) var(--tts-progress, 0%), transparent var(--tts-progress, 0%)),
@@ -112,11 +125,10 @@
   scroll-margin-top: 4rem;
 }
 
-.tts-chunk { cursor: default; }
-
 /* ------------------------------------------------------------- màn hình nhỏ */
 @media screen and (max-width: 76.1875em) {
-  .tts-panel { top: auto; bottom: .8rem; right: .8rem; }
+  .tts-panel { top: auto; bottom: .7rem; right: .7rem; }
+  .tts-pop { top: auto; bottom: calc(100% + .25rem); }
 }
 
 @media print {
