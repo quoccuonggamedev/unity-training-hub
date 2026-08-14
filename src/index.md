@@ -9,10 +9,10 @@
 | Cấp độ / Level | Module | Trạng thái / Status |
 |---|---|---|
 | 🌱 **Fresher** | [Module 1 — Ultimate Guide to Profiling](01-fresher/01-ultimate-guide-to-profiling.md) | ✅ Hoàn thành — 18 chương, 102 khối song ngữ, 44 ảnh |
-| 🚀 **Junior** | [Module 2 — UI & Physics Deep Dive](02-junior/01-ui-physics-deep-dive.md) | ✅ Hoàn thành — 33 chương, 39 ảnh |
-| ⚔️ **Senior** | [Module 3 — Memory, Addressables & Networking](03-senior/01-memory-addressables-networking.md) | ✅ Hoàn thành — 14 chương, 21 ảnh |
-| 👑 **Tech Lead** | [Module 4 — GPU, URP & Advanced Rendering](04-tech-lead/01-gpu-urp-advanced-rendering.md) | ✅ Hoàn thành + **audit 3 lần** — 43 chương · 88 mục · 153 khối song ngữ · 49 bảng · 65 ảnh |
-| 👑 **Tech Lead** | [Module 5 — CyberAgent Bible & Sentry ANR](05-tech-lead/01-cyberagent-bible-anr.md) | ✅ Hoàn thành + **audit 3 lần** — 10 phần (A–J), 67 chương · 181 mục · 386 khối song ngữ · 84 bảng · 243 ảnh |
+| 🚀 **Junior** | [Module 2 — UI & Physics Deep Dive](02-junior/01-ui-physics-deep-dive.md) | ✅ Hoàn thành + **audit 2 lần (2 agent quét từng mục)** — 32 chương · 77 mục · 142 khối song ngữ · **43 ảnh** |
+| ⚔️ **Senior** | [Module 3 — Memory, Addressables & Networking](03-senior/01-memory-addressables-networking.md) | ✅ Hoàn thành + **audit 2 lần (2 agent quét từng mục)** — 14 chương · 48 mục · 86 khối song ngữ · **25 ảnh** |
+| 👑 **Tech Lead** | [Module 4 — GPU, URP & Advanced Rendering](04-tech-lead/01-gpu-urp-advanced-rendering.md) | ✅ Hoàn thành + **audit 4 lần (2 agent quét từng trang)** — 43 chương · 100 mục · 174 khối song ngữ · 52 bảng · **190 ảnh** |
+| 👑 **Tech Lead** | [Module 5 — CyberAgent Bible & Sentry ANR](05-tech-lead/01-cyberagent-bible-anr.md) | ✅ Hoàn thành + **audit 5 lần (2 agent quét từng trang)** — 10 phần (A–J), 67 chương · 186 mục · 407 khối song ngữ · 87 bảng · **349 ảnh** |
 
 ## 🔊 Nghe thay vì đọc / Listen instead of reading
 

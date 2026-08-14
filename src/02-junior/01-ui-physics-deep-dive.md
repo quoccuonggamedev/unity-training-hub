@@ -653,7 +653,39 @@ Shader "UI/Fast-Default"
             #include "UnityCG.cginc"
             #include "UnityUI.cginc"
 
-            // ... (vert function) ...
+            struct appdata_t
+            {
+                float4 vertex   : POSITION;
+                float4 color    : COLOR;
+                float2 texcoord : TEXCOORD0;
+            };
+
+            struct v2f
+            {
+                float4 vertex        : SV_POSITION;
+                fixed4 color         : COLOR;
+                half2  texcoord      : TEXCOORD0;
+                float4 worldPosition : TEXCOORD1;
+            };
+
+            fixed4 _Color;
+            fixed4 _TextureSampleAdd;
+
+            v2f vert(appdata_t IN)
+            {
+                v2f OUT;
+                OUT.worldPosition = IN.vertex;
+                OUT.vertex = mul(UNITY_MATRIX_MVP, OUT.worldPosition);
+
+                OUT.texcoord = IN.texcoord;
+
+                #ifdef UNITY_HALF_TEXEL_OFFSET
+                OUT.vertex.xy += (_ScreenParams.zw - 1.0) * float2(-1, 1);
+                #endif
+
+                OUT.color = IN.color * _Color;
+                return OUT;
+            }
 
             sampler2D _MainTex;
 
@@ -1581,6 +1613,23 @@ public class UICallbackManager : MonoBehaviour
 
 ### 12.3. 🚨 Gán Event Camera — Bẫy `FindWithTag` ẩn
 
+<img src="../assets/ui-canvas-world-space.png" alt="Canvas in World Space with Event Camera">
+<p><em>VI: <strong>▲ Chính là ô cần gán</strong> — component <strong>Canvas</strong> ở <strong>Render Mode: World Space</strong>, và ô <strong><code>Event Camera</code></strong> ngay bên dưới. Bỏ trống ô này là Unity phải <code>FindWithTag("MainCamera")</code> <strong>MỖI LẦN có sự kiện input</strong>. / EN: A Canvas in World Space render mode with its Event Camera field.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <strong>E-book Mobile nói THÊM hai điều mà mục trên chưa có:</strong></p>
+<p>① <em>"Để TRỐNG ô Event hoặc Render Camera <strong>ÉP Unity điền vào bằng <code>Camera.main</code>, và việc đó ĐẮT một cách KHÔNG CẦN THIẾT.</strong>"</em> — tức tên gọi cụ thể của cái giá phải trả là <strong><code>Camera.main</code></strong>.</p>
+<p>② 🔑 <em>"<strong>Hãy cân nhắc dùng <code>Screen Space – Overlay</code> cho RenderMode của Canvas NẾU CÓ THỂ, vì chế độ đó KHÔNG CẦN camera.</strong>"</em> — đây là lời khuyên <strong>CHỦ ĐỘNG</strong>: thay vì nhớ gán camera, hãy chọn chế độ không cần camera ngay từ đầu.</p>
+</div>
+<div class="col-en">
+<p>📖 <strong>The Mobile e-book adds two things:</strong></p>
+<p>① <em>"Leaving the Event or Render Camera field blank forces Unity to fill in <code>Camera.main</code>, which is unnecessarily expensive."</em></p>
+<p>② <em>"Consider using Screen Space – Overlay for your Canvas RenderMode if possible, since that does not require a camera."</em></p>
+</div>
+</div>
+
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>Nếu dùng Input Manager dựng sẵn của Unity với Canvas đặt ở chế độ <strong>World Space</strong> hoặc <strong>Screen Space – Camera</strong>, <strong>PHẢI LUÔN gán</strong> property <strong>Event Camera</strong> hoặc <strong>Render Camera</strong> tương ứng. Từ script, nó luôn được expose là property <code>worldCamera</code>.</p>
@@ -1603,7 +1652,7 @@ public class UICallbackManager : MonoBehaviour
 <div class="bilingual-row">
 <div class="col-vi">
 <p>Hệ thống UI được thiết kế để hỗ trợ <em>rất nhiều use case</em>. Sự linh hoạt này tuyệt vời, nhưng cũng có nghĩa là <strong>một số tối ưu không thể thực hiện dễ dàng mà không phá vỡ tính năng khác</strong>.</p>
-<p>Nếu bạn rơi vào tình huống có thể giành lại CPU cycle bằng cách <em>sửa source code C# của UI</em>, thì <strong>có thể biên dịch lại UI DLL và ghi đè lên cái đi kèm Unity</strong>. Quy trình này được ghi trong file readme của repository. <strong>Nhớ lấy đúng source code tương ứng phiên bản Unity của bạn.</strong></p>
+<p>Nếu bạn rơi vào tình huống có thể giành lại CPU cycle bằng cách <em>sửa source code C# của UI</em>, thì <strong>có thể biên dịch lại UI DLL và ghi đè lên cái đi kèm Unity</strong>. Quy trình này được ghi trong file readme của repository — cụ thể là <strong>Bitbucket của Unity</strong> (<code>bitbucket.org/Unity-Technologies/</code>), mục <strong>UI</strong> (<code>bitbucket.org/Unity-Technologies/ui/</code>). <strong>Nhớ lấy đúng source code tương ứng phiên bản Unity của bạn.</strong></p>
 <p>⚠️ <strong>CHỈ nên làm như PHƯƠNG ÁN CUỐI CÙNG</strong>, vì có vài nhược điểm quan trọng:</p>
 <ol>
 <li>Bạn <strong>phải tìm cách phân phối DLL mới này</strong> tới các developer và build machine.</li>
@@ -1691,7 +1740,7 @@ public class UICallbackManager : MonoBehaviour
 </ul>
 <p>⚠️ <em>"Layout Group có thể làm giảm hiệu năng, ĐẶC BIỆT khi lồng nhau."</em></p>
 <p><strong>⑤ Tránh List và Grid view lớn</strong></p>
-<p>List và Grid view lớn <strong>tốn kém</strong>. Nếu cần tạo List/Grid lớn (ví dụ màn hình inventory với hàng trăm item), hãy cân nhắc <strong>tái sử dụng một pool nhỏ phần tử UI thay vì tạo một phần tử UI cho MỖI item</strong>. → xem §11.3</p>
+<p>List và Grid view lớn <strong>tốn kém</strong>. Nếu cần tạo List/Grid lớn (ví dụ màn hình inventory với hàng trăm item), hãy cân nhắc <strong>tái sử dụng một pool nhỏ phần tử UI thay vì tạo một phần tử UI cho MỖI item</strong>. → xem §11.3. *(Nguồn gốc còn dẫn thêm một <strong>sample GitHub project</strong> minh hoạ kỹ thuật này — <em>"Check out this sample GitHub project to see this in action."</em>; bản PDF chỉ giữ anchor text, không giữ URL đích.)*</p>
 <p><strong>⑥ Tránh nhiều phần tử xếp chồng</strong></p>
 <p>Xếp lớp nhiều phần tử UI (ví dụ các lá bài chồng lên nhau trong game thẻ bài) <strong>tạo ra overdraw</strong>. Tùy biến code để <strong>gộp các phần tử phân lớp lúc runtime thành ít phần tử và ít batch hơn</strong>.</p>
 </div>
@@ -1738,6 +1787,58 @@ public class UICallbackManager : MonoBehaviour
 </ul>
 </div>
 </div>
+
+### 13.1. 📝 Checklist UI từ ghi chú THỰC CHIẾN — bốn mục chưa nói ở đâu khác
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>Bốn mục dưới đây đến từ <strong>khối ghi chú UI trong <code>raw-optimization-data.txt</code></strong> (không phải từ e-book). Chúng KHÔNG trùng với §13 và cũng KHÔNG xuất hiện ở bất kỳ Module nào khác — tôi đã kiểm cả 5 Module trước khi viết mục này.</p>
+</div>
+<div class="col-en">
+<p>These four items come from the UI notes block in <code>raw-optimization-data.txt</code>, not from the e-books. They don't overlap §13 and don't appear in any other Module.</p>
+</div>
+</div>
+
+| # | Ghi chú gốc | Vì sao đáng làm |
+|---|---|---|
+| **①** | *"disable **Rich Text**"* | Ô **Rich Text** trên component `Text`/`TextMeshPro` bật **BỘ PHÂN TÍCH THẺ** (`<b>`, `<color>`, `<size>`…) chạy **MỖI LẦN chuỗi thay đổi**. Với text **KHÔNG dùng thẻ định dạng** — điểm số, đồng hồ, số lượng — đó là chi phí parse **HOÀN TOÀN LÃNG PHÍ**, và nó nằm đúng trên đường nóng vì các text đó đổi liên tục. |
+| **②** | *"Turning off **pixel perfect**"* | **`Canvas › Pixel Perfect`** ép Unity **LÀM TRÒN vị trí từng phần tử UI về đúng biên pixel**. Kết quả: mỗi lần một phần tử **DI CHUYỂN**, layout phải tính lại và mesh phải dựng lại. Với UI **TĨNH** thì vô hại; với UI **ĐỘNG** (thanh máu chạy, số nhảy, panel trượt) đây là nguồn rebuild âm thầm. Tắt nó nếu bạn không thực sự cần độ nét pixel-art. |
+| **③** | *"**Never use `renderer.material.xxx` at runtime**, this will clone the material **and break batching too**"* | Chạm vào `.material` là **NHÂN BẢN material**. Ngoài chuyện rò rỉ bộ nhớ, bản clone còn mang **material instance MỚI** ⇒ object đó **RỚT KHỎI batch** với các object dùng material gốc. Đây là hai thiệt hại trong một. |
+| **④** | *"Use **`MaterialPropertyBlock`** để đổi thuộc tính material"* | Đây là **cách ĐÚNG** để đổi màu/tham số **TỪNG object mà KHÔNG nhân bản material** và **KHÔNG phá batch** — GPU vẫn coi chúng dùng chung một material. |
+
+```csharp
+// ❌ SAI — clone material, rò rỉ, và phá batch
+GetComponent<Renderer>().material.color = Color.red;
+
+// ✅ ĐÚNG — đổi thuộc tính RIÊNG từng object, KHÔNG clone, KHÔNG phá batch
+static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
+
+MaterialPropertyBlock _mpb;
+Renderer _renderer;
+
+void Awake()
+{
+    _renderer = GetComponent<Renderer>();
+    _mpb = new MaterialPropertyBlock();
+}
+
+void SetColor(Color c)
+{
+    _renderer.GetPropertyBlock(_mpb);   // đọc block hiện tại (đừng tạo mới mỗi lần)
+    _mpb.SetColor(BaseColor, c);
+    _renderer.SetPropertyBlock(_mpb);   // ghi lại — material gốc KHÔNG bị đụng tới
+}
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🔗 <strong>Nối sang các Module khác:</strong> hệ quả <em>rò rỉ bộ nhớ</em> của việc clone material được mổ xẻ ở <strong>Module 3 §4.2</strong> (bản clone KHÔNG bị GC, chỉ dọn khi đổi scene hoặc gọi <code>Resources.UnloadUnusedAssets()</code>); hệ quả <em>phá batch</em> ở <strong>Module 4 §10</strong>.</p>
+</div>
+<div class="col-en">
+<p>🔗 The memory-leak side of material cloning is covered in <strong>Module 3 §4.2</strong>; the batch-breaking side in <strong>Module 4 §10</strong>.</p>
+</div>
+</div>
+
 
 ---
 
@@ -1818,6 +1919,9 @@ public class UICallbackManager : MonoBehaviour
 ---
 
 ## 15. Fixed Timestep & Maximum Allowed Timestep
+
+<img src="../assets/physics-timestep-values.png" alt="Fixed Timestep, Maximum Allowed Timestep 0.3333333 and Maximum Particle Tim">
+<p><em>VI: <strong>▲ Ba con số đi cùng nhau</strong> — <strong>Fixed Timestep</strong>, <strong>Maximum Allowed Timestep <code>0.3333333</code></strong> và <strong>Maximum Particle Timestep <code>0.03</code></strong>. Con số <code>0.3333333</code> chính là <strong>TRẦN chống “vòng xoáy tử thần”</strong>: dù frame có chậm tới đâu, Unity cũng KHÔNG chạy quá 1/3 giây vật lý trong một frame. / EN: Fixed Timestep, Maximum Allowed Timestep 0.3333333 and Maximum Particle Timestep 0.03.</em></p>
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -2154,6 +2258,30 @@ public class PhysicsMover : MonoBehaviour
 | | `Tolerance Mode` | `World` = diễn giải theo đơn vị world · `Relative` = theo tỉ lệ đường chéo bbox của từng path |
 | | `Scale By Bounds` | Ở chế độ World, nhân tolerance với đường chéo bounds của mỗi path (hữu ích cho các hình khác kích thước) |
 
+
+### 18.2b. 💾 Presets — lưu lại bộ tham số
+
+<div class="bilingual-row">
+<div class="col-vi">
+<ul>
+<li>Có tuỳ chọn <strong>định nghĩa PRESET cho các bộ tham số khác nhau</strong> bạn muốn lưu.</li>
+<li>Tạo preset qua <strong><code>Assets › Create › ColliderOptimizer › Mesh Preset</code></strong> hoặc <strong><code>Poly Preset</code></strong>.</li>
+<li>Trong cửa sổ <strong><code>Tools › Collider Optimizer</code></strong>, gán preset để KÍCH HOẠT nó.</li>
+<li>⚠️ <strong>Nếu KHÔNG có preset đang hoạt động</strong>, thiết lập được lưu trong <strong>Project Settings</strong> tại <code>ProjectSettings/ColliderOptimizerSettings.asset</code>.</li>
+<li><strong><code>Reset to Defaults</code></strong> sẽ cập nhật <strong>preset đang gán</strong> (nếu có) <strong>hoặc</strong> project settings về giá trị mặc định.</li>
+</ul>
+</div>
+<div class="col-en">
+<ul>
+<li><em>"You get the option to define presets for different param sets you'd like to save."</em></li>
+<li><em>"Create presets via <code>Assets -&gt; Create -&gt; ColliderOptimizer -&gt; Mesh Preset or Poly Preset</code>."</em></li>
+<li><em>"In <code>Tools -&gt; Collider Optimizer</code> window assign these presets to make them active."</em></li>
+<li><em>"Without an active preset the settings are stored in Project Settings at <code>ProjectSettings/ColliderOptimizerSettings.asset</code>."</em></li>
+<li><em>"<code>Reset to Defaults</code> will update the preset (if assigned) or the project settings to the default values."</em></li>
+</ul>
+</div>
+</div>
+
 ### 18.3. ⚠️ Gotchas cần biết
 
 <div class="bilingual-row">
@@ -2183,13 +2311,16 @@ public class PhysicsMover : MonoBehaviour
 
 ## 18b. ⚙️ Physics nâng cao — 10 kỹ thuật từ e-book Console/PC
 
+<img src="../assets/physics-settings-sync-matrix.png" alt="Auto Sync Transforms, Reuse Collision Callbacks and the full Layer Collisio">
+<p><em>VI: <strong>▲ Hai công tắc và một ma trận</strong> — khoanh đỏ phía trên là <strong><code>Auto Sync Transforms</code></strong> và <strong><code>Reuse Collision Callbacks</code> ✓</strong>; khoanh đỏ phía dưới là <strong>Layer Collision Matrix</strong> đầy đủ. Cũng thấy rõ <strong>Sleep Threshold 0.005 · Default Solver Iterations 6 · Contacts Generation: Persistent Contact Manifold · Broadphase Type: Sweep And Prune Broadphase · Solver Type: Projected Gauss Seidel · Default Max Angular Speed 7</strong>. / EN: Auto Sync Transforms, Reuse Collision Callbacks and the full Layer Collision Matrix.</em></p>
+
 !!! note "Bổ sung sau audit"
     **VI:** E-book **Optimize your game performance for consoles and PC** có một **chương Physics đầy đủ 9 trang (tr.77–85)** với 14 mục — chi tiết hơn hẳn 3 trang của bản Mobile. Toàn bộ nội dung dưới đây là phần tôi đã **bỏ sót ở lần cào đầu**.
 
 ### 18b.1. Vòng xoáy tử thần — Giải thích cơ chế đầy đủ
 
-<img src="../assets/physics-fixed-timestep-settings.png" alt="Fixed Timestep in Project Settings Time">
-<p><em>VI: Fixed Timestep mặc định trong Project Settings là 0.02 giây (50 khung hình/giây). / EN: The default Fixed Timestep in the Project Settings is 0.02 seconds (50 frames per second).</em></p>
+<img src="../assets/physics-time-settings.png" alt="Project Settings Time with Fixed Timestep 0.02">
+<p><em>VI: <strong>▲ <code>Project Settings › Time</code></strong> — <strong>Fixed Timestep 0.02</strong> (tức <strong>50 lần/giây</strong>), cùng <strong>Maximum Allowed Timestep</strong>, <strong>Time Scale</strong> và <strong>Maximum Particle Timestep</strong>. Góc dưới phải Game view là overlay <strong>Fixed Delta · Previous Time · Current Time</strong> của scene demo. / EN: Project Settings > Time with a Fixed Timestep of 0.02.</em></p>
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -2584,6 +2715,9 @@ public class BatchedLineOfSight : MonoBehaviour
 
 ## 19. Physics Debugger
 
+<img src="../assets/physics-debugger-boat.png" alt="The Physics Debugger showing colliders over a real scene.">
+<p><em>VI: <strong>▲ Physics Debugger trên một scene thật</strong> — thân thuyền hiện <strong>collider ĐỎ</strong> chồng lên mesh, mặt nước là <strong>lưới XANH LÁ</strong>, và các quả cầu <strong>XANH LƠ</strong> là collider phụ. Panel <strong>Physics Debug</strong> bên phải cho lọc theo <strong>Show Static Colliders · Show Triggers · Show Rigidbodies · Show Kinematic Bodies · Show Sleeping Bodies</strong>, và theo <strong>Collider Types</strong> (Box · Sphere · Capsule · MeshColliders convex/concave · Terrain). / EN: The Physics Debugger showing colliders over a real scene.</em></p>
+
 <img src="../assets/physics-debugger.png" alt="Unity Physics Debugger window">
 
 <div class="bilingual-row">
@@ -2683,8 +2817,8 @@ public class BatchedLineOfSight : MonoBehaviour
 
 !!! note "Bổ sung sau audit — từ e-book Console/PC (tr.86–88)"
 
-<img src="../assets/anim-animation-system.png" alt="Unity Animation System components">
-<p><em>VI: Component Animator kết nối Animator Controller và Avatar. / EN: The Animator component connects the Animator Controller and Avatar.</em></p>
+<img src="../assets/anim-system-diagram.png" alt="Unity's Animation System">
+<p><em>VI: <strong>▲ Kiến trúc hệ thống Animation của Unity</strong> — <strong>Animator Controller</strong> (đồ thị state Any State / Entry / Jump / Idle) và <strong>Avatar Configuration</strong> (bộ xương humanoid xanh lá) cùng trỏ vào component <strong>Animator</strong> ở góc phải: <code>Controller = StarterAssetsThirdPerson</code>, <code>Avatar = ArmatureAvatar</code>, <strong>Culling Mode = Cull Update Transforms</strong>. Khung thống kê dưới cùng ghi <strong>Clip Count 8 · Curves Count 1189 · Constant 273 (23.6%) · Dense 98 (8.5%) · Stream 784 (67.9%)</strong>. / EN: Unity's Animation System — the Animator Controller and Avatar both feed the Animator component.</em></p>
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -2707,8 +2841,8 @@ public class BatchedLineOfSight : MonoBehaviour
 </div>
 </div>
 
-<img src="../assets/anim-generic-vs-humanoid.png" alt="Generic vs humanoid rigs">
-<p><em>VI: Generic rig dùng ít CPU hơn humanoid rig. / EN: Generic rigs use less CPU time than humanoid rigs.</em></p>
+<img src="../assets/anim-rig-generic.png" alt="Rig import settings with Animation Type Generic">
+<p><em>VI: <strong>▲ Chỗ ĐỔI rig</strong> — tab <strong>Rig</strong> của Model Import Settings (khoanh đỏ): <strong><code>Animation Type = Generic</code></strong> · <code>Avatar Definition = Create From This Model</code> · <code>Root node = None</code> · <strong><code>Skin Weights = Standard (4 Bones)</code></strong> · <code>Optimize Game Objects</code>. Đây là một ô duy nhất, và đổi nó tiết kiệm <strong>30–50% thời gian CPU</strong> so với Humanoid. / EN: The Rig tab with Animation Type set to Generic.</em></p>
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -2768,6 +2902,34 @@ public class BatchedLineOfSight : MonoBehaviour
 <li><strong>Use additional curves to simulate events.</strong></li>
 <li><strong>Use additional curves to mark up your animations</strong> — for example in conjunction with target matching.</li>
 </ul>
+</div>
+</div>
+
+### 21.0c. 🗜️ Nén Animation — ghi chú raw `Compress Animation: Optimal`
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📝 Ghi chú gốc trong <code>raw-optimization-data.txt</code> chỉ có bốn chữ: <em>"Compress Animation: Optimal"</em>. Đây là setting ở <strong>tab Animation của Model Import Settings</strong> — <strong><code>Anim. Compression</code></strong> — và nó có <strong>BA</strong> lựa chọn:</p>
+</div>
+<div class="col-en">
+<p>📝 The raw note says only <em>"Compress Animation: Optimal"</em>. This is the <strong><code>Anim. Compression</code></strong> setting in the Animation tab of the Model Import Settings, with three options:</p>
+</div>
+</div>
+
+| Lựa chọn | Cơ chế | Khi nào dùng |
+|---|---|---|
+| **`Off`** | Giữ **NGUYÊN** mọi keyframe. | Chỉ khi bạn cần độ chính xác tuyệt đối từng frame (ví dụ animation dùng để lái logic gameplay chính xác). |
+| **`Keyframe Reduction`** | **GỠ các keyframe mà giá trị có thể NỘI SUY LẠI được** trong ngưỡng sai số cho phép. Giảm **dung lượng file VÀ bộ nhớ runtime**. | Mặc định hợp lý cho phần lớn animation. |
+| **`Optimal`** | Unity **TỰ CHỌN** giữa keyframe reduction và **biểu diễn CURVE DÀY ĐẶC (dense curve)** — cái nào **NHỎ HƠN cho TỪNG curve** thì dùng. | 🔑 Chính là mức ghi chú raw khuyến nghị. Cho kết quả **NHỎ NHẤT**, đổi lại thời gian import lâu hơn một chút. |
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>⚠️ <strong>Cái bẫy đi kèm — ngưỡng sai số:</strong> khi bật <code>Keyframe Reduction</code> hoặc <code>Optimal</code>, ba ô <strong>Rotation Error · Position Error · Scale Error</strong> sẽ mở ra (mặc định <strong>0.5</strong>). Đây là <strong>sai số ĐƯỢC PHÉP tính theo PHẦN TRĂM</strong>. 💀 Đặt quá cao thì animation bị <strong>GIẬT hoặc TRƯỢT</strong> — và lỗi này <strong>chỉ lộ ra ở animation CHẬM, chuyển động NHỎ</strong>, nên rất dễ lọt qua khâu kiểm tra.</p>
+<p>🔗 Cùng chủ đề, phần <strong>SkinWeights</strong> và <strong>Animator Culling Mode</strong> — hai núm còn lại của cùng bộ setting — được mổ xẻ kèm ảnh Inspector ở <strong>Module 5 §27.4</strong>.</p>
+</div>
+<div class="col-en">
+<p>⚠️ <strong>The accompanying trap:</strong> enabling <code>Keyframe Reduction</code> or <code>Optimal</code> reveals <strong>Rotation / Position / Scale Error</strong> fields (default <strong>0.5</strong>) — the <strong>allowed deviation as a percentage</strong>. Set them too high and the animation visibly <strong>pops or drifts</strong>, and this only shows up on slow animations with small movements, so it slips through review easily.</p>
+<p>🔗 <strong>SkinWeights</strong> and <strong>Animator Culling Mode</strong> — the other two knobs of the same setting group — are covered with Inspector screenshots in <strong>Module 5 §27.4</strong>.</p>
 </div>
 </div>
 
@@ -3372,6 +3534,141 @@ void Update()
 
 ---
 
+### 24.2b. ⏳ Async Transitions — `StateTransition.Safe` vs `.Overwrite`
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><em>"Có hỗ trợ ĐƠN GIẢN để quản lý <strong>chuyển state BẤT ĐỒNG BỘ</strong> khi hàm enter hoặc exit là coroutine DÀI."</em></p>
+<ul>
+<li><strong><code>StateTransition.Safe</code></strong> — <em>"là MẶC ĐỊNH. Nó LUÔN cho phép state hiện tại <strong>hoàn tất CẢ hàm enter LẪN exit</strong> trước khi chuyển sang state mới."</em></li>
+<li><strong><code>StateTransition.Overwrite</code></strong> — <em>"sẽ <strong>HUỶ mọi transition đang diễn ra và gọi state kế tiếp NGAY LẬP TỨC. Nghĩa là mọi đoạn code CHƯA kịp chạy trong enter và exit routine sẽ BỊ BỎ QUA.</strong>"</em></li>
+</ul>
+<p>🔑 <em>"Nếu bạn cần đảm bảo kết thúc ở một cấu hình NHẤT ĐỊNH, <strong>hàm <code>Finally</code> LUÔN được gọi</strong>."</em></p>
+</div>
+<div class="col-en">
+<p><em>"There is simple support for managing asynchronous state changes with long enter or exit coroutines."</em></p>
+<ul>
+<li><em>"The default is <code>StateTransition.Safe</code>. This will always allows the current state to finish both its enter and exit functions before transitioning to any new states."</em></li>
+<li><em>"<code>StateTransition.Overwrite</code> will cancel any current transitions, and call the next state immediately. This means any code which has yet to run in enter and exit routines will be skipped."</em></li>
+</ul>
+<p>🔑 <em>"If you need to ensure you end with a particular configuration, the finally function will always be called."</em></p>
+</div>
+</div>
+
+```csharp
+fsm.ChangeState(States.MyNextState, StateTransition.Safe);       // mặc định
+fsm.ChangeState(States.MyNextState, StateTransition.Overwrite);  // cắt ngang
+
+void MyCurrentState_Finally()
+{
+    // Reset object to desired configuration — LUÔN chạy, dù bị Overwrite cắt ngang
+}
+```
+
+### 24.2c. 🚫 Anti-pattern — gọi `ChangeState` TỪ NGOÀI, và BẢNG TRANSITION NGẦM
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>💀 <em>"Sức mạnh THỰC SỰ lộ ra khi ta xét thêm MỘT anti-pattern nữa: <strong>GỌI đổi state TỪ BÊN NGOÀI state machine có thể dẫn tới TÁC DỤNG PHỤ NGOÀI Ý MUỐN.</strong>"</em> Hình dung một lời gọi TOÀN CỤC làm state chuyển đổi:</p>
+</div>
+<div class="col-en">
+<p>💀 <em>"The real power shines when we consider another anti-pattern. Calling a state change from outside the state machine can lead to unintended side-effects. Imagine the following scenario where a global call causes a state transition."</em></p>
+</div>
+</div>
+
+```csharp
+// ❌ VẤN ĐỀ — EndGame() ép chuyển state BẤT KỂ đang ở state nào
+public void EndGame()
+{
+    fsm.ChangeState(States.GameOver);
+}
+
+void Idle_Update()
+{
+    // Chuyển sang GameOver ở đây sẽ gây ra chuyện NGOÀI Ý MUỐN
+}
+
+void Play_Update()
+{
+    // GameOver ở đây thì HỢP LỆ
+}
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🔧 <em>"Một số thư viện xử lý việc này bằng cách <strong>định nghĩa BẢNG TRANSITION</strong>. Tuy nhiên, có thể đạt kết quả TƯƠNG TỰ bằng <strong>state event</strong>:"</em></p>
+</div>
+<div class="col-en">
+<p>🔧 <em>"Some libraries deal with this by defining transitons tables. However, it's possible to achieve a similar outcome using state events."</em></p>
+</div>
+</div>
+
+```csharp
+// ✅ GIẢI PHÁP — phát SỰ KIỆN, để chính state quyết định có phản hồi hay không
+public class Driver
+{
+    public StateEvent OnEndGame;
+}
+
+public void EndGame()
+{
+    fsm.Driver.OnEndGame.Invoke();
+}
+
+void Idle_Update()  { /* Chuyển GameOver ở đây vẫn là NGOÀI Ý MUỐN */ }
+void Play_Update()  { /* GameOver hợp lệ */ }
+
+void Play_OnEndGame()
+{
+    fsm.ChangeState(State.GameOver);   // CHỈ state Play mới phản hồi
+}
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🎯 <em>"<strong>Giờ <code>Play</code> là state DUY NHẤT có thể phản hồi lời gọi EndGame. Việc này TẠO RA một BẢNG TRANSITION NGẦM như một tác dụng phụ \"MIỄN PHÍ\".</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🎯 <em>"Now the Play state is only state that can respond to EndGame calls. This creates an implicit transition table as sort of 'free' side-effect."</em></p>
+</div>
+</div>
+
+### 24.2d. 📊 Performance & Limitations — ĐIỀU KIỆN của câu "garbage allocation free"
+
+!!! warning "⚠️ Đọc mục này để hiểu ĐÚNG khẩu hiệu ở §24.0"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p>🪄 <strong>Design Philosophy:</strong> <em>"State machine được thiết kế để TỐI ĐA HOÁ sự đơn giản cho người dùng cuối. Để đạt điều đó, <strong>bên dưới là một chút 'ma thuật' REFLECTION tinh vi. Reflection là lựa chọn GÂY TRANH CÃI vì nó CHẬM — và ở đây cũng KHÔNG ngoại lệ. Tuy nhiên chúng tôi cân bằng đánh đổi bằng cách GIỚI HẠN TOÀN BỘ reflection vào MỘT LỜI GỌI DUY NHẤT lúc state machine được KHỞI TẠO.</strong> Việc này LÀM GIẢM hiệu năng instantiation, nhưng <strong>instantiation vốn đã chậm sẵn. Chúng tôi kỳ vọng các chiến lược như OBJECT POOLING đã được áp dụng</strong>, qua đó dời chi phí này về thời điểm người dùng KHÓ nhận ra."</em></p>
+    <p>📈 <strong>Ngưỡng quy mô — con số CỤ THỂ:</strong> <em>"Đảm bảo tính đúng đắn ĐỒNG NGHĨA với việc <strong>gọi <code>Invoke()</code> của StateEvent CHẬM HƠN gọi method trần. Qua HÀNG CHỤC NGHÌN instance, điều này có thể cộng dồn thành overhead ĐÁNG KỂ. Ở những ca đó (NHIỀU NGHÌN object), khuyến nghị THAY state machine bằng thứ gì đó TỰ TINH CHỈNH BẰNG TAY.</strong>"</em></p>
+    <p>✅ <em>"<strong>Tuy nhiên, với ĐA SỐ ca dùng thông thường — ví dụ class manager, hay các thứ có SỐ INSTANCE THẤP (VÀI CHỤC hoặc VÀI TRĂM) — khác biệt hiệu năng TUYỆT ĐỐI KHÔNG phải thứ bạn cần bận tâm.</strong>"</em></p>
+    <p>🧹 <strong>Memory Allocation Free?</strong> <em>"Được thiết kế nhắm tới MOBILE, nên đáng lẽ KHÔNG cấp phát bộ nhớ. ⚠️ <strong>Tuy nhiên các quy tắc GIỐNG phần còn lại của Unity VẪN áp dụng với <code>IEnumerator</code> và Coroutine.</strong>"</em></p>
+    <p>🪟 <strong>Windows Store Platforms:</strong> 💀 <em>"<strong>Do khác biệt giữa phiên bản .NET của Windows Store và WinRT, nền tảng này HIỆN KHÔNG TƯƠNG THÍCH.</strong>"</em></p>
+    </div>
+    <div class="col-en">
+    <p>🪄 <em>"The state machine is designed to maximise simplicity for the end-user. To achieve this, under the hood lies some intricate reflection 'magic'. Reflection is a controversial choice because it is slow — and that's no exception here. However, we seek to balance the trade-off by limiting all the reflection to a single call when the state machine is initialised. This does degrade instantiation performance, however, instantiation is already slow. It's expected that strategies such as object pooling … are already in effect, which moves this cost to a time when the user is unlikely to notice it."</em></p>
+    <p>📈 <em>"Ensuring correctness does mean that calling StateEvents' Invoke() is slower than naked method calls. Over tens of thousands of instances this can add up to a significant overhead. In these use cases (multiple 1000's of objects) it is recommended to replace the state machine with something hand-tuned."</em></p>
+    <p>✅ <em>"However, for most general use cases, eg manager classes, or other items with low instance counts (10's or 100's) — the difference in performance should absolutely not be something you need to think about."</em></p>
+    <p>🧹 <em>"This is designed to target mobile, as such should be memory allocation free. However the same rules apply as with the rest of Unity in regards to using IEnumerator and Coroutines."</em></p>
+    <p>🪟 <em>"Due to differences in the Windows Store flavour of .Net and WinRT, this platform is currently incompatible."</em></p>
+    </div>
+    </div>
+
+### 24.2e. ⬆️ Nâng cấp lên v4.0 — bước BẮT BUỘC dễ quên
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><em>"Phiên bản <strong><code>4.0</code></strong> mang lại đổi mới ĐÁNG KỂ, tuy nhiên API cố gắng <strong>TƯƠNG THÍCH NGƯỢC</strong> — nghĩa là <strong>mọi code bạn đã viết KHÔNG cần thay đổi.</strong> 🚨 <strong>NHƯNG bố cục file bên trong package ĐÃ ĐỔI. Để tránh lỗi, khuyến nghị XOÁ thư mục <code>MonsterLove</code> hiện có (chứa <code>StateMachine.cs</code> và các file liên quan), rồi IMPORT LẠI package mới.</strong>"</em></p>
+<p>📋 Thông tin kèm theo: example project dành cho <strong>Unity 2019.4</strong> · giấy phép <strong>MIT</strong> · dùng trong game <strong>Cadence</strong> của Made With Monster Love · nguồn gốc từ FSM của <strong>Unity Gems</strong>.</p>
+</div>
+<div class="col-en">
+<p><em>"Version 4.0 brings substantial innovation, however the API strives for backwards compatibility which means all the code you've already written does not need to change. However, the layout of the files inside the package has changed. To avoid errors it is recommended you delete the existing MonsterLove folder containing StateMachine.cs and related files, then reimport the new package."</em></p>
+<p>📋 Example project targets <strong>Unity 2019.4</strong> · <strong>MIT License</strong> · used in <strong>Cadence</strong> by Made With Monster Love · originally derived from the <strong>Unity Gems</strong> FSM.</p>
+</div>
+</div>
+
+
+---
+
 ## 24.3. Cách 1 — FSM bằng INTERFACE
 
 <img src="../assets/fsm-interface-states.png" alt="Four Interface based states in the Unity Project Window">
@@ -3475,6 +3772,121 @@ public class PatrolState : IState
 </div>
 </div>
 
+---
+
+### 24.3b. 🔗 Vấn đề của bản Interface ĐẦU TIÊN — và cách sửa
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>💀 <em>"Trong khi <strong>State Controller</strong> có khả năng đổi từ state này sang state khác, thì <strong>các LỐI RA khỏi một state, cùng ĐIỀU KIỆN kích hoạt chúng, lại nằm BÊN TRONG chính State đó.</strong> […] Nhưng lúc này, class state <strong>KHÔNG BIẾT chuyện gì đang xảy ra với object mà nó gắn vào.</strong>"</em></p>
+<p>🚨 <em>"<strong>Đó là vì instance của class thuần KHÔNG truy cập được GameObject mà nó gắn vào như script MonoBehaviour làm được</strong>, nghĩa là state thường KHÔNG tương tác được với thế giới xung quanh […] Và kể cả nếu làm được, nó cũng KHÔNG tự đổi state được, vì <strong>hàm đổi state CHỈ state controller mới gọi được.</strong>"</em></p>
+<p>✅ <em>"Một cách sửa là <strong>ĐƠN GIẢN đưa một THAM CHIẾU tới State Controller vào MỘT hoặc NHIỀU hàm bắt buộc của State Interface.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>💀 <em>"While the State Controller has the ability to change from one state to another, the exit routes from a given state, and the conditions that can cause one to be triggered, exist inside the State itself. […] But, right now, the state class doesn't know what's happening to the object it exists on."</em></p>
+<p>🚨 <em>"This is because plain class instances can't access the game object they're attached to like Monobehaviour scripts can, meaning that the state typically can't interact with the world around it […] And, even if it could, it wouldn't be able to change the state itself, as the change state function can only be changed by the state controller."</em></p>
+<p>✅ <em>"One way to fix this is to simply include a reference to a State Controller in one, or more, of the State Interface's required functions."</em></p>
+</div>
+</div>
+
+```csharp
+public class StateController : MonoBehaviour
+{
+    IState currentState;
+
+    public SleepState  sleepState  = new SleepState();
+    public ChaseState  chaseState  = new ChaseState();
+    public PatrolState patrolState = new PatrolState();
+    public HurtState   hurtState   = new HurtState();
+
+    private void Start()
+    {
+        ChangeState(patrolState);
+    }
+
+    void Update()
+    {
+        if (currentState != null)
+        {
+            currentState.UpdateState(this);
+        }
+    }
+
+    public void ChangeState(IState newState)
+    {
+        if (currentState != null)
+        {
+            currentState.OnExit(this);
+        }
+        currentState = newState;
+        currentState.OnEnter(this);
+    }
+}
+
+public interface IState
+{
+    public void OnEnter(StateController controller);
+    public void UpdateState(StateController controller);
+    public void OnHurt(StateController controller);
+    public void OnExit(StateController controller);
+}
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🎯 <em>"Cách này cho phép state <strong>DÙNG state controller làm tham chiếu tới GameObject mà nó gắn vào</strong> […] và khi tới lúc đổi state, nó làm được, <strong>bằng cách gọi hàm <code>ChangeState</code> trên state controller.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🎯 <em>"This allows the state to use the state controller as a reference to the game object it's attached to […] and, when it's time to change the state, it can, by calling the Change State function on the state controller."</em></p>
+</div>
+</div>
+
+```csharp
+public class PatrolState : IState
+{
+    float timeBeforeSleep;
+
+    public void OnEnter(StateController sc)
+    {
+        timeBeforeSleep = 20;
+    }
+
+    public void UpdateState(StateController sc)
+    {
+        // Giờ state ĐỌC ĐƯỢC thế giới xung quanh qua sc.transform
+        if (Physics.Raycast(sc.transform.position, sc.transform.forward))
+        {
+            sc.ChangeState(sc.chaseState);
+        }
+
+        if (timeBeforeSleep < 0)
+        {
+            sc.ChangeState(sc.sleepState);
+        }
+
+        timeBeforeSleep -= Time.deltaTime;
+    }
+
+    public void OnHurt(StateController sc)
+    {
+        sc.ChangeState(sc.hurtState);
+    }
+
+    public void OnExit(StateController sc) { }
+}
+```
+
+!!! warning "⚠️ NHƯỢC ĐIỂM của cách Interface — lý do bài chuyển sang Inheritance"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p><em>"Cách tạo state machine này CHẠY ĐƯỢC và tương đối DỄ hiện thực. Nhưng nó CÓ nhược điểm. Ví dụ, hàm <strong>OnHurt</strong> rất hữu ích vì cho phép bạn <strong>chuyển sang state hurt TỪ BẤT KỲ state nào mà KHÔNG phải lặp lại cùng một kiểm tra điều kiện trong từng state.</strong> 💀 <strong>TUY NHIÊN, vì interface ÉP class phải có ĐỦ các hàm quy định, bạn sẽ phải THÊM CÙNG MỘT BỘ method vào MỌI state bạn tạo thêm.</strong> Với nhiều state và nhiều trigger khác nhau, việc này có thể KHÓ QUẢN LÝ."</em></p>
+    </div>
+    <div class="col-en">
+    <p><em>"This method of creating a state machine works and is relatively easy to implement. But, it does have drawbacks. For example, the On Hurt function is useful, as it allows you to easily transition to the hurt state from any other state, without having to make the same conditional checks in each of them. However, because interfaces force classes to include certain functions, you'll need to add the same set of methods to every state you add. Which, if you've got a lot of states, with a lot of different triggers, could be difficult to manage."</em></p>
+    </div>
+    </div>
+
+
 ## 24.4. Cách 2 — FSM bằng INHERITANCE
 
 <img src="../assets/fsm-inheritance-vis.png" alt="Visualisation of inheritance in Unity">
@@ -3559,6 +3971,95 @@ public class StateController : MonoBehaviour
 ```
 
 ### 24.4.1. 🔑 Khác biệt then chốt: Interface KHÔNG lưu được biến tham chiếu
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📄 <strong>Bước TRUNG GIAN gây ra cái bẫy</strong> — bản <code>State</code> đơn giản nhất, nơi mọi hàm đều <code>virtual</code>:</p>
+</div>
+<div class="col-en">
+<p>📄 <strong>The intermediate step that creates the trap</strong> — the simplest <code>State</code>, where every method is <code>virtual</code>:</p>
+</div>
+</div>
+
+```csharp
+public class State
+{
+    public StateController sc;
+
+    public virtual void OnEnter(StateController stateController)
+    {
+        sc = stateController;   // ⚠️ Nếu lớp con override mà QUÊN gọi base → sc = null
+    }
+
+    public virtual void OnUpdate() { }
+    public virtual void OnHurt()   { }
+    public virtual void OnExit()   { }
+}
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><em>"Giống như khi truyền tham chiếu cho state bằng interface, <strong>state controller có thể cung cấp tham chiếu tới CHÍNH NÓ bằng từ khoá <code>this</code></strong>, kiểu như: <code>currentState.OnEnter(this);</code> Các lớp DẪN XUẤT khi đó dùng được <strong>tham chiếu ĐÃ CACHE tới state controller</strong> […] mà KHÔNG phải truyền nó vào state như tham số trong MỌI hàm."</em></p>
+</div>
+<div class="col-en">
+<p><em>"Just like when passing a reference to states using interfaces, the state controller can provide a reference to itself using the This keyword. Like this: <code>currentState.OnEnter(this);</code> Derived classes would then be able to use a cached reference to the state controller […] without having to pass it to the state as a parameter in every function."</em></p>
+</div>
+</div>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>✅ <strong>Bản SỬA ĐẦY ĐỦ — TÁCH HÀM cho cả BỐN cặp</strong> (tài liệu trước chỉ có cặp <code>OnStateEnter</code>/<code>OnEnter</code>):</p>
+</div>
+<div class="col-en">
+<p>✅ <strong>The full fix — split methods for all four pairs:</strong></p>
+</div>
+</div>
+
+```csharp
+public abstract class State
+{
+    protected StateController sc;
+
+    public void OnStateEnter(StateController stateController)
+    {
+        // Code placed here will always run
+        sc = stateController;
+        OnEnter();
+    }
+    protected virtual void OnEnter() { /* Code placed here can be overridden */ }
+
+    public void OnStateUpdate()
+    {
+        // Code placed here will always run
+        OnUpdate();
+    }
+    protected virtual void OnUpdate() { /* Code placed here can be overridden */ }
+
+    public void OnStateHurt()
+    {
+        // Code placed here will always run
+        OnHurt();
+    }
+    protected virtual void OnHurt() { /* Code placed here can be overridden */ }
+
+    public void OnStateExit()
+    {
+        // Code placed here will always run
+        OnExit();
+    }
+    protected virtual void OnExit() { /* Code placed here can be overridden */ }
+}
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🔑 <strong>Vì sao <code>protected</code> mới là mấu chốt:</strong> <em>"Cách này hoạt động bằng cách tạo <strong>MỘT phiên bản của mỗi hàm cốt lõi cho state machine DÙNG, và MỘT phiên bản cho các state KẾ THỪA.</strong> Ví dụ <strong>OnStateEnter</strong> sẽ LUÔN được state controller gọi khi state đổi, và nó lần lượt kích hoạt hàm <strong>OnEnter</strong>. 🔒 <strong>Hàm OnEnter giờ là <code>protected</code>, nghĩa là CHỈ chính class đó, hoặc class DẪN XUẤT từ nó, mới truy cập được. Nghĩa là state machine KHÔNG THỂ gọi nhầm nó.</strong> Mặc định nó để TRỐNG, nên nếu lớp kế thừa KHÔNG override thì KHÔNG có gì xảy ra."</em></p>
+</div>
+<div class="col-en">
+<p>🔑 <em>"This works by creating one version of each core function for the state machine to use and one version for the states to inherit from. On State Enter, for example, will always be called by the state controller when the state changes, which in turn, will trigger the On Enter function. The On Enter function is now Protected, meaning that only the same class, or classes that are derived from it, can access it. Meaning that the state machine can't call it by accident. By default, it's kept blank so that, if an inheriting class chooses not to override it, nothing happens."</em></p>
+</div>
+</div>
+
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -3797,11 +4298,15 @@ myc.OnClick.AddListener((x, y) => Debug.LogFormat("clicked at {0}, {0}", x, y));
     <div class="bilingual-row">
     <div class="col-vi">
     <p><strong>"Khi dispatch, C# event KHÔNG tạo ra rác NÀO CẢ, còn UnityEvent tạo ra 136 bytes. C# event là kẻ thắng rõ ràng ở khoản này."</strong></p>
-    <p>🔑 <strong>Vì sao đây là con số quan trọng nhất:</strong> Việc <em>thêm listener</em> thường chỉ xảy ra <strong>một lần lúc khởi tạo</strong>, còn việc <em>dispatch</em> xảy ra <strong>liên tục trong gameplay</strong>. 136 B × số lần dispatch mỗi frame = nguồn rác đều đặn.</p>
+    <p>🚨 <strong>ĐÍNH CHÍNH của chính tác giả — in đậm ngay trong bài:</strong> <em>"<strong>Update: UnityEvent CHỈ tạo rác ở LẦN DISPATCH ĐẦU TIÊN. Các lần dispatch SAU ĐÓ KHÔNG tạo rác.</strong>"</em></p>
+    <p>🔑 <strong>Vậy con số 136 B nghĩa là gì:</strong> đó là chi phí <strong>MỘT LẦN cho mỗi UnityEvent</strong>, không phải chi phí mỗi frame. Nó <strong>KHÔNG</strong> nhân lên theo số lần dispatch. ⚠️ Vẫn cần lưu ý ở hai chỗ: (a) scene có <strong>HÀNG NGHÌN</strong> UnityEvent thì tổng chi phí khởi tạo vẫn đáng kể, và (b) nếu bạn <strong>tạo mới UnityEvent lúc chạy</strong> (ví dụ spawn liên tục), mỗi cái lại trả 136 B lần đầu.</p>
+    <p>💡 Lý do thực sự nên chọn C# event ở hot path <strong>không còn là rác</strong> mà là <strong>TỐC ĐỘ</strong> — xem bảng benchmark bên dưới.</p>
     </div>
     <div class="col-en">
     <p><strong>"When dispatched, C# events create no garbage whatsoever but UnityEvent creates 136 bytes. C# events are the clear winner in this regard."</strong></p>
-    <p>🔑 <strong>Why this is the number that matters:</strong> <em>Adding listeners</em> typically happens <strong>once at initialization</strong>, while <em>dispatching</em> happens <strong>continuously during gameplay</strong>. 136 B × dispatches per frame = a steady garbage source.</p>
+    <p>🚨 <strong>The author's own correction, bolded in the article:</strong> <em>"<strong>Update: UnityEvent only creates garbage on the first dispatch. Subsequent dispatches create no garbage.</strong>"</em></p>
+    <p>🔑 So the 136 B is a <strong>one-time cost per UnityEvent</strong>, not a per-frame cost. It does <strong>not</strong> multiply by dispatch count. Two cases still matter: (a) a scene with <strong>thousands</strong> of UnityEvents still pays that setup cost in aggregate, and (b) UnityEvents <strong>created at runtime</strong> each pay 136 B on their first dispatch.</p>
+    <p>💡 The real reason to prefer C# events on hot paths is <strong>speed</strong>, not garbage.</p>
     </div>
     </div>
 
@@ -3852,11 +4357,93 @@ myc.OnClick.AddListener((x, y) => Debug.LogFormat("clicked at {0}, {0}", x, y));
 </div>
 </div>
 
+---
+
+### 25.3b. 🔄 Chạy lại năm 2023 trên Unity 2021.3 — kết luận 2016 đã LỖI THỜI
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>💬 <strong>Comment #39, Ivan, 12/02/2023:</strong> <em>"Tôi quyết định CHẠY LẠI test trên MacBook năm 2023 xem còn đúng không, và có vẻ vẫn đúng :) <strong>Khác biệt ĐẶC BIỆT RÕ (UnityEvent chậm hơn 8–9 lần) khi CHỈ CÓ MỘT listener.</strong>"</em></p>
+<p>🖥️ Cấu hình: <strong>2.3 GHz 8-core i9 · macOS Monterey 12.4 · Unity 2021.3.10f1</strong>, Mac OS X Standalone, intel 64-bit only, non-development, 640×480 Fastest Windowed.</p>
+</div>
+<div class="col-en">
+<p>💬 <strong>Comment #39, Ivan, Feb 12 2023:</strong> <em>"I've decided to re-run the tests on my MacBook in 2023 to see if it still holds, and it looks like it does :) It looks like the difference is especially evident (UnityEvents are 8-9 times slower) when there is just one listener."</em></p>
+</div>
+</div>
+
+| Num Args | Num Listeners | C# Event | UnityEvent | Tỷ lệ |
+|---:|---:|---:|---:|---:|
+| 0 | 1 | 17 | 152 | **8,9×** |
+| 0 | 2 | 62 | 241 | 3,9× |
+| 0 | 3 | 84 | 339 | 4,0× |
+| 0 | 4 | 94 | 396 | 4,2× |
+| 0 | 5 | 109 | 477 | 4,4× |
+| 1 | 1 | 18 | 146 | **8,1×** |
+| 1 | 2 | 61 | 226 | 3,7× |
+| 1 | 3 | 77 | 306 | 4,0× |
+| 1 | 4 | 96 | 380 | 4,0× |
+| 1 | 5 | 113 | 464 | 4,1× |
+| 2 | 1 | 19 | 151 | **7,9×** |
+| 2 | 2 | 59 | 231 | 3,9× |
+| 2 | 3 | 77 | 312 | 4,1× |
+| 2 | 4 | 96 | 395 | 4,1× |
+| 2 | 5 | 115 | 475 | 4,1× |
+
+!!! warning "🚨 So sánh với bảng 2016 ở §25.3 — MỘT kết luận đã KHÔNG còn đúng"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p>Ở <strong>Unity 5.3.1 (2016)</strong>, UnityEvent với 1 listener tốn <strong>206 ms (0 args) → 685 ms (1 arg) → 1187 ms (2 args)</strong> — tức <strong>càng NHIỀU THAM SỐ càng ĐẮT</strong>, gấp gần 6 lần.</p>
+    <p>Ở <strong>Unity 2021.3 (2023)</strong>, cùng phép đo cho <strong>152 / 146 / 151</strong> — <strong>hiệu ứng đó GẦN NHƯ BIẾN MẤT.</strong></p>
+    <p>👉 <strong>Đừng dùng lập luận "tránh UnityEvent nhiều tham số" nữa.</strong> Lý do chọn C# event vẫn còn, nhưng là <strong>chênh lệch nền ~4× (và ~8× khi chỉ có 1 listener)</strong>, không phải vì số tham số.</p>
+    </div>
+    <div class="col-en">
+    <p>On <strong>Unity 5.3.1 (2016)</strong> a single-listener UnityEvent cost <strong>206 / 685 / 1187 ms</strong> for 0/1/2 args — cost grew sharply with argument count. On <strong>Unity 2021.3 (2023)</strong> the same measurement gives <strong>152 / 146 / 151</strong> — that effect is essentially gone.</p>
+    <p>👉 The "avoid UnityEvents with many parameters" argument no longer holds. The remaining gap is a <strong>flat ~4× (≈8× with a single listener)</strong>.</p>
+    </div>
+    </div>
+
+### 25.3c. 🧪 Mono vs IL2CPP — và cái BẪY đo GC trong Editor
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>💬 <strong>Comment #21, Justin Wasilenko, 10/12/2018</strong> — Windows Standalone 640×480, Fastest, Windowed, <strong>Unity 2018.3.0f1</strong>:</p>
+<ul>
+<li><strong>Mono:</strong> C# event <strong>178</strong> ticks · UnityEvent <strong>1482</strong> ticks — <strong>8,3×</strong></li>
+<li><strong>IL2CPP:</strong> C# event <strong>506</strong> ticks · UnityEvent <strong>1577</strong> ticks — <strong>3,1×</strong></li>
+</ul>
+<p>🔑 <strong>Đọc con số này thế nào:</strong> IL2CPP làm <strong>C# event CHẬM ĐI ~2,8×</strong> trong khi UnityEvent gần như KHÔNG đổi ⇒ <strong>khoảng cách THU HẸP từ 8,3× xuống 3,1×</strong>. Nghĩa là lợi thế của C# event <strong>NHỎ HƠN trên build IL2CPP</strong> — đúng thứ bạn dùng để ship mobile/console.</p>
+</div>
+<div class="col-en">
+<p>💬 <strong>Comment #21, Justin Wasilenko, Dec 10 2018</strong> — Windows Standalone 640×480, Fastest, Windowed, Unity 2018.3.0f1:</p>
+<ul>
+<li><strong>Mono:</strong> C# event 178 ticks · UnityEvent 1482 ticks — 8.3×</li>
+<li><strong>IL2CPP:</strong> C# event 506 ticks · UnityEvent 1577 ticks — 3.1×</li>
+</ul>
+<p>🔑 IL2CPP slows C# events ~2.8× while UnityEvent barely changes ⇒ the gap narrows from 8.3× to 3.1× on exactly the backend you ship with.</p>
+</div>
+</div>
+
+!!! danger "💀 ĐỪNG TIN số GC Alloc đo trong EDITOR"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p>💬 <strong>Comment #40, Noam, 18/03/2025 (Unity 2022.3.28):</strong> <em>"Tôi muốn chỉ ra rằng chuyện <strong>0 GC sau lần dispatch đầu HOÀN TOÀN KHÔNG ĐÚNG với event có PERSISTENT LISTENER</strong> (tức gán từ Inspector)…"</em></p>
+    <p><em>"<strong>TRONG EDITOR</strong>, khi dispatch mỗi frame một lần, <strong>lần dispatch đầu cấp phát ÍT NHẤT 0,9 KB rác</strong> kể cả với UnityEvent cơ bản, <strong>lần thứ hai ít nhất khoảng 496 byte</strong>, và sau đó <strong>cứ mỗi ~1–6 frame lại cấp phát 0,5–0,7 KB</strong>, xen kẽ những frame bằng 0."</em></p>
+    <p>✅ <em>"<strong>NHƯNG tôi đã tạo một dev build, và các event QUẢ THỰC KHÔNG cấp phát rác gì cả</strong> — dù Autoconnect Profiler hơi lỗi: profiler không hiện frame cho tới khi bạn tắt/bật lại nút Record."</em></p>
+    <p>🎯 <strong>Bài học cho Junior:</strong> mọi con số GC Alloc bạn thấy trong Editor đều <strong>NHIỄM chi phí của chính Editor</strong>. Muốn kết luận về rác thì <strong>PHẢI đo trên development build chạy trên thiết bị.</strong></p>
+    </div>
+    <div class="col-en">
+    <p>💬 <strong>Comment #40, Noam, Mar 18 2025 (Unity 2022.3.28):</strong> <em>"the 0 gc after the first dispatch was not true at all for events with persistent listeners (i.e. from the inspector)… In the Editor it seems that, with dispatching the events once per frame, the first dispatch allocates at least 0.9kb garbage even for the base UnityEvent, the second dispatch allocates at least about 496 bytes, and after that every ~1-6 frames, it again allocates the same 0.5-0.7kb, and 0 in the frames in between."</em></p>
+    <p>✅ <em>"But I made a dev build… the events are indeed consistently not allocating any garbage."</em></p>
+    <p>🎯 <strong>Takeaway:</strong> GC Alloc numbers read in the Editor are contaminated by the Editor itself. Conclude about garbage only from a development build on device.</p>
+    </div>
+    </div>
+
+
 ### 25.4. 🧭 Khuyến nghị chọn lựa
 
 | Tình huống | Nên dùng | Lý do |
 |---|---|---|
-| Event **dispatch mỗi frame** trong gameplay | ✅ **C# event** | **0 B GC Alloc khi dispatch** (UnityEvent: 136 B) |
+| Event **dispatch mỗi frame** trong gameplay | ✅ **C# event** | Nhanh hơn nhiều lần. *(Về rác: UnityEvent chỉ tốn 136 B ở **lần dispatch ĐẦU TIÊN**, các lần sau 0 B — xem đính chính ở §25.2)* |
 | Event có **nhiều tham số** | ✅ **C# event** | Chênh lệch tốc độ lên tới **~39.6×** |
 | Cần **designer gán listener trong Inspector** | ✅ **UnityEvent** | C# event không serialize được ra Inspector |
 | Event chỉ chạy **lúc chuyển scene / UI click** | Cả hai đều được | Tần suất thấp ⇒ chênh lệch không đáng kể |
@@ -3866,6 +4453,49 @@ myc.OnClick.AddListener((x, y) => Debug.LogFormat("clicked at {0}, {0}", x, y));
     **VI:** Một độc giả đề xuất: dùng **UnityEvent thuần túy như tiện ích ĐỒ HỌA** (để designer thấy danh sách thao tác trong Inspector), rồi dùng **Reflection ở `Awake`/`OnEnable` để chuyển các Persistent Listener của UnityEvent thành delegate MỘT LẦN**. Tác giả cảnh báo: *"Có thể tốn kém, đặc biệt về GC allocation, nếu bạn có nhiều event."* Phương án lai khác: **tự viết Inspector UI riêng, backed bằng C# event thay vì UnityEvent.**
 
     **EN:** A reader proposed: use **UnityEvents purely as a GRAPHICAL convenience** (so designers see the operation list in the Inspector), then use **Reflection in `Awake`/`OnEnable` to convert the UnityEvent's Persistent Listeners to delegates ONCE**. The author cautions: *"There may be a high cost, especially in terms of GC allocations, if you have a lot of events."* Another hybrid: **build your own Inspector UI backed by C# events instead of UnityEvent.**
+
+---
+
+### 25.5. 🧩 Bốn khác biệt HÀNH VI (không phải hiệu năng) — từ phần comment
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>⚠️ Bốn điểm dưới đây nằm trong <strong>phần bình luận</strong> của bài gốc, không có trong thân bài. Chúng là <strong>khác biệt về HÀNH VI</strong> — quan trọng không kém con số benchmark.</p>
+</div>
+<div class="col-en">
+<p>⚠️ These four points live in the article's <strong>comment thread</strong>, not the body. They are <strong>behavioural</strong> differences.</p>
+</div>
+</div>
+
+| # | Khác biệt | Nguyên văn |
+|---|---|---|
+| **①** | **Đăng ký TRÙNG cùng một callback** | *(comment #28, xavier)* — *"Một khác biệt: đăng ký NHIỀU LẦN cùng một instance callback. **C# sẽ gọi callback đó NHIỀU LẦN. Unity CHỈ gọi MỘT LẦN.** Có thể hữu ích khi xử lý start/enable/destroy/disable có điều kiện của script."* |
+| **②** | 💀 **UnityEvent KHÔNG giữ weak reference** | *(chuỗi #13 → #14 → #15)* — #13 Arun tưởng *"không cần unsubscribe vì UnityEvent chỉ giữ weak reference"*; #14 Adriano phản bác: *"Tài liệu nói RÕ rằng tham chiếu tới listener KHÔNG phải weak"*; #15 Julian dẫn nguyên văn Unity Manual: **"`UnityEvents` có giới hạn TƯƠNG TỰ delegate chuẩn. Tức là chúng GIỮ tham chiếu tới đối tượng đích, và điều này NGĂN đối tượng đó bị garbage collect."** |
+| **③** | **Persistent Listener chạy bằng REFLECTION** | *(comment #8, oj)* — *"Để dùng được trong Editor, Unity Event PHẢI được SERIALIZE (điều này giải thích vì sao bạn phải tạo class DẪN XUẤT — serializer KHÔNG hỗ trợ field generic). Nên tôi nghĩ với **Editor (Persistent) Event Listener thì THAM CHIẾU object đích và METHOD INFO được serialize rồi gọi qua REFLECTION** khi event được invoke, còn khi thêm bằng CODE thì chỉ là một **delegate** được đăng ký."* |
+| **④** | **Có sẵn asset giải bài toán "lai"** | *(comment #33, Georgios Adamopoulos)* — *"Tôi nghĩ Thor Brigsted đã làm đúng như vậy rồi!"* → <code>github.com/Siccity/SerializableCallback</code> |
+
+!!! danger "💀 Hệ quả của ② — cái bẫy rò rỉ mà Junior hay dính"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p>Rất nhiều người chọn <strong>UnityEvent</strong> vì tin rằng <em>"dùng UnityEvent thì khỏi cần <code>RemoveListener</code>"</em>. <strong>ĐIỀU ĐÓ SAI.</strong> UnityEvent giữ tham chiếu MẠNH y như C# event ⇒ quên gỡ listener thì object đích <strong>KHÔNG BAO GIỜ được GC</strong>. Quy tắc đối xứng vẫn áp dụng: <strong>mỗi <code>AddListener</code> phải có một <code>RemoveListener</code>.</strong></p>
+    </div>
+    <div class="col-en">
+    <p>Many people pick UnityEvent believing they don't need <code>RemoveListener</code>. <strong>That is false.</strong> UnityEvent holds strong references just like a C# event, so a forgotten listener keeps its target alive forever. The symmetry rule still applies.</p>
+    </div>
+    </div>
+
+!!! warning "⚠️ Hệ quả của ③ — ba bảng benchmark ở §25 đo cái GÌ"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p>Cả ba bảng đều đo <strong>listener thêm bằng CODE</strong> (tức delegate). <strong>Listener gán trong INSPECTOR (persistent) đi qua REFLECTION và có thể còn ĐẮT HƠN NỮA</strong> — bài viết <strong>KHÔNG đo</strong> trường hợp đó. Nên nếu bạn nối event bằng Inspector, đừng lấy con số ở đây làm chuẩn.</p>
+    <p>📋 <strong>Cấu hình máy của bảng §25.3</strong> (để bạn tự chạy lại): <strong>2.3 GHz Intel Core i7-3615QM · macOS 10.11.2 · Apple SSD SM256E (HFS+) · Unity 5.3.1f1 Mac OS X Standalone x86_64 non-development · 640×480 Fastest Windowed</strong>. Cách chạy lại: dán code vào <code>TestScript.cs</code> trong <code>Assets</code>, gắn vào main camera của một project TRỐNG, build <strong>non-development</strong> cho 64-bit rồi chạy windowed 640×480 ở mức graphics fastest.</p>
+    </div>
+    <div class="col-en">
+    <p>All three tables measure <strong>code-added listeners</strong> (delegates). <strong>Inspector-assigned (persistent) listeners go through reflection and may be more expensive still</strong> — the article does not measure them.</p>
+    <p>📋 Test machine for §25.3: 2.3 GHz Intel Core i7-3615QM · macOS 10.11.2 · Unity 5.3.1f1 Mac OS X Standalone x86_64 non-development · 640×480 Fastest Windowed.</p>
+    </div>
+    </div>
+
 
 ---
 
@@ -3941,6 +4571,18 @@ public void UpdateNameWithCharacter(char: character)
 </div>
 
 ### 26.1. Unity Test Runner — PlayMode vs EditMode
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>👉 <strong>Mở cửa sổ ở đâu:</strong> <em>"Để mở Unity Test Runner, chọn <strong><code>Window ▸ General ▸ Test Runner</code></strong>. Sau khi Test Runner mở ra như một cửa sổ mới, bạn có thể <strong>KÉO nó nằm CẠNH cửa sổ Scene</strong> cho tiện."</em></p>
+<p>📚 <em>"Test Runner là tính năng unit testing Unity cung cấp — <strong>nhưng nó DÙNG framework NUnit.</strong> Khi bạn viết unit test nghiêm túc hơn, nên <strong>đọc wiki của NUnit</strong> (<code>github.com/nunit/docs/wiki</code>)."</em></p>
+</div>
+<div class="col-en">
+<p>👉 <em>"To open the Unity Test Runner, choose <strong>Window ▸ General ▸ Test Runner</strong>. After the Test Runner opens as a new window, you can make life easier by clicking the Test Runner window and dragging it next to your Scene window."</em></p>
+<p>📚 <em>"Test Runner is the unit testing feature provided by Unity — but it utilizes the NUnit framework. As you get more serious about writing unit tests, you should consider reading the wiki on NUnit."</em></p>
+</div>
+</div>
+
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -4188,7 +4830,7 @@ public class NameInputTests
 <p><strong>🏛️ Kiến trúc</strong></p>
 <ul>
 <li>☑️ Thuộc <strong>5 nguyên lý SOLID</strong> + bảng ánh xạ sang design pattern.</li>
-<li>☑️ Ưu tiên <strong>C# event</strong> cho hot path (<strong>0 B GC khi dispatch</strong> vs 136 B của UnityEvent).</li>
+<li>☑️ Ưu tiên <strong>C# event</strong> cho hot path — <strong>vì TỐC ĐỘ</strong>, không phải vì rác (UnityEvent chỉ tạo rác ở lần dispatch ĐẦU TIÊN).</li>
 <li>☑️ Dùng <strong>UnityEvent</strong> chỉ khi cần designer gán trong Inspector.</li>
 <li>☑️ FSM: quy ước <code>StateName_Method</code>, <strong>zero-alloc sau init</strong>, dùng <code>Driver</code> để kiểm soát thứ tự.</li>
 <li>☑️ Biết <strong>Object Pool · Dirty Flag · Data Locality</strong> — 3 pattern liên quan hiệu năng nhất.</li>

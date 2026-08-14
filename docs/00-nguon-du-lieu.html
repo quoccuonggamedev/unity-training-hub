@@ -1156,7 +1156,7 @@
 <tr>
 <td>12</td>
 <td><a href="https://learn.unity.com/tutorial/optimizing-unity-ui">learn.unity.com — Optimizing Unity UI</a></td>
-<td>✅ ⭐ <strong>Nguồn chính M2</strong> — cào đủ <strong>6/6 chương</strong> + 5 ảnh</td>
+<td>✅ ⭐ <strong>Nguồn chính M2</strong> — cào đủ <strong>6/6 chương</strong> + <strong>7/7 ảnh</strong> (audit 2 xác nhận đủ). Bổ sung: hoàn chỉnh shader <code>UI/Fast-Default</code> (bản cũ <strong>thiếu <code>appdata_t</code>/<code>v2f</code>/<code>vert()</code> nên KHÔNG compile được</strong>), địa chỉ repo Bitbucket của UGUI</td>
 </tr>
 <tr>
 <td>13</td>
@@ -1176,22 +1176,22 @@
 <tr>
 <td>16</td>
 <td><a href="https://www.jacksondunstan.com/articles/3335">jacksondunstan.com — C# event vs UnityEvent</a></td>
-<td>✅ <strong>3 bảng benchmark đầy đủ</strong> + tranh luận trong comments</td>
+<td>✅ <strong>3 bảng benchmark đầy đủ</strong> + comments. <strong>Audit 2 sửa một chỗ tài liệu nói SAI</strong>: tác giả đã đính chính <em>"UnityEvent chỉ tạo rác ở lần dispatch ĐẦU TIÊN"</em> — bản cũ viết "136 B × số lần dispatch mỗi frame". Bổ sung: bảng chạy lại 2023 trên Unity 2021.3 (hiệu ứng "nhiều tham số càng đắt" đã BIẾN MẤT), benchmark Mono vs IL2CPP, bẫy đo GC trong Editor, 4 khác biệt hành vi (UnityEvent <strong>KHÔNG</strong> giữ weak reference)</td>
 </tr>
 <tr>
 <td>17</td>
 <td><a href="https://github.com/thefuntastic/Unity3d-Finite-State-Machine">GitHub — thefuntastic/Unity3d-Finite-State-Machine</a></td>
-<td>✅ README đầy đủ + Driver deep-dive</td>
+<td>✅ README + Driver deep-dive. <strong>Audit 2 bổ sung 4 mục cuối README bị bỏ trắng</strong>: Async Transitions (<code>StateTransition.Safe</code>/<code>.Overwrite</code>), anti-pattern gọi <code>ChangeState</code> từ ngoài + bảng transition ngầm, Performance &amp; Limitations (ngưỡng <em>tens of thousands</em>, Windows Store không tương thích), bước nâng cấp v4.0</td>
 </tr>
 <tr>
 <td>18</td>
 <td><a href="https://gamedevbeginner.com/state-machines-in-unity-how-and-when-to-use-them/">gamedevbeginner.com — State Machines in Unity</a></td>
-<td>✅ <strong>Cào được qua Jina reader</strong> (<code>r.jina.ai</code>) sau khi curl bị 403 WAF — 34.8 KB + <strong>5 sơ đồ</strong>; 3 cách cài FSM (Interface/Inheritance/Hierarchical)</td>
+<td>✅ <strong>Cào được qua Jina reader</strong> (<code>r.jina.ai</code>) sau khi curl bị 403 WAF — 34.8 KB + <strong>5 sơ đồ</strong>; 3 cách cài FSM (Interface/Inheritance/Hierarchical). <strong>Audit 2 bổ sung các bước CODE trung gian bị bỏ</strong>: biến thể <code>IState</code> truyền <code>StateController</code> + <code>PatrolState</code>, nhược điểm của Interface, base <code>State</code> tách đủ 4 cặp hàm + giải thích <code>protected</code></td>
 </tr>
 <tr>
 <td>19</td>
 <td><a href="https://github.com/aniketrajnish/Unity-Collider-Optimizer">GitHub — aniketrajnish/Unity-Collider-Optimizer</a></td>
-<td>✅ README + <strong>6 ảnh so sánh</strong> + số liệu (3032→918 tris, 214→23 paths)</td>
+<td>✅ README + <strong>6 ảnh so sánh</strong> + số liệu (3032→918 tris, 214→23 paths) + <strong>mục Presets</strong> (bổ sung ở audit 2)</td>
 </tr>
 <tr>
 <td>20</td>
@@ -1201,7 +1201,7 @@
 <tr>
 <td>21</td>
 <td>📕 E-book Mobile Perf — ch. <em>User interface</em> (tr.37–40), <em>Physics</em> (tr.45–47), <em>Animation</em> (tr.43–44)</td>
-<td>✅ Bóc tách toàn văn + <strong>11 ảnh trích từ PDF</strong></td>
+<td>✅ Bóc tách toàn văn + <strong>15 ảnh trích từ PDF</strong>. ⚠️ <strong>Audit 2 sửa 3 ảnh đặt SAI</strong>: <code>anim-animation-system</code> ↔ <code>anim-generic-vs-humanoid</code> bị <strong>HOÁN VAI</strong> (một cái thực chất là Physics Debugger, cái kia là sơ đồ Animation System), và <code>physics-fixed-timestep-settings</code> thực chất là bảng Physics <strong>không có chữ Fixed Timestep nào</strong></td>
 </tr>
 </tbody>
 </table>
@@ -1229,12 +1229,12 @@
 <tr>
 <td>24</td>
 <td><a href="https://docs.colyseus.io/colyseus/">docs.colyseus.io</a></td>
-<td>✅ URL raw <strong>404</strong> → tìm ra <code>docs.colyseus.io/getting-started/unity</code>; cào qua Jina reader, có code SDK Unity đầy đủ</td>
+<td>✅ URL raw <strong>404</strong> → tìm ra <code>docs.colyseus.io/getting-started/unity</code>; cào qua Jina reader. <strong>Audit 2 bổ sung 5 mục còn thiếu</strong>: <code>npx schema-codegen</code> (bước BẮT BUỘC để code C# biên dịch được), <code>DynamicSchema</code>, Message Types Codegen, Room Inspector, bẫy <code>pingInterval</code> (breakpoint ⇒ WebSocket rớt sau 3 s), cài bản legacy <code>.unitypackage</code> + <em>seat reservation</em></td>
 </tr>
 <tr>
 <td>25</td>
 <td><a href="https://learn.unity.com/tutorial/memory-management-in-unity">learn.unity.com — Memory Management in Unity</a></td>
-<td>✅ ⭐ <strong>Nguồn chính M3</strong> — cào đủ <strong>12/12 chương</strong> (Unity 2022.3) + <strong>3 ảnh</strong></td>
+<td>✅ ⭐ <strong>Nguồn chính M3</strong> — cào đủ <strong>12/12 chương</strong> (Unity 2022.3) + <strong>2 ảnh</strong> <em>(ảnh thứ 3 là thumbnail cover, không phải nội dung)</em>. <strong>Audit 2 bổ sung</strong>: <code>Cloned Materials</code> (<code>sharedMaterial</code>), <code>UnloadScene()</code> không unload asset, 2/6 cách giảm native memory, 2 khối <code>dumpsys meminfo</code> đầy đủ, output <code>procrank</code> + <code>/proc/meminfo</code>, 3 tài liệu nền</td>
 </tr>
 <tr>
 <td>26</td>
@@ -1249,12 +1249,12 @@
 <tr>
 <td>28</td>
 <td>📕 E-book Mobile Perf — ch. <em>Assets</em> (tr.24–28), <em>Audio</em> (tr.41–42) · 📙 E-book Console/PC — ch. <em>Assets</em> (tr.30–37)</td>
-<td>✅ Bóc tách toàn văn + <strong>10 ảnh trích PDF</strong></td>
+<td>✅ Bóc tách toàn văn + <strong>14 ảnh trích PDF</strong>. <strong>Audit 2 bổ sung</strong>: polygon <em>density</em> / microtriangles / art pass / bake specular vào texture (Console tr.33), con số nén <strong>16 MB → 2,7 MB DXT1</strong>, texture packer ⇒ 1 draw call, Addressables + Cloud Content Delivery/DLC, ví dụ ADPCM <em>footsteps/gunshots</em>. ⚠️ <strong>Sửa 1 ảnh đặt SAI</strong>: <code>asset-polygon-count.png</code> thực chất là bản thấp-res của <code>asset-mesh-import-settings.png</code> → thay bằng ảnh <em>Remove unseen faces</em> đúng</td>
 </tr>
 <tr>
 <td>—</td>
 <td><em>Bổ sung từ ghi chú raw (không có URL):</em> Service Locator, WebSocket Lock-step, Wei = 10⁻¹⁸, MLAPI/Mirror, Android plugin, UnityWebRequest</td>
-<td>✅ Đã đưa vào §10, §12, §13</td>
+<td>✅ Đã đưa vào §10, §12, §13 + <strong>§12.4 Observer</strong> (mẫu đi cặp với Service Locator, bổ sung ở audit 2)</td>
 </tr>
 </tbody>
 </table>
@@ -1317,7 +1317,7 @@
 <tr>
 <td>38</td>
 <td><a href="https://www.gamedev.net/articles/programming/graphics/gpu-performance-for-game-artists-r4632/">gamedev.net — GPU Performance for Game Artists</a></td>
-<td>✅ <strong>TOÀN VĂN</strong> → M4 Phần A + B (5 giai đoạn GPU, overshading 75%, bandwidth/mipmap). ⚠️ Ảnh sơ đồ <strong>bị chặn hotlink</strong> → diễn giải thành bảng</td>
+<td>✅ <strong>TOÀN VĂN</strong> → M4 Phần A + B (5 giai đoạn GPU, overshading 75%, bandwidth/mipmap). ⚠️ Ảnh sơ đồ <strong>bị chặn hotlink</strong> → diễn giải thành bảng. <strong>Audit 4 bổ sung §2.2</strong>: texture atlas ↔ draw call, instancing/clustering, mesh merging + bẫy bounding volume, case study <strong>XCOM 2</strong>, D3D12/Vulkan &amp; Assassin's Creed</td>
 </tr>
 <tr>
 <td>39</td>
@@ -1337,7 +1337,7 @@
 <tr>
 <td>41</td>
 <td>📗 <a href="https://cdn.bfldr.com/S5BC9Y64/at/5rmgtzhmbk347bj6pvqskb/Introduction_to_the_Universal_Render_Pipeline_for_advanced_Unity_creators_2021_LTS_edition.pdf"><strong>E-book PDF</strong> — Introduction to URP for advanced creators, <strong>125 trang</strong></a></td>
-<td>✅ <strong>BÓC TÁCH TOÀN BỘ 125 TRANG — MỌI chương</strong> → M4 §8, §16–§22, §31–§38. <strong>18 ảnh trích từ PDF</strong></td>
+<td>✅ <strong>BÓC TÁCH TOÀN BỘ 125 TRANG — MỌI chương</strong> → M4 §8, §16–§22, §31–§38. <strong>BÓC TÁCH 100%</strong> sau audit 4 (bổ sung: SRP evolution + 5 luận điểm chọn URP, dự án URP mới, walkthrough Viking Village + 7 bước test Quality, Lighting Settings Asset + 3 nơi A/B/C, Camera/Pipeline settings, <code>Debug Level</code>, native Profiler API, ghi chú 2D Renderer) · <strong>72 ảnh trích từ PDF</strong></td>
 </tr>
 <tr>
 <td>42</td>
@@ -1347,7 +1347,7 @@
 <tr>
 <td>43</td>
 <td>📕 <a href="https://content.cdntwrk.com/files/aT0xNDI0NjkzJnY9MSZpc3N1ZU5hbWU9b3B0aW1pemUteW91ci1jb25zb2xlLWFuZC1wYy1nYW1lLXBlcmZvcm1hbmNlJmNtZD1kJnNpZz1hYjFkYjE2OTRhZWZhNzI4OTFkM2FiZjIyNTIyNTkyMQ%253D%253D"><strong>E-book PDF</strong> — Optimize your console and PC game performance, 94 tr.</a></td>
-<td>✅ ch. <em>Graphics</em> (tr.38–51) + <strong><em>GPU optimization</em> (tr.52–69)</strong> → M4 Phần C, E, F, G. <strong>Audit bổ sung TOÀN BỘ mục còn thiếu</strong>: Benchmark the GPU (§3.1), Alternative debugging techniques (§3.2), Draw order &amp; render queues (§5.4), Dynamic resolution (§22.2), Profile post-processing (§35.3)</td>
+<td>✅ ch. <em>Graphics</em> (tr.38–51) + <strong><em>GPU optimization</em> (tr.52–69)</strong> → M4 Phần C, E, F, G. <strong>Audit bổ sung TOÀN BỘ mục còn thiếu</strong>: Benchmark the GPU (§3.1), Alternative debugging techniques (§3.2), Draw order &amp; render queues (§5.4), Dynamic resolution (§22.2), Profile post-processing (§35.3). <strong>Audit 4 bổ sung §23.0</strong> (Reduce the batch count + Profile the post-processing cho console) và <strong>25 ảnh</strong></td>
 </tr>
 <tr>
 <td>44</td>
@@ -1367,17 +1367,17 @@
 <tr>
 <td>46</td>
 <td>📘 <a href="https://cdn.bfldr.com/S5BC9Y64/at/g9f4kvk4pk99t38jx86ph696/Unity_DefinitiveGuideToLightingInHDRP_eBook.pdf"><strong>E-book PDF</strong> — The Definitive Guide to Lighting in HDRP, 83 tr.</a></td>
-<td>✅ <strong>Bóc tách chương <em>Optimizing HDRP<em> + </em>Rendering Debugger<em> + mọi </em>Performance/Optimization tip</em></strong> → M4 <strong>§26</strong> (kèm 2 ảnh) · §8 · §18 · §22.1 · §23.4</td>
+<td>✅ <strong>Bóc tách chương <em>Optimizing HDRP<em> + </em>Rendering Debugger<em> + mọi </em>Performance/Optimization tip</em></strong> → M4 <strong>§26</strong> + bổ sung SSR <code>Minimum Smoothness</code>/<code>Max Ray Steps</code>, shadow <code>Update Mode</code>, cảnh báo ghép MSAA+post-AA (kèm <strong>13 ảnh</strong>) · §8 · §18 · §22.1 · §23.4</td>
 </tr>
 <tr>
 <td>47</td>
 <td>📘 <a href="https://cdn.bfldr.com/S5BC9Y64/at/2tcfx5bgpknjvp3bksq8hcr/JW10283_Unity_ABMCampaign_Final.pdf"><strong>E-book PDF</strong> — HDRP Lighting 2021 LTS, 100 tr.</a></td>
-<td>✅ Bóc tách — <strong>hai danh sách tính năng cần TẮT (HDRP Asset + Frame Settings), bẫy Global Settings ↔ Pipeline Asset</strong> → M4 <strong>§26.1</strong>, <strong>§26.2</strong></td>
+<td>✅ Bóc tách — <strong>hai danh sách tính năng cần TẮT (HDRP Asset + Frame Settings), bẫy Global Settings ↔ Pipeline Asset</strong> → M4 <strong>§26.0–§26.2</strong> (bổ sung quan hệ nhiều Pipeline Asset ↔ Quality Level, cảnh báo <code>Lit Shader Mode = Both</code> tốn bộ nhớ GPU) + <strong>1 ảnh</strong></td>
 </tr>
 <tr>
 <td>48</td>
 <td>📕 <a href="https://cdn.bfldr.com/S5BC9Y64/at/6qfsbqs59798rprm563f/The_definitive_guide_to_creating_advanced_visual_effects_in_Unity.pdf"><strong>E-book PDF</strong> — Definitive guide to creating advanced VFX, 120 tr.</a></td>
-<td>✅ <strong>Bóc tách TOÀN BỘ chương OPTIMIZATION (tr.98–110)</strong> — 7 nghi phạm, Bounds, Mesh LOD, octagon/low-res transparency, case study Spaceship → M4 <strong>§25</strong> (kèm 6 ảnh) · §24 · §40.1</td>
+<td>✅ <strong>Bóc tách TOÀN BỘ chương OPTIMIZATION (tr.98–110)</strong> — 7 nghi phạm, Bounds, Mesh LOD, octagon/low-res transparency, case study Spaceship → M4 <strong>§25</strong> — phủ <strong>100%</strong>, kèm <strong>17 ảnh</strong> · §24 · §40.1</td>
 </tr>
 <tr>
 <td>49</td>
@@ -1400,7 +1400,7 @@
 <tr>
 <td>50</td>
 <td>📕 <a href="https://github.com/CyberAgentGameEntertainment/UnityPerformanceTuningBible/releases/download/v1.0.5/UnityPerformanceTuningBible_EN.pdf"><strong>PDF bản tiếng Anh, 323 trang, 12 chương</strong> — CyberAgent Unity Performance Tuning Bible v1.0.5</a></td>
-<td>✅ <strong>Tải + bóc tách TOÀN VĂN (267 hình)</strong> → M5 Phần A–E</td>
+<td>✅ <strong>Tải + bóc tách TOÀN VĂN (267 hình)</strong> → M5 Phần A–E · <strong>198/232 ảnh nội dung đã nhúng</strong>, 34 ảnh còn lại là bìa chương/ảnh trùng đã duyệt loại</td>
 </tr>
 <tr>
 <td>51</td>
@@ -1410,17 +1410,17 @@
 <tr>
 <td>52</td>
 <td>📕 <a href="https://content.cdntwrk.com/files/aT0xNDMwNzIwJnY9MSZpc3N1ZU5hbWU9dW5pdHktZ2FtZS1kZXYtZmllbGQtZ3VpZGUmY21kPWQmc2lnPTJmNGI2NGQzMzEyNDU4ODA1ODA0MWFiOTAwOTU3M2Qz"><strong>E-book PDF</strong> — Unity Gamedev Field Guide (79 tr.)</a></td>
-<td>✅ ch. <em>Version control</em> + <em>Project organization</em> → M5 <strong>Phần G</strong> + 10 ảnh</td>
+<td>✅ ch. <em>Version control</em> + <em>Project organization</em> → M5 <strong>Phần G</strong> + <strong>11 ảnh</strong> (đã phủ 11/11 ảnh nội dung của hai chương này)</td>
 </tr>
 <tr>
 <td>53</td>
 <td>📘 <a href="https://cdn.bfldr.com/S5BC9Y64/at/pr233rvht6m6rwxpp8kjkn8/2022_ABMVersionControlandProjectOrganizationinUnity_EBook_Final.pdf"><strong>E-book PDF</strong> — Version Control and Project Organization Best Practice Guide, <strong>52 trang</strong></a></td>
-<td>✅ <strong>Tải + bóc tách toàn văn</strong> (grep landing page ra link PDF) → M5 <strong>Phần H</strong> (13 thuật ngữ, <strong>4 hệ VCS Git/Perforce/SVN/Plastic + ma trận so sánh 18 tiêu chí</strong>, 6 quy tắc thư mục, 5 chuẩn đặt tên, <code>.meta</code>, Git LFS, 7 thông lệ, Git Flow) + <strong>11 ảnh</strong></td>
+<td>✅ <strong>Tải + bóc tách toàn văn</strong> (grep landing page ra link PDF) → M5 <strong>Phần H</strong> (13 thuật ngữ, <strong>4 hệ VCS Git/Perforce/SVN/Plastic + ma trận so sánh 18 tiêu chí</strong>, 6 quy tắc thư mục, 5 chuẩn đặt tên, <code>.meta</code>, Git LFS, 7 thông lệ, Git Flow, <strong>chuẩn CODE + script <code>KeywordReplace</code></strong>) + <strong>29 ảnh</strong></td>
 </tr>
 <tr>
 <td>54</td>
 <td>📗 <a href="https://create.unity3d.com/ebook-improve-workflow"><strong>E-book PDF</strong> — 70+ tips to increase productivity with Unity 2020 LTS, <strong>62 trang</strong></a></td>
-<td>✅ <strong>Tải + bóc tách toàn văn</strong> → M5 <strong>Phần I</strong> — <strong>bóc tách 100%</strong>: Shortcuts Manager · Focused Inspector · Presets · SceneVisibility · Scene picking · <code>t:</code>/<code>l:</code> · Inspector Debug · QuickSearch · Sprite Atlas · <strong>10 mẹo 2D</strong> · Prefab/Nested/Variant · TextMeshPro · Snapping · Animation · Gizmos · Progressive Lightmapper · Light Probes · <strong>9 Attribute</strong> · Custom window/menu · Script templates · Addressables + CCD · <code>#define</code> · ScriptableObject · Assembly · IDE · Debugging (8 mẹo) · phím tắt VS · Device Simulator · Console Log Entry · Custom Compiler status + <strong>61 ảnh</strong></td>
+<td>✅ <strong>Tải + bóc tách toàn văn</strong> → M5 <strong>Phần I</strong> — <strong>bóc tách 100%</strong>: Shortcuts Manager · Focused Inspector · Presets · SceneVisibility · Scene picking · <code>t:</code>/<code>l:</code> · Inspector Debug · QuickSearch · Sprite Atlas · <strong>10 mẹo 2D</strong> · Prefab/Nested/Variant · TextMeshPro · Snapping · Animation · Gizmos · Progressive Lightmapper · Light Probes · <strong>9 Attribute</strong> · Custom window/menu · Script templates · Addressables + CCD · <code>#define</code> · ScriptableObject · Assembly · IDE · Debugging (8 mẹo) · phím tắt VS · Device Simulator · Console Log Entry · Custom Compiler status + <strong>79 ảnh</strong></td>
 </tr>
 <tr>
 <td>55</td>

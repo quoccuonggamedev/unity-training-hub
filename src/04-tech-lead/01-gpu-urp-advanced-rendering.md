@@ -117,6 +117,9 @@ ret
 
 ## 2. CPU & Draw Call — Nút thắt đầu tiên
 
+<img src="../assets/urp-profiler-timeline.png" alt="The Profiler Timeline showing the Render Thread and Job Workers.">
+<p><em>VI: <strong>▲ Vì sao phải nhìn TIMELINE chứ không chỉ nhìn tổng</strong> — Profiler ở chế độ Timeline cho thấy <strong>Render Thread</strong> và <strong>Job Worker 0/1/2</strong> chạy song song với Main Thread. Draw call dồn ở Render Thread là dấu hiệu CPU-bound phía đồ hoạ. / EN: The Profiler Timeline showing the Render Thread and Job Workers.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>🔑 <strong>GPU KHÔNG làm việc một mình.</strong> Nó dựa vào code game chạy trên <strong>CPU</strong> để bảo nó render CÁI GÌ và render THẾ NÀO. CPU và GPU (thường) là <em>2 chip riêng biệt, chạy độc lập và song song</em>.</p>
@@ -218,6 +221,68 @@ ret
     </blockquote>
     </div>
     </div>
+
+### 2.2. 🧩 Atlas, Instancing, Merging — và cái bẫy BOUNDING VOLUME
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🗺️ <strong>Texture atlas — giải pháp KINH ĐIỂN cho draw call:</strong></p>
+<p><em>"Với một scene có HÀNG TRĂM hoặc thậm chí HÀNG NGHÌN object, dùng NHIỀU draw call cho mỗi object sẽ <strong>tốn ĐÁNG KỂ thời gian CPU và do đó ảnh hưởng RÕ RỆT tới framerate.</strong> Để tránh, giải pháp phổ biến là <strong>GỘP TẤT CẢ các texture map dùng trên một mesh vào MỘT TEXTURE LỚN DUY NHẤT — thường gọi là ATLAS. UV của mesh sau đó được ĐIỀU CHỈNH để tra đúng phần của atlas, và TOÀN BỘ mesh (hoặc thậm chí NHIỀU mesh) có thể được render trong MỘT draw call duy nhất.</strong> ⚠️ <strong>Phải CẨN THẬN khi dựng atlas để các texture KỀ NHAU KHÔNG LOANG (bleed) vào nhau ở các mip THẤP</strong>, nhưng những vấn đề này TƯƠNG ĐỐI NHỎ so với lợi ích hiệu năng thu được."</em></p>
+<p>🔁 <strong>Instancing / clustering:</strong></p>
+<p><em>"Nhiều engine cũng hỗ trợ <strong>INSTANCING — còn gọi là batching hay clustering. Đây là khả năng dùng MỘT draw call để render NHIỀU object GẦN NHƯ GIỐNG HỆT NHAU về shader và state, chỉ khác nhau ở một tập GIỚI HẠN các thuộc tính</strong> (thường là vị trí và góc xoay trong thế giới). ✅ <strong>Engine thường TỰ NHẬN RA khi nhiều object giống hệt nhau có thể render bằng instancing, nên LUÔN NÊN dùng LẶP LẠI CÙNG MỘT object trong scene khi có thể, thay vì nhiều object KHÁC NHAU phải render bằng các draw call riêng.</strong>"</em></p>
+<p>🔗 <em>"Một kỹ thuật phổ biến khác để giảm draw call là <strong>GỘP THỦ CÔNG nhiều object khác nhau DÙNG CHUNG material vào MỘT mesh duy nhất. Cách này có thể HIỆU QUẢ, nhưng phải CẨN THẬN TRÁNH GỘP QUÁ MỨC — việc đó thực ra có thể LÀM HIỆU NĂNG TỆ ĐI vì TĂNG khối lượng việc cho GPU.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🗺️ <strong>The texture atlas as a draw-call solution:</strong></p>
+<p><em>"With a scene of hundreds or even thousands of objects, using many draw calls for each object will cost a considerable amount of CPU time and so will have a noticeable impact on the framerate of the game. To avoid this, a common solution is to combine all the different texture maps used on a mesh into a single big texture, often called an atlas. The UVs of the mesh are then adjusted to look up the right part of the atlas, and the entire mesh (or even multiple meshes) can be rendered in a single draw call. Care must be taken when constructing the atlas so that adjacent textures don't bleed into each other at lower mips, but these problems are relatively minor compared to the gains that can be had in terms of performance."</em></p>
+<p>🔁 <strong>Instancing / clustering:</strong></p>
+<p><em>"Many engines also support instancing, also known as batching or clustering. This is the ability to use a single draw call to render multiple objects that are mostly identical in terms of shaders and state, and only differ in a restricted set of ways (typically their position and rotation in the world). The engine will usually recognize when multiple identical objects can be rendered using instancing, so it's always preferable to use the same object multiple times in a scene when possible, instead of multiple different objects that will need to be rendered with separate draw calls."</em></p>
+<p>🔗 <em>"Another common technique for reducing draw calls is manually merging many different objects that share the same material into a single mesh. This can be effective, but care must be taken to avoid excessive merging which can actually worsen performance by increasing the amount of work for the GPU."</em></p>
+</div>
+</div>
+
+!!! danger "💀 PHẢN ĐỀ của §10 — khi nào GỘP lại làm CHẬM ĐI"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p>👁️ <em>"TRƯỚC KHI bất kỳ draw call nào được phát ra, <strong>hệ thống visibility của engine sẽ xác định object đó có XUẤT HIỆN TRÊN MÀN HÌNH hay không. Nếu KHÔNG, việc BỎ QUA object ngay ở giai đoạn SỚM này RẤT RẺ</strong> — không phải trả tiền cho draw call lẫn công việc GPU (gọi là <strong>VISIBILITY CULLING</strong>). Việc này thường làm bằng cách kiểm tra <strong>BOUNDING VOLUME của object có nhìn thấy được từ góc camera hay không</strong>, và nó có bị object khác <strong>CHE HOÀN TOÀN (occluded)</strong> hay không."</em></p>
+    <p>💀 <strong>Và đây là cái bẫy:</strong> <em>"Tuy nhiên, <strong>KHI NHIỀU MESH ĐƯỢC GỘP thành MỘT object, các bounding volume RIÊNG của chúng PHẢI được GỘP thành MỘT VOLUME LỚN đủ bao TRỌN mọi mesh. Việc này LÀM TĂNG khả năng hệ thống visibility nhìn thấy MỘT PHẦN nào đó của volume, và do đó COI TOÀN BỘ cụm là NHÌN THẤY ĐƯỢC.</strong> Nghĩa là nó TRỞ THÀNH một draw call, và <strong>vertex shader PHẢI chạy trên MỌI vertex của object — KỂ CẢ khi rất ít vertex trong số đó thực sự xuất hiện trên màn hình. Điều này có thể khiến RẤT NHIỀU thời gian GPU bị LÃNG PHÍ vì các vertex rốt cuộc KHÔNG đóng góp gì cho ảnh cuối.</strong>"</em></p>
+    <p>✅ <strong>Kết luận NGUYÊN VĂN:</strong> <em>"Vì những lý do đó, <strong>mesh merging HIỆU QUẢ NHẤT khi làm trên các NHÓM object NHỎ NẰM GẦN NHAU, vì dù sao chúng cũng có khả năng CÙNG xuất hiện trên màn hình.</strong>"</em></p>
+    </div>
+    <div class="col-en">
+    <p>👁️ <em>"Before any draw call gets issued, the engine's visibility system will determine whether or not the object will even appear on screen. If not, it's very cheap to just ignore the object at this early stage and not pay for any draw call or GPU work (also known as visibility culling). This is usually done by checking if the object's bounding volume is visible from the camera's point of view, and that it is not completely blocked from view (occluded) by any other objects."</em></p>
+    <p>💀 <strong>And here is the trap:</strong> <em>"However, when multiple meshes are merged into a single object, their individual bounding volumes must be combined into a single large volume that is big enough to enclose every mesh. This increases the likelihood that the visibility system will be able to see some part of the volume, and so will consider the entire collection visible. That means that it becomes a draw call, and so the vertex shader must be executed on every vertex in the object — even if very few of those vertices actually appear on the screen. This can lead to a lot of GPU time being wasted because the vertices end up not contributing anything to the final image."</em></p>
+    <p>✅ <em>"For these reasons, mesh merging is the most effective when it is done on groups of small objects that are close to each other, as they will probably be on-screen at the same time anyway."</em></p>
+    </div>
+    </div>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🎮 <strong>Case study — XCOM 2 chụp bằng RenderDoc:</strong></p>
+<p><em>"Wireframe cho thấy <strong>TOÀN BỘ scene mà engine gửi tới GPU</strong>, với <strong>vùng ĐEN Ở GIỮA là hình học THỰC SỰ nhìn thấy được bởi camera game. Toàn bộ hình học XUNG QUANH màu XÁM là KHÔNG nhìn thấy và sẽ bị cull SAU KHI vertex shader đã chạy — toàn bộ đó là thời gian GPU LÃNG PHÍ.</strong>"</em></p>
+<p>🌿 <em>"Đặc biệt, hãy chú ý <strong>phần hình học tô ĐỎ — một loạt mesh BỤI CÂY, đã được GỘP và render chỉ trong VÀI draw call. Vì hệ thống visibility xác định rằng ÍT NHẤT MỘT SỐ bụi cây nhìn thấy được, TẤT CẢ chúng đều được render và do đó TẤT CẢ đều phải chạy vertex shader trước khi xác định cái nào có thể cull — mà hoá ra là HẦU HẾT.</strong>"</em></p>
+<p>⚖️ <em>"Xin lưu ý đây KHÔNG phải lời buộc tội riêng XCOM 2 — <strong>MỌI game đều có vấn đề này, và đó là CUỘC CHIẾN LIÊN TỤC để cân bằng giữa chi phí CPU của việc kiểm tra visibility CHÍNH XÁC HƠN, chi phí GPU của việc cull hình học vô hình, và chi phí CPU của việc có NHIỀU draw call hơn.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🎮 <strong>Case study — XCOM 2 captured with RenderDoc:</strong></p>
+<p><em>"The wireframe shows the entire scene as submitted to the GPU by the engine, with the black area in the middle being the geometry that's actually visible by the game camera. All the surrounding geometry in grey is not visible and will be culled after the vertex shader is executed, which is all wasted GPU time."</em></p>
+<p>🌿 <em>"In particular, note the highlighted red geometry which is a series of bush meshes, combined and rendered in just a few draw calls. Since the visibility system determined that at least some of the bushes are visible on the screen, they are all rendered and so must all have their vertex shader executed before determining which can be culled… which turns out to be most of them."</em></p>
+<p>⚖️ <em>"Please note this isn't an indictment of XCOM 2 in particular… Every game has this problem, and it's a constant battle to balance the CPU cost of doing more accurate visibility tests, the GPU cost of culling the invisible geometry, and the CPU cost of having more draw calls."</em></p>
+</div>
+</div>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🔮 <strong>Tương lai của draw call — D3D12 / Vulkan:</strong></p>
+<p><em>"Mọi thứ ĐANG THAY ĐỔI về chi phí draw call. Như đã nói, <strong>một lý do LỚN khiến chúng đắt là overhead của DRIVER khi dịch và kiểm tra lỗi. Điều này ĐÚNG từ lâu, NHƯNG các API đồ hoạ HIỆN ĐẠI NHẤT (như Direct3D 12 và Vulkan) đã được TÁI CẤU TRÚC để TRÁNH PHẦN LỚN overhead đó.</strong> Dù việc này khiến engine render PHỨC TẠP HƠN, nó cũng <strong>làm draw call RẺ HƠN, cho phép render NHIỀU object HƠN TRƯỚC.</strong>"</em></p>
+<p>🚀 <em>"Một số engine — <strong>đáng chú ý nhất là bản mới nhất dùng cho Assassin's Creed</strong> — thậm chí đã đi theo hướng <strong>KHÁC HẲN: dùng năng lực của GPU đời mới để ĐIỀU KHIỂN việc render và LOẠI BỎ HẲN khái niệm draw call.</strong> 🎯 <strong>Tác động hiệu năng của việc có QUÁ NHIỀU draw call chủ yếu nằm ở CPU; gần như MỌI vấn đề hiệu năng khác liên quan tới art asset đều nằm ở GPU.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🔮 <strong>The future of the draw call — D3D12 / Vulkan:</strong></p>
+<p><em>"Things are changing when it comes to the cost of draw calls however. As mentioned above, a significant reason for their expense is the overhead of the driver doing translation and error checking. This has long been the case, but the most modern graphics APIs (eg. Direct3D 12 and Vulkan) have been restructured in order to avoid most of this overhead. While this does introduce extra complexity to the game's rendering engine, it can also result in cheaper draw calls, allowing us to render many more objects than before possible."</em></p>
+<p>🚀 <em>"Some engines (most notably the latest version used by Assassin's Creed) have even gone in a radically different direction, using the capabilities of the latest GPUs to drive rendering and effectively doing away with draw calls altogether. The performance impact of having too many draw calls is mostly on the CPU; pretty much all other performance issues related to art assets are on the GPU."</em></p>
+</div>
+</div>
+
 
 ---
 
@@ -331,6 +396,56 @@ ret
 
 # PHẦN B — BỐN BOTTLENECK GPU PHỔ BIẾN
 
+
+**🔌 Sâu hơn nữa — low-level native plug-in Profiler API**
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><em>"Để phân tích CHI TIẾT HƠN NỮA, hãy dùng <strong>low-level native plug-in Profiler API</strong>. Bạn dùng API này để <strong>MỞ RỘNG Profiler và profile hiệu năng của code NATIVE PLUG-IN</strong>, hoặc để <strong>CHUẨN BỊ dữ liệu profiling gửi sang công cụ BÊN THỨ BA như <code>Razor</code> (Sony PlayStation), <code>PIX</code> (Microsoft — Windows và Xbox), cùng <code>Chrome Tracing</code>, <code>ETW</code>, <code>ITT</code>, <code>VTune</code> hay <code>Telemetry</code>.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p><em>"For an even more detailed analysis, use the low-level native plug-in Profiler API. You can use this Profiler API to extend the Profiler, and profile the performance of native plug-in code, or to prepare profiling data to send to third-party profiling tools such as Razor for Sony PlayStation, PIX for Microsoft (Windows and Xbox), as well as Chrome Tracing, ETW, ITT, VTune, or Telemetry."</em></p>
+</div>
+</div>
+
+```cpp
+#include <IUnityInterface.h>
+#include <IUnityProfiler.h>
+
+static IUnityProfiler* s_UnityProfiler = NULL;
+static const UnityProfilerMarkerDesc* s_MyPluginMarker = NULL;
+static bool s_IsDevelopmentBuild = false;
+
+static void MyPluginWorkMethod()
+{
+    if (s_IsDevelopmentBuild)
+        s_UnityProfiler->BeginSample(s_MyPluginMarker);
+
+    // Code I want to see in Unity Profiler as "MyPluginMethod".
+    // ...
+
+    if (s_IsDevelopmentBuild)
+        s_UnityProfiler->EndSample(s_MyPluginMarker);
+}
+
+extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API
+UnityPluginLoad(IUnityInterfaces* unityInterfaces)
+{
+    s_UnityProfiler = unityInterfaces->Get<IUnityProfiler>();
+    if (s_UnityProfiler == NULL)
+        return;
+    s_IsDevelopmentBuild = s_UnityProfiler->IsAvailable() != 0;
+    s_UnityProfiler->CreateMarker(&s_MyPluginMarker, "MyPluginMethod",
+        kUnityProfilerCategoryOther, kUnityProfilerMarkerFlagDefault, 0);
+}
+
+extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API UnityPluginUnload()
+{
+    s_UnityProfiler = NULL;
+}
+```
+
+
 ## 4. Shader Instructions (ALU)
 
 <div class="bilingual-row">
@@ -377,6 +492,9 @@ ret
 ---
 
 ## 5. 🔥 Overdraw & Early Depth Test
+
+<img src="../assets/gfx-overdraw-view.png" alt="The overdraw view: brighter red means more layers drawn over the same pixel">
+<p><em>VI: <strong>▲ Chế độ xem OVERDRAW</strong> — mỗi lớp hình học chồng lên nhau làm vùng đó <strong>ĐỎ ĐẬM THÊM</strong>. Vùng đỏ rực chính là chỗ GPU vẽ đi vẽ lại CÙNG một pixel nhiều lần. / EN: The overdraw view: brighter red means more layers drawn over the same pixel.</em></p>
 
 <img src="../assets/scene-shaded-view.png" alt="Scene in Shaded view">
 <p><em>VI: Scene ở chế độ Shaded thông thường. / EN: A Scene in standard Shaded view.</em></p>
@@ -879,6 +997,95 @@ ret
 
 ## 8. Chọn Render Pipeline
 
+### 8.0. 🧬 Vì sao SRP tồn tại — SÁU khuyết điểm của Built-in
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"Tuy nhiên, khi Unity tiếp tục hỗ trợ THÊM nhiều nền tảng, chúng tôi nhận thấy những <strong>khuyết điểm sau đây của Built-in Render Pipeline</strong>:"</em></p>
+<ul>
+<li><em>"<strong>PHẦN LỚN code viết bằng C++ và lập trình viên KHÔNG SỬA ĐƯỢC</strong>, khiến nó thành một <strong>hệ thống HỘP ĐEN</strong>."</em></li>
+<li><em>"<strong>Luồng render và các render pass đã được CẤU TRÚC SẴN.</strong>"</em></li>
+<li><em>"<strong>Thuật toán render được HARDCODE.</strong>"</em></li>
+<li><em>"Việc <strong>tuỳ biến KHÔNG RÀNG BUỘC khiến đạt hiệu năng tốt trên MỌI nền tảng trở nên KHÓ.</strong>"</em></li>
+<li>💀 <em>"Nó <strong>phơi ra các callback trong code render — những callback này TẠO RA SYNC POINT trong pipeline. Chúng NGĂN các tối ưu render ĐA LUỒNG</strong>, đổi lại cho phép chèn state ở bất kỳ điểm nào trong frame bằng cách gọi sang C#."</em></li>
+<li><em>"<strong>Cache dữ liệu để quản lý trạng thái BỀN VỮNG cho phần người dùng chèn vào là KHÓ.</strong>"</em></li>
+</ul>
+<p>✅ <strong>Giải pháp — Scriptable Render Pipelines:</strong> <em>"SRP được phát triển để hỗ trợ workflow ĐA NỀN TẢNG hiệu quả bằng cách cung cấp:"</em></p>
+<ul>
+<li><em>"<strong>Scaling THÔNG MINH và ĐÁNG TIN CẬY cho TỐI ĐA số nền tảng phần cứng</strong>, từ máy cao cấp tới thấp cấp."</em></li>
+<li><em>"Khả năng <strong>TUỲ BIẾN quy trình render bằng C#, KHÔNG PHẢI C++. Dùng C# nghĩa là KHÔNG cần biên dịch executable mới cho MỖI thay đổi.</strong>"</em></li>
+<li><em>"Linh hoạt để hỗ trợ <strong>SỰ TIẾN HOÁ của kiến trúc.</strong>"</em></li>
+<li><em>"Linh hoạt để tạo <strong>đồ hoạ SẮC NÉT mà VẪN chạy tốt trên nhiều nền tảng.</strong>"</em></li>
+</ul>
+<p>🔓 <em>"Người dùng nâng cao có thể <strong>tạo SRP MỚI từ đầu hoặc SỬA HDRP/URP. Toàn bộ graphics stack là MÃ NGUỒN MỞ và có sẵn trên GitHub.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"However, as Unity continues to add support for more platforms, we have perceived the following shortcomings surrounding the Built-in Render Pipeline:"</em></p>
+<ul>
+<li><em>"The bulk of the code is written in C++ and can't be modified by developers, making it a blackbox system."</em></li>
+<li><em>"The render flow and render passes are prestructured."</em></li>
+<li><em>"The rendering algorithm is hardcoded."</em></li>
+<li><em>"Unconstrained customization makes achieving good performance on all platforms difficult."</em></li>
+<li><em>"It exposes callbacks in the rendering code that trigger sync points in the pipeline. Those callbacks prevent multithreaded rendering optimizations, enabling changes for injection of state at any point in the frame dynamically by calling to C#."</em></li>
+<li><em>"Caching data to manage the persistence state for user injection is difficult."</em></li>
+</ul>
+<p>✅ <em>"The SRPs were developed to support an efficient multiplatform workflow by providing:"</em></p>
+<ul>
+<li><em>"Intelligent and reliable scaling for the maximum number of hardware platforms, from high- to low-end devices."</em></li>
+<li><em>"The ability to customize rendering processes using C#, not C++. Using C# means a new executable does not need to be compiled for every change."</em></li>
+<li><em>"Flexibility to support architecture evolution."</em></li>
+<li><em>"Flexibility to create sharp graphics that are performant across many platforms."</em></li>
+</ul>
+<p>🔓 <em>"An advanced user can create a new SRP from scratch or modify the HDRP or URP. The graphics stack is open source and available for use on GitHub."</em></p>
+</div>
+</div>
+
+### 8.0.1. 🎯 NĂM luận điểm "vì sao chọn URP" — dùng để bảo vệ quyết định
+
+| # | Luận điểm | Nội dung nguyên văn |
+|---|---|---|
+| **①** | **Accessible to a wide range of users** | *"URP **cấu hình được bởi CẢ artist LẪN technical artist**, cho nhiều linh hoạt hơn khi prototype và tinh chỉnh kỹ thuật render cho sản xuất game đầy đủ."* |
+| **②** | **Extendable and customizable** | *"URP cho phép người dùng **SỬA năng lực sẵn có và MỞ RỘNG pipeline bằng năng lực mới**… 🔑 **Dù render API cấp thấp viết bằng C++ vì hiệu năng, một lập trình viên URP có thể viết MỘT SCRIPT C# ĐƠN GIẢN để được gọi trong render pipeline — tuỳ biến ở TẦNG CAO mà KHÔNG HY SINH hiệu năng.**"* |
+| **③** | **Multiple rendering options** | *"URP cung cấp **Universal Renderer hỗ trợ CẢ Forward LẪN Deferred Renderer Path, cùng một 2D Renderer**… **Render Objects feature** dùng để render object từ một **Layer Mask** cho trước **tại các thời điểm KHÁC NHAU trong pipeline**, và **override material cùng render state — tuỳ biến render mà KHÔNG CẦN CODE.**"* |
+| **④** | **Better performance** | *"URP cho hiệu năng **NGANG BẰNG, nếu không nói là TỐT HƠN** Built-in ở cùng mức Quality trong ĐA SỐ trường hợp."* — chi tiết ở bảng dưới |
+| **⑤** | **Compatible with the latest tools** | *"URP hỗ trợ các công cụ thân thiện artist mới nhất: **Shader Graph, VFX Graph và Rendering Debugger.**"* |
+
+**⚡ Bốn lý do KỸ THUẬT khiến URP nhanh hơn — nguyên văn / The four technical reasons**
+
+<div class="bilingual-row">
+<div class="col-vi">
+<ul>
+<li>💡 <em>"URP <strong>đánh giá real-time lighting HIỆU QUẢ HƠN. Ở Forward, nó đánh giá TOÀN BỘ ánh sáng trong MỘT PASS DUY NHẤT.</strong> 🔑 <strong>Ở Deferred, nó hỗ trợ <code>Native RenderPass API</code>, cho phép GỘP G-buffer pass và lighting pass thành MỘT render pass DUY NHẤT.</strong>"</em></li>
+<li>📦 <em>"Có <strong>cải thiện CẢ CPU LẪN GPU khi vẽ mesh — nhờ SRP Batcher, đảm bảo ÍT draw call hơn</strong> và cải thiện cách xử lý depth."</em></li>
+<li>🔋 <em>"<strong>URP dùng TILE MEMORY trên thiết bị mobile HIỆU QUẢ HƠN, dẫn tới TIÊU THỤ ĐIỆN ÍT HƠN, THỜI LƯỢNG PIN DÀI HƠN, và do đó KHẢ NĂNG có những phiên chơi DÀI HƠN.</strong>"</em></li>
+<li>🎬 <em>"URP đi kèm <strong>stack post-processing TÍCH HỢP cho hiệu năng TỐT HƠN so với Built-in.</strong> Dùng Volume framework, bạn tạo được hiệu ứng post-processing PHỤ THUỘC VỊ TRÍ CAMERA mà KHÔNG viết dòng code nào."</em></li>
+</ul>
+<p>📅 <em>"<strong>CHƯA có ngày ấn định để URP THAY THẾ Built-in làm pipeline mặc định của Unity.</strong> Built-in sẽ vẫn là lựa chọn khả dụng ít nhất cho chu kỳ phát hành tiếp theo trong 2022."</em></p>
+</div>
+<div class="col-en">
+<ul>
+<li>💡 <em>"URP evaluates real-time lighting more efficiently. In Forward rendering it evaluates all lighting in a single pass. In Deferred rendering it supports the Native RenderPass API, allowing G-buffer and lighting passes to be combined into a single render pass."</em></li>
+<li>📦 <em>"There are CPU and GPU improvements when drawing meshes. This is due to SRP Batcher, which ensures fewer draw calls and improvements on how depth is handled."</em></li>
+<li>🔋 <em>"URP makes more efficient use of tile memory on mobile devices, leading to less power consumption, a longer battery life, and therefore, the possibility of longer play sessions."</em></li>
+<li>🎬 <em>"URP comes with an integrated post-processing stack that allows for better performance compared to the Built-in Render Pipeline. Using the Volume framework, you can create post-processing effects that are dependent on the Camera position without writing any code."</em></li>
+</ul>
+<p>📅 <em>"There is no set date yet for URP to replace the Built-in Render Pipeline as the default rendering pipeline in Unity. The Built-in Render Pipeline will remain an available option at least for the next release cycle in 2022."</em></p>
+</div>
+</div>
+
+
+<img src="../assets/urp-programmable-model.png" alt="The new graphics programmable model.">
+<p><em>VI: <strong>▲ Mô hình đồ hoạ LẬP TRÌNH ĐƯỢC</strong> — bốn tầng <strong>Game logic-based rendering control → Render passes abstractions → Engine-layer abstractions → Low-level API layers</strong>, ánh xạ sang ba ngôn ngữ <strong>Shader DSL (HLSL, Cg, PSSL…) · C# · C/C++</strong>. Đây chính là ý tưởng gốc của SRP: đưa phần điều khiển render lên tầng C#. / EN: The new graphics programmable model.</em></p>
+
+<img src="../assets/urp-asset-inspector.png" alt="The Universal Render Pipeline Asset Inspector.">
+<p><em>VI: <strong>▲ URP Asset</strong> — <strong>Renderer List</strong> ở trên, rồi <strong>Depth Texture · Opaque Texture · Opaque Downsampling: 2× Bilinear · Terrain Holes</strong>, và các nhóm gập lại <strong>Quality · Lighting · Shadows · Post-processing</strong>. / EN: The Universal Render Pipeline Asset Inspector.</em></p>
+
+<img src="../assets/urp-renderer-data-inspector.png" alt="The Universal Renderer Data asset, which is not the same as the URP Asset.">
+<p><em>VI: <strong>▲ Universal Renderer Data</strong> (KHÁC URP Asset) — <strong>Filtering: Opaque/Transparent Layer Mask = Everything</strong> · <strong>Rendering Path: Forward</strong>, Depth Priming Mode Disabled · <strong>RenderPass: Native RenderPass</strong> · Shadows: Transparent Receive ✓ · <strong>Post-processing: Enabled ✓ + Data</strong> · Overrides: Stencil · và cuối cùng là <strong>Renderer Features + Add Renderer Feature</strong>. / EN: The Universal Renderer Data asset, which is not the same as the URP Asset.</em></p>
+
+<img src="../assets/urp-asset-highquality-full.png" alt="A complete URP Asset with all sections expanded.">
+<p><em>VI: <strong>▲ Một URP Asset ĐẦY ĐỦ</strong> — cuộn hết Rendering · Quality · Lighting · Shadows · Post-processing trong một khung. / EN: A complete URP Asset with all sections expanded.</em></p>
+
 <img src="../assets/gfx-boatattack-urp.png" alt="Boat Attack demo made with URP">
 <p><em>VI: Dự án demo <strong>Boat Attack</strong> tạo bằng Universal Render Pipeline. / EN: The Boat Attack demo project created using the Universal Render Pipeline.</em></p>
 
@@ -927,6 +1134,15 @@ ret
 ---
 
 ## 9. Rendering Path — Forward vs Deferred
+
+<img src="../assets/gfx-forward-diagram.png" alt="Forward rendering: a lighting pass per object before the Frame Buffer.">
+<p><em>VI: <strong>▲ FORWARD</strong> — <strong>3D mesh → vertex shader → geometry shader → fragment shader</strong>, rồi <strong>MỘT lighting pass CHO MỖI OBJECT</strong> trước khi ghi vào Frame Buffer. Càng nhiều đèn × nhiều object thì càng nhiều pass. / EN: Forward rendering: a lighting pass per object before the Frame Buffer.</em></p>
+
+<img src="../assets/gfx-deferred-diagram.png" alt="Deferred shading: fragment output goes to a G-Buffer, then a single lightin">
+<p><em>VI: <strong>▲ DEFERRED</strong> — cùng chuỗi shader, nhưng fragment shader ghi ra <strong>G-Buffer (color · normal · depth)</strong>, sau đó <strong>MỘT lighting pass DUY NHẤT</strong> cho toàn màn hình. Chi phí đèn KHÔNG còn nhân với số object. / EN: Deferred shading: fragment output goes to a G-Buffer, then a single lighting pass.</em></p>
+
+<img src="../assets/gfx-gbuffer-visualization.png" alt="The G-Buffer contents, the lighting passes, and the final output.">
+<p><em>VI: <strong>▲ G-Buffer nhìn tận mắt</strong> — hàng trái là <strong>albedo · depth · normals</strong> (nội dung G-Buffer); giữa là <strong>diffuse · specular · reflection</strong> (các lighting pass); phải là <strong>Final Output</strong>. / EN: The G-Buffer contents, the lighting passes, and the final output.</em></p>
 
 <img src="../assets/gfx-forward-rendering.png" alt="Forward rendering path">
 <p><em>VI: Forward rendering path. / EN: The forward rendering path.</em></p>
@@ -1100,6 +1316,28 @@ public class TintWithoutBreakingBatch : MonoBehaviour
 ```
 
 ### 10.1. Frame Debugger — "Vì sao draw call này KHÔNG batch được?"
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🎚️ <strong>Núm vặn ÍT NGƯỜI BIẾT — <code>Debug Level</code> của URP Asset:</strong></p>
+<p><em>"Dùng Frame Debugger để hiểu rõ hơn điều gì đang diễn ra khi render. <strong>Để xem THÔNG TIN BỔ SUNG trong cửa sổ Frame Debugger, hãy chỉnh <code>Debug Level</code> BẰNG URP Asset.</strong> Giống như ô SRP Batcher, <strong>nó CHỈ hiện trong Inspector khi đã bật <code>Show Additional Properties</code>.</strong>"</em></p>
+<p>⚠️ <em>"<strong>Chỉnh Debug Level CÓ THỂ ẢNH HƯỞNG HIỆU NĂNG. LUÔN TẮT nó khi KHÔNG dùng Frame Debugger.</strong>"</em></p>
+<p>👉 <em>"Frame Debugger hiện <strong>danh sách MỌI draw call thực hiện trước khi render ảnh cuối</strong>, giúp bạn <strong>chỉ đích danh vì sao một số frame render LÂU, và cũng xác định vì sao số draw call của scene CAO đến vậy.</strong> Mở bằng <code>Window › Analysis › Frame Debugger</code>. <strong>Khi game đang chạy, bấm nút <code>Enable</code> — việc này TẠM DỪNG game và cho bạn soi từng draw call.</strong> Bấm một giai đoạn trong pipeline (khung trái) sẽ <strong>hiện PREVIEW của giai đoạn đó trong Game view.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🎚️ <strong>The little-known knob — the URP Asset's <code>Debug Level</code>:</strong></p>
+<p><em>"Use the Frame Debugger to gain a better understanding of what's happening during rendering. To view additional information in the Frame Debugger window, adjust the Debug Level using the URP Asset. As with the SRP Batcher checkbox, this is only visible in the Inspector with Show Additional Properties enabled."</em></p>
+<p>⚠️ <em>"Adjusting the Debug Level can affect performance. Always turn it off when the Frame Debugger is not in use."</em></p>
+<p>👉 <em>"The Frame Debugger shows a list of all the draw calls made before rendering the final image and can help you pinpoint why certain frames are taking a long time to render. It can also identify why your scene's draw call count is so high. Open the Frame Debugger by going to Window &gt; Analysis &gt; Frame Debugger. When your game is playing, select the Enable button. This will pause the game and let you examine the draw calls. Clicking a stage in the render pipeline (left pane) will show a preview of this stage in Game view."</em></p>
+</div>
+</div>
+
+
+<img src="../assets/urp-frame-debugger-srp.png" alt="The Frame Debugger in URP with three SRP Batch entries under DrawOpaqueObje">
+<p><em>VI: <strong>▲ Frame Debugger trong URP</strong> — cây sự kiện <code>MeshSkinning.GPUSkinning</code> → <code>UniversalRenderPipeline.RenderSingleCamera</code> → <code>MainLightShadow</code> · <code>DepthNormalPrepass</code> · <code>ColorGradingLUT</code> · <code>SSAO</code> · <strong><code>DrawOpaqueObjects</code> với BA dòng <code>SRP Batch</code></strong> · <code>DrawTransparentObjects</code>. Bên phải là <strong>Event #61 Draw Dynamic</strong> với <strong>RenderTarget 2854×1340 B8G8R8A8_SRGB</strong>, Shader <code>Hidden/Universal Render Pipeline/Blit</code>, Blend One Zero, ZTest Always, ZWrite Off. / EN: The Frame Debugger in URP with three SRP Batch entries under DrawOpaqueObjects.</em></p>
+
+<img src="../assets/gfx-frame-debugger-why-not-batched.png" alt="Why this draw call can't be batched with the previous one.">
+<p><em>VI: <strong>▲ Dòng chữ QUAN TRỌNG NHẤT của Frame Debugger</strong> — <em>"Why this draw call can't be batched with the previous one: <strong>SRP: First call from ScriptableRenderContext</strong>"</em>. Đây là chỗ Unity NÓI THẲNG lý do batch vỡ. / EN: Why this draw call can't be batched with the previous one.</em></p>
 
 <img src="../assets/gfx-frame-debugger-batching.png" alt="Frame Debugger showing batching reason">
 <p><em>VI: Frame Debugger (HDRP) — panel phải hiển thị <strong>"Why this draw call can't be batched with the previous one: SRP: First call from ScriptableRenderContext"</strong>. Đây là công cụ chính để chẩn đoán batching. / EN: The Frame Debugger showing exactly why a draw call couldn't be batched with the previous one.</em></p>
@@ -1294,6 +1532,12 @@ public class TintWithoutBreakingBatch : MonoBehaviour
     </div>
 
 ### 10.4. 🖥️ GPU Resident Drawer — Để GPU lo phần việc buồn tẻ
+
+<img src="../assets/urp-asset-advanced-batcher.png" alt="The Advanced section of the URP Asset.">
+<p><em>VI: <strong>▲ URP Asset › Advanced</strong> — <strong>SRP Batcher ✓</strong>, <strong>Dynamic Batching</strong> (bỏ trống), <strong>Debug Level</strong>, <strong>Shader Variant Log Level: Disabled | Profiling</strong>, <strong>Store Actions: Auto</strong>. / EN: The Advanced section of the URP Asset.</em></p>
+
+<img src="../assets/gfx-pipeline-asset-srp-batcher.png" alt="SRP Batcher enabled in the Pipeline Asset.">
+<p><em>VI: <strong>▲ Cùng nhóm đó trong <code>Pipeline Asset_High</code></strong> — <strong>SRP Batcher ✓</strong> (khoanh đỏ), Dynamic Batching tắt, <strong>Mixed Lighting ✓</strong>, Debug Level <em>Disabled</em>, Shader Variant Log Level <em>Disabled</em>. / EN: SRP Batcher enabled in the Pipeline Asset.</em></p>
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -1650,6 +1894,17 @@ public class MeshCombiner : MonoBehaviour
 
 ## 13. Tối ưu Shader Graph — 5 kỹ thuật
 
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📱 <strong>Lời khuyên GỐC cho mobile — <em>"Keep shaders simple"</em>:</strong></p>
+<p><em>"Universal Render Pipeline có sẵn <strong>vài shader Lit và Unlit NHẸ, ĐÃ ĐƯỢC TỐI ƯU SẴN cho nền tảng mobile.</strong> 🚨 <strong>Hãy cố giữ SỐ BIẾN THỂ SHADER của bạn THẤP NHẤT CÓ THỂ, vì việc này có tác động ĐÁNG KỂ tới mức dùng BỘ NHỚ LÚC CHẠY.</strong> Nếu shader URP mặc định không hợp nhu cầu, bạn có thể tuỳ biến diện mạo material bằng Shader Graph."</em></p>
+</div>
+<div class="col-en">
+<p>📱 <strong>The original mobile advice — "Keep shaders simple":</strong></p>
+<p><em>"The Universal Render Pipeline includes several lightweight Lit and Unlit shaders that are already optimized for mobile platforms. Try to keep your shader variations as low as possible, since this can have a dramatic effect on runtime memory usage. If the default URP shaders don't suit your needs, you can customize the look of your materials using Shader Graph."</em></p>
+</div>
+</div>
+
 <img src="../assets/gfx-mobile-shader-settings.png" alt="Shader settings">
 
 <img src="../assets/gfx-shadergraph-precision.png" alt="Shader Graph node Precision setting">
@@ -1694,6 +1949,12 @@ public class MeshCombiner : MonoBehaviour
 ---
 
 ## 14. 🧬 Strip Shader Variants — Đọc `Editor.log`
+
+<img src="../assets/urp-graphics-shader-stripping.png" alt="Project Settings > Graphics with the Always Included Shaders list and Shade">
+<p><em>VI: <strong>▲ <code>Project Settings › Graphics</code></strong> — danh sách <strong>Always Included Shaders</strong> (Legacy Shaders/Diffuse, Hidden/CubeBlur, Hidden/CubeCopy, Hidden/CubeBlend, Sprites/Default, UI/Default, Hidden/VideoComposite, Hidden/VideoDecode, Hidden/Compositing) và nhóm <strong>Shader Stripping</strong>: <strong>Lightmap Modes Automatic · Fog Modes Automatic · Instancing Variants: Strip Unused</strong>. / EN: Project Settings > Graphics with the Always Included Shaders list and Shader Stripping.</em></p>
+
+<img src="../assets/gfx-always-included-shaders.png" alt="The Always Included Shaders list and the tracked shader-variant count.">
+<p><em>VI: <strong>▲ Cùng bảng đó ở dự án HDRP</strong> — <strong>Always Included Shaders khoanh ĐỎ</strong> vì MỌI shader trong danh sách này <strong>LUÔN vào build DÙ CÓ DÙNG HAY KHÔNG</strong>. Dòng cuối cùng cho biết <strong>"Currently tracked: 44 shaders 218 total variants"</strong>. / EN: The Always Included Shaders list and the tracked shader-variant count.</em></p>
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -1797,6 +2058,15 @@ class ShaderVariantStripper : IPreprocessShaders
 ---
 
 ## 15. 🎭 Stencil Buffer trong URP — Hiệu ứng nhìn xuyên vật thể
+
+<img src="../assets/urp-layer-seebehind.png" alt="Assigning the GameObject to a dedicated SeeBehind layer.">
+<p><em>VI: <strong>▲ Bước 1 — GÁN LAYER</strong>: GameObject <code>fred</code> được đặt <strong>Layer: <code>SeeBehind</code></strong>. Toàn bộ hiệu ứng dựa trên layer riêng này. / EN: Assigning the GameObject to a dedicated SeeBehind layer.</em></p>
+
+<img src="../assets/urp-opaque-layer-mask.png" alt="Removing the SeeBehind layer from the renderer's Opaque Layer Mask.">
+<p><em>VI: <strong>▲ Bước 2 — LOẠI layer đó khỏi pass thường</strong>: <code>Opaque Layer Mask</code> đổi thành <strong>Mixed…</strong>, bỏ tick <strong>SeeBehind</strong> (danh sách còn Default · TransparentFX · Ignore Raycast · Water · UI · Highlight · Chandelier). / EN: Removing the SeeBehind layer from the renderer's Opaque Layer Mask.</em></p>
+
+<img src="../assets/urp-render-objects-feature.png" alt="The Draw Character Behind Render Objects feature with Depth Test set to Gre">
+<p><em>VI: <strong>▲ Bước 3 — Renderer Feature <em>Draw Character Behind</em> (Render Objects)</strong>: <strong>Event <code>AfterRenderingOpaques</code></strong> · Filters <strong>Queue Opaque</strong>, <strong>Layer Mask SeeBehind</strong> · Overrides <strong>Material: Character</strong>, <strong>Depth ✓</strong> nhưng <strong>Write Depth ✗</strong> và <strong>Depth Test: Greater</strong> — đúng ba ô này tạo ra hiệu ứng nhìn xuyên tường. / EN: The Draw Character Behind Render Objects feature with Depth Test set to Greater.</em></p>
 
 <img src="../assets/stencil-urp-result.png" alt="See-through objects with stencil buffers">
 <p><em>VI: Kết quả — <strong>quả cầu Mask "khoét" một lỗ trên viên nang</strong>, cho thấy khối lập phương đỏ phía sau. / EN: The result — the Mask sphere "cuts a hole" through the capsule, revealing the red cube behind it.</em></p>
@@ -2163,6 +2433,9 @@ Window > Rendering > Lighting:
 
 ## 19. 🌑 Shadow — Point Light tốn GẤP 6 LẦN
 
+<img src="../assets/gfx-cast-shadows-dropdown.png" alt="The Mesh Renderer Cast Shadows options.">
+<p><em>VI: <strong>▲ Tắt bóng cho TỪNG object</strong> — <code>Mesh Renderer › Lighting › Cast Shadows</code>: <strong>Off · On · Two Sided · Shadows Only</strong>. <em>Shadows Only</em> hữu ích khi bạn muốn bóng mà KHÔNG muốn vẽ chính vật thể. / EN: The Mesh Renderer Cast Shadows options.</em></p>
+
 <img src="../assets/urp-shadow-cascades.png" alt="Shadow Cascades in URP">
 <p><em>VI: Shadow Cascades trong URP. / EN: Shadow Cascades in URP.</em></p>
 
@@ -2216,6 +2489,32 @@ Window > Rendering > Lighting:
 
 ## 20. Anti-aliasing — Bốn lựa chọn
 
+!!! danger "💀 GHÉP MSAA với post-processing AA — cảnh báo chi phí"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p><em>"<strong>Lưu ý: khi KẾT HỢP Post-processing Anti-aliasing VỚI Multisample Anti-aliasing, hãy LƯU Ý CHI PHÍ RENDER.</strong> Như mọi khi, hãy tối ưu để cân bằng chất lượng hình ảnh với hiệu năng."</em></p>
+    <p>🚫 <em>"<strong>MSAA KHÔNG TƯƠNG THÍCH với G-buffer của deferred shading</strong> — thứ lưu hình học scene trong texture. Do đó <strong>deferred shading BẮT BUỘC dùng MỘT TRONG các kỹ thuật Post-processing Anti-aliasing.</strong>"</em></p>
+    <p>🔍 <em>"<strong>Vì MSAA CHỈ xử lý răng cưa ở CẠNH ĐA GIÁC, nó KHÔNG NGĂN được răng cưa xuất hiện trên một số texture và material bị ánh sáng SPECULAR GẮT chiếu vào. Bạn có thể CẦN GHÉP MSAA với một kỹ thuật Post-processing AA khác nếu gặp vấn đề đó.</strong>"</em></p>
+    <p>⚙️ <em>"Trong Pipeline Asset đang dùng, <strong>đặt <code>Lit Shader Mode</code> thành <code>Forward Only</code></strong>. Rồi chọn <strong>MSAA 2× / 4× / 8×</strong> cho <strong>Multisample Anti-aliasing Quality</strong>. <strong>Giá trị CAO HƠN cho khử răng cưa TỐT HƠN, nhưng CHẬM HƠN.</strong>"</em></p>
+    </div>
+    <div class="col-en">
+    <p><em>"Note: When combining Post-processing Anti-aliasing with Multisample Anti-aliasing, be aware of the rendering cost. As always, optimize your project to balance visual quality with performance."</em></p>
+    <p>🚫 <em>"MSAA is incompatible with deferred shading's G-buffers, which store the scene geometry in a texture. Thus, deferred shading requires one of the Post-processing Anti-aliasing techniques."</em></p>
+    <p>🔍 <em>"Because MSAA only deals with polygon edge aliasing, it cannot prevent aliasing found on certain textures and materials hit by sharp specular lighting. You may need to combine MSAA with another Post-processing AA technique if that is an issue."</em></p>
+    <p>⚙️ <em>"In your active Pipeline Asset, set the Lit Shader Mode to Forward Only. Next select MSAA 2x, MSAA 4x, or MSAA 8x for the Multisample Anti-aliasing Quality. Higher values result in better anti-aliasing, but they are slower."</em></p>
+    </div>
+    </div>
+
+
+<img src="../assets/gfx-antialiasing-dropdown.png" alt="The four post anti-aliasing options and the TAA sub-settings.">
+<p><em>VI: <strong>▲ Bốn lựa chọn trên Camera</strong> — <strong>No Anti-aliasing · Fast Approximate (FXAA) · Temporal (TAA) · Subpixel Morphological (SMAA)</strong>; khi chọn TAA sẽ mở thêm <strong>Quality Preset · Sharpen Strength 0.5 · History Sharpening 0.35 · Anti-flickering 0.5</strong>. / EN: The four post anti-aliasing options and the TAA sub-settings.</em></p>
+
+<img src="../assets/hdrp-aa-comparison.png" alt="Anti-aliasing off vs FXAA vs SMAA vs TAA.">
+<p><em>VI: <strong>▲ So sánh TẬN MẮT</strong> — <strong>Anti-aliasing off · FXAA · SMAA · TAA</strong> trên cùng mép ghế. FXAA làm mờ cạnh, SMAA giữ nét hơn, TAA sạch nhất nhưng cần motion vector. / EN: Anti-aliasing off vs FXAA vs SMAA vs TAA.</em></p>
+
+<img src="../assets/hdrp-msaa-comparison.png" alt="MSAA off vs 2x vs 4x vs 8x.">
+<p><em>VI: <strong>▲ MSAA theo cấp</strong> — <strong>off · 2× · 4× · 8×</strong>. MSAA xử lý răng cưa HÌNH HỌC (không xử lý được specular/alpha), và chi phí bộ nhớ tăng theo bậc. / EN: MSAA off vs 2x vs 4x vs 8x.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p><em>"Anti-aliasing <strong>RẤT đáng mong muốn</strong> vì nó giúp <strong>làm MƯỢT ảnh, GIẢM cạnh răng cưa, và TỐI THIỂU HÓA specular aliasing</strong>."</em></p>
@@ -2237,6 +2536,9 @@ Window > Rendering > Lighting:
 # PHẦN F — CULLING, LOD & CAMERA
 
 ## 21. Frustum Culling vs Occlusion Culling
+
+<img src="../assets/gfx-static-flags-full.png" alt="The full Static flags dropdown.">
+<p><em>VI: <strong>▲ Bảng cờ Static ĐẦY ĐỦ</strong> — <strong>Nothing · Everything · Contribute GI ✓ · Occluder Static · Occludee Static ✓ · Batching Static ✓ · Navigation Static · Off Mesh Link Generation · Reflection Probe Static ✓</strong>. Occlusion culling ăn theo <strong>Occluder/Occludee Static</strong>, còn batching ăn theo <strong>Batching Static</strong> — hai chuyện KHÁC NHAU. / EN: The full Static flags dropdown.</em></p>
 
 <img src="../assets/urp-occlusion-vs-frustum.png" alt="Frustum culling vs occlusion culling">
 <p><em>VI: <strong>Frustum culling (trái)</strong> và <strong>occlusion culling (phải)</strong>. / EN: Frustum culling on the left, occlusion culling on the right.</em></p>
@@ -2481,6 +2783,21 @@ public class PerLayerCulling : MonoBehaviour
 
 ### 21.2. 🎚️ Ba tham số bake — Giá trị khuyến nghị CỤ THỂ
 
+<img src="../assets/urp-occlusion-bake-params.png" alt="The Occlusion Bake tab with Smallest Occluder, Smallest Hole and Backface T">
+<p><em>VI: <strong>▲ Tab <code>Bake</code> của cửa sổ Occlusion</strong> — <strong>Smallest Occluder 5 · Smallest Hole 0.25 · Backface Threshold 100</strong>, kèm nút <strong>Set default parameters</strong> và đoạn giải thích: <em>"Tham số mặc định ĐẢM BẢO mọi scene TÍNH NHANH và kết quả occlusion culling TỐT. Vì tham số LUÔN đặc thù theo scene, kết quả TỐT HƠN chỉ đạt được khi tinh chỉnh cho TỪNG scene. Mọi tham số PHỤ THUỘC vào ĐƠN VỊ TỈ LỆ của scene, nên BẮT BUỘC phải đặt đúng unit scale TRƯỚC KHI đặt giá trị mặc định."</em> / EN: The Occlusion Bake tab with Smallest Occluder, Smallest Hole and Backface Threshold.</em></p>
+
+<img src="../assets/urp-static-occludee.png" alt="The Occludee Static flag.">
+<p><em>VI: <strong>▲ Cờ <code>Occludee Static</code></strong> — object phải mang cờ này thì Umbra mới CÂN NHẮC ẩn nó đi. / EN: The Occludee Static flag.</em></p>
+
+<img src="../assets/urp-occlusion-visualization.png" alt="The Occlusion Visualization tab.">
+<p><em>VI: <strong>▲ Tab <code>Visualization</code></strong> — <strong>Scene Filter: All | Cameras</strong>, chọn <strong>Main Camera</strong>; ghi chú: <em>"xem trực quan occlusion culling trong Scene View DỰA TRÊN camera đang chọn"</em>. / EN: The Occlusion Visualization tab.</em></p>
+
+<img src="../assets/urp-occlusion-overlay.png" alt="The Occlusion Culling visualization overlay options.">
+<p><em>VI: <strong>▲ Lớp phủ Occlusion Culling</strong> — bật/tắt <strong>Camera Volumes · Visibility Lines · Portals · Occlusion culling ✓</strong> để nhìn thấy Umbra đang cắt cái gì. / EN: The Occlusion Culling visualization overlay options.</em></p>
+
+<img src="../assets/gfx-occlusion-visualize.png" alt="Occlusion culling visualized from above with a Camera Preview.">
+<p><em>VI: <strong>▲ Nhìn từ trên xuống</strong> — hình nón camera cùng các <strong>Visibility Lines</strong>, và <strong>Camera Preview</strong> ở góc cho thấy đúng những gì camera thật sự vẽ. / EN: Occlusion culling visualized from above with a Camera Preview.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>Ba tham số trong cửa sổ <code>Window &gt; Rendering &gt; Occlusion Culling &gt; Bake</code> quyết định <strong>chất lượng, tốc độ query, và mức dùng RAM</strong> của hệ thống. Đây là ý nghĩa THỰC SỰ của chúng:</p>
@@ -2520,6 +2837,15 @@ public class PerLayerCulling : MonoBehaviour
 ---
 
 ## 22. LOD & Camera — Mỗi Camera tốn tới 1 ms
+
+<img src="../assets/gfx-lod-group.png" alt="The LOD Group component with its LOD thresholds and LOD bias warning.">
+<p><em>VI: <strong>▲ Component LOD Group</strong> — dải <strong>LOD 1 (95%) · LOD 2 (50%) · LOD 3 (20%)</strong>, cảnh báo <em>"Active LOD bias is 3.0. Distances are adjusted accordingly."</em>, cùng hai nút <strong>Recalculate Bounds</strong> và <strong>Recalculate Lightmap Scale</strong>. / EN: The LOD Group component with its LOD thresholds and LOD bias warning.</em></p>
+
+<img src="../assets/gfx-lod-mesh-comparison.png" alt="Hero_Mountain LOD0/LOD1/LOD2 with their vertex and triangle counts.">
+<p><em>VI: <strong>▲ Ba mức LOD ĐO ĐƯỢC</strong> — <code>Hero_Mountain_LOD0</code> <strong>4.734 vertices / 8.811 triangles</strong> → <code>_LOD1</code> <strong>2.399 / 4.334</strong> → <code>_LOD2</code> <strong>1.748 / 2.151</strong>. Mỗi bậc cắt khoảng MỘT NỬA. / EN: Hero_Mountain LOD0/LOD1/LOD2 with their vertex and triangle counts.</em></p>
+
+<img src="../assets/gfx-camera-culling-mask.png" alt="The Camera Culling Mask with only selected layers ticked.">
+<p><em>VI: <strong>▲ Culling Mask của Camera</strong> — chỉ tick <strong>Terrain · Boat · Player1…Player4</strong>; layer KHÔNG tick sẽ KHÔNG được camera này xét tới, cắt việc ngay ở khâu culling. / EN: The Camera Culling Mask with only selected layers ticked.</em></p>
 
 <img src="../assets/gfx-mobile-lod.png" alt="LOD Group example">
 <p><em>VI: Ví dụ Mesh dùng LOD Group — các mesh nguồn được model ở nhiều độ phân giải khác nhau. / EN: Example of a Mesh using a Level of Detail Group; source meshes modeled at varying resolutions.</em></p>
@@ -2738,6 +3064,30 @@ public class BakeAndSwap : MonoBehaviour
 
 ---
 
+### 22.4. 🎚️ Chương *Performance* của e-book URP — Camera settings & Pipeline settings
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📷 <strong>Camera settings (tr.117):</strong> <em>"<strong>URP cho phép bạn TẮT các TIẾN TRÌNH RENDERER KHÔNG MONG MUỐN TRÊN CAMERA để tối ưu hiệu năng.</strong> Việc này hữu ích nếu bạn nhắm <strong>CẢ máy cao cấp LẪN thấp cấp</strong> trong dự án. 🎯 <strong>TẮT các tiến trình ĐẮT — như post-processing, render bóng, hay depth texture — có thể GIẢM độ trung thực hình ảnh NHƯNG CẢI THIỆN hiệu năng trên máy thấp cấp.</strong>"</em></p>
+<p>⚙️ <strong>Pipeline settings (tr.120) — ba khuyến nghị:</strong></p>
+<ul>
+<li><em>"<strong>GIẢM Shadow Resolution và Shadow Distance để có lợi ích hiệu năng.</strong>"</em></li>
+<li>🔑 <em>"<strong>TẮT các tính năng dự án bạn KHÔNG CẦN, ví dụ <code>depth texture</code> và <code>opaque texture</code>.</strong>"</em> — mỗi cái là MỘT lần copy TOÀN MÀN HÌNH mỗi frame.</li>
+<li><em>"<strong>BẬT SRP Batcher để dùng phương pháp batching mới.</strong> SRP Batcher sẽ <strong>TỰ ĐỘNG batch các mesh dùng CÙNG MỘT SHADER VARIANT</strong>, qua đó giảm draw call. <strong>Nếu scene của bạn có NHIỀU object ĐỘNG, đây có thể là cách hữu ích để tăng hiệu năng.</strong> 💡 <strong>Nếu KHÔNG THẤY ô SRP Batcher, hãy bấm icon BA CHẤM DỌC (⋮) và chọn <code>Show Additional Properties</code>.</strong>"</em></li>
+</ul>
+</div>
+<div class="col-en">
+<p>📷 <strong>Camera settings:</strong> <em>"The URP enables you to disable unwanted renderer processes on your cameras for performance optimization. This is useful if you're targeting both high- and low-end devices in your project. Disabling expensive processes, such as post-processing, shadow rendering, or depth texture can reduce visual fidelity but improve performance on low-end devices."</em></p>
+<p>⚙️ <strong>Pipeline settings:</strong></p>
+<ul>
+<li><em>"Reduce Shadow Resolution and distance for performance gains."</em></li>
+<li><em>"Disable features that your project does not require, such as depth texture and opaque texture."</em></li>
+<li><em>"Enable the SRP Batcher to use the new batching method. The SRP Batcher will automatically batch together meshes that use the same shader variant, thereby reducing draw calls. If you have numerous dynamic objects in your scene, this can be a useful way to gain performance. If the SRP Batcher checkbox is not visible, then click the three vertical dots icon (⋮) and select Show Additional Properties."</em></li>
+</ul>
+</div>
+</div>
+
+
 # PHẦN G — TỐI ƯU GPU NÂNG CAO (CONSOLE)
 
 ## 23. 🎮 Bốn kỹ thuật đặc thù Console
@@ -2752,6 +3102,31 @@ public class BakeAndSwap : MonoBehaviour
 <p><em>"Though developing for Xbox and PlayStation does RESEMBLE working with their PC counterparts, <strong>those platforms present their OWN challenges. Achieving smooth frame rates often means FOCUSING on GPU optimization.</strong>"</em></p>
 <p>🔧 <strong>Mandatory native tools:</strong> <em>"Microsoft and Sony provide EXCELLENT tools for analyzing your project's performance on BOTH the CPU and GPU. Make <strong>PIX for Xbox</strong> and <strong>Razor for PlayStation</strong> part of your toolbox."</em></p>
 <p>📊 <em>The case study used in the e-book: <strong>porting the "Book of the Dead" environment project to PlayStation 4 — the initial view was GPU-bound on a PS4 Pro at roughly 45 ms per frame</strong>.</em></p>
+</div>
+</div>
+
+### 23.0. 📉 Giảm SỐ BATCH trên console — ba lời khuyên nguyên văn
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"Như với các nền tảng khác, <strong>tối ưu trên console THƯỜNG có nghĩa là GIẢM số draw call batch.</strong> Có vài kỹ thuật có thể giúp:"</em></p>
+<ul>
+<li>✂️ <strong>Occlusion Culling</strong> — <em>"để LOẠI BỎ object bị che sau object tiền cảnh và GIẢM overdraw. ⚠️ <strong>Hãy biết rằng việc này ĐÒI HỎI THÊM xử lý CPU, nên hãy dùng Profiler để CHẮC CHẮN việc CHUYỂN TẢI công việc từ GPU sang CPU là CÓ LỢI.</strong>"</em></li>
+<li>🔁 <strong>GPU instancing</strong> — <em>"cũng có thể giảm batch nếu bạn có NHIỀU object DÙNG CHUNG mesh và material. 💡 <strong>HẠN CHẾ SỐ LƯỢNG MODEL trong scene có thể cải thiện hiệu năng. Nếu làm KHÉO, bạn vẫn dựng được scene phức tạp mà KHÔNG bị trông LẶP LẠI.</strong>"</em></li>
+<li>📦 <strong>SRP Batcher</strong> — <em>"có thể giảm phần SETUP GPU giữa các DrawCall bằng cách <strong>BATCH các lệnh GPU <code>Bind</code> và <code>Draw</code>.</strong> 🔑 Để hưởng lợi từ SRP batching, <strong>hãy dùng BAO NHIÊU Material CŨNG ĐƯỢC, NHƯNG HẠN CHẾ chúng ở MỘT SỐ ÍT shader TƯƠNG THÍCH</strong> (ví dụ shader Lit và Unlit trong URP và HDRP)."</em></li>
+</ul>
+<p>🎬 <strong>Và một cảnh báo riêng cho post-processing trên console:</strong></p>
+<p><em>"Hãy chắc chắn dùng asset post-processing <strong>ĐƯỢC TỐI ƯU CHO CONSOLE.</strong> 💀 <strong>Công cụ từ Asset Store vốn viết BAN ĐẦU CHO PC có thể TIÊU THỤ NHIỀU TÀI NGUYÊN HƠN MỨC CẦN THIẾT trên Xbox hay PlayStation.</strong> Hãy profile bằng native profiler để chắc chắn."</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"As with other platforms, optimization on console will often mean reducing draw call batches. There are a few techniques that might help:"</em></p>
+<ul>
+<li>✂️ <em>"Use <strong>Occlusion Culling</strong> to remove objects hidden behind foreground objects and reduce overdraw. Be aware this requires additional CPU processing, so use the Profiler to ensure moving work from the GPU to CPU is beneficial."</em></li>
+<li>🔁 <em>"<strong>GPU instancing</strong> can also reduce your batches if you have many objects that share the same mesh and material. Limiting the number of models in your scene can improve performance. If it's done artfully, you can build a complex scene without making it look repetitive."</em></li>
+<li>📦 <em>"The <strong>SRP Batcher</strong> can reduce the GPU setup between DrawCalls by batching Bind and Draw GPU commands. To benefit from this SRP batching, use as many Materials as needed, but restrict them to a small number of compatible shaders (e.g., Lit and Unlit Shaders in URP and HDRP)."</em></li>
+</ul>
+<p>🎬 <strong>Profile the post-processing:</strong></p>
+<p><em>"Be sure to use post-processing assets that are optimized for consoles. Tools from the Asset Store that were originally authored for PC may consume more resources than necessary on Xbox or PlayStation. Profile using native profilers to be certain."</em></p>
 </div>
 </div>
 
@@ -2806,6 +3181,15 @@ public class BakeAndSwap : MonoBehaviour
 
 ### 23.3. 🌊 Wavefront Occupancy — Đo mức tận dụng GPU
 
+<img src="../assets/gfx-wavefront-occupancy.png" alt="Good vs bad wavefront occupancy.">
+<p><em>VI: <strong>▲ Occupancy TỐT vs XẤU</strong> — biểu đồ chồng theo loại wavefront (<strong>VS · PS · LS · ES · GS · HS · CS</strong>, cùng <em>Async 0/1</em>). <strong>TỐT</strong>: khối lấp gần kín chiều cao suốt frame. <strong>XẤU</strong>: gần như trống, chỉ nhô lên một mỏm — GPU đứng chờ. / EN: Good vs bad wavefront occupancy.</em></p>
+
+<img src="../assets/gfx-initial-gpu-frame.png" alt="The initial GPU frame breakdown against the 60 FPS and 30 FPS budgets.">
+<p><em>VI: <strong>▲ Frame GPU BAN ĐẦU</strong> — thanh xếp chồng <strong>Gbuffer · Motion Vectors · SSAO · Shadows · Lighting · Atmospherics · Post</strong>, tổng ~<strong>45 ms</strong>, vượt XA cả mốc <strong>30 FPS (33 ms)</strong> lẫn <strong>60 FPS (16,7 ms)</strong>. / EN: The initial GPU frame breakdown against the 60 FPS and 30 FPS budgets.</em></p>
+
+<img src="../assets/gfx-gpu-frame-after-shadow.png" alt="GPU frame after the shadow map revision.">
+<p><em>VI: <strong>▲ Sau khi sửa shadow map</strong> — ba thanh so sánh <strong>Initial GPU Time</strong> → <strong>After Prepass</strong> → <strong>After Shadows</strong>: khối <em>Shadows</em> co lại rõ rệt và tổng frame lọt xuống dưới mốc 30 FPS. / EN: GPU frame after the shadow map revision.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>🔑 <strong>Cơ chế:</strong></p>
@@ -2850,6 +3234,12 @@ public class BakeAndSwap : MonoBehaviour
 </div>
 
 ### 23.4. 🔀 Async Compute — Lấp chỗ trống của GPU
+
+<img src="../assets/gfx-async-compute-queues.png" alt="The graphics queue and compute dispatch running in parallel.">
+<p><em>VI: <strong>▲ Hàng đợi GPU khi dùng async compute</strong> — cột <strong>Graphics Queue</strong> và <strong>Compute Dispatch</strong> chạy SONG SONG; ba biến thể cho thấy cách xếp lại công việc để lấp khoảng trống của queue đồ hoạ. / EN: The graphics queue and compute dispatch running in parallel.</em></p>
+
+<img src="../assets/gfx-hdrp-frame-graph.png" alt="The full HDRP frame graph with built-in passes and custom injection points.">
+<p><em>VI: <strong>▲ Sơ đồ pass ĐẦY ĐỦ của HDRP</strong> — từ <em>Before Rendering</em> → Depth/Normal, Motion Vector → <strong>Async: Volumetrics Voxelization · SSAO · SSR · Light Structures</strong> → <em>Opaque &amp; Sky</em> → <em>Transparent</em> → <em>Post Process</em>. Chú giải phân biệt <strong>Built-in HDRP passes</strong>, <strong>Custom Post Process Injection Points</strong> và <strong>Custom Pass Injection Points</strong>. / EN: The full HDRP frame graph with built-in passes and custom injection points.</em></p>
 
 !!! success "Kỹ thuật nâng cao nhất trong chương"
     <div class="bilingual-row">
@@ -2947,6 +3337,18 @@ public class BakeAndSwap : MonoBehaviour
 
 ### 25.1. Profiler & Frame Debugger cho VFX
 
+<img src="../assets/vfx-fps-vs-frametime.png" alt="The fps vs frame time curve.">
+<p><em>VI: <strong>▲ FPS và FRAME TIME là quan hệ NGHỊCH ĐẢO</strong> — đường cong dốc đứng ở vùng frame time nhỏ: từ 5 ms lên 10 ms mất hơn 100 fps, nhưng từ 50 ms lên 55 ms chỉ mất vài fps. Đây là lý do <strong>phải đo bằng MILLISECOND, không phải FPS</strong>. / EN: The fps vs frame time curve.</em></p>
+
+<img src="../assets/vfx-profiler-batches.png" alt="The Profiler and rendering statistics for a VFX-heavy scene.">
+<p><em>VI: <strong>▲ Profiler + thống kê rendering cho một scene VFX</strong> — CPU Usage và GPU Usage xếp chồng, khối Rendering chiếm phần lớn; bảng dưới cho <strong>SetPass Calls · Draw Calls · Batches · Triangles · Vertices</strong> cùng số liệu bộ nhớ texture/render texture. / EN: The Profiler and rendering statistics for a VFX-heavy scene.</em></p>
+
+<img src="../assets/vfx-frame-debugger.png" alt="The Frame Debugger showing VFX compute dispatches before the draw passes.">
+<p><em>VI: <strong>▲ Frame Debugger cho VFX</strong> — chuỗi <code>VFXUpdate</code> / <code>VFXParticleSystem</code> compute dispatch trước, rồi mới tới pass vẽ; ảnh giữa cho thấy phần particle được vẽ ra. / EN: The Frame Debugger showing VFX compute dispatches before the draw passes.</em></p>
+
+<img src="../assets/vfx-control-efficiency.png" alt="The VFX Control window with the Efficiency Plot and per-system Alive/Capaci">
+<p><em>VI: <strong>▲ Cửa sổ VFX Control — <em>Efficiency Plot</em></strong> — bảng liệt kê TỪNG <strong>Particle System</strong> với <strong>Alive · Set Capacity · Efficiency</strong>; hệ nào <strong>Efficiency thấp</strong> là đang cấp phát THỪA capacity. Đây là công cụ tìm lãng phí NHANH NHẤT của VFX Graph. / EN: The VFX Control window with the Efficiency Plot and per-system Alive/Capacity/Efficiency.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <blockquote>
@@ -3026,6 +3428,15 @@ public class BakeAndSwap : MonoBehaviour
 
 ### 25.3. 📦 Bounds — Tối ưu culling DỰNG SẴN của VFX
 
+<img src="../assets/vfx-bounds-settings.png" alt="The Bounds settings inside the Initialize Particle context.">
+<p><em>VI: <strong>▲ Bounds trong <code>Initialize Particle</code></strong> — <strong>Capacity 128</strong>, <strong>Bounds Setting Mode: Recorded</strong>, kèm <strong>Bounds Center/Size</strong> và <strong>Bounds Padding</strong>. Bounds SAI là nguyên nhân phổ biến khiến hiệu ứng bị cull nhầm hoặc KHÔNG BAO GIỜ bị cull. / EN: The Bounds settings inside the Initialize Particle context.</em></p>
+
+<img src="../assets/vfx-sparkles-positionmap.png" alt="The Sparkles system with a 16,384 capacity and Set Position And Direction F">
+<p><em>VI: <strong>▲ Hệ <em>Sparkles</em></strong> — <strong>Capacity 16.384</strong>, <strong>Bounds Mode: Manual</strong>, và block <strong>Set Position And Direction From Map</strong> nhận <code>PositionMap</code> / <code>DirectionMap</code> + <code>Sample U</code>. / EN: The Sparkles system with a 16,384 capacity and Set Position And Direction From Map.</em></p>
+
+<img src="../assets/vfx-spawn-single-burst.png" alt="The Spawn context with a Single Burst block and the enable/disable toggle.">
+<p><em>VI: <strong>▲ Context <em>Spawn</em></strong> — block <strong>Single Burst</strong> (Spawn Mode Constant · Delay Mode Constant · <strong>Count 1</strong> · <strong>Delay 0.8</strong>) và <strong>Set SpawnEvent Lifetime 1.7</strong>; mũi tên chỉ ô tick <strong>Enable/disable Block</strong> — tắt block để đo chi phí từng phần. / EN: The Spawn context with a Single Burst block and the enable/disable toggle.</em></p>
+
 <img src="../assets/vfx-bounds-recording.png" alt="Recording the Bounds at runtime">
 <p><em>VI: <strong>Ghi lại Bounds lúc runtime</strong> — panel <strong>VFX Control</strong> (trái) với <em>Recording in progress… · Apply Bounds · chế độ <strong>Recorded</strong></em>, và Scene view (phải) hiển thị <strong>khung Bounds MÀU ĐỎ nở ra theo hiệu ứng</strong> khi bật <strong>Show Bounds</strong>. / EN: Recording the Bounds at runtime.</em></p>
 
@@ -3074,6 +3485,12 @@ public class BakeAndSwap : MonoBehaviour
 </div>
 
 ### 25.4. 🪨 Mesh LOD & Mesh Count
+
+<img src="../assets/vfx-output-lit-mesh-count.png" alt="The Output Particle Lit Mesh context with Mesh Count 3 and Lod enabled.">
+<p><em>VI: <strong>▲ <code>Output Particle Lit Mesh</code></strong> — <strong>Mesh Count 3</strong> và ô <strong>Lod ✓</strong> (khoanh xanh), <strong>Material Type: Translucent</strong>, Space Local. / EN: The Output Particle Lit Mesh context with Mesh Count 3 and Lod enabled.</em></p>
+
+<img src="../assets/vfx-mesh-lod-values.png" alt="Assigning SpaceRock LOD0/1/2 to the mesh slots with the Lod Values threshol">
+<p><em>VI: <strong>▲ Gán LOD cho từng mesh</strong> — <strong>Mesh 0 → <code>SpaceRock_01_LOD0</code> · Mesh 1 → <code>_LOD1</code> · Mesh 2 → <code>_LOD2</code></strong>, kèm <strong>Sub Mesh Mask</strong> và <strong>Lod Values X 15 · Y 10 · Z 3 · W 0.1</strong>, <strong>Radius Scale 0.1</strong>. / EN: Assigning SpaceRock LOD0/1/2 to the mesh slots with the Lod Values thresholds.</em></p>
 
 <img src="../assets/vfx-mesh-lod-resolutions.png" alt="LOD resolutions with vertex and triangle counts">
 <p><em>VI: Ba mức LOD của cùng một tảng đá — <strong>LOD0: 1.313 vertex / 2.568 tam giác · LOD1: 253 vertex / 226 tam giác · LOD2: 32 vertex / 12 tam giác</strong>. / EN: LOD resolutions.</em></p>
@@ -3131,6 +3548,12 @@ public class BakeAndSwap : MonoBehaviour
     **EN:** A quad particle has **4 EMPTY corners (alpha = 0)** that the GPU **still shades** before discarding. Cropping to an octagon **removes ~15% of fragment area with NO visual change** — and for particles, area IS **fill rate** ([§5](#5-overdraw-early-depth-test)). This is **free overdraw eliminated**, not a quality trade-off.
 
 ### 25.6. 🚀 Case study — Tối ưu tia lửa trên Spaceship Demo
+
+<img src="../assets/vfx-property-binder.png" alt="The VFX Property Binder with a Multiple Position (Oriented) Binder.">
+<p><em>VI: <strong>▲ <code>VFX Property Binder</code></strong> — Property Bindings dùng <strong>Multiple Position (Oriented) Binder</strong>, ánh xạ <strong>Position Map Property → <code>PositionMap</code></strong>, <strong>Direction Map Property → <code>DirectionMap</code></strong>, <strong>Position Count Property → <code>PositionCount</code></strong>, cùng <strong>Execute In Editor ✓</strong>. / EN: The VFX Property Binder with a Multiple Position (Oriented) Binder.</em></p>
+
+<img src="../assets/vfx-custom-shader.png" alt="A custom Shader Graph used by the visual effect.">
+<p><em>VI: <strong>▲ Shader Graph RIÊNG cho VFX</strong> — đồ thị Vertex/Fragment tối giản, kèm ảnh preview hiệu ứng lửa. Shader riêng cho phép cắt bỏ mọi thứ VFX không dùng tới. / EN: A custom Shader Graph used by the visual effect.</em></p>
 
 <img src="../assets/vfx-spaceship-sparks.png" alt="Particles show the spaceship in danger">
 <p><em>VI: Tia lửa bắn ra từ vách khoang tàu — hiệu ứng <strong>Sparkle</strong> trong Spaceship Demo. / EN: Particles show the spaceship in danger.</em></p>
@@ -3206,7 +3629,34 @@ public class BakeAndSwap : MonoBehaviour
 
 > 📘 **Nguồn:** [***The Definitive Guide to Lighting in HDRP***, 83 tr.](https://cdn.bfldr.com/S5BC9Y64/at/g9f4kvk4pk99t38jx86ph696/Unity_DefinitiveGuideToLightingInHDRP_eBook.pdf) và [***HDRP Lighting — 2021 LTS edition***, 100 tr.](https://cdn.bfldr.com/S5BC9Y64/at/2tcfx5bgpknjvp3bksq8hcr/JW10283_Unity_ABMCampaign_Final.pdf) — các mục ***Optimizing HDRP*** (tr.17–19), ***Rendering Debugger*** (tr.74–75), cùng toàn bộ *Performance tip* / *Optimization tip* rải trong hai sách.
 
+
+### 26.0. 🗂️ Tiền đề — NHIỀU Pipeline Asset ↔ Quality Level
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📁 <em>"Ô trên cùng — <strong>Scriptable Render Pipeline Settings</strong> — đại diện cho <strong>MỘT FILE TRÊN ĐĨA lưu TOÀN BỘ thiết lập HDRP của bạn.</strong> 🔑 <strong>Bạn có thể có NHIỀU Pipeline Asset như vậy trong MỘT dự án. Hãy nghĩ mỗi cái là MỘT FILE CẤU HÌNH RIÊNG.</strong> Ví dụ, bạn có thể dùng chúng để <strong>lưu thiết lập chuyên biệt cho các NỀN TẢNG ĐÍCH KHÁC NHAU (Xbox, PlayStation…)</strong>, hoặc để <strong>đại diện cho các MỨC CHẤT LƯỢNG HÌNH ẢNH KHÁC NHAU mà người chơi có thể HOÁN ĐỔI LÚC CHẠY.</strong>"</em></p>
+<p>📦 <em>"<strong>3D Sample Scene</strong> khởi đầu với vài Pipeline Asset trong thư mục <code>Settings</code>: <strong><code>HDRPHighQuality</code>, <code>HDRPLowQuality</code> và <code>HDRPMediumQuality</code>.</strong> Còn có thư mục <strong><code>HDRPDefaultResources</code></strong> chứa một <strong><code>DefaultHDRPAsset</code></strong>."</em></p>
+<p>🎚️ <em>"<strong>Quality Settings</strong> cho phép bạn <strong>GẮN một Pipeline Asset với MỘT QUALITY LEVEL định sẵn. Chọn một Level ở trên cùng để KÍCH HOẠT Render Pipeline Asset tương ứng</strong>, hiển thị trong mục Rendering."</em></p>
+<p>🏗️ <em>"Bạn có thể <strong>tuỳ biến các mặc định hoặc TẠO THÊM Quality Level, mỗi cái ghép với một Pipeline Asset khác. Một Quality Level đại diện cho MỘT TẬP TÍNH NĂNG HÌNH ẢNH CỤ THỂ đang bật trong pipeline.</strong> Ví dụ, bạn có thể <strong>tạo vài TIER ĐỒ HOẠ trong ứng dụng. LÚC CHẠY, người chơi có thể CHỌN Quality Level đang dùng, TUỲ THEO phần cứng.</strong> Sửa thiết lập pipeline thật ở mục con <strong><code>Quality/HDRP</code></strong>."</em></p>
+</div>
+<div class="col-en">
+<p>📁 <em>"The top field, the Scriptable Render Pipeline Settings, represents a file on disk that stores all of your HDRP settings. You can have multiple such Pipeline Assets per project. Think of each one as a separate configuration file. For example, you might use them to store specialized settings for different target platforms (Xbox, PlayStation, and so on), or they could also represent different visual quality levels that the player could swap at runtime."</em></p>
+<p>📦 <em>"The 3D Sample Scene begins with several Pipeline Assets in the Settings folder: HDRPHighQuality, HDRPLowQuality, and HDRPMediumQuality. There is also a HDRPDefaultResources folder containing a DefaultHDRPAsset."</em></p>
+<p>🎚️ <em>"The Quality Settings allows you to correspond one of your Pipeline Assets with a predefined Quality Level. Select a Level at the top to activate a specific Render Pipeline Asset, shown in the Rendering options."</em></p>
+<p>🏗️ <em>"You can customize the defaults or create additional Quality Levels, each paired with additional Pipeline Assets. A Quality Level represents a specific set of visual features active in the pipeline. For example, you could create several graphics tiers within your application. At runtime, your players could then choose the active Quality Level, depending on hardware. Edit the actual pipeline settings in the Quality/HDRP subsection."</em></p>
+</div>
+</div>
+
 ### 26.1. 🔌 Nguyên tắc gốc — CHỈ bật thứ bạn THỰC SỰ dùng
+
+<img src="../assets/hdrp-quality-assets-folder.png" alt="Three HDRP Pipeline Assets, one per quality level.">
+<p><em>VI: <strong>▲ NHIỀU Pipeline Asset, KHÔNG phải một</strong> — thư mục <code>Assets/SampleSceneAssets/Settings</code> chứa <strong><code>HDRPHighQuality</code> · <code>HDRPLowQuality</code> · <code>HDRPMediumQuality</code></strong>, mỗi asset gắn với MỘT Quality Level. / EN: Three HDRP Pipeline Assets, one per quality level.</em></p>
+
+<img src="../assets/hdrp-quality-settings.png" alt="Quality Settings linking each level to an HDRP Pipeline Asset.">
+<p><em>VI: <strong>▲ <code>Quality Settings</code> nối Level ↔ Asset</strong> — Levels <strong>High/Medium/Low</strong>, <strong>Render Pipeline Asset: HDRPMediumQuality</strong>, <strong>VSync Count: Every V Blank</strong>, Texture Quality Full Res, Anisotropic Textures Forced On, <strong>Particle Raycast Budget 256</strong>, và nhóm <strong>Async Asset Upload: Time Slice 2 · Buffer Size 16 · Persistent Buffer ✓</strong>. / EN: Quality Settings linking each level to an HDRP Pipeline Asset.</em></p>
+
+<img src="../assets/hdrp-asset-rendering.png" alt="The Rendering section of the HDRP Asset.">
+<p><em>VI: <strong>▲ HDRP Asset › Rendering</strong> — <strong>Color Buffer Format R16G16B16A16</strong>, <strong>Lit Shader Mode: Deferred Only</strong>, Motion Vectors ✓, Runtime AOV API, Dithering Cross-fade, Terrain Hole, Transparent Backface/Depth Prepass/Depth Postpass, Custom Pass, <strong>Custom Buffer Format R8G8B8A8</strong>, Realtime Raytracing (Preview), <strong>LOD Bias Low/Medium/High = 1</strong>, Maximum LOD Level, cùng các nhóm Decals · Dynamic resolution · Low res Transparency · Lighting · Material · Post-processing · XR · Virtual Texturing. / EN: The Rendering section of the HDRP Asset.</em></p>
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -3256,6 +3706,21 @@ public class BakeAndSwap : MonoBehaviour
 
 ### 26.2. ⚖️ Bốn "Performance tip" & "Optimization tip" nằm rải trong sách
 
+<img src="../assets/hdrp-default-frame-settings.png" alt="The HDRP Default Settings frame-settings checklist.">
+<p><em>VI: <strong>▲ <code>HDRP Default Settings</code> › Frame Settings</strong> — danh sách tick <strong>Ray Tracing · Custom Pass · Motion Vectors · Opaque Object Motion · Transparent Object Motion · Refraction · Distortion</strong> (ô tìm kiếm đang lọc <em>refraction</em>). / EN: The HDRP Default Settings frame-settings checklist.</em></p>
+
+<img src="../assets/hdrp-lit-shader-mode-deferred.png" alt="Setting the global Lit Shader Mode in the HDRP Default Settings.">
+<p><em>VI: <strong>▲ Đặt render path TOÀN CỤC</strong> — <code>HDRP Default Settings › Default Frame Settings For: Camera › Rendering</code> với <strong>Lit Shader Mode: Deferred</strong> (khoanh đỏ), cùng <strong>Depth Prepass within Deferred · Clear GBuffers · MSAA within Forward · Alpha To Mask · Opaque Objects · Transparent Objects · Decals</strong>. / EN: Setting the global Lit Shader Mode in the HDRP Default Settings.</em></p>
+
+<img src="../assets/hdrp-camera-frame-overrides.png" alt="Per-camera Frame Settings Overrides for Lit Shader Mode.">
+<p><em>VI: <strong>▲ Ghi đè cho TỪNG Camera</strong> — Camera bật <strong>Custom Frame Settings</strong>, phần <strong>Frame Settings Overrides › Rendering › Lit Shader Mode: Deferred</strong> (khoanh đỏ). Phía trên là <strong>Post Anti-aliasing TAA · Quality Preset Medium · Sharpen Strength 0.1 · History Sharpening 0.1 · Anti-flickering 0.7</strong>. / EN: Per-camera Frame Settings Overrides for Lit Shader Mode.</em></p>
+
+<img src="../assets/hdrp-render-pipeline-wizard.png" alt="The Render Pipeline Wizard with its configuration checklist and Fix All but">
+<p><em>VI: <strong>▲ <code>Render Pipeline Wizard</code></strong> — <strong>Current HDRP version 10.6.0</strong>, ba tab <strong>HDRP · HDRP + VR · HDRP + DXR</strong>, nút <strong>Fix All</strong> (khoanh đỏ) và danh sách kiểm tra (Color space, Lightmap encoding, Shadows, Shadowmask mode, Assigned Graphics, Runtime/Editor resources, Diffusion profile, Default volume profile…). Hai cảnh báo còn lại: <em>Default Look Dev volume profile</em> và <em>Auto Graphics API is not supported</em>. / EN: The Render Pipeline Wizard with its configuration checklist and Fix All button.</em></p>
+
+<img src="../assets/hdrp-ssr-ssgi-warnings.png" alt="The Screen Space Reflection and Screen Space Global Illumination warnings.">
+<p><em>VI: <strong>▲ Hai cảnh báo hay gặp</strong> — <em>Screen Space Reflection – Transparent</em> và <em>Screen Space Global Illumination</em> bị TẮT trong Default Camera Frame Settings, kèm ĐƯỜNG DẪN sửa: <code>Project Settings › HDRP Default Settings › Frame Settings › Default Frame Settings For Camera › Lighting</code>, và lưu ý phải sửa ở <strong>Asset</strong> TRƯỚC. / EN: The Screen Space Reflection and Screen Space Global Illumination warnings.</em></p>
+
 | Chủ đề | Nguyên văn Unity | Ghi chú |
 |---|---|---|
 | **🫧 Volumes** *(Performance tip)* | *"**ĐỪNG dùng SỐ LƯỢNG LỚN Volume. Việc ĐÁNH GIÁ MỖI Volume (blending, spatialization, tính toán override, v.v.) đi kèm MỘT SỐ CHI PHÍ CPU.**"* | 👉 Chi phí này nằm ở **CPU**, không phải GPU — nó KHÔNG hiện ra khi bạn profile GPU. Xem <a href="#351-local-volume-ba-tham-so-ieu-khien">§35.1</a> về Blend Distance / Weight / Priority |
@@ -3284,7 +3749,52 @@ public class BakeAndSwap : MonoBehaviour
 </div>
 </div>
 
+
+### 26.2.1. 🪞 Screen Space Reflections — hai núm vặn DUY NHẤT, và cơ chế FALLBACK
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🎚️ <em>"Bề mặt material <strong>PHẢI VƯỢT giá trị <code>Minimum Smoothness</code> thì mới hiện Screen Space Reflections. HẠ giá trị này nếu bạn muốn material THÔ RÁP HƠN cũng hiện SSR, nhưng hãy biết rằng NGƯỠNG <code>Minimum Smoothness</code> THẤP HƠN sẽ LÀM TĂNG CHI PHÍ TÍNH TOÁN.</strong> 🔑 <strong>Nếu Screen Space Reflection KHÔNG tác động được tới một pixel, HDRP sẽ QUAY VỀ (fall back) dùng Reflection Probes.</strong>"</em></p>
+<p>🔢 <em>"Dùng dropdown <strong>Quality</strong> để chọn số <strong><code>Max Ray Steps</code></strong> định sẵn. <strong><code>Max Ray Steps</code> CAO HƠN cho chất lượng CAO HƠN nhưng KÈM CHI PHÍ.</strong>"</em></p>
+<p>⚖️ <em>"<strong>MỖI loại reflection đều có thể NGỐN TÀI NGUYÊN</strong>, nên hãy chọn phương pháp hợp với ca sử dụng. ⚠️ <strong>Nếu NHIỀU HƠN MỘT kỹ thuật reflection áp lên CÙNG một pixel, HDRP sẽ PHA TRỘN (blend) đóng góp của TỪNG loại.</strong>"</em></p>
+<p>🌑 <strong>Và chi phí Shadow Map trong HDRP:</strong> <em>"Tìm mục con <strong>Shadows</strong> của component Light để chỉnh <strong><code>Update Mode</code></strong> và <strong><code>Resolution</code></strong> của shadow map. 💀 <strong>ĐỘ PHÂN GIẢI CAO HƠN và TẦN SUẤT CẬP NHẬT CAO HƠN đều TỐN NHIỀU TÀI NGUYÊN HƠN.</strong>"</em> — <code>Update Mode</code> là khái niệm RIÊNG của HDRP (cached ↔ every frame), không có ở URP.</p>
+</div>
+<div class="col-en">
+<p>🎚️ <em>"Material surfaces must exceed the Minimum Smoothness value to show Screen Space Reflections. Lower this value if you want rougher materials to show the SSR, but be aware that a lower Minimum Smoothness threshold can add to the computation cost. If Screen Space Reflection fails to affect a pixel, then HDRP falls back to using Reflection Probes."</em></p>
+<p>🔢 <em>"Use the Quality dropdown to select a preset number of Max Ray Steps. Higher Max Ray Steps increase quality but come with a cost. As with all effects, balance performance with visual quality."</em></p>
+<p>⚖️ <em>"Each reflection type can be resource intensive, so select the method that works best depending on your use case. If more than one reflection technique applies to a pixel, HDRP blends the contribution of each reflection type."</em></p>
+<p>🌑 <em>"Locate the Shadows subsection of the Light component to modify your shadow mapping Update Mode and Resolution. Higher resolutions and update frequency settings cost more resources."</em></p>
+</div>
+</div>
+
+### 26.2.2. ⚠️ `Lit Shader Mode = Both` — tiện, nhưng TỐN THÊM bộ nhớ GPU
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><em>"Chọn <strong>Forward</strong> hoặc <strong>Deferred</strong> ở <code>Lit Shader Mode</code> để đặt <strong>render path MẶC ĐỊNH</strong>. HDRP linh hoạt và cũng cho phép chọn <strong><code>Both</code>. Tuỳ chọn này cho phép bạn dùng MỘT render path cho HẦU HẾT việc render rồi GHI ĐÈ THEO TỪNG CAMERA.</strong> 💀 <strong>TUY NHIÊN, CÁCH NÀY DÙNG NHIỀU BỘ NHỚ GPU HƠN. TRONG HẦU HẾT TRƯỜNG HỢP, TỐT HƠN LÀ CHỌN HẲN <code>Forward</code> HOẶC <code>Deferred</code>.</strong>"</em></p>
+<p>🌐 <strong>Đặt cho TOÀN BỘ camera:</strong> <em>"vào <strong>HDRP Default Settings</strong> tìm <strong><code>Default Frame Settings</code></strong>. <strong>Nó áp dụng được cho <code>Camera</code>, <code>Baked or Custom Reflection</code>, hoặc <code>Realtime Reflections</code>.</strong> Trong nhóm <strong>Rendering</strong>, đặt render path ở <code>Lit Shader Mode</code>."</em></p>
+<p>🎯 <strong>Đặt cho MỘT camera cụ thể:</strong> <em>"tick <strong><code>Custom Frame Settings</code></strong> của nó để ghi đè. Rồi trong nhóm <strong>Rendering</strong>, <strong>override và đổi</strong> render path ở <code>Lit Shader Mode</code>."</em></p>
+</div>
+<div class="col-en">
+<p><em>"Choose Forward or Deferred in the Lit Shader Mode to set your default rendering path. HDRP is flexible and also allows you to choose Both. This option lets you use one render path for most rendering and then override it per camera. However, this approach uses more GPU memory. In most cases, it is better to choose either Forward or Deferred."</em></p>
+<p>🌐 <em>"To affect all cameras by default, go to HDRP Default Settings and locate Default Frame Settings. This can apply for a Camera, Baked or Custom Reflection, or Realtime Reflections. In the Rendering group, set the render path in the Lit Shader Mode."</em></p>
+<p>🎯 <em>"For a specific camera, check its Custom Frame Settings to override it. Then, in the Rendering group, override and change the rendering path of the Lit Shader Mode."</em></p>
+</div>
+</div>
+
 ### 26.3. 🔬 Rendering Debugger — "Thám tử PIXEL"
+
+<img src="../assets/hdrp-debugger-lighting-modes.png" alt="The nine lighting debug modes of the Rendering Debugger.">
+<p><em>VI: <strong>▲ Chín chế độ LIGHTING của Rendering Debugger</strong> — <strong>Original frame · Diffuse · Direct Diffuse · Direct Specular · Indirect Diffuse · Emissive · Specular · Reflection · SSAO</strong>. Tách từng thành phần ra là cách tìm ra đèn/vật liệu nào đang đắt. / EN: The nine lighting debug modes of the Rendering Debugger.</em></p>
+
+<img src="../assets/hdrp-debugger-material.png" alt="The material property debug modes.">
+<p><em>VI: <strong>▲ Sáu chế độ MATERIAL</strong> — <strong>Original frame · Albedo · Normal · Specular · Smoothness · Metal</strong>. / EN: The material property debug modes.</em></p>
+
+<img src="../assets/hdrp-light-cluster-debug.png" alt="The Light Cluster debug view.">
+<p><em>VI: <strong>▲ Light Cluster debug</strong> — vùng <strong>ĐỎ</strong> là nơi có QUÁ NHIỀU đèn chồng lên nhau trong một cluster, vùng <strong>vàng/xanh</strong> là an toàn. Đây là cách nhìn thấy chi phí đèn theo KHÔNG GIAN. / EN: The Light Cluster debug view.</em></p>
+
+<img src="../assets/hdrp-debugger-display-stats.png" alt="The Display Stats panel of the Rendering Debugger.">
+<p><em>VI: <strong>▲ Tab <em>Display Stats</em></strong> — <strong>Frame Rate 43,96864 fps · Frame Time 22,74348 ms</strong>, cùng các ô <strong>Update every second with average · CPU timings (Command Buffers) · GPU timings · Inline CPU timings · Count Rays (MRays/Frame) · Debug XR Layout</strong>. Đây là chỗ đọc GPU time trong HDRP mà KHÔNG cần công cụ ngoài. / EN: The Display Stats panel of the Rendering Debugger.</em></p>
 
 <img src="../assets/hdrp-rendering-debugger.png" alt="HDRP Rendering Debugger window">
 <p><em>VI: Cửa sổ <strong>Rendering Debugger</strong> — cột trái phân loại theo <strong>Decals · Material · Lighting · Volume · Rendering · Scene Camera · Main Camera · BloomCamera</strong>. Panel <em>Lighting</em> đang mở với <strong>Shadow Debug Mode · Global Shadow Scale Factor · Clear Shadow Atlas · Log Cached Shadow Atlas Status</strong>, các <strong>Material Overrides</strong> (Smoothness / Albedo / Normal / Specular Color / Ambient Occlusion / Emissive Color), và <strong>Fullscreen Debug Mode · Tile/Cluster Debug · Display Sky Reflection · Display Light Volumes · Display Cookie Atlas · Display Planar Reflection Atlas · Display Local Volumetric Fog Atlas · Debug Overlay Screen Ratio 0.33</strong>. / EN: The Rendering Debugger window.</em></p>
@@ -3772,7 +4282,47 @@ public static class AsyncUploadTuner
 
 ## 33. Chuyển dự án BiRP → URP
 
+
+### 33.0. 🆕 Dự án MỚI bằng URP — nhánh mà §33.1 không nói tới
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🚀 <em>"Mở dự án mới dùng URP qua <strong>Unity Hub</strong>. Bấm <strong>New</strong> và kiểm tra phiên bản Unity ở đầu cửa sổ là <strong>2021.2 trở lên</strong>. Chọn tên và vị trí dự án, chọn template <strong><code>3D (URP)</code></strong> hoặc <strong><code>3D Sample Scene (URP)</code></strong>, rồi bấm <strong>Create</strong>."</em></p>
+<p>⚠️ <em>"<strong>Lưu ý:</strong> Template đảm bảo dự án của bạn <strong>dùng LINEAR COLOR SPACE — điều BẮT BUỘC để tính ánh sáng ĐÚNG.</strong>"</em></p>
+<p>🎬 <em>"Bạn tạo scene mới qua <code>File › New Scene</code>, với các GameObject thiết yếu như Camera và Directional light, và <strong>thậm chí TẠO SCENE TEMPLATE RIÊNG với object điền sẵn.</strong>"</em></p>
+<p>🎛️ <em>"Vào <code>Edit › Project Settings</code> mở panel <strong>Graphics</strong>. Để dùng URP trong Editor, bạn <strong>PHẢI chọn một URP Asset từ <code>Scriptable Render Pipeline Settings</code>.</strong> URP Asset <strong>điều khiển thiết lập rendering và Quality TOÀN CỤC, và TẠO RA rendering pipeline instance</strong>. Còn <strong>rendering pipeline instance chứa các TÀI NGUYÊN TRUNG GIAN và phần hiện thực của render pipeline.</strong>"</em></p>
+<p>🎚️ <em>"<strong><code>UniversalRP-HighFidelity</code> là URP Asset được chọn MẶC ĐỊNH</strong>, nhưng bạn có thể chuyển sang <strong><code>UniversalRP-Balanced</code></strong> hoặc <strong><code>UniversalRP-Performant</code></strong>."</em></p>
+<p>🧹 <em>"Để có dự án SẠCH, dùng template <code>3D (URP)</code>; hoặc nếu muốn gỡ sample scene khỏi template <code>Sample Scene (URP)</code>, hãy <strong>xoá thư mục <code>ExampleAssets</code> và <code>Tutorial Info</code>, cùng <code>Settings › SampleSceneProfile.asset</code>, <code>Scenes › SampleScene.unity</code> và <code>Scenes › SampleSceneLightingSettings.lighting</code>.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🚀 <em>"Open a new project using URP via the Unity Hub. Click on New and verify that the Unity version selected at the top of the window is 2021.2 or newer. Choose a name and location for the project, select the 3D (URP) template or 3D Sample Scene (URP), and click Create."</em></p>
+<p>⚠️ <em>"Note: The template ensures that your project is set to use a linear color space, which is required for calculating lighting correctly."</em></p>
+<p>🎬 <em>"You can create new scenes via File &gt; New Scene, with essential GameObjects such as Camera and Directional light, and even create your own scene template with prepopulated objects."</em></p>
+<p>🎛️ <em>"Go to Edit &gt; Project Settings and open the Graphics panel. To use URP in-Editor, you must select a URP Asset from the Scriptable Render Pipeline Settings. The URP Asset controls the global rendering and Quality settings of a project and creates the rendering pipeline instance. Meanwhile, the rendering pipeline instance contains intermediate resources and the render pipeline implementation."</em></p>
+<p>🎚️ <em>"UniversalRP-HighFidelity is the default URP Asset selected, but you can switch to UniversalRP-Balanced or UniversalRP-Performant."</em></p>
+<p>🧹 <em>"To open a clean project, use the 3D (URP) template or, if you want to remove the sample scene from the Sample Scene (URP) template, delete the ExampleAssets and Tutorial Info folders, as well as the Settings &gt; SampleSceneProfile.asset, Scenes &gt; SampleScene.unity, and Scenes &gt; SampleSceneLightingSettings.lighting."</em></p>
+</div>
+</div>
+
 ### 33.1. Ba bước bắt buộc
+
+<img src="../assets/urp-new-project-templates.png" alt="Creating a new project from the 3D (URP) template.">
+<p><em>VI: <strong>▲ Cách 1 — tạo dự án MỚI</strong>: Unity Hub → template <strong>3D (URP)</strong> (cạnh 2D Core, 3D Core, 3D HDRP, và các 3D Sample Scene). Ô mô tả ghi rõ template đã <strong>cấu hình SẴN URP</strong>. / EN: Creating a new project from the 3D (URP) template.</em></p>
+
+<img src="../assets/urp-package-universal-rp.png" alt="Installing the Universal RP package.">
+<p><em>VI: <strong>▲ Cách 2 — cài package</strong>: Package Manager → <strong>Universal RP 12.0.0</strong> (September 29, 2021), Registry Unity. / EN: Installing the Universal RP package.</em></p>
+
+<img src="../assets/urp-create-rendering-menu.png" alt="The Create > Rendering menu for URP assets.">
+<p><em>VI: <strong>▲ Tạo asset</strong>: <code>Create › Rendering</code> với <strong>URP Asset (with 2D Renderer)</strong> · <strong>URP Asset (with Universal Renderer)</strong> · <strong>URP Renderer Feature</strong> · <strong>URP 2D Renderer</strong> · <strong>URP Universal Renderer</strong> · <strong>URP Global Settings Asset</strong> · <strong>URP Post-process Data</strong> · <strong>URP XR System Data</strong>. / EN: The Create > Rendering menu for URP assets.</em></p>
+
+<img src="../assets/urp-graphics-tier-settings.png" alt="Assigning the URP Asset in Project Settings > Graphics.">
+<p><em>VI: <strong>▲ Gán asset vào Graphics</strong> — <code>Project Settings › Graphics › Scriptable Render Pipeline Settings</code>, chọn <code>UniversalRP</code>; bên dưới là <strong>Tier Settings (Low Tier 1 · Medium Tier 2)</strong>. / EN: Assigning the URP Asset in Project Settings > Graphics.</em></p>
+
+<img src="../assets/urp-quality-pipeline-asset.png" alt="Assigning a different URP Asset per Quality Level.">
+<p><em>VI: <strong>▲ Và gán ở TỪNG Quality Level</strong> — <code>Quality › Rendering › Render Pipeline Asset = UniversalRP-LowQuality</code>, cạnh <strong>Realtime Reflection Probes · Resolution Scaling Fixed DPI Factor 1 · VSync Count: Don't Sync</strong>. / EN: Assigning a different URP Asset per Quality Level.</em></p>
+
+<img src="../assets/urp-new-scene-templates.png" alt="The New Scene window with URP scene templates.">
+<p><em>VI: <strong>▲ Scene template</strong> — cửa sổ New Scene liệt kê <strong>Basic (URP) · Standard (URP) · Basic (Built-in) · CustomSceneTemplate</strong>. / EN: The New Scene window with URP scene templates.</em></p>
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -3850,6 +4400,12 @@ public static class AsyncUploadTuner
     </div>
 
 ### 33.3. 🟣 Scene chuyển sang MÀU HỒNG — và Render Pipeline Converter
+
+<img src="../assets/urp-magenta-materials.png" alt="Materials turning magenta after switching to URP.">
+<p><em>VI: <strong>▲ Triệu chứng</strong> — toàn bộ vật liệu chuyển <strong>HỒNG CÁNH SEN</strong> vì shader BiRP không tồn tại trong URP. / EN: Materials turning magenta after switching to URP.</em></p>
+
+<img src="../assets/urp-render-pipeline-converter.png" alt="The Render Pipeline Converter converting Built-in to URP.">
+<p><em>VI: <strong>▲ Thuốc chữa</strong> — <code>Window › Rendering › Render Pipeline Converter</code>, chọn <strong>Built-in to URP</strong>. Danh sách <strong>Material Upgrade — 31 items</strong> liệt kê từng material sẽ được nâng cấp. Cảnh báo NGUYÊN VĂN: <em>"This process makes irreversible changes to the project. Back up your project before proceeding."</em> Hai nút cuối: <strong>Initialize Converters</strong> → <strong>Convert Assets</strong>. / EN: The Render Pipeline Converter converting Built-in to URP.</em></p>
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -4050,9 +4606,92 @@ public static class AsyncUploadTuner
 </div>
 </div>
 
+### 33.7. 🏰 Walkthrough — chuyển dự án MẪU *Viking Village URP*
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📦 <em>"Dự án demo <strong>Viking Village URP</strong> phô diễn năng lực URP với <strong>Light Probes, Reflection Probes, hiệu ứng NƯỚC dùng một <code>ScriptableRenderPass</code> TUỲ CHỈNH, shader chuyển qua Shader Graph, và post-processing của URP.</strong> Dự án MIỄN PHÍ trên Asset Store."</em></p>
+<p>👉 <em>"Bắt đầu bằng cách bấm <strong>Add to My Assets</strong>… Rồi tạo <strong>dự án 3D MỚI</strong> từ Unity Hub (<strong>KHÔNG cần dùng template URP</strong>). Vào <code>Window › Package Manager</code>, chọn <strong><code>My Assets › Viking Village URP</code></strong> từ dropdown Packages, và bấm <strong>Import</strong>."</em></p>
+<p>🚨 <strong>HAI cảnh báo khi import — và LÝ DO phải bấm nút XANH:</strong></p>
+<p><em>"Cảnh báo đầu tiên nói rằng <strong>import một dự án HOÀN CHỈNH sẽ ẢNH HƯỞNG Project Settings hiện tại</strong>, nhưng vì bạn đã tạo dự án RỖNG nên cứ tiếp tục an toàn. 💀 <strong>Cảnh báo thứ hai báo về việc CÀI hoặc NÂNG CẤP một số package. HÃY BẤM nút XANH MẶC ĐỊNH. Việc này BẮT BUỘC để TRÁNH THIẾT LẬP ÁNH SÁNG SAI — vì URP mặc định dùng LINEAR color space, NGƯỢC với Built-in vốn mặc định GAMMA color space.</strong>"</em></p>
+<p>🔄 <em>"Chờ import xong, mở demo ở <code>Viking Village › Scenes › The_Viking_Village</code>. Vào <code>Window › Package Manager</code>, chọn <strong>Unity Registry</strong> rồi <strong>Universal RP</strong>, và <strong>CẬP NHẬT package URP lên 12.x.</strong>"</em></p>
+<p>⚙️ <em>"URP Asset được đặt trong panel Graphics tên là <code>Viking Village › Rendering › VikingVillageUniversal</code>. ⚠️ <strong>Nó được cấu hình cho PHẦN CỨNG CAO CẤP, nên có thể chạy ở framerate THẤP trên máy đời cũ.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📦 <em>"The Unity demo project Viking Village URP shows off URP capabilities with Light Probes, Reflection Probes, water special effects that use a custom ScriptableRenderPass, shaders converted via Shader Graph, and URP post-processing. The project is available for free on the Asset Store."</em></p>
+<p>👉 <em>"Start by clicking Add to My Assets… Then create a new 3D project from the Unity Hub (you don't need to use the URP template). Go to Window &gt; Package Manager, select My Assets &gt; Viking Village URP from the Packages drop-down, and click Import."</em></p>
+<p>🚨 <strong>Two import warnings — and why the blue button matters:</strong></p>
+<p><em>"A couple of warning messages will appear. The first one warns you that importing a complete project will affect your current Project Settings, but since you've created an empty project it's safe to proceed. The second warning alerts you about installing or upgrading certain packages. Click on the default blue button. This is required to avoid an incorrect lighting setup as the URP default is a linear color space, opposite the Built-in Render Pipeline which defaults to a gamma color space."</em></p>
+<p>🔄 <em>"Wait for all the assets to finish importing, then go to the demo located in Viking Village &gt; Scenes &gt; The_Viking_Village. Click Window &gt; Package Manager, and in the drop-down select Unity Registry, followed by Universal RP. Update the URP package to 12.x."</em></p>
+<p>⚙️ <em>"The URP Asset set in the Graphics panel… is named Viking Village &gt; Rendering &gt; VikingVillageUniversal. It is configured for high-end hardware, and therefore, might play at a low frame rate on older hardware."</em></p>
+</div>
+</div>
+
+**🧪 BẢY bước test các Quality Level — nguyên văn / The seven-step Quality Level test, verbatim**
+
+| # | Bước |
+|---|---|
+| **①** | *"Sinh một bộ asset qua `Window › Rendering › **Render Pipeline Converter**`."* |
+| **②** | *"Chọn tuỳ chọn **Built-in Render Pipeline to URP**, rồi chọn **Rendering Settings**."* |
+| **③** | *"Bấm **Initialize Converters**."* |
+| **④** | *"Một loạt tuỳ chọn Settings hiện ra trong panel; bấm **Convert Assets** để tạo các URP Asset."* |
+| **⑤** | *"Các URP Asset sẽ được **gán vào các Quality level** khả dụng qua panel `Project Settings › Quality`."* |
+| **⑥** | 💀 *"**Asset chất lượng CAO NHẤT sẽ THAY THẾ `VikingVillageUniversal` trong panel Graphics.** Trong khi đó `Viking Village › Rendering › **VikingVillageUniversal_Renderer**` mới là cái dùng **Renderer Features và hiệu ứng NƯỚC**."* |
+| **⑦** | ✅ *"**Để KHÔI PHỤC chúng, hãy THÊM renderer nói trên vào Renderer List và đặt nó làm MẶC ĐỊNH cho TỪNG URP Asset dùng trong Quality Levels.** Giờ bạn có thể chuyển Quality Level nhanh chóng trong panel Quality."* |
+
+!!! danger "💀 Bẫy THỰC CHIẾN quan trọng nhất của cả chương chuyển đổi"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p>Converter ở chế độ <strong>Rendering Settings</strong> <strong>GHI ĐÈ</strong> URP Asset đang dùng ở panel Graphics bằng preset chất lượng cao nhất nó vừa tạo. Hậu quả: <strong>MỌI Renderer Feature bạn đã cấu hình (nước, custom pass, Render Objects) BIẾN MẤT</strong> vì asset mới trỏ tới một Renderer KHÁC.</p>
+    <p>✅ Cách chữa duy nhất: gán lại <code>_Renderer</code> gốc vào <strong>Renderer List</strong> và đặt <strong>Default</strong> cho <strong>TỪNG</strong> URP Asset — không phải chỉ cái đang active.</p>
+    </div>
+    <div class="col-en">
+    <p>The converter's <strong>Rendering Settings</strong> mode <strong>replaces</strong> the URP Asset in the Graphics panel with the highest-quality preset it just generated — silently dropping every Renderer Feature you had configured, because the new asset points at a different Renderer.</p>
+    <p>✅ The fix: re-add the original <code>_Renderer</code> to the <strong>Renderer List</strong> and set it as <strong>Default</strong> for <strong>each</strong> URP Asset, not just the active one.</p>
+    </div>
+    </div>
+
+
 ---
 
 ## 34. Lighting trong URP — Chi tiết đầy đủ
+
+<img src="../assets/urp-lighting-environment.png" alt="The Lighting Environment tab.">
+<p><em>VI: <strong>▲ <code>Lighting › Environment</code></strong> — <strong>Skybox Material: Default-Skybox</strong> · <strong>Sun Source: Directional Light</strong> · <strong>Realtime Shadow Color</strong> · <strong>Environment Lighting Source: Skybox</strong> · <strong>Intensity Multiplier 1</strong>. / EN: The Lighting Environment tab.</em></p>
+
+<img src="../assets/urp-env-source-three-modes.png" alt="The three Environment Lighting sources: Skybox, Gradient and Color.">
+<p><em>VI: <strong>▲ BA nguồn ánh sáng môi trường</strong> — <strong>Skybox</strong> (chỉ có Intensity Multiplier) · <strong>Gradient</strong> (Sky Color · Equator Color · Ground Color, hai cái sau nhận HDR) · <strong>Color</strong> (một Ambient Color duy nhất — RẺ NHẤT). / EN: The three Environment Lighting sources: Skybox, Gradient and Color.</em></p>
+
+<img src="../assets/urp-environment-full.png" alt="The full Environment tab including Environment Reflections and Other Settin">
+<p><em>VI: <strong>▲ Cuộn hết tab Environment</strong> — thêm <strong>Environment Reflections: Source Skybox · Resolution 128 · Compression Auto · Intensity Multiplier 1 · Bounces 1</strong> và nhóm <strong>Other Settings: Fog · Halo Texture · Halo Strength 0.5 · Flare Fade Speed 3 · Flare Strength 1 · Spot Cookie</strong>. / EN: The full Environment tab including Environment Reflections and Other Settings.</em></p>
+
+
+### 34.0. 🗂️ BƯỚC ĐẦU TIÊN — Lighting Settings Asset, và BA nơi đặt thuộc tính
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🥇 <em>"<strong>BƯỚC ĐẦU TIÊN để chiếu sáng một scene MỚI cho URP là TẠO một Lighting Settings Asset mới.</strong> Mở <code>Window › Rendering › Lighting</code>, ở tab <strong>Scene</strong> bấm <strong>New Lighting Settings</strong> và đặt tên. 🔑 <strong>Mọi thiết lập bạn áp trong các panel Lighting từ giờ được LƯU VÀO ASSET ĐÓ. Chuyển giữa các bộ thiết lập bằng cách CHUYỂN Lighting Settings Asset.</strong>"</em></p>
+<p>🌍 <strong>Ambient / Environment lighting:</strong> <em>"<strong>KHÔNG có thay đổi nào trong cách định nghĩa ánh sáng Ambient/Environment từ Built-in sang URP.</strong> Đèn ambient chính được tính từ panel truy cập qua <code>Window › Rendering › Lighting › Environment</code>."</em> — <em>"Bạn có thể đặt <strong>Environment Lighting</strong> dùng <strong>Skybox</strong> của scene (có tuỳ chọn chỉnh <strong>Intensity</strong>), <strong>Gradient</strong>, hoặc <strong>Color</strong>."</em></p>
+<p>📍 <strong>BA NƠI đặt thuộc tính lighting — <em>A và B GIỐNG NHAU ở cả hai pipeline, C CHỈ có ở URP</em>:</strong></p>
+<ul>
+<li><strong>A. <code>Window › Rendering › Lighting</code></strong> — <em>"panel này cho phép đặt <strong>lightmapping và environment settings, và xem lightmap real-time lẫn baked. Nó KHÔNG ĐỔI từ Built-in sang URP.</strong>"</em></li>
+<li><strong>B. Light Inspector</strong> — <em>"<strong>CÓ KHÁC BIỆT ĐÁNG KỂ</strong> giữa Inspector của Built-in và của URP."</em></li>
+<li><strong>C. URP Asset Inspector</strong> — 🔑 <em>"<strong>Đây là NƠI CHÍNH bạn sẽ đặt BÓNG. Lighting trong URP PHỤ THUỘC NẶNG vào các thiết lập chọn trong panel này.</strong>"</em></li>
+</ul>
+<p>⚙️ <em>"Quality settings ở Built-in xử lý qua <code>Edit › Project Settings › Quality</code>. <strong>Ở URP, việc này PHỤ THUỘC vào thiết lập của URP Asset — thứ có thể HOÁN ĐỔI bằng panel Quality.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🥇 <em>"The first step to lighting a new scene for URP is to create a new Lighting Settings Asset. Open Window &gt; Rendering &gt; Lighting, and once you're on the Scene tab, click New Lighting Settings, and give the new asset a name. The settings that you apply in Lighting panels are now saved to it. Switch between settings by switching the Lighting Settings Asset."</em></p>
+<p>🌍 <em>"There is no change in the way that Ambient/Environment lighting is defined from the Built-in Render Pipeline to URP. The main ambient light is calculated from the panel accessible via Window &gt; Rendering &gt; Lighting &gt; Environment."</em> — <em>"You can set Environment Lighting to use the scene's Skybox, with an option to adjust the Intensity, Gradient, or Color."</em></p>
+<p>📍 <em>"As before, you'll set properties in the three places listed here. A and B are essentially the same for both render pipelines, while C applies to URP only:"</em></p>
+<ul>
+<li><strong>A.</strong> <em>"Window &gt; Rendering &gt; Lighting: This panel allows you to set lightmapping and environment settings, and view real-time and baked lightmaps. It is unchanged from the Built-in Render Pipeline to URP."</em></li>
+<li><strong>B.</strong> <em>"Light Inspector: There are significant differences between the Built-in Render Pipeline and URP Inspectors."</em></li>
+<li><strong>C.</strong> <em>"URP Asset Inspector: This is the principal place where you will set shadows. Lighting in URP relies heavily on the settings chosen in this panel."</em></li>
+</ul>
+<p>⚙️ <em>"Quality settings are handled via Edit &gt; Project Settings &gt; Quality in the Built-in Render Pipeline. In URP, this depends on the URP Asset settings which can be swapped using the Quality panel."</em></p>
+</div>
+</div>
 
 ### 34.1. ⚠️ Vì sao lighting TRÔNG KHÁC sau khi chuyển
 
@@ -4202,6 +4841,12 @@ public static class AsyncUploadTuner
 
 ### 34.4. 🔍 Light Inspector — URP khác BiRP ở đâu
 
+<img src="../assets/urp-light-inspector-compare.png" alt="The URP Light Inspector with all sections expanded.">
+<p><em>VI: <strong>▲ Light Inspector — hai cột SO SÁNH</strong>: bên trái là các nhóm gập (General · Emission · Rendering · Shadows), bên phải mở hết: <strong>Type Directional · Mode Realtime · Intensity 1.27 · Indirect Multiplier 1 · Shadow Type Soft Shadows · Realtime Shadows: Strength 1 / Resolution Use Quality Settings / Bias 0.05 / Normal Bias 0.4 / Near Plane 0.2</strong>, rồi <strong>Draw Halo · Flare None · Render Mode Auto · Culling Mask Everything</strong>. / EN: The URP Light Inspector with all sections expanded.</em></p>
+
+<img src="../assets/urp-light-mode-dropdown.png" alt="The Light Mode dropdown: Realtime, Mixed, Baked.">
+<p><em>VI: <strong>▲ <code>Mode</code></strong> — <strong>Realtime · Mixed · Baked</strong>. Đây là công tắc quyết định đèn có được bake hay không. / EN: The Light Mode dropdown: Realtime, Mixed, Baked.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p><em>"Giống BiRP, <strong>URP hỗ trợ đèn Directional, Spot, Point, và Area</strong> — <strong>dù đèn Area CHỈ hoạt động ở Baked Indirect Mode</strong>."</em></p>
@@ -4224,6 +4869,9 @@ public static class AsyncUploadTuner
 | ❌ **NA** | *Xem phần Lens Flare để biết cách cài đặt Lens Flare trong URP* | **Flare** |
 
 ### 34.5. 🌑 URP Asset — Nhóm Lighting & Shadow
+
+<img src="../assets/urp-asset-lighting-shadows.png" alt="The Lighting and Shadows sections of the URP Asset.">
+<p><em>VI: <strong>▲ Toàn bộ con số về đèn và bóng nằm ở ĐÂY</strong> — <strong>Main Light: Per Pixel · Cast Shadows ✓ · Shadow Resolution 1024</strong>; <strong>Additional Lights: Per Pixel · <span>Per Object Limit 4</span> · Cast Shadows ✓ · Shadow Atlas Resolution 2048 · Shadow Resolution Tiers Low 256 / Medium 512 / High 1024 · Cookie Atlas Resolution 2048 · Cookie Atlas Format Color High</strong>; <strong>Reflection Probes: Probe Blending · Box Projection</strong>; và <strong>Shadows: Max Distance 58.90 · Working Unit Metric · <span>Cascade Count 2</span> · Split 1 = 12.62 · Last Border 9.264 · Depth Bias · Normal Bias · Soft Shadows ✓</strong>. / EN: The Lighting and Shadows sections of the URP Asset.</em></p>
 
 <img src="../assets/urp-asset-lighting-group.png" alt="URP Asset Lighting group">
 <p><em>VI: Nhóm <strong>Lighting</strong> trong URP Asset — <strong>Main Light: Per Pixel</strong> (dropdown mở cho thấy <strong>Disabled / Per Vertex / Per Pixel</strong>), <strong>Cast Shadows ✓</strong>, <strong>Additional Lights</strong> với <strong>Shadow Atlas Resolution: 1024</strong> và <strong>Shadow Resolution Tiers: Low 128 · Medium 256 · High 512</strong>. / EN: The Lighting group in the URP Asset.</em></p>
@@ -4432,6 +5080,21 @@ public static class AsyncUploadTuner
 
 ### 34.9. 🎛️ Light Modes — Baked Indirect vs Subtractive vs Shadowmask
 
+<img src="../assets/urp-mixed-lighting-modes.png" alt="The Mixed Lighting Mode options.">
+<p><em>VI: <strong>▲ <code>Mixed Lighting › Lighting Mode</code></strong> — <strong>Baked Indirect · Subtractive · Shadowmask</strong>, kèm <strong>Baked Global Illumination ✓</strong> và ghi chú <em>"Mixed lights provide realtime direct lighting while indirect light is baked into lightmaps and light probes."</em> / EN: The Mixed Lighting Mode options.</em></p>
+
+<img src="../assets/urp-lightmapping-settings.png" alt="The full Lightmapping Settings panel.">
+<p><em>VI: <strong>▲ Lightmapping Settings</strong> — <strong>Lightmapper: Progressive GPU (Preview)</strong> · Multiple Importance Sampling · <strong>Direct Samples 32 · Indirect Samples 256 · Environment Samples 256 · Light Probe Sample 3 · Min Bounces 2 · Max Bounces 2</strong> · <strong>Filtering Advanced</strong> với <em>OpenImageDenoise</em> + <em>A-Trous</em> · <strong>Lightmap Resolution 30 texels/unit · Lightmap Padding 2 · Max Lightmap Size 2048 · Lightmap Compression None</strong> · <strong>Ambient Occlusion ✓ Max Distance 1 · Indirect Contribution 2 · Direct Contribution 1</strong> · <strong>Directional Mode: Directional · Albedo Boost 1 · Indirect Intensity 1</strong>. / EN: The full Lightmapping Settings panel.</em></p>
+
+<img src="../assets/urp-scale-in-lightmap.png" alt="The effect of different Scale In Lightmap values.">
+<p><em>VI: <strong>▲ <code>Scale In Lightmap</code> nhìn tận mắt</strong> — cùng một chiếc ghế bake ở BỐN mức scale; giá trị <strong>0.2</strong> cho lightmap thô rõ rệt. Đây là cách giảm texel cho vật thể KHÔNG đáng. / EN: The effect of different Scale In Lightmap values.</em></p>
+
+<img src="../assets/gfx-lightmap-preview-info.png" alt="Reading the baked lightmap parameters of a single object.">
+<p><em>VI: <strong>▲ Đọc thông số lightmap của MỘT object</strong> — preview lightmap của <code>House01</code> kèm <strong>Scale In Lightmap 2 · Stitch Seams ✓ · Lightmap Parameters: Scene Default Parameters</strong>, và khối <strong>Baked Lightmap: Lightmap Index 0 · Tiling X/Y 0.04518224 · Offset X 0.2909251 / Y 0.770942 · Lightmap Resolution 5 · Lightmap Object Scale 1</strong>. / EN: Reading the baked lightmap parameters of a single object.</em></p>
+
+<img src="../assets/gfx-lighting-pipeline-flowchart.png" alt="The complete How to light a project flowchart.">
+<p><em>VI: <strong>▲ "How to light a project?" — LƯU ĐỒ TOÀN BỘ</strong>: <strong>Pick a Render Pipeline</strong> (Built-in / Universal / High-Definition / Custom SRP) → <strong>Lighting Settings</strong> → <strong>Pick a Global Illumination mode</strong> (Baked GI · Realtime GI · Baked&amp;Realtime GI · None) → <strong>Pick a Lighting Mode</strong> (Baked Indirect · Subtractive · Shadowmask · Distance Shadowmask) → <strong>Add Lights</strong> → <strong>Add Emissive Surfaces</strong> → <strong>Add Reflection Probes</strong> → <strong>Add Light Probes</strong> → <strong>Add LPPVs (optional)</strong>. / EN: The complete How to light a project flowchart.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <blockquote>
@@ -4486,6 +5149,18 @@ public static class AsyncUploadTuner
 
 ### 34.10. 🎯 Light Layers — Làm nổi bật vật thể quan trọng
 
+<img src="../assets/urp-light-layer-names.png" alt="Naming light layers in the URP Global Settings.">
+<p><em>VI: <strong>▲ Đặt TÊN cho layer</strong> — <code>Project Settings › Graphics › URP Global Settings › Light Layer Names (3D)</code>: <strong>Light Layer 0 = "Light Layer default" · Light Layer 1 = "Highlight" · Light Layer 2 · Light Layer 3</strong>. / EN: Naming light layers in the URP Global Settings.</em></p>
+
+<img src="../assets/urp-light-layer-dropdown.png" alt="Assigning a Light Layer on the Light component.">
+<p><em>VI: <strong>▲ Gán trên ĐÈN</strong> — <code>Light › General › Light Layer</code> chọn <strong>1: Highlight</strong> (danh sách: Nothing · Everything · 0: Light Layer default · 1: Highlight · 2 · 3 · 4). / EN: Assigning a Light Layer on the Light component.</em></p>
+
+<img src="../assets/urp-custom-shadow-layer.png" alt="Custom Shadow Layer, separating which objects cast shadows from which are l">
+<p><em>VI: <strong>▲ Và tách BÓNG ra khỏi ÁNH SÁNG</strong> — <code>Shadows › Custom Shadow Layer ✓ › Layer: 1: Highlight</code>; nhờ vậy một đèn có thể CHIẾU SÁNG nhóm này nhưng chỉ ĐỔ BÓNG cho nhóm kia. / EN: Custom Shadow Layer, separating which objects cast shadows from which are lit.</em></p>
+
+<img src="../assets/urp-show-additional-properties.png" alt="The Show Additional Properties menu that reveals hidden options.">
+<p><em>VI: <strong>▲ Mẹo nhỏ</strong> — nhiều tuỳ chọn bị ẨN cho tới khi bật <strong>Show Additional Properties</strong> (hoặc <em>Show All Additional Properties…</em>) từ menu ⋮ của panel. / EN: The Show Additional Properties menu that reveals hidden options.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <blockquote>
@@ -4531,6 +5206,12 @@ renderer.renderingLayerMask = (uint)mask;
 ```
 
 ### 34.11. 🔵 Light Probes — Cách ĐẶT cho đúng
+
+<img src="../assets/urp-light-probe-group.png" alt="The Light Probe Group component.">
+<p><em>VI: <strong>▲ Component Light Probe Group</strong> — nút <strong>Edit Light Probes</strong>, <strong>Show Wireframe ✓ · Remove Ringing ✓</strong>, <strong>Selected Probe Position X 1 Y 1 Z −1.498137</strong>, và bốn nút <strong>Add Probe · Select All · Delete Selected · Duplicate Selected</strong>. / EN: The Light Probe Group component.</em></p>
+
+<img src="../assets/urp-light-probes-scene.png" alt="Light probes placed through the playable area.">
+<p><em>VI: <strong>▲ Probe trong scene</strong> — chấm <strong>VÀNG</strong> rải quanh khu vực nhân vật ĐI QUA, dày ở chỗ ánh sáng ĐỔI NHANH, thưa ở chỗ đều màu. / EN: Light probes placed through the playable area.</em></p>
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -4578,6 +5259,9 @@ renderer.renderingLayerMask = (uint)mask;
 </div>
 
 ### 34.12. 🪞 Reflection Probes — Cubemap, Blending & Box Projection
+
+<img src="../assets/urp-cubemap-capture-settings.png" alt="The Reflection Probe Cubemap Capture Settings.">
+<p><em>VI: <strong>▲ Cubemap Capture Settings</strong> — <strong>Resolution 128 · HDR ✓ · Shadow Distance 100 · Clear Flags Skybox · Background · Culling Mask Everything · Use Occlusion Culling ✓ · Clipping Planes Near 0.3 / Far 1000</strong>, và nút <strong>Bake</strong>. / EN: The Reflection Probe Cubemap Capture Settings.</em></p>
 
 <img src="../assets/urp-reflection-probes-hangar.png" alt="Reflection Probes inside and outside the hangar">
 <p><em>VI: <strong>HAI Reflection Probe</strong> dùng trong <em>FPS Sample: The Inspection</em> — <strong>một BÊN TRONG nhà chứa (trái, phản chiếu TỐI có khe cửa) và một BÊN NGOÀI (phải, phản chiếu bầu trời sa mạc)</strong>. Ở giữa là <strong>cubemap texture mà MỖI probe chụp được</strong>. / EN: Each Reflection Probe captures an image of its surroundings in a cubemap texture.</em></p>
@@ -4633,6 +5317,15 @@ renderer.renderingLayerMask = (uint)mask;
 
 ### 34.13. ✨ Lens Flare, Light Halos & SSAO
 
+<img src="../assets/urp-lens-flare-srp.png" alt="The Lens Flare (SRP) component.">
+<p><em>VI: <strong>▲ Component <code>Lens Flare (SRP)</code></strong> — <strong>Lens Flare Data</strong>, <strong>Intensity 0.61 · Scale 1</strong>, <strong>Attenuation By Light Shape ✓ · Attenuation Distance 100 + đường cong · Scale Distance 100 + đường cong · Screen Attenuation Curve</strong>, và nhóm <strong>Occlusion: Enable · Allow Off Screen</strong>. / EN: The Lens Flare (SRP) component.</em></p>
+
+<img src="../assets/urp-add-renderer-feature.png" alt="The Add Renderer Feature menu.">
+<p><em>VI: <strong>▲ <code>Add Renderer Feature</code></strong> — <strong>Render Objects (Experimental) · Decal · Screen Space Ambient Occlusion · Screen Space Shadows · Blit Material Feature · Simple Desaturate Feature</strong>. / EN: The Add Renderer Feature menu.</em></p>
+
+<img src="../assets/urp-ssao-settings.png" alt="The Screen Space Ambient Occlusion settings.">
+<p><em>VI: <strong>▲ SSAO Renderer Feature</strong> — <strong>Downsample · After Opaque · Source: Depth Normals · Normal Quality: Medium · Intensity 3 · Radius 0.035 · Direct Lighting Strength 0.25 · Sample Count 4</strong>. <strong>Sample Count</strong> và <strong>Downsample</strong> là hai núm ĐỔI CHI PHÍ nhiều nhất. / EN: The Screen Space Ambient Occlusion settings.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p><strong>💫 LENS FLARE — workflow ĐÃ ĐỔI trong URP</strong></p>
@@ -4683,6 +5376,24 @@ renderer.renderingLayerMask = (uint)mask;
 ---
 
 ## 35. Post-processing — Volume framework
+
+<img src="../assets/urp-volume-menu.png" alt="The GameObject > Volume menu.">
+<p><em>VI: <strong>▲ Tạo Volume</strong> — <code>GameObject › Volume</code>: <strong>Global Volume · Box Volume · Sphere Volume · Convex Mesh Volume</strong>. / EN: The GameObject > Volume menu.</em></p>
+
+<img src="../assets/urp-volume-component.png" alt="A Global Volume component.">
+<p><em>VI: <strong>▲ Volume GLOBAL</strong> — <strong>Mode: Global · Weight 1 · Priority 0 · Profile: Global Volume Profile 1</strong> với hai nút <strong>New</strong> / <strong>Clone</strong>. / EN: A Global Volume component.</em></p>
+
+<img src="../assets/urp-volume-local.png" alt="A Local Volume with its Blend Distance.">
+<p><em>VI: <strong>▲ Volume LOCAL</strong> — <strong>Mode: Local</strong> mở thêm <strong>Blend Distance 1</strong>; đây là tham số quyết định hiệu ứng chuyển MƯỢT hay ĐỘT NGỘT khi camera đi vào vùng. / EN: A Local Volume with its Blend Distance.</em></p>
+
+<img src="../assets/urp-add-override-postprocessing.png" alt="The Post-processing override list.">
+<p><em>VI: <strong>▲ <code>Add Override › Post-processing</code></strong> — <strong>Bloom · Channel Mixer · Chromatic Aberration · Color Curves · Color Lookup · Depth Of Field · Film Grain · Lens Distortion · Lift Gamma Gain · Motion Blur · Panini Projection · Shadows Midtones Highlights · Split Toning · Tonemapping · Vignette · White Balance</strong>. / EN: The Post-processing override list.</em></p>
+
+<img src="../assets/gfx-volume-color-adjustments.png" alt="A Volume Profile with Color Adjustments and Lift Gamma Gain.">
+<p><em>VI: <strong>▲ Một Volume Profile thực tế</strong> — <strong>Color Adjustments</strong> với <strong>Post Exposure −1 · Contrast 10 · Saturation 15</strong>, và <strong>Lift Gamma Gain</strong> với ba bánh xe màu <strong>Lift · Gamma · Gain</strong>. / EN: A Volume Profile with Color Adjustments and Lift Gamma Gain.</em></p>
+
+<img src="../assets/urp-camera-rendering.png" alt="Enabling Post Processing on the Camera.">
+<p><em>VI: <strong>▲ Bật/tắt ở CAMERA</strong> — <code>Camera › Rendering</code>: <strong>Renderer: Default Renderer · Post Processing ✓ · Anti-aliasing: No Anti-aliasing · Stop NaNs</strong>. / EN: Enabling Post Processing on the Camera.</em></p>
 
 <img src="../assets/urp-postprocessing-4panel.png" alt="Post-processing effects comparison">
 <p><em>VI: Áp dụng hiệu ứng post-processing — <strong>trên-trái: KHÔNG hiệu ứng · trên-phải: BLOOM · dưới-trái: VIGNETTE · dưới-phải: COLOR ADJUSTMENT</strong>. / EN: The top-left image has no effects applied, the top-right has Bloom, the bottom-left has Vignette, and the bottom-right has Color Adjustment added.</em></p>
@@ -4859,6 +5570,12 @@ public class PPController : MonoBehaviour
 
 ## 36. Camera Stacking
 
+<img src="../assets/gfx-camera-stack.png" alt="A Camera Stack with two Overlay cameras.">
+<p><em>VI: <strong>▲ Camera Stack trong thực tế</strong> — camera <strong>Base</strong> với <strong>Background Type: Skybox · Volume Mask: Default · Volume Trigger: None</strong>, và mục <strong>Stack</strong> (khoanh đỏ) chứa <strong>SkyBox — Overlay</strong> và <strong>GunCamera — Overlay</strong>. Đây là cách vẽ vũ khí góc nhìn thứ nhất KHÔNG bị đâm xuyên tường. / EN: A Camera Stack with two Overlay cameras.</em></p>
+
+<img src="../assets/gfx-gun-renderer-features.png" alt="Three Render Objects features rendering a first-person weapon.">
+<p><em>VI: <strong>▲ Ba Renderer Feature phối hợp</strong> — <code>Gun Opaques</code> · <code>Gun Transparents</code> · <code>Gun Transparents Overlay</code> (Render Objects). Cấu hình của cái cuối: <strong>Event AfterRenderingTransparents · Queue Transparent · Layer Mask "First Person Objects P2"</strong>; Overrides <strong>Depth ✓ / Write Depth ✓ / Depth Test Always</strong>, <strong>Stencil ✓ Value 0 · Compare Function Equal · Pass Keep · Fail Keep · Z Fail Keep</strong>, và <strong>Camera ✓ Field Of View 40</strong>. / EN: Three Render Objects features rendering a first-person weapon.</em></p>
+
 <img src="../assets/urp-camera-stacking.png" alt="Camera Stacking example">
 <p><em>VI: Ví dụ Camera Stacking — <strong>kệ đồ ở TIỀN CẢNH đóng vai trò INVENTORY trong game</strong>. Chú ý nó có <strong>TRƯỜNG NHÌN KHÁC, cùng lighting và post-processing KHÁC</strong>. / EN: A shelf in the foreground acting as an inventory, with a different field of view, lighting and post-processing.</em></p>
 
@@ -4919,6 +5636,15 @@ public class StackController : MonoBehaviour
 ---
 
 ## 37. Pipeline Callbacks — Tiêm code vào render loop
+
+<img src="../assets/urp-custom-render-pass-code.png" alt="The skeleton of a ScriptableRendererFeature and ScriptableRenderPass.">
+<p><em>VI: <strong>▲ Khung sườn của một <code>ScriptableRendererFeature</code></strong> — lớp <code>CustomRenderPass : ScriptableRenderPass</code> với <code>OnCameraSetup</code> (cấu hình render target, KHÔNG gọi <code>CommandBuffer.SetRenderTarget</code> mà dùng <code>ConfigureTarget</code>/<code>ConfigureClear</code>), <code>Execute</code> (nơi phát lệnh vẽ), <code>OnCameraCleanup</code>; rồi <code>Create()</code> khởi tạo pass, gán <code>renderPassEvent = RenderPassEvent.AfterRenderingOpaques</code>, và <code>AddRenderPasses()</code> gọi <strong><code>renderer.EnqueuePass(m_ScriptablePass)</code></strong>. / EN: The skeleton of a ScriptableRendererFeature and ScriptableRenderPass.</em></p>
+
+<img src="../assets/urp-tint-feature.png" alt="The finished Tint Feature with its Render Event.">
+<p><em>VI: <strong>▲ Kết quả — <code>Tint Feature</code></strong> — <strong>Name: TintFeature · Material: Tint Mat · Render Event: After Rendering Post Processing</strong>. / EN: The finished Tint Feature with its Render Event.</em></p>
+
+<img src="../assets/gfx-custom-pass-volume.png" alt="The HDRP Custom Pass Volume equivalent.">
+<p><em>VI: <strong>▲ Bản HDRP tương đương — <code>Custom Pass Volume (Script)</code></strong> — <strong>Mode Global · Injection Point: Before Transparent · Priority 0</strong>; Custom Pass <strong>FullScreenCustomPass</strong> với <strong>Target Color Buffer: Camera · Target Depth Buffer: Camera · Clear Flags: None · Fetch Color Buffer · FullScreen Material</strong>. / EN: The HDRP Custom Pass Volume equivalent.</em></p>
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -5161,6 +5887,27 @@ private Settings settings = new Settings();
 ---
 
 ## 38. Viết Custom Shader cho URP
+
+<img src="../assets/urp-create-shadergraph-menu.png" alt="The Create > Shader Graph > URP menu.">
+<p><em>VI: <strong>▲ <code>Create › Shader Graph › URP</code></strong> — <strong>Lit Shader Graph · Unlit Shader Graph · Sprite Custom Lit · Sprite Unlit · Sprite Lit · Decal Shader Graph</strong> (cạnh nhánh <em>BuiltIn</em>, <em>Blank Shader Graph</em>, <em>Sub Graph</em>). / EN: The Create > Shader Graph > URP menu.</em></p>
+
+<img src="../assets/urp-graph-settings-lit.png" alt="Shader Graph settings for a Lit target.">
+<p><em>VI: <strong>▲ Graph Settings — <code>Lit</code></strong> — <strong>Precision Single · Active Targets Universal · Material: Lit · Workflow Mode: Metallic · Surface Type: Opaque · Render Face: Front · Depth Write: Auto · Depth Test: L Equal · Alpha Clipping · Cast Shadows ✓ · Receive…</strong>; khối <strong>Fragment</strong> có <strong>Base Color · Normal (Tangent Space) · Metallic · Smoothness · Emission · Ambient Occlusion</strong>. / EN: Shader Graph settings for a Lit target.</em></p>
+
+<img src="../assets/urp-graph-settings-unlit.png" alt="Shader Graph settings for an Unlit transparent target.">
+<p><em>VI: <strong>▲ Graph Settings — <code>Unlit</code></strong> — <strong>Material: Unlit · Surface Type: Transparent · Blending Mode: Alpha · Render Face: Front · Depth Write: Auto · Depth Test: L Equal · Cast Shadows ✓</strong>; khối Fragment RÚT GỌN chỉ còn <strong>Base Color</strong> và <strong>Alpha</strong> — đây chính là chỗ tiết kiệm. / EN: Shader Graph settings for an Unlit transparent target.</em></p>
+
+<img src="../assets/urp-shadergraph-zombie.png" alt="A minimal Shader Graph feeding Base Color.">
+<p><em>VI: <strong>▲ Một graph tối giản</strong> — <code>Sample Texture 2D</code> → <code>Multiply</code> → <strong>Fragment Base Color</strong>; khối <strong>Vertex</strong> giữ nguyên Position/Normal/Tangent. / EN: A minimal Shader Graph feeding Base Color.</em></p>
+
+<img src="../assets/urp-graph-inspector-property.png" alt="The Graph Inspector Node Settings for an exposed property.">
+<p><em>VI: <strong>▲ Graph Inspector › Node Settings</strong> — <strong>Property: Main Texture</strong> với <strong>Name "Main Texture" · Reference <code>_MainTex</code> · Default zombie_comm · Mode White · Precision Inherit · Exposed ✓ · Override Property Declaration</strong>. Ô <strong>Reference</strong> chính là tên mà code C# dùng để <code>SetTexture</code>. / EN: The Graph Inspector Node Settings for an exposed property.</em></p>
+
+<img src="../assets/gfx-shadergraph-complex.png" alt="A complex Shader Graph with separate Albedo, Normal, Smoothness and Occlusi">
+<p><em>VI: <strong>▲ Và đây là cái GIÁ của một graph PHỨC TẠP</strong> — bốn nhánh <strong>Albedo · Normal · Smoothness · Occlusion</strong> mỗi nhánh một chuỗi node riêng. Mỗi node là thêm lệnh cho fragment shader. / EN: A complex Shader Graph with separate Albedo, Normal, Smoothness and Occlusion branches.</em></p>
+
+<img src="../assets/gfx-material-surface-options.png" alt="The Material Surface Options.">
+<p><em>VI: <strong>▲ Surface Options trên Material</strong> — <strong>Surface Type Opaque · Rendering Pass Default · Alpha Clipping · Double-Sided GI · Normal Mode · Material Type: Subsurface Scattering · Receive Decals · Receive SSR/SSGI · Geometric Specular AA · Displacement Mode</strong>. Đổi <strong>Material Type</strong> là đổi HẲN chi phí shading. / EN: The Material Surface Options.</em></p>
 
 ### 38.1. 🔑 Khác biệt CẤU TRÚC — `RenderPipeline` tag và `HLSLPROGRAM`
 
@@ -5408,6 +6155,21 @@ Pass
 
 ## 39. Shader Graph — Dựng shader Light Halo từ đầu
 
+<img src="../assets/urp-blackboard-property-types.png" alt="The Blackboard property types available in Shader Graph.">
+<p><em>VI: <strong>▲ Các KIỂU property Blackboard cho phép</strong> — <strong>Float · Vector 2/3/4 · Color · Boolean · Gradient · Texture 2D · Texture 2D Array · Texture 3D · Cubemap · Virtual Texture · Matrix 2/3/4 · Sampler State · Keyword</strong>. / EN: The Blackboard property types available in Shader Graph.</em></p>
+
+<img src="../assets/urp-property-power.png" alt="Declaring the Power property.">
+<p><em>VI: <strong>▲ Khai báo property <code>Power</code></strong> — <strong>Name Power · Reference <code>_Power</code> · Default X 1 · Mode Default · Precision Inherit · Exposed ✓</strong>. / EN: Declaring the Power property.</em></p>
+
+<img src="../assets/urp-fresnel-graph.png" alt="The complete Fresnel-based halo Shader Graph.">
+<p><em>VI: <strong>▲ Graph hoàn chỉnh</strong> — <strong>Fresnel Effect</strong> (World Space Normal + View Dir + Power) → <strong>One Minus</strong> → <strong>Power</strong> → <strong>Multiply</strong> → <strong>Fragment Base Color / Alpha</strong>; mỗi node kèm preview quả cầu để thấy hiệu ứng biến đổi. / EN: The complete Fresnel-based halo Shader Graph.</em></p>
+
+<img src="../assets/urp-shadergraph-halo.png" alt="The halo graph with the Graph Inspector and Main Preview.">
+<p><em>VI: <strong>▲ Xem trong Graph Inspector</strong> — cùng graph đó với Node Settings/Graph Settings mở, và <strong>Main Preview</strong> ở góc phải. / EN: The halo graph with the Graph Inspector and Main Preview.</em></p>
+
+<img src="../assets/urp-material-shader-dropdown.png" alt="Assigning the Shader Graphs/FresnelAlpha shader to a Material.">
+<p><em>VI: <strong>▲ Dùng shader vừa dựng</strong> — <code>Material › Shader</code> chọn <strong><code>Shader Graphs/FresnelAlpha</code></strong> (danh sách còn ArnoldStandardSurface, CurveShader, Decal, Desaturate, GlobalCurve…). / EN: Assigning the Shader Graphs/FresnelAlpha shader to a Material.</em></p>
+
 <img src="../assets/urp-light-halo-shadergraph.png" alt="Light Halo effect using Shader Graph">
 <p><em>VI: Shader áp lên một <strong>hình CẦU làm con của một đèn Point</strong>, tạo <strong>hiệu ứng HALO quanh cây đèn treo</strong>. / EN: The shader applied to a sphere parented to a Point light, giving the halo effect around the hanging light.</em></p>
 
@@ -5465,6 +6227,27 @@ Pass
 
 ### 40.1. 🌫️ VFX Graph — Dựng hiệu ứng khói
 
+<img src="../assets/urp-create-vfx-graph.png" alt="Create > Visual Effects > Visual Effect Graph.">
+<p><em>VI: <strong>▲ Tạo asset</strong> — <code>Create › Visual Effects › Visual Effect Graph</code> (cạnh <em>Visual Effect Defaults</em>, <em>Visual Effect Subgraph Operator</em>, <em>Visual Effect Subgraph Block</em>). / EN: Create > Visual Effects > Visual Effect Graph.</em></p>
+
+<img src="../assets/urp-visual-effect-component.png" alt="The Visual Effect component.">
+<p><em>VI: <strong>▲ Component <code>Visual Effect</code></strong> — <strong>Asset Template: Smoke · Random Seed 0 · Reseed on play ✓ · Initial Event Name: OnPlay</strong>, cùng nhóm Renderer/Probes. / EN: The Visual Effect component.</em></p>
+
+<img src="../assets/urp-vfx-spawn-system.png" alt="The Spawn context with a Constant Spawn Rate of 20.">
+<p><em>VI: <strong>▲ Context <code>Spawn</code></strong> — <strong>Constant Spawn Rate · Rate 20</strong>, có cổng <strong>Start / Stop</strong> ở trên và <strong>SpawnEvent</strong> ở dưới. / EN: The Spawn context with a Constant Spawn Rate of 20.</em></p>
+
+<img src="../assets/urp-vfx-initialize-particle.png" alt="The Initialize Particle context.">
+<p><em>VI: <strong>▲ Context <code>Initialize Particle</code></strong> — <strong>Capacity 32 · Bounds Setting Mode: Manual</strong>, các block <strong>Set Tex Index · Set Lifetime 1.5 · Set Velocity Random (Per-component) · Set Color</strong>. / EN: The Initialize Particle context.</em></p>
+
+<img src="../assets/urp-vfx-flipbook-player.png" alt="The Flipbook Player block in Update Particle.">
+<p><em>VI: <strong>▲ Context <code>Update Particle</code></strong> — block <strong>Flipbook Player</strong> với <strong>Mode: Constant · Frame Rate 16</strong>. / EN: The Flipbook Player block in Update Particle.</em></p>
+
+<img src="../assets/urp-vfx-output-quad.png" alt="The Output Particle Quad context.">
+<p><em>VI: <strong>▲ Context <code>Output Particle Quad</code></strong> — <strong>Color Mapping Default · UV Mode: Flipbook · Flipbook Layout: Texture 2D · Blend Mode: Alpha · Flip Book Size · Main Texture: WispySmoke03s_8x8 · Orient: Face Camera Plane</strong>, cùng <strong>Set Size over Life</strong> và <strong>Set Alpha over Life</strong> (đường cong). / EN: The Output Particle Quad context.</em></p>
+
+<img src="../assets/urp-vfx-playback-controls.png" alt="The Visual Effect playback controls.">
+<p><em>VI: <strong>▲ Bảng điều khiển khi chọn Visual Effect</strong> — <strong>Rate 100</strong>, hai ô <strong>Show Bounds</strong> / <strong>Show Event Tester</strong>, và nút <strong>Play()</strong> / <strong>Stop()</strong>. / EN: The Visual Effect playback controls.</em></p>
+
 <img src="../assets/urp-smoke-sprite-atlas.png" alt="Smoke Sprite Atlas 8x8">
 <p><em>VI: <strong>Smoke Sprite Atlas</strong> — <strong>64 ảnh trong lưới 8×8</strong> làm nguồn cho MỘT particle. / EN: The Smoke Sprite Atlas: a series of 64 images in an 8x8 grid acting as the source for an individual particle.</em></p>
 
@@ -5519,6 +6302,38 @@ Pass
 </div>
 
 ### 40.2. 🎨 2D Renderer & 2D Lights
+
+!!! warning "⚠️ Ghi chú của e-book — 2D Renderer làm VÔ HIỆU nhiều option 3D"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p><em>"<strong>Lưu ý:</strong> Nếu bạn bật <strong>URP 2D Renderer</strong>, <strong>MỘT SỐ tuỳ chọn liên quan tới RENDER 3D trong URP Asset sẽ KHÔNG tác động tới app/game cuối của bạn.</strong> Asset 2D Renderer nằm dưới <strong><code>Scriptable Render Pipeline Settings</code></strong> qua <code>Edit › Project Settings › Graphics</code>."</em></p>
+    </div>
+    <div class="col-en">
+    <p><em>"Note: If you have the URP 2D Renderer enabled, some of the options related to 3D rendering in the URP Asset will not impact your final app or game. The 2D Renderer Asset is available under Scriptable Render Pipeline Settings via Edit &gt; Project Settings &gt; Graphics."</em></p>
+    </div>
+    </div>
+
+
+<img src="../assets/urp-2d-project-template.png" alt="The 2D (URP) project template.">
+<p><em>VI: <strong>▲ Template <code>2D (URP)</code></strong> — <em>"an empty project configured for 2D apps. It uses Unity's Universal Render Pipeline pre-configured with 2D Renderer."</em> / EN: The 2D (URP) project template.</em></p>
+
+<img src="../assets/urp-create-2d-renderer.png" alt="Creating a URP Asset with the 2D Renderer.">
+<p><em>VI: <strong>▲ Hoặc tạo tay</strong> — <code>Create › Rendering › URP Asset (with 2D Renderer)</code>. / EN: Creating a URP Asset with the 2D Renderer.</em></p>
+
+<img src="../assets/urp-2d-magenta.png" alt="2D sprites turning magenta.">
+<p><em>VI: <strong>▲ Triệu chứng ở dự án 2D</strong> — sprite chuyển HỒNG y như dự án 3D. / EN: 2D sprites turning magenta.</em></p>
+
+<img src="../assets/urp-converter-2d.png" alt="The Render Pipeline Converter in Convert Built-in to 2D (URP) mode.">
+<p><em>VI: <strong>▲ Bản 2D của converter</strong> — <strong>Convert Built-in to 2D (URP)</strong>, mục <strong>Material and Material Reference Upgrade</strong>, cùng cảnh báo sao lưu. / EN: The Render Pipeline Converter in Convert Built-in to 2D (URP) mode.</em></p>
+
+<img src="../assets/urp-light2d-menu.png" alt="The four 2D light types.">
+<p><em>VI: <strong>▲ Bốn loại đèn 2D</strong> — <code>GameObject › Light</code>: <strong>Sprite Light 2D · Spot Light 2D · Global Light 2D · Freeform Light 2D</strong>. / EN: The four 2D light types.</em></p>
+
+<img src="../assets/urp-light2d-component.png" alt="The Light 2D component.">
+<p><em>VI: <strong>▲ Component <code>Light 2D</code></strong> — <strong>Light Type: Global · Color · Intensity 0.27 · Target Sorting Layer: All · Blend Style: Multiply · Light Order 0 · Overlap Operation: Additive</strong>. / EN: The Light 2D component.</em></p>
+
+<img src="../assets/urp-freeform-light2d.png" alt="A Freeform Light 2D shape edited in the Scene view.">
+<p><em>VI: <strong>▲ <em>Freeform Light 2D</em> trong scene</strong> — hình dạng đèn vẽ tay bằng các điểm điều khiển màu vàng, cho phép ánh sáng theo đúng đường viền màn chơi. / EN: A Freeform Light 2D shape edited in the Scene view.</em></p>
 
 <img src="../assets/urp-2d-dragon-crashers.png" alt="Dragon Crashers 2D demo">
 <p><em>VI: Ảnh từ demo 2D <strong>Dragon Crashers</strong> của Unity. / EN: An image from the Unity 2D demo Dragon Crashers.</em></p>
@@ -5907,6 +6722,31 @@ void CaptureAsync(RenderTexture rt)
 <p>👉 <strong>ALWAYS measure before you change. Every number in this document is only a STARTING POINT for your OWN measurements.</strong></p>
 </div>
 </div>
+
+---
+
+
+### 42.1. 🔗 Tám tài liệu Unity chính thức được hai e-book dẫn
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📚 Hai e-book <em>Optimize your console and PC game performance</em> và <em>Optimize your mobile game performance</em> rải các link tra cứu chính thức trong từng mục. Gom lại để tiện dùng:</p>
+</div>
+<div class="col-en">
+<p>📚 Both optimization e-books scatter official reference links through their chapters. Collected here:</p>
+</div>
+</div>
+
+| # | Tài liệu | Nguồn dẫn | Liên quan tới |
+|---|---|---|---|
+| ① | **Stripping scriptable shader variants** (Unity Blog) | Console tr.46 | §14 |
+| ② | **Making believable visuals** (Unity Manual) | Console tr.52 | §17, §34 |
+| ③ | **Static Lighting with Light Probes** (Unity Learn) | Console tr.52 | §18, §34.11 |
+| ④ | **Multithreaded Rendering and Graphics Jobs** (Unity Learn) | Console tr.61 | §23.1 |
+| ⑤ | **Optimizing Performance for High-End Consoles** — Rob Thompson | Console tr.64 | §23 |
+| ⑥ | **10 Tips for Optimizing Console Game Graphics** | Console tr.64 | §23 |
+| ⑦ | **Working with LODs** (Unity Learn) | Console tr.69 · Mobile tr.34 | §22 |
+| ⑧ | **Shader Graph documentation** | Mobile tr.35 | §13, §38, §39 |
 
 ---
 

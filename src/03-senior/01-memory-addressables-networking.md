@@ -336,7 +336,7 @@
 <img src="../assets/mem-xcode-frame-capture.png" alt="Xcode GPU Frame Debugger showing bound resources">
 <p><em>VI: <strong>Scratchpad buffer 4 MB hiện lên trong công cụ frame capture</strong> — ảnh chụp Xcode GPU Frame Debugger, tab <em>Bound Resources</em> liệt kê toàn bộ Texture/Buffer đang bind cho GPU. Đây chính là nơi bạn nhìn thấy constant buffer pool mà §4 mô tả. / EN: The 4 MB Scratchpad buffer shows up in frame capture tools — here Xcode's GPU Frame Debugger with the Bound Resources tab listing every Texture/Buffer bound to the GPU.</em></p>
 
-### 4.1. Bốn cách giảm native runtime memory
+### 4.1. SÁU cách giảm native runtime memory
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -346,7 +346,10 @@
 <li><strong>Gỡ keyframe dư thừa khỏi animation.</strong></li>
 <li><strong>Dùng <code>maxLOD</code> trong Quality Settings</strong> để loại bỏ mesh chi tiết cao trong LODGroup khỏi build.</li>
 <li><strong>Kiểm tra <code>Editor.log</code> sau khi build</strong> để đảm bảo <em>kích thước mỗi Asset trên đĩa TỈ LỆ THUẬN với mức dùng runtime memory của nó</em>.</li>
+<li><strong>GIẢM lượng bộ nhớ tải lên GPU</strong> bằng setting <strong><code>Texture Quality</code></strong> ở mục <strong>Rendering</strong> của <strong>Quality Settings</strong> — nó <em>ÉP độ phân giải texture THẤP HƠN thông qua mipmap</em>.</li>
+<li><strong>Normal map KHÔNG cần CÙNG KÍCH THƯỚC với diffuse map (1:1)</strong> — bạn có thể <em>dùng độ phân giải NHỎ HƠN cho normal map mà VẪN giữ độ trung thực hình ảnh cao, đồng thời tiết kiệm CẢ bộ nhớ LẪN dung lượng đĩa</em>.</li>
 </ol>
+<p>🚨 <strong>Câu KẾT của mục này trong nguồn — dễ bị bỏ qua:</strong> <em>"Hãy biết rằng <strong>các hệ luỵ của MANAGED memory THƯỜNG VƯỢT QUA vấn đề của NATIVE memory, do managed heap bị PHÂN MẢNH NẶNG.</strong>"</em></p>
 <p>💡 Mục ④ là kỹ thuật audit rất mạnh: nếu một asset nhỏ trên đĩa nhưng ngốn nhiều RAM ⇒ có gì đó sai (ví dụ texture bị decompress, Read/Write enabled).</p>
 </div>
 <div class="col-en">
@@ -356,14 +359,109 @@
 <li><strong>Remove redundant keyframes from animations.</strong></li>
 <li><strong>Use <code>maxLOD</code> in the Quality Settings</strong> to remove higher-detail meshes in LODGroups from the build.</li>
 <li><strong>Check the <code>Editor.log</code> after a build</strong> to ensure that <em>the size of each Asset on disk is PROPORTIONAL to its runtime memory use</em>.</li>
+<li><em>"Reduce memory uploaded to GPU memory by using the <strong>Texture Quality</strong> setting in the <strong>Rendering</strong> section of the <strong>Quality Settings</strong> to force lower texture resolutions via mipmaps."</em></li>
+<li><em>"Normal maps need not be the same size as diffuse maps (1:1), so you can use a smaller resolution for normal maps while still achieving high visual fidelity and saving memory and disk space."</em></li>
 </ol>
+<p>🚨 <em>"Be aware that managed memory implications can often surpass native memory problems, due to heavy fragmentation of the managed heap."</em></p>
 <p>💡 Item ④ is a powerful audit technique: if an asset is small on disk but eats a lot of RAM ⇒ something is wrong (e.g. a decompressed texture, Read/Write enabled).</p>
 </div>
 </div>
 
+### 4.2. 💀 `Cloned Materials` — leak native memory KINH ĐIỂN nhất của Unity
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>💀 <em>"Hãy CẢNH GIÁC với material bị NHÂN BẢN, vì <strong>truy cập property <code>material</code> của BẤT KỲ renderer nào ĐỀU khiến material bị CLONE — KỂ CẢ khi bạn KHÔNG GÁN gì cả.</strong>"</em></p>
+<p>🚨 <em>"<strong>Bản clone này SẼ KHÔNG được garbage collect</strong>, và <strong>CHỈ được dọn khi bạn ĐỔI SCENE hoặc gọi <code>Resources.UnloadUnusedAssets()</code>.</strong>"</em></p>
+<p>✅ <em>"Bạn có thể dùng <strong><code>customRenderer.sharedMaterial</code></strong> nếu chỉ muốn truy cập material ở dạng <strong>CHỈ ĐỌC</strong>."</em></p>
+</div>
+<div class="col-en">
+<p>💀 <em>"Beware of cloned materials, because accessing the material property of any renderer causes the material to be cloned even if nothing is assigned."</em></p>
+<p>🚨 <em>"This cloned material will not be garbage collected and will only be cleared up when you change scenes or call Resources.UnloadUnusedAssets()."</em></p>
+<p>✅ <em>"You can use customRenderer.sharedMaterial if you want to access a read-only material."</em></p>
+</div>
+</div>
+
+```csharp
+// ❌ SAI — chỉ ĐỌC màu thôi cũng đã NHÂN BẢN material, và bản clone KHÔNG bao giờ bị GC
+Color c = myRenderer.material.color;
+
+// ❌ Cũng SAI — kể cả KHÔNG gán gì, chỉ chạm vào `.material` là đã clone
+if (myRenderer.material.HasProperty("_BaseColor")) { /* … */ }
+
+// ✅ ĐÚNG — dùng sharedMaterial khi chỉ cần ĐỌC
+Color c2 = myRenderer.sharedMaterial.color;
+
+// ✅ Nếu THỰC SỰ cần một bản riêng, hãy CHỦ ĐỘNG tạo và CHỦ ĐỘNG huỷ
+var mat = new Material(myRenderer.sharedMaterial);
+myRenderer.material = mat;
+// …
+Destroy(mat);   // KHÔNG huỷ thì nó nằm lại tới khi đổi scene
+```
+
+### 4.3. 🎬 `UnloadScene()` — huỷ GameObject nhưng KHÔNG unload ASSET
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><em>"Gọi <strong><code>UnloadScene()</code></strong> để <strong>HUỶ và GỠ TẢI các GameObject gắn với một Scene.</strong>"</em></p>
+<p>🚨 <em>"<strong>Ghi chú: việc này KHÔNG gỡ tải các ASSET liên quan.</strong> ✅ <strong>Để gỡ tải Asset và giải phóng CẢ managed LẪN native memory, hãy gọi <code>Resources.UnloadUnusedAssets()</code> SAU KHI scene đã được unload.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p><em>"Call UnloadScene() to destroy and unload the GameObjects associated with a Scene."</em></p>
+<p>🚨 <em>"Note: This does not unload the associated assets. In order to unload the Assets and free both managed and native memory, call Resources.UnloadUnusedAssets() after the scene has been unloaded."</em></p>
+</div>
+</div>
+
+```csharp
+using UnityEngine.SceneManagement;
+
+IEnumerator UnloadLevel(string sceneName)
+{
+    // ① Huỷ GameObject của scene — nhưng asset VẪN nằm trong bộ nhớ
+    yield return SceneManager.UnloadSceneAsync(sceneName);
+
+    // ② Bước BẮT BUỘC thứ hai: mới thực sự giải phóng asset
+    yield return Resources.UnloadUnusedAssets();
+}
+```
+
+!!! warning "⚖️ Mâu thuẫn BỀ MẶT với §8.7 — đọc kỹ để không áp dụng sai"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p>Ở <strong><a href="#87-resourcesunloadunusedassets-khong-tuong-thich-addressables">§8.7</a></strong>, kỹ sư Unity khuyên <strong>ĐỪNG gọi <code>Resources.UnloadUnusedAssets()</code></strong>. Hai lời khuyên KHÔNG chọi nhau — chúng nói về HAI hệ thống khác nhau:</p>
+    <ul>
+    <li>📦 <strong>Dự án KHÔNG dùng Addressables</strong> (nạp scene bằng <code>SceneManager</code>, asset trong <code>Resources</code>/build-in): <strong>PHẢI</strong> gọi <code>UnloadUnusedAssets()</code> sau khi unload scene — không có ai khác dọn hộ.</li>
+    <li>🎯 <strong>Dự án DÙNG Addressables</strong>: Addressables <strong>tự đếm tham chiếu và tự gỡ bundle</strong>. Gọi <code>UnloadUnusedAssets()</code> ở đây vừa <strong>TỐN</strong> (quét toàn bộ heap, gây spike) vừa có thể <strong>PHÁ</strong> bookkeeping của nó.</li>
+    </ul>
+    </div>
+    <div class="col-en">
+    <p>In <strong>§8.7</strong> a Unity engineer advises <strong>against</strong> calling <code>Resources.UnloadUnusedAssets()</code>. The two pieces of advice don't conflict — they address different systems:</p>
+    <ul>
+    <li>📦 <strong>Projects without Addressables</strong> (scenes via <code>SceneManager</code>, assets in <code>Resources</code>/built-in): you <strong>must</strong> call it after unloading a scene; nothing else will.</li>
+    <li>🎯 <strong>Projects using Addressables</strong>: Addressables does its own reference counting and bundle unloading. Calling it here is both <strong>expensive</strong> (full heap scan, causes a spike) and can <strong>interfere</strong> with that bookkeeping.</li>
+    </ul>
+    </div>
+    </div>
+
+
 ---
 
 ## 5. 📱 Android Memory Management
+
+!!! tip "📚 Ba tài liệu NỀN mà nguồn yêu cầu đọc TRƯỚC"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p><em>"<strong>Quản lý bộ nhớ Android là PHỨC TẠP.</strong> Để hiểu thêm, hãy xem bài nói <strong>Understanding Android memory usage</strong> từ <strong>Google I/O</strong> (<code>youtube.com/watch?v=w7K0jio8afM</code>) <strong>TRƯỚC KHI đọc tiếp.</strong>"</em></p>
+    <p><em>"Ngoài ra hãy đọc trang <strong>RAM investigation</strong> (<code>developer.android.com/studio/profile/investigate-ram.html</code>) và <strong>Android performance guides</strong> (<code>developer.android.com/topic/performance/memory.html</code>)."</em></p>
+    <p><em>"<strong>Hiểu managed heap là ĐIỀU THIẾT YẾU cho quản lý bộ nhớ trong Unity.</strong> Xem mục <strong>Managed memory</strong> trong <strong>Understanding Optimization</strong> của Unity Manual."</em></p>
+    </div>
+    <div class="col-en">
+    <p><em>"Android memory management is complex. To learn more, refer to this talk on Understanding Android memory usage from Google I/O before reading on."</em></p>
+    <p><em>"For additional information please also read the RAM investigation page and Android performance guides."</em></p>
+    <p><em>"Understanding the managed heap is essential for memory management in Unity. For more information on profiling managed memory and how to optimize memory, see the Managed memory section under Understanding Optimization in the Unity Manual."</em></p>
+    </div>
+    </div>
+
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -502,17 +600,17 @@ adb shell dumpsys meminfo com.unity.amemorytest
 
 | App Summary (Pss KB) | **Project RỖNG** *(baseline)* | **Scene 3D đầy đủ** | Chênh lệch |
 |---|---|---|---|
-| **Java Heap** | 2.708 | — | |
+| **Java Heap** | 2.708 | **2.032** | *(giảm nhẹ)* |
 | **Native Heap** | **31.448** | **304.900** | **9.7×** |
-| **Code** | 19.788 | — | |
-| **Stack** | 492 | — | |
-| **Graphics** | **166.356** | — | |
+| **Code** | 19.788 | **26.472** | **1,3×** |
+| **Stack** | 492 | **528** | *(≈ như nhau)* |
+| **Graphics** | **166.356** | **537.912** | **3,2×** |
 | ↳ EGL mtrack | 99.840 | **21.600** | |
 | ↳ GL mtrack | 64.480 | **384.184** | **6.0×** |
 | ↳ Gfx dev | 3.846 (2.036 dirty) | **196.934** (132.128 dirty) | **51×** |
-| **Private Other** | 1.732 | — | |
-| **System** | 8.375 | — | |
-| **TOTAL** | **230.899 KB (~225 MB)** | *(≫ baseline)* | |
+| **Private Other** | 1.732 | **6.988** | **4,0×** |
+| **System** | 8.375 | **71.165** | **8,5×** |
+| **TOTAL** | **230.899** | **949.997** | **4,1×** |
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -534,6 +632,84 @@ adb shell dumpsys meminfo com.unity.amemorytest
 <p>👉 When budgeting memory (see <a href="../01-fresher/01-ultimate-guide-to-profiling.md">Module 1 §4</a>), <strong>subtract this ~225 MB baseline first.</strong></p>
 </div>
 </div>
+
+
+#### 5.2b. 📄 Hai khối `dumpsys meminfo` ĐẦY ĐỦ — nguyên văn
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📱 Máy đo: <strong>Nexus 6P · 2560×1440 · Android 8.1.0 · Unity 2018.1</strong>. Bảng tổng hợp ở trên rút ra từ HAI khối output này. Đọc bản đầy đủ để thấy những dòng mà bảng đã lược: <code>Dalvik Other</code>, <code>Ashmem</code>, <code>.so/.jar/.apk/.dex/.oat/.art mmap</code>, và khối <code>Objects</code>.</p>
+</div>
+<div class="col-en">
+<p>📱 Device: <strong>Nexus 6P · 2560×1440 · Android 8.1.0 · Unity 2018.1</strong>. The summary table above is derived from these two raw blocks.</p>
+</div>
+</div>
+
+```text
+** MEMINFO in pid 20676 [com.unity.androidtest] **   ← project RỖNG (baseline)
+                   Pss  Private  Private  SwapPss     Heap     Heap     Heap
+                 Total    Dirty    Clean    Dirty     Size    Alloc     Free
+                ------   ------   ------   ------   ------   ------   ------
+  Native Heap    31467    31448        0        0    51072    47261     3810
+  Dalvik Heap     1872     1760        0        0    12168     7301     4867
+ Dalvik Other      470      460        0        0
+        Stack      492      492        0        2
+       Ashmem        8        0        0        0
+      Gfx dev     3846     2036        0        0
+    Other dev        4        0        4        0
+     .so mmap    17760      516    15908      161
+    .jar mmap        4        0        4        0
+    .apk mmap      243        0        0        0
+    .dex mmap      116        4      112        0
+    .oat mmap     6206        0     3244        0
+    .art mmap     2571      716      232       22
+   Other mmap       49        4        0        2
+   EGL mtrack    99840    99840        0        0
+    GL mtrack    64480    64480        0        0
+      Unknown     1270     1264        0       14
+        TOTAL   230899   203020    19504      201    63240    54562     8677
+
+ Objects
+               Views:        7         ViewRootImpl:        1
+         AppContexts:        2           Activities:        1
+              Assets:        2        AssetManagers:        2
+       Local Binders:       16        Proxy Binders:       21
+       Parcel memory:        5         Parcel count:       23
+    Death Recipients:        1      OpenSSL Sockets:        2
+            WebViews:        0
+```
+
+```text
+** MEMINFO in pid 22903 [com.unity3d.androidtest] **   ← scene 3D ĐẦY ĐỦ
+  Native Heap   304918   304900        0        0   327552   315885    11666
+  Dalvik Heap     1240     1096        0        0    11858     7127     4731
+ Dalvik Other      424      412        0        0
+        Stack      528      528        0        1
+       Ashmem        6        0        0        0
+      Gfx dev   196934   132128        0        0
+    Other dev        4        0        4        0
+     .so mmap    23976      668    21920      199
+    .apk mmap      368        0        0        0
+    .dex mmap      116        4      112        0
+    .oat mmap     6060        0     3768        0
+    .art mmap     2774      604      332       25
+   Other mmap       44        4        0        2
+   EGL mtrack    21600    21600        0        0
+    GL mtrack   384184   384184        0        0
+      Unknown     6577     6568        0       17
+        TOTAL   949997   852696    26136      244   339410   323012    16397
+```
+
+!!! note "🔎 Ghi chú TRUNG THỰC về nguồn"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p>Ngay sau câu <em>"The following table compares the results and describes the detailed stats:"</em>, trang nguồn <strong>KHÔNG có bảng nào</strong> — toàn trang không chứa một thẻ <code>&lt;table&gt;</code>. Đây là block đã hỏng/bị gỡ trên chính trang gốc, không phải do bóc tách. Bảng ở §5.2 là do tôi <strong>tự dựng từ hai khối output trên</strong>.</p>
+    </div>
+    <div class="col-en">
+    <p>Right after <em>"The following table compares the results and describes the detailed stats:"</em>, the source page has <strong>no table at all</strong> — the page contains zero <code>&lt;table&gt;</code> tags. The comparison table in §5.2 was reconstructed from the two raw blocks above.</p>
+    </div>
+    </div>
+
 
 ### 5.3. 🛠️ `procrank` — Bốn chỉ số Vss / Rss / Pss / Uss
 
@@ -569,6 +745,40 @@ adb shell dumpsys meminfo com.unity.amemorytest
 <p><em>"<strong>Pss and Uss are DIFFERENT than reports of <code>meminfo</code></strong>. <code>procrank</code> uses <strong>a DIFFERENT kernel mechanism</strong> to collect its data than <code>meminfo</code>, <strong>which can give DIFFERENT results</strong>."</em></p>
 </blockquote>
 </div>
+
+**📄 Output mẫu — nguyên văn / Sample output, verbatim**
+
+```text
+PID      Vss      Rss      Pss      Uss  cmdline
+ 890   84456K   48668K   25850K   21284K  system_server
+1231   50748K   39088K   17587K   13792K  com.android.launcher2
+ 947   34488K   28528K   10834K    9308K  com.android.wallpaper
+ 987   26964K   26956K    8751K    7308K  com.google.process.gapps
+ 954   24300K   24296K    6249K    4824K  com.unity.androidmemory
+ 888   25728K   25724K    5774K    3668K  zygote
+ 977   24100K   24096K    5667K    4340K  android.process.acore
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📊 <strong>Đọc bảng này thế nào:</strong> cột <strong>Vss</strong> luôn LỚN NHẤT và gần như VÔ NGHĨA để so sánh (chỉ là không gian địa chỉ). Cột <strong>Pss</strong> là con số dùng để <strong>CỘNG DỒN toàn máy</strong>, còn <strong>Uss</strong> là <strong>lượng RAM THỰC SỰ giải phóng được nếu bạn giết tiến trình đó</strong>. Ở đây <code>com.unity.androidmemory</code> chiếm <strong>Pss 6.249 KB / Uss 4.824 KB</strong>.</p>
+</div>
+<div class="col-en">
+<p>📊 <strong>How to read it:</strong> <strong>Vss</strong> is the largest and nearly meaningless for comparison. <strong>Pss</strong> is what you sum device-wide; <strong>Uss</strong> is what you would actually get back by killing the process.</p>
+</div>
+</div>
+
+**📄 `adb shell cat /proc/meminfo` — output mẫu**
+
+```text
+MemTotal:        2866492 kB
+MemFree:          244944 kB
+Buffers:           36616 kB
+Cached:           937700 kB
+SwapCached:        13744 kB
+```
+
+
 </div>
 
 ```bash
@@ -745,7 +955,7 @@ adb shell cat /proc/meminfo
 <li><strong>MP3 hoặc Vorbis trên iOS</strong> cho clip dài hơn. ⚠️ <em>Unity KHÔNG dùng giải mã tăng tốc phần cứng.</em></li>
 <li><strong>MP3/Vorbis</strong> cần <em>nhiều tài nguyên hơn để giải nén</em> nhưng cho <strong>kích thước file NHỎ HƠN ĐÁNG KỂ</strong>. MP3 chất lượng cao cần <em>ít tài nguyên hơn</em> để giải nén; file chất lượng trung/thấp của cả hai định dạng tốn <em>gần như cùng CPU time</em>.</li>
 </ol>
-<p>💡 <strong>Mẹo về LOOP — rất quan trọng:</strong></p>
+<p>💡 <strong>Mẹo về LOOP — rất quan trọng:</strong> Nguyên văn nêu ví dụ cụ thể: <strong>tiếng BƯỚC CHÂN, tiếng SÚNG</strong> — <em>"ADPCM làm file NHỎ HƠN <strong>so với PCM KHÔNG NÉN</strong>, nhưng GIẢI MÃ NHANH lúc phát."</em></p>
 <blockquote>
 <p><em>"Dùng <strong>Vorbis cho âm thanh LẶP dài hơn</strong> vì nó xử lý loop TỐT HƠN. <strong>MP3 chứa các khối dữ liệu có kích thước định trước</strong>, nên <strong>nếu loop KHÔNG phải bội số chính xác của block size thì mã hóa MP3 sẽ THÊM KHOẢNG LẶNG</strong> — còn Vorbis thì KHÔNG."</em></p>
 </blockquote>
@@ -899,6 +1109,27 @@ adb shell cat /proc/meminfo
 | *Ngoại lệ — iOS A7 trở xuống* | *PVRTC* |
 | *Ngoại lệ — Android trước 2016* | *ETC2* |
 
+
+<img src="../assets/asset-texture-compression-16mb.png" alt="uncompressed texture (16MB) vs DXT1 compressed (2.7MB), 2048x2048 RGB8 sRGB">
+<p><em>VI: <strong>▲ Con số chứng minh cho "HƠN NĂM LẦN"</strong> — CÙNG một con robot: bản trên <strong>uncompressed texture 16 MB</strong>, bản dưới <strong>DXT1 compressed 2,7 MB</strong>. Panel Inspector bên phải ghi rõ <strong><code>2048×2048 · RGB8 sRGB · 16.0 MB</code></strong>. Tỷ lệ <strong>16 / 2,7 ≈ 5,9 lần</strong>, và nhìn bằng mắt thường gần như KHÔNG phân biệt được. / EN: uncompressed texture (16MB) vs DXT1 compressed (2.7MB), 2048x2048 RGB8 sRGB.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📐 <strong>Đối chiếu hai nền tảng — cùng một bài học:</strong></p>
+<ul>
+<li>📱 <strong>Mobile</strong> (§7.2): <code>RGBA8 sRGB</code> <strong>21,3 MB</strong> → <code>RGBA Compressed PVRTC 4BPP</code> <strong>2,7 MB</strong> — <strong>~7,9 lần</strong>.</li>
+<li>🎮 <strong>PC/Console</strong>: <code>RGB8 sRGB 2048×2048</code> <strong>16 MB</strong> → <code>DXT1</code> <strong>2,7 MB</strong> — <strong>~5,9 lần</strong>.</li>
+</ul>
+</div>
+<div class="col-en">
+<p>📐 <strong>Two platforms, the same lesson:</strong></p>
+<ul>
+<li>📱 <strong>Mobile</strong>: <code>RGBA8 sRGB</code> 21.3 MB → <code>RGBA Compressed PVRTC 4BPP</code> 2.7 MB — <strong>~7.9×</strong>.</li>
+<li>🎮 <strong>PC/Console</strong>: <code>RGB8 sRGB 2048×2048</code> 16 MB → <code>DXT1</code> 2.7 MB — <strong>~5.9×</strong>.</li>
+</ul>
+</div>
+</div>
+
 ### 7.2c. 🗂️ Atlasing — 2D và 3D
 
 <div class="bilingual-row">
@@ -915,6 +1146,21 @@ adb shell cat /proc/meminfo
 <p><strong>2D projects:</strong> Use a <strong>Sprite Atlas</strong> (<code>Asset &gt; Create &gt; 2D &gt; Sprite Atlas</code>) rather than rendering individual Sprites and Textures.</p>
 <p><strong>3D projects:</strong> Use your DCC package of choice. Third-party tools like <strong>MA_TextureAtlasser</strong> or <strong>TexturePacker</strong> can also build texture atlases.</p>
 <p>💡 <strong>Advanced 3D technique:</strong> <em>"<strong>COMBINE textures and REMAP UVs</strong> for any 3D geometry that <em>doesn't require high-resolution maps</em>. A visual editor gives you the ability to <strong>set and prioritize the sizes and positions</strong> in the texture atlas or sprite sheet."</em></p>
+</div>
+</div>
+
+
+<img src="../assets/asset-texture-atlasser.png" alt="The MA_TextureAtlasserPro tool packing a truck's texture maps.">
+<p><em>VI: <strong>▲ <code>MA_TextureAtlasserPro</code></strong> — công cụ atlas trực quan: khung <strong>Create/Load/Export Atlas</strong>, danh sách slot, <strong>Export Settings</strong> với kích thước <strong>512×512</strong>, và preview atlas của mẫu xe tải ở giữa. / EN: The MA_TextureAtlasserPro tool packing a truck's texture maps.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🎯 <strong>Vì sao atlas GIẢM được draw call — nguyên văn:</strong> <em>"<strong>Texture packer GỘP các map riêng lẻ thành MỘT texture LỚN. Unity khi đó có thể phát MỘT draw call DUY NHẤT để truy cập các Texture đã đóng gói, với overhead hiệu năng NHỎ HƠN.</strong>"</em></p>
+<p>🔺 <strong>Và lời khuyên đi kèm về hình học:</strong> <em>"<strong>Hãy GIỮ độ phức tạp HÌNH HỌC của GameObject trong Scene ở mức TỐI THIỂU, nếu không Unity sẽ phải ĐẨY RẤT NHIỀU dữ liệu VERTEX lên card đồ hoạ.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🎯 <em>"The texture packer consolidates the individual maps into one large texture. Unity can then issue a single draw call to access the packed Textures with a smaller performance overhead."</em></p>
+<p>🔺 <em>"Keep the geometric complexity of GameObjects in your Scenes to a minimum, otherwise Unity has to push a lot of vertex data to the graphics card."</em></p>
 </div>
 </div>
 
@@ -946,9 +1192,26 @@ adb shell cat /proc/meminfo
 </div>
 </div>
 
-<img src="../assets/asset-polygon-count.png" alt="Polygon count check">
+<img src="../assets/asset-remove-unseen-faces.png" alt="Remove any unseen faces">
+<p><em>VI: <strong>▲ GỠ mọi mặt KHÔNG BAO GIỜ NHÌN THẤY</strong> — cùng một mesh mái vòm nhưng đã bị lột sạch các face khuất (đáy, mặt trong, mặt sau). Mỗi face gỡ đi là vertex KHÔNG phải đẩy lên GPU và fragment KHÔNG phải shading. / EN: Remove any unseen faces.</em></p>
 
-#### 7.3b. Hai tối ưu Mesh ở PLAYER SETTINGS
+#!!! danger "💀 Nút thắt KHÔNG phải POLYGON COUNT — mà là POLYGON DENSITY"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p><em>"Hãy biết rằng <strong>trên GPU HIỆN ĐẠI, nút thắt THƯỜNG KHÔNG PHẢI số lượng polygon, mà là MẬT ĐỘ POLYGON (polygon density).</strong> Chúng tôi khuyến nghị <strong>thực hiện một ART PASS trên TOÀN BỘ asset để GIẢM polygon count của các vật thể Ở XA.</strong> 🚨 <strong>MICROTRIANGLE có thể là nguyên nhân ĐÁNG KỂ gây hiệu năng GPU kém.</strong>"</em></p>
+    <p>🎨 <em>"Tuỳ nền tảng đích, hãy cân nhắc <strong>thêm chi tiết bằng Texture ĐỘ PHÂN GIẢI CAO để BÙ cho hình học low-poly. Dùng texture và normal map THAY VÌ tăng mật độ của mesh.</strong>"</em></p>
+    <p>🔥 <em>"<strong>GIẢM ĐỘ PHỨC TẠP PIXEL bằng cách BAKE càng nhiều chi tiết vào Texture càng tốt.</strong> Ví dụ, <strong>ghi luôn SPECULAR HIGHLIGHT vào Texture để KHỎI phải TÍNH highlight trong fragment shader.</strong>"</em></p>
+    <p>📊 <em>"Hãy lưu tâm và nhớ <strong>PROFILE THƯỜNG XUYÊN</strong>, vì những kỹ thuật này CÓ THỂ ảnh hưởng hiệu năng và <strong>có thể KHÔNG phù hợp với nền tảng đích của bạn.</strong>"</em></p>
+    </div>
+    <div class="col-en">
+    <p><em>"Be aware that the bottleneck is not usually polygon count on modern GPUs, but rather polygon density. We recommend performing an art pass across all assets to reduce the polygon count of distant objects. Microtriangles can be a significant cause of poor GPU performance."</em></p>
+    <p>🎨 <em>"Depending on the target platform, investigate adding details via high-resolution Textures to compensate for low-poly geometry. Use textures and normal maps instead of increasing the density of the mesh."</em></p>
+    <p>🔥 <em>"Reduce pixel complexity by baking as much detail into the Textures as possible. For example, capture the specular highlights into the Texture to avoid having to compute the highlight in the fragment shader."</em></p>
+    <p>📊 <em>"Be mindful and remember to profile regularly, as these techniques can impact performance, and may not be suitable for your target platform."</em></p>
+    </div>
+    </div>
+
+### 7.3b. Hai tối ưu Mesh ở PLAYER SETTINGS
 
 !!! note "Bổ sung sau audit — từ e-book Console/PC"
 
@@ -980,6 +1243,27 @@ adb shell cat /proc/meminfo
 <p>📝 The raw notes give an example figure: <em>"Optimize Mesh Data: checked (ex: 0.3 Mb)"</em>.</p>
 </div>
 </div>
+
+
+!!! tip "🔗 Bốn tài liệu Unity chính thức mà hai e-book dẫn cho chương Assets"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <ul>
+    <li><strong>Understanding Optimization in Unity</strong> — <em>"Đọc thêm về asset auditing ở mục này của best practice guide."</em> (Console tr.35)</li>
+    <li><strong>Best practices for importing art assets</strong> (Mobile tr.24 · Console tr.30)</li>
+    <li><strong>Unity Learn — 3D art optimization for mobile applications</strong> (Mobile tr.24)</li>
+    <li><strong>Cloud Content Delivery</strong> — dùng cùng Addressables để phân phối nội dung theo tiến độ chơi (Mobile tr.28)</li>
+    </ul>
+    </div>
+    <div class="col-en">
+    <ul>
+    <li><em>"Read more about asset auditing in the <strong>Understanding Optimization in Unity</strong> section of the best practice guide."</em></li>
+    <li><strong>Best practices for importing art assets</strong></li>
+    <li><strong>Unity Learn course on 3D art optimization for mobile applications</strong></li>
+    <li><strong>Cloud Content Delivery</strong></li>
+    </ul>
+    </div>
+    </div>
 
 ### 7.4. Tự động hóa: AssetPostprocessor & Asset Bundle Analyzer
 
@@ -1167,6 +1451,30 @@ public class AsyncUploadConfig : MonoBehaviour
 ---
 
 ## 8. 🎯 Addressables — Quản lý Asset ở quy mô lớn
+
+### 8.0. ☁️ Addressables để làm gì — DLC, build ban đầu NHỎ HƠN & Cloud Content Delivery
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"Addressable Asset System cung cấp cách QUẢN LÝ nội dung ĐƠN GIẢN HOÁ, nạp AssetBundle theo <strong>\"địa chỉ\" (address) hay bí danh</strong>. 🔑 <strong>Hệ thống HỢP NHẤT này nạp BẤT ĐỒNG BỘ, từ ĐƯỜNG DẪN LOCAL HOẶC từ một MẠNG PHÂN PHỐI NỘI DUNG (CDN) từ xa.</strong>"</em></p>
+<p>📦 <em>"<strong>NẾU bạn TÁCH các asset KHÔNG PHẢI CODE (Model, Texture, Prefab, Audio, và cả TOÀN BỘ Scene) vào một AssetBundle, bạn có thể TÁCH chúng thành NỘI DUNG TẢI VỀ (DLC).</strong>"</em></p>
+<p>📉 <em>"Sau đó, <strong>dùng Addressables để tạo BUILD BAN ĐẦU NHỎ HƠN cho ứng dụng mobile. Cloud Content Delivery cho phép bạn HOST và PHÂN PHỐI nội dung game tới người chơi THEO TIẾN ĐỘ họ chơi.</strong>"</em></p>
+<p>🎮 <em>"(bản Console nói thêm) Thêm tầng TRỪU TƯỢNG này giữa game và asset của nó có thể <strong>tinh gọn một số tác vụ, như TẠO một gói nội dung tải về RIÊNG. Addressables cũng khiến việc THAM CHIẾU các gói asset đó DỄ HƠN, dù chúng nằm LOCAL hay REMOTE.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"The Addressable Asset System provides a simplified way to manage your content, loading AssetBundles by 'address' or alias. This unified system loads asynchronously from either a local path or a remote content delivery network (CDN)."</em></p>
+<p>📦 <em>"If you split your non-code assets (Models, Textures, Prefabs, Audio, and even entire Scenes) into an AssetBundle, you can separate them as downloadable content (DLC)."</em></p>
+<p>📉 <em>"Then, use Addressables to create a smaller initial build for your mobile application. Cloud Content Delivery lets you host and deliver your game content to players as they progress through the game."</em></p>
+<p>🎮 <em>"Adding this extra level of abstraction between the game and its assets can streamline certain tasks, such as creating a separate downloadable content pack. Addressables makes referencing those asset packs easier as well, whether they're local or remote."</em></p>
+</div>
+</div>
+
+<img src="../assets/asset-addressables-groups-console.png" alt="The Addressables Groups window.">
+<p><em>VI: <strong>▲ Cửa sổ Addressables Groups (bản e-book Console)</strong> — cây <strong>Group Name \ Addressable Name</strong> với cột <strong>Path</strong> và <strong>Labels</strong>, cùng thanh <strong>Create · Profile · Tools · Play Mode Script · Build</strong>. / EN: The Addressables Groups window.</em></p>
+
+<img src="../assets/asset-addressables-build.png" alt="The Addressables Build menu: New Build, Update a Previous Build, Clean Buil">
+<p><em>VI: <strong>▲ Menu <code>Build</code></strong> — <strong>New Build › Default Build Script</strong>, <strong>Update a Previous Build</strong>, <strong>Clean Build</strong>. Đây là chỗ sinh ra bundle để host lên CDN. / EN: The Addressables Build menu: New Build, Update a Previous Build, Clean Build.</em></p>
+
 
 <img src="../assets/asset-addressables-groups.png" alt="Addressables Groups window">
 <p><em>VI: Trong Addressables Groups, bạn thấy địa chỉ tùy chỉnh của mỗi asset kèm vị trí của nó. / EN: In the Addressables Groups, you can see each asset's custom address paired with its location.</em></p>
@@ -2187,6 +2495,181 @@ public class NetworkManager : MonoBehaviour
 </div>
 </div>
 
+
+#### 10.1a. ⚙️ `schema-codegen` — bước BẮT BUỘC trước khi code C# ở trên biên dịch được
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🚨 <strong>Đọc mục này TRƯỚC khi copy code ở §10.1.</strong> Lớp <code>MyRoomState</code> mà đoạn code kia dùng <strong>KHÔNG tự có</strong> — nó được SINH RA từ schema phía server.</p>
+<p><em>"Với các ngôn ngữ BIÊN DỊCH như C#, bạn <strong>CẦN SINH RA các lớp schema PHÍA CLIENT khớp với cấu trúc state của server.</strong> Chạy lệnh sau từ thư mục server:"</em></p>
+</div>
+<div class="col-en">
+<p>🚨 <strong>Read this before copying the code in §10.1.</strong> The <code>MyRoomState</code> class it uses does not exist by itself — it is generated from the server-side schema.</p>
+<p><em>"For compiled languages like C#, you need to generate client-side schema classes that match your server's state structure. Run the following command from your server directory:"</em></p>
+</div>
+</div>
+
+```bash
+npx schema-codegen src/rooms/schema/* --csharp --output ../Assets/Scripts/States/
+```
+
+#### 10.1b. 🧬 `DynamicSchema` — bỏ qua hẳn bước codegen
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><em>"Nếu bạn muốn <strong>BỎ QUA HẲN bước sinh code</strong>, có thể dùng <strong><code>DynamicSchema</code></strong> thay cho các lớp schema sinh sẵn. <code>DynamicSchema</code> <strong>DỰNG metadata kiểu LÚC CHẠY từ handshake của server</strong>, nên KHÔNG cần file sinh ra nào."</em></p>
+<p>⚠️ <em>"<code>DynamicSchema</code> <strong>ĐÁNH ĐỔI an toàn kiểu LÚC BIÊN DỊCH lấy sự tiện lợi. Bạn sẽ KHÔNG có autocomplete của IDE trên các field state, và lỗi kiểu CHỈ lộ ra LÚC CHẠY.</strong> ✅ <strong>Với dự án PRODUCTION, khuyến nghị dùng Schema Codegen.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p><em>"If you want to skip the code generation step entirely, you can use DynamicSchema instead of generated schema classes. DynamicSchema builds its type metadata at runtime from the server handshake, so no generated files are needed."</em></p>
+<p>⚠️ <em>"DynamicSchema trades compile-time type safety for convenience. You won't get IDE autocomplete on state fields, and type errors will only surface at runtime. For production projects, Schema Codegen is recommended."</em></p>
+</div>
+</div>
+
+```csharp
+using UnityEngine;
+using Colyseus;
+using Colyseus.Schema;
+
+public class NetworkManager : MonoBehaviour
+{
+    Client client;
+    Room<DynamicSchema> room;
+
+    async void Start()
+    {
+        client = new Client("ws://localhost:2567");
+
+        room = await client.JoinOrCreate<DynamicSchema>("my_room");
+        Debug.Log("Joined room: " + room.Id);
+
+        // Truy cập field của state ĐỘNG — không có lớp sinh sẵn
+        var players = room.State.Get<MapSchema<DynamicSchema>>("players");
+        var self    = players[room.SessionId];
+        var hp      = self.Get<int>("hp");
+
+        // Callback dùng TÊN CHUỖI thay vì biểu thức
+        var callbacks = Callbacks.Get(room);
+
+        callbacks.Listen<string>("currentTurn", (currentValue, previousValue) => {
+            Debug.Log($"Turn changed: {previousValue} -> {currentValue}");
+        });
+
+        callbacks.OnAdd<DynamicSchema>("players", (sessionId, player) => {
+            Debug.Log($"Player joined: {sessionId}");
+            var items = player.Get<ArraySchema<DynamicSchema>>("items");
+        });
+
+        callbacks.OnRemove<DynamicSchema>("players", (sessionId, player) => {
+            Debug.Log($"Player left: {sessionId}");
+        });
+    }
+
+    async void OnDestroy()
+    {
+        if (room != null) await room.Leave();
+    }
+}
+```
+
+#### 10.1c. 📨 Message Types Codegen — message CÓ KIỂU cả hai chiều
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p><em>"Cùng lệnh <code>schema-codegen</code> đó cũng <strong>sinh ra lớp C# cho BẤT KỲ interface TypeScript nào có chữ <code>\"Message\"</code> trong tên.</strong> Nhờ vậy bạn dùng được <strong>object message CÓ KIỂU CHẶT phía client.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p><em>"The same schema-codegen command also generates C# classes for any TypeScript interface containing \"Message\" in its name. This allows you to use strongly-typed message objects on the client side."</em></p>
+</div>
+</div>
+
+```ts
+// Server — src/rooms/MyRoom.ts
+interface MoveMessage {
+  x: number;
+  y: number;
+}
+
+messages = {
+  move: (client: Client, message: MoveMessage) => { /* handle move */ }
+}
+
+// Server → Client
+interface EventMessage { type: string; data: string; }
+
+onJoin(client: Client) {
+  client.send("event", { type: "welcome", data: "Hello!" } as EventMessage);
+}
+```
+
+```csharp
+// C# sinh ra từ interface trên
+public class MoveMessage {
+    public float x;
+    public float y;
+}
+
+// Client → Server
+room.Send("move", new MoveMessage() { x = 1.0f, y = 2.0f });
+
+// Server → Client
+room.OnMessage<EventMessage>("event", (message) => {
+    Debug.Log(message.type);
+    Debug.Log(message.data);
+});
+```
+
+#### 10.1d. 🐞 Debug — Room Inspector và BẪY `pingInterval`
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🔍 <strong>Editor Debug Panel (experimental):</strong> <em>"Panel debug trong Editor cho phép bạn <strong>SOI state của room và message THỜI GIAN THỰC trong lúc phát triển, MÔ PHỎNG điều kiện độ trễ cao, mất kết nối,</strong> và nhiều hơn nữa."</em> — bật ở <strong><code>Window › Colyseus › Room Inspector</code></strong>.</p>
+<p>💀 <strong>BẪY breakpoint — WebSocket tự rớt sau 3 giây:</strong> <em>"Nếu bạn đặt breakpoint trong ứng dụng KHI kết nối WebSocket đang mở, <strong>kết nối sẽ TỰ ĐỘNG ĐÓNG sau 3 GIÂY do KHÔNG HOẠT ĐỘNG.</strong> Để ngăn việc đó, hãy dùng <strong><code>pingInterval: 0</code> TRONG LÚC PHÁT TRIỂN.</strong>"</em></p>
+<p>🚨 <em>"<strong>Hãy CHẮC CHẮN đặt <code>pingInterval</code> LỚN HƠN 0 khi lên PRODUCTION. Giá trị mặc định của <code>pingInterval</code> là <code>3000</code>.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🔍 <em>"The editor debug panel allows you to inspect the room state and messages in real-time during development, simulate high latency conditions, connection drops, and more."</em> — enable at <strong>Window → Colyseus → Room Inspector</strong>.</p>
+<p>💀 <em>"If you set a breakpoint in your application while the WebSocket connection is open, the connection will be closed automatically after 3 seconds due to inactivity. To prevent the WebSocket connection from dropping, use pingInterval: 0 during development."</em></p>
+<p>🚨 <em>"Make sure to have a pingInterval higher than 0 on production. The default pingInterval value is 3000."</em></p>
+</div>
+</div>
+
+```ts
+// app.config.ts
+import { defineServer } from "colyseus";
+import { WebSocketTransport } from "@colyseus/ws-transport";
+
+const server = defineServer({
+    // ...
+    transport: new WebSocketTransport({
+        pingInterval: 0, // <--- CHỈ dùng khi DEV; production phải > 0
+    }),
+    // ...
+});
+```
+
+#### 10.1e. 📦 Cài bản legacy `.unitypackage` & dự án ví dụ
+
+<div class="bilingual-row">
+<div class="col-vi">
+<ul>
+<li>Tải SDK Colyseus Unity mới nhất: <code>https://github.com/colyseus/colyseus-unity3d/releases/latest/download/Colyseus_Plugin.unitypackage</code></li>
+<li>Import nội dung <code>Colyseus_Plugin.unitypackage</code> vào dự án.</li>
+<li><em>"Gói này chứa một <strong>dự án VÍ DỤ ở <code>Assets/Colyseus/Example</code></strong> mà bạn có thể dùng làm tham chiếu."</em></li>
+</ul>
+<p>➕ Mục thứ TƯ của SDK Example Project (tài liệu trước mới liệt kê 3): <em>"<strong>Tiêu thụ một SEAT RESERVATION từ QueueRoom và tham gia vào match room.</strong>"</em></p>
+</div>
+<div class="col-en">
+<ul>
+<li>Download the latest Colyseus Unity SDK: <code>Colyseus_Plugin.unitypackage</code></li>
+<li>Import the <code>Colyseus_Plugin.unitypackage</code> contents into your project.</li>
+<li><em>"The Colyseus_Plugin.unitypackage contains an example project under Assets/Colyseus/Example you can use as a reference."</em></li>
+</ul>
+<p>➕ <em>"Consuming a seat reservation from QueueRoom and joining into the match room."</em></p>
+</div>
+</div>
+
+
 ### 10.2. UnityWebRequest & Android Plugin
 
 <div class="bilingual-row">
@@ -2686,6 +3169,86 @@ public class PlayerController : MonoBehaviour
     **VI:** Service Locator **giấu dependency** — nhìn chữ ký constructor không biết class cần gì. Nhiều người coi đây là **anti-pattern** so với **Dependency Injection thuần** (truyền dependency qua constructor). Với Unity, Service Locator vẫn phổ biến vì MonoBehaviour **không có constructor tự viết được**. Nếu dự án lớn, cân nhắc DI framework như **VContainer** hoặc **Zenject**.
 
     **EN:** Service Locator **hides dependencies** — a constructor signature no longer tells you what a class needs. Many consider it an **anti-pattern** compared to plain **Dependency Injection**. In Unity it remains popular because MonoBehaviours **can't have user-defined constructors**. For larger projects, consider a DI framework such as **VContainer** or **Zenject**.
+
+### 12.4. 👀 Observer — mẫu đi CẶP với Service Locator
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📝 Ghi chú gốc trong <code>raw-optimization-data.txt</code> liệt kê <strong>Observer NGAY CẠNH Service Locator</strong> trong cùng một danh sách design pattern để tối ưu CPU. Hai mẫu này giải quyết HAI nửa của cùng một vấn đề:</p>
+<ul>
+<li>🗝️ <strong>Service Locator</strong> trả lời <em>"làm sao TÌM ĐƯỢC một hệ thống mà KHÔNG cần singleton?"</em></li>
+<li>👀 <strong>Observer</strong> trả lời <em>"làm sao BIẾT hệ thống đó có gì THAY ĐỔI mà KHÔNG phải hỏi nó MỖI FRAME?"</em></li>
+</ul>
+<p>🚨 <strong>Vì sao nó là chuyện HIỆU NĂNG, không chỉ là kiến trúc:</strong> mã polling trong <code>Update()</code> chạy <strong>60 lần/giây cho MỖI đối tượng quan tâm</strong>, kể cả khi giá trị KHÔNG đổi. Observer đảo ngược chiều: <strong>chỉ chạy đúng lúc giá trị THỰC SỰ đổi.</strong></p>
+<p>⚠️ <strong>Bẫy PHẢI biết — rò rỉ do KHÔNG huỷ đăng ký:</strong> mỗi <code>+=</code> tạo một tham chiếu MẠNH từ subject tới observer. Nếu observer bị <code>Destroy</code> mà KHÔNG <code>-=</code>, subject vẫn GIỮ nó ⇒ <strong>object KHÔNG được GC</strong>, và lần phát sự kiện sau sẽ ném <code>MissingReferenceException</code>. Đây chính là biến thể của bẫy <code>== null</code> đã nói ở Module 5.</p>
+</div>
+<div class="col-en">
+<p>📝 The original note in <code>raw-optimization-data.txt</code> lists <strong>Observer right next to Service Locator</strong> in the same list of CPU-optimization patterns. They solve two halves of one problem:</p>
+<ul>
+<li>🗝️ <strong>Service Locator</strong> answers <em>"how do I find a system without a singleton?"</em></li>
+<li>👀 <strong>Observer</strong> answers <em>"how do I learn that it changed without polling it every frame?"</em></li>
+</ul>
+<p>🚨 <strong>Why this is a performance concern, not just architecture:</strong> polling in <code>Update()</code> runs <strong>60 times a second per interested object</strong>, even when nothing changed. Observer inverts that: the code runs <strong>only when the value actually changes.</strong></p>
+<p>⚠️ <strong>The trap:</strong> every <code>+=</code> creates a strong reference from subject to observer. If the observer is destroyed without a matching <code>-=</code>, the subject still holds it ⇒ <strong>the object is never collected</strong>, and the next event throws <code>MissingReferenceException</code>.</p>
+</div>
+</div>
+
+```csharp
+// ❌ POLLING — chạy MỖI FRAME dù máu KHÔNG đổi
+public class HealthBar : MonoBehaviour
+{
+    void Update()
+    {
+        var hp = ServiceLocator.Get<IPlayerService>().Health;   // 60 lần/giây
+        _slider.value = hp;
+    }
+}
+
+// ✅ OBSERVER — chỉ chạy khi máu THỰC SỰ đổi
+public interface IPlayerService
+{
+    int Health { get; }
+    event Action<int> OnHealthChanged;
+}
+
+public class HealthBar : MonoBehaviour
+{
+    IPlayerService _player;
+
+    void OnEnable()
+    {
+        _player = ServiceLocator.Get<IPlayerService>();
+        _player.OnHealthChanged += HandleHealthChanged;   // đăng ký
+        HandleHealthChanged(_player.Health);              // đồng bộ giá trị ban đầu
+    }
+
+    // 🔑 BẮT BUỘC — không có dòng này là rò rỉ
+    void OnDisable()
+    {
+        if (_player != null) _player.OnHealthChanged -= HandleHealthChanged;
+    }
+
+    void HandleHealthChanged(int hp) => _slider.value = hp;
+}
+```
+
+!!! tip "🔗 Ba cách hiện thực Observer trong Unity — chọn theo tình huống"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <ul>
+    <li><strong>C# <code>event</code></strong> (như trên) — nhanh nhất, không cấp phát, nhưng subject và observer phải BIẾT NHAU qua interface.</li>
+    <li><strong>UnityEvent</strong> — nối được trong Inspector, tiện cho designer; NHƯNG <strong>chậm hơn <code>event</code> thuần và có cấp phát</strong>, đừng dùng ở đường nóng.</li>
+    <li><strong>Event bus / message channel</strong> (thường dựng bằng <code>ScriptableObject</code>) — subject và observer <strong>KHÔNG cần biết nhau</strong>; đổi lại KHÓ truy vết ai đang nghe. Hợp với sự kiện toàn cục kiểu <em>"game over"</em>.</li>
+    </ul>
+    </div>
+    <div class="col-en">
+    <ul>
+    <li><strong>C# <code>event</code></strong> — fastest, allocation-free, but both sides must share an interface.</li>
+    <li><strong>UnityEvent</strong> — wireable in the Inspector, designer-friendly; <strong>slower than a plain event and it allocates</strong> — keep it off hot paths.</li>
+    <li><strong>Event bus / message channel</strong> (often built on <code>ScriptableObject</code>) — fully decoupled, but harder to trace who listens. Good for global events like <em>game over</em>.</li>
+    </ul>
+    </div>
+    </div>
 
 ---
 

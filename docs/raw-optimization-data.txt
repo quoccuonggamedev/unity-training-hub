@@ -211,7 +211,7 @@ Optimize mesh collider: https://github.com/aniketrajnish/Unity-Collider-Optimize
 - Don’t use use Raycasts inside a FixedUpdate() function, sometimes even inside an Update() may be an overkill,  Raycasting against a mesh collider is really expensive, If in dire need of using mesh colliders, then at least make them convex.
 -Try to have the least dynamic Rigibodies as possible
 -Use simple primitive Modcolliders instead of mesh colliders
--Try to keep the “Collision Detectione” on “Discrete” if possible
+-Try ato keep the “Collision Detectione” on “Discrete” if possible
 - Tweak the “Fixed Timestep” 0.02 value in Edit > Project Settings > Time
  - OverlapSphereNonAlloc is generally a better solution than OverlapSphere
 + Mark static non moving object.

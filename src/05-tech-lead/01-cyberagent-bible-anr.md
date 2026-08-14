@@ -1326,6 +1326,17 @@ public class PerformanceOverlay : MonoBehaviour
 
 ## 12. 💽 Storage — Vì sao ĐỌC FILE lâu hơn bạn nghĩ
 
+!!! tip "🔗 Nguồn tra tốc độ storage THỰC TẾ của từng máy"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p>📊 Sách dẫn một trang <strong>tổng hợp KẾT QUẢ BENCHMARK</strong> để bạn tra tốc độ đọc/ghi của từng dòng máy: <strong><code>https://maxim-saplin.github.io/cpdt_results/</code></strong>. Dùng nó để biết thiết bị đích của bạn thực sự đọc được bao nhiêu MB/s thay vì đoán.</p>
+    </div>
+    <div class="col-en">
+    <p>📊 <em>"For terminals, you can refer to a site that collects benchmark results: <code>https://maxim-saplin.github.io/cpdt_results/</code>"</em></p>
+    </div>
+    </div>
+
+
 <img src="../assets/ca-soc-storage.png" alt="Relationship between SoC and Storage">
 <p><em>VI: <strong>▲ Figure 2.10 — Quan hệ giữa SoC và Storage.</strong> / EN: Figure 2.10 — Relationship between SoC and Storage.</em></p>
 
@@ -2383,7 +2394,115 @@ private void HogeMethod(ref MyClass myClass)
 </div>
 </div>
 
+**💻 BA code sample minh hoạ — nguyên văn `List 2.9` · `2.10` · `2.11`**
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"Để minh hoạ TỪNG mức độ phức tạp, ta liệt kê vài code sample. Trước hết, <strong>O(1) chỉ lượng tính toán KHÔNG ĐỔI, ĐỘC LẬP với số lượng dữ liệu.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"To illustrate each of the computational quantities, we will list a few code samples. First, O(1) indicates a constant amount of computation independent of the number of data."</em></p>
+</div>
+</div>
+
+```csharp
+// ▼ List 2.9 — Code example of O(1)
+private int GetValue(int[] array)
+{
+    // Assume that array is an array containing some integer value.
+    var value = array[0];
+    return value;
+}
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🔢 <em>"Bỏ qua lý do tồn tại của method này, rõ ràng <strong>quá trình xử lý ĐỘC LẬP với số dữ liệu trong mảng và chỉ tốn MỘT SỐ BƯỚC TÍNH KHÔNG ĐỔI</strong> (ở đây là MỘT)."</em></p>
+</div>
+<div class="col-en">
+<p>🔢 <em>"Aside from the raison d'être of this method, obviously the process is independent of the number of data in the array and takes a constant number of calculations (in this case, one)."</em></p>
+</div>
+</div>
+
+```csharp
+// ▼ List 2.10 — Code example of O(n)
+private bool HasOne(int[] array, int n)
+{
+    // Assume that array has length=n and contains some integer value
+    for (var i = 0; i < n; ++i)
+    {
+        var value = array[i];
+        if (value == 1)
+        {
+            return true;
+        }
+    }
+}
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>⏱️ <em>"Nếu số <strong>1</strong> nằm NGAY ĐẦU mảng, xử lý có thể xong <strong>NHANH NHẤT có thể</strong>. Nhưng <strong>nếu KHÔNG có số 1 nào trong mảng, vòng lặp sẽ chạy TỚI TẬN CÙNG — tức <code>n</code> lần.</strong> 🚨 <strong>Kịch bản XẤU NHẤT này gọi là O(n)</strong>, và bạn hình dung được rằng <strong>lượng tính toán TĂNG THEO số lượng dữ liệu.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>⏱️ <em>"If by chance the first 1 is found at the beginning of the array, the process may be completed in the fastest possible time, but if there is no 1 in the array, the loop will go all the way to the end — n times. This worst-case scenario is called O(n) and you can imagine that the amount of computation increases with the number of data."</em></p>
+</div>
+</div>
+
+```csharp
+// ▼ List 2.11 — Example code for O(n²)
+private bool HasSameValue(int[] array1, int[] array2, int n)
+{
+    // Assume array1 and array2 have length=n and contain some integer value.
+    for (var i = 0; i < n; ++i)
+    {
+        var value1 = array1[i];
+        for (var j = 0; j < n; ++j)
+        {
+            var value2 = array2[j];
+            if (value1 == value2)
+            {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+```
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>💀 <em>"Đây chỉ là method trả về <code>true</code> nếu HAI mảng chứa CÙNG một giá trị, dùng <strong>vòng lặp KÉP. Kịch bản XẤU NHẤT là TẤT CẢ đều không khớp — tức <code>n²</code> lần.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>💀 <em>"This one is just a method that returns true if any of the two arrays contain the same value in a double loop. The worst-case scenario is that they are all mismatched cases, so n² times."</em></p>
+</div>
+</div>
+
+!!! note "📐 Hai ghi chú BÊN LỀ của sách — dễ bị bỏ qua"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p>① <em>"Trong khái niệm độ phức tạp tính toán, <strong>CHỈ số hạng có BẬC LỚN NHẤT được dùng.</strong> Nếu ta tạo một method thực thi MỖI method trong ba ví dụ trên MỘT LẦN, ta được bậc tối đa là <strong>O(n²)</strong> — chứ không viết <strong>O(n² + n + 1)</strong>."</em></p>
+    <p>② 🚨 <em>"Cũng cần lưu ý rằng <strong>lượng tính toán CHỈ là KIM CHỈ NAM khi số lượng dữ liệu ĐỦ LỚN, và KHÔNG NHẤT THIẾT gắn với thời gian đo THỰC TẾ. O(n⁵) có thể KHÔNG phải vấn đề khi số dữ liệu NHỎ.</strong>"</em></p>
+    </div>
+    <div class="col-en">
+    <p>① <em>"As a side note, in the concept of computational complexity, only the term with the largest order is used. If we create a method that executes each of the three methods in the above example once, we get the maximum order O(n²) — not O(n² + n + 1)."</em></p>
+    <p>② 🚨 <em>"It should also be noted that the calculation volume is only a guideline when the number of data is sufficiently large, and is not necessarily linked to the actual measurement time. O(n⁵) may not be a problem when the number of data is small."</em></p>
+    </div>
+    </div>
+
+
 ### 17.1. 📚 Năm collection C# — Chọn cái nào, KHI NÀO
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📚 <strong>Sách chỉ rõ chỗ TRA CỨU:</strong> <em>"Lượng tính toán của mỗi phương thức trong các collection này <strong>được ghi trong TÀI LIỆU MSDN của từng class</strong>, nên hãy tham khảo ở đó."</em></p>
+</div>
+<div class="col-en">
+<p>📚 <strong>Where to look it up:</strong> <em>"The amount of computation for each method of these collections is described in the MSDN documentation for each class, so please refer to it."</em></p>
+</div>
+</div>
 
 **`List<T>` — cấu trúc MẢNG**
 
@@ -2526,6 +2645,12 @@ private void HogeMethod(ref MyClass myClass)
 
 ### 19.1. Danh sách Profiler Module — 14 module ở Unity 2020
 
+<img src="../assets/ca-profiler-window-parts.png" alt="The two areas of the Profiler window.">
+<p><em>VI: <strong>▲ Hai vùng của cửa sổ Profiler</strong> — <strong>①</strong> cột <strong>Profiler Modules</strong> (Scripts · Rendering · Physics · Animation · GarbageCollector · VSync · GlobalIllumination) và <strong>②</strong> hai nút ở góc phải để <strong>ĐỔI CÁCH HIỂN THỊ biểu đồ</strong>. Thanh trên có <strong>Frame: 1695 / 1904</strong>, mốc <strong>10ms (100FPS)</strong> và <strong>5ms (200FPS)</strong>. / EN: The two areas of the Profiler window.</em></p>
+
+<img src="../assets/ca-profiler-modules-toggle.png" alt="Toggling individual Profiler Modules on and off.">
+<p><em>VI: <strong>▲ Bật/tắt từng module</strong> — chỉ tick <strong>CPU Usage · Memory</strong>; module KHÔNG tick sẽ KHÔNG được ghi, giúp <strong>GIẢM overhead của chính việc đo</strong>. / EN: Toggling individual Profiler Modules on and off.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p><em>"Unity Profiler là công cụ profiling <strong>tích hợp SẴN trong Unity Editor</strong>. Công cụ này thu thập thông tin <strong>theo TỪNG FRAME</strong>. Có rất nhiều mục đo được, mỗi mục gọi là một <strong>profiler module</strong>, và ở bản <strong>Unity 2020 có 14 module</strong>. Module này vẫn đang được cập nhật, và ở <strong>Unity 2021.2 đã thêm module mới về Asset và về File I/O.</strong>"</em></p>
@@ -2555,6 +2680,9 @@ private void HogeMethod(ref MyClass myClass)
 </div>
 
 ### 19.2. Việc phải làm TRƯỚC khi build — Development Build & Deep Profile
+
+<img src="../assets/ca-build-settings-development.png" alt="Build Settings with Development Build ticked.">
+<p><em>VI: <strong>▲ Build Settings</strong> — chọn nền tảng <strong>iOS</strong>, <strong>Run in Xcode as: Release</strong>, và <strong>BẮT BUỘC tick Development Build ✓</strong>. Bên dưới là <strong>Autoconnect Profiler</strong> và <strong>Deep Profiling Support</strong>. / EN: Build Settings with Development Build ticked.</em></p>
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -2588,6 +2716,9 @@ BuildReport report = BuildPipeline.BuildPlayer(buildPlayerOptions);
 ```
 
 ### 19.3. Việc phải làm SAU khi app khởi động — Wired connection
+
+<img src="../assets/ca-profiler-target-dropdown.png" alt="Selecting the profiling target: Playmode, Editor, a real device, or Enter I">
+<p><em>VI: <strong>▲ Chọn ĐÍCH đo</strong> — dropdown liệt kê <strong>Playmode · Editor · iPhone XR (000080)</strong> và <strong>&lt;Enter IP&gt;</strong>. Thiết bị THẬT chỉ hiện khi đã cắm cáp và app đang chạy. / EN: Selecting the profiling target: Playmode, Editor, a real device, or Enter IP.</em></p>
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -2645,6 +2776,12 @@ adb forward tcp:34999 localabstract:Unity-jp.co.sample.app
     </div>
 
 ### 19.4. CPU Usage — Hierarchy vs Raw Hierarchy vs Timeline
+
+<img src="../assets/ca-profiler-thread-dropdown.png" alt="The thread selector: Main Thread, Render Thread, Job.Worker.">
+<p><em>VI: <strong>▲ Chọn LUỒNG</strong> — <strong>Main Thread · Render Thread · Job.Worker 0/1/2…</strong>. Chọn sai luồng là đọc sai hoàn toàn con số. / EN: The thread selector: Main Thread, Render Thread, Job.Worker.</em></p>
+
+<img src="../assets/ca-profiler-raw-hierarchy.png" alt="Raw Hierarchy showing two separate SampleScript.Update() rows.">
+<p><em>VI: <strong>▲ Raw Hierarchy</strong> — <code>PlayerLoop</code> <strong>99.8% · 33.42 ms</strong>; <code>WaitForTargetFPS</code> <strong>88.5% (29.63 ms)</strong>; <code>PostLateUpdate.FinishFrameRendering</code> 7.7%; và HAI dòng <code>SampleScript.Update()</code> RIÊNG BIỆT <strong>0.8% (1.2 KB, 0.29 ms)</strong> và <strong>0.3% (1.2 KB, 0.12 ms)</strong> — Raw KHÔNG GỘP các lần gọi lại với nhau. / EN: Raw Hierarchy showing two separate SampleScript.Update() rows.</em></p>
 
 <img src="../assets/ca-deep-profile-testmethod.png" alt="Deep Profile revealing Test Method at 336.30 ms, total 895.63 ms acros">
 <p><em>VI: <strong>Deep Profile</strong> phơi bày tận cùng: <code>Test Method</code> <strong>336.30 ms</strong>, tổng <strong>895.63 ms (2 Instances)</strong>, bên dưới là <code>LogStringToConsole</code> <strong>98.8%</strong>. / EN: Deep Profile revealing Test Method at 336.30 ms, total 895.63 ms across 2 instances.</em></p>
@@ -2782,6 +2919,12 @@ private void OnClickedButton()
 
 ### 19.6. Memory module — Simple view
 
+<img src="../assets/ca-memory-module-graph.png" alt="The seven series the Memory module graphs over time.">
+<p><em>VI: <strong>▲ Bảy chuỗi mà Memory module VẼ theo thời gian</strong> — <strong>Total Used Memory · Texture Memory · Mesh Memory · Material Count · Object Count · GC Used Memory · GC Allocated In Frame</strong>. Ở frame <strong>2356 / 2356</strong> các chỉ số là <strong>Total Used 85.9 MB · Total Reserved 101.2 MB · System Used 102.0 MB</strong>. / EN: The seven series the Memory module graphs over time.</em></p>
+
+<img src="../assets/ca-memory-simple-view.png" alt="The Memory module's Simple view.">
+<p><em>VI: <strong>▲ Simple view</strong> — <strong>Total Used 85.4 MB</strong> (GC 160.0 KB · Gfx 24.6 MB · Audio 1.1 MB · Video 1.0 KB · Profiler 32.5 MB), <strong>Total Reserved 101.2 MB</strong>, <strong>System Used 94.0 MB</strong>; phần đếm object: <strong>Textures 23 / 0.6 MB · Materials 9 / 13.2 KB · Asset Count 437 · Object Count 482</strong> và <strong>GC Allocation In Frame: 16 / 1.7 KB</strong>. / EN: The Memory module's Simple view.</em></p>
+
 <img src="../assets/ca-memory-simple-view.png" alt="Simple View của Memory module">
 
 <p><em>VI: Simple View (Unity 2020) — <strong>Total Used Memory 85.9 MB</strong> (GC 164.0 KB, Gfx 24.6 MB, Audio 1.1 MB, Video 1.0 KB, <strong>Profiler 32.5 MB</strong>), <strong>Total Reserved Memory 101.2 MB</strong>, <strong>System Used Memory 102.0 MB</strong>; Textures <strong>23 / 0.6 MB</strong>, Meshes 0, Materials <strong>9 / 13.2 KB</strong>. / EN: Simple View — note how much of the total is the Profiler itself (32.5 MB).</em></p>
@@ -2891,6 +3034,9 @@ private void OnClickedButton()
 
 ### 20.1. Cài đặt & hai chế độ
 
+<img src="../assets/ca-pa-toolbar.png" alt="The Profile Analyzer toolbar with Single and Compare modes.">
+<p><em>VI: <strong>▲ Thanh công cụ Profile Analyzer</strong> — <strong>Mode: Single | Compare</strong>, các nút <strong>Export · Close Profiler Window</strong>, và <strong>Pull Data · Load · Save</strong>. <em>"Pull or load a data set for analysis."</em> / EN: The Profile Analyzer toolbar with Single and Compare modes.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>📥 <em>"Công cụ này cài từ <strong>Package Manager</strong>. Vì được <strong>Unity HỖ TRỢ CHÍNH THỨC</strong>, đổi Packages sang <strong>Unity Registry</strong> và gõ <strong>"Profile"</strong> trong ô tìm kiếm. Sau khi cài, mở bằng <strong>"Window → Analysis → Profile Analyzer"</strong>."</em></p>
@@ -2905,6 +3051,12 @@ private void OnClickedButton()
 </div>
 
 ### 20.2. Bộ lọc — và mẹo `Depth Slice = 2~3`
+
+<img src="../assets/ca-pa-filters.png" alt="The Profile Analyzer Filters panel: 296 of 323 markers, 1 of 34 threads.">
+<p><em>VI: <strong>▲ Bảng Filters</strong> — <strong>Name Filter · Thread: Main Thread · Depth Slice: All · Parent Marker: None</strong>, và <strong>Exclude Names</strong>. Dòng trạng thái: <strong>"296 of 323 markers, 1 of 34 threads"</strong>; bên phải: <strong>Analysis Type: Total · Units: Milliseconds · Marker Columns: Time and Count</strong>. / EN: The Profile Analyzer Filters panel: 296 of 323 markers, 1 of 34 threads.</em></p>
+
+<img src="../assets/ca-pa-thread-summary.png" alt="Thread Summary: 34 threads, Main 16.71 ms, Render 16.48 ms median.">
+<p><em>VI: <strong>▲ Thread Summary</strong> — <strong>Total Count 34 · Selected 2</strong>, <strong>Graph Scale: Upper quartile of frame time</strong>; Median <strong>16.71 ms</strong> cho <strong>Main Thread</strong> và <strong>16.48 ms</strong> cho <strong>Render Thread</strong>. / EN: Thread Summary: 34 threads, Main 16.71 ms, Render 16.48 ms median.</em></p>
 
 **Bảng 3.4 — Các mục của bộ lọc:**
 
@@ -2959,6 +3111,9 @@ private void OnClickedButton()
 
 ### 20.4. Frame Summary — Boxplot & Histogram
 
+<img src="../assets/ca-pa-marker-summary.png" alt="Marker Summary for PreUpdate.NewInputUpdate.">
+<p><em>VI: <strong>▲ Marker Summary</strong> cho <code>PreUpdate.NewInputUpdate</code> — <strong>Mean frame contribution 0.16%</strong>; <strong>Top 3 by frame costs: 0.13 ms (frame 133) · 0.12 ms (176) · 0.12 ms (127)</strong>; histogram + boxplot bên dưới với <strong>Max 0.13 ms (frame 133)</strong> và <strong>Upper Quartile 0.05</strong>. / EN: Marker Summary for PreUpdate.NewInputUpdate.</em></p>
+
 <img src="../assets/ca-frame-summary-stats.png" alt="Frame Summary: Max 33.56 ms, Median 16.79, Mean 19.30, Min 4.76.">
 <p><em>VI: <strong>Frame Summary</strong> — <strong>Frame Count 199</strong> · <strong>Max 33.56 ms</strong> (frame 101) · <strong>Upper Quartile 17.31</strong> · <strong>Median 16.79</strong> (frame 10) · <strong>Mean 19.30</strong> · <strong>Lower Quartile 16.48</strong> · <strong>Min 4.76</strong> (frame 119). <strong>Mean CAO HƠN Median</strong> ⇒ có vài frame ĐỘT BIẾN kéo trung bình lên. / EN: Frame Summary: Max 33.56 ms, Median 16.79, Mean 19.30, Min 4.76.</em></p>
 
@@ -2986,6 +3141,9 @@ private void OnClickedButton()
 </div>
 
 ### 20.5. Compare mode — bằng chứng tuning CÓ hay KHÔNG hiệu quả
+
+<img src="../assets/ca-pa-compare-pair-graph.png" alt="Compare mode with two datasets and Pair Graph Selection.">
+<p><em>VI: <strong>▲ Compare mode</strong> — HAI dataset xếp chồng (<strong>Unsaved 1</strong> xanh, <strong>Unsaved 2</strong> cam), cùng thang <strong>33.3 ms / 16.0 ms / 0.00 ms</strong>; tick <strong>Pair Graph Selection</strong> để hai biểu đồ CUỘN CÙNG NHAU. Marker được chọn: <code>RenderForwardAlpha.Render</code>. / EN: Compare mode with two datasets and Pair Graph Selection.</em></p>
 
 <img src="../assets/ca-profile-analyzer-compare.png" alt="Bảng Marker Comparison trong Compare mode">
 
@@ -3042,6 +3200,12 @@ private void OnClickedButton()
 
 ### 21.1. Operation Panel — RT0, Channels, Levels
 
+<img src="../assets/ca-frame-debug-target.png" alt="The Frame Debug target dropdown, including a real device and an IP.">
+<p><em>VI: <strong>▲ Frame Debugger cũng đo được THIẾT BỊ THẬT</strong> — dropdown <strong>Editor · iPhone XR (000080) · 192.168.0.232 · &lt;Enter IP&gt;</strong>. / EN: The Frame Debug target dropdown, including a real device and an IP.</em></p>
+
+<img src="../assets/ca-frame-debug-tempbuffer.png" alt="The View Larger button on a TempBuffer 2048x2048 render target.">
+<p><em>VI: <strong>▲ Nút <em>View Larger</em></strong> — mở render target <code>TempBuffer 4532 2048x2048</code> ra khung lớn kèm bộ lọc kênh <strong>RGB · R · G · B · A</strong> và cột giá trị pixel thô bên phải. / EN: The View Larger button on a TempBuffer 2048x2048 render target.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>🎛️ <em>"Phần đánh dấu <strong>'RT0'</strong> có thể ĐỔI khi có <strong>NHIỀU render target</strong>. Điều này <strong>ĐẶC BIỆT hữu ích khi dùng multiple render targets để kiểm tra trạng thái render của TỪNG target</strong>."</em></p>
@@ -3082,6 +3246,33 @@ private void OnClickedButton()
 ## 22. 🧬 Memory Profiler & 🗺️ Heap Explorer
 
 ### 22.1. Memory Profiler — hơn Memory module ở BA điểm
+
+<img src="../assets/ca-pkg-preview-packages.png" alt="Enable Preview Packages in the Package Manager Advanced Settings.">
+<p><em>VI: <strong>▲ Bước 1 — bật Preview Packages</strong>: <code>Package Manager › Advanced Settings › Enable Preview Packages ✓</code>. Memory Profiler còn ở dạng preview nên KHÔNG hiện nếu chưa bật. / EN: Enable Preview Packages in the Package Manager Advanced Settings.</em></p>
+
+<img src="../assets/ca-pkg-add-by-name.png" alt="Add package by name: com.unity.memoryprofiler.">
+<p><em>VI: <strong>▲ Bước 2 — cài theo TÊN</strong>: <code>+ › Add package by name…</code> rồi gõ <strong><code>com.unity.memoryprofiler</code></strong> (ô Version để trống là lấy bản mới nhất). / EN: Add package by name: com.unity.memoryprofiler.</em></p>
+
+<img src="../assets/ca-mp-toolbar.png" alt="The three key controls of the Memory Profiler toolbar.">
+<p><em>VI: <strong>▲ Ba nút phải nhớ</strong> — <strong>①</strong> chọn đích (<code>Editor</code>), <strong>②</strong> <strong>Capture</strong>, <strong>③</strong> nút mở/đóng <strong>Details Panel</strong>. / EN: The three key controls of the Memory Profiler toolbar.</em></p>
+
+<img src="../assets/ca-mp-single-snapshot.png" alt="The Single Snapshot tab: Total Used 115.0 MB of 2.78 GB.">
+<p><em>VI: <strong>▲ Tab Single Snapshot</strong> — ảnh chụp <code>Snapshot-637798601267967680</code> lúc <strong>2022-02-07 19:48:46</strong>, <strong>Total Used 115.0 MB / Hardware Resources 2.78 GB</strong>; danh sách phiên bên dưới gom theo <strong>Session 2 / Session 3</strong>. / EN: The Single Snapshot tab: Total Used 115.0 MB of 2.78 GB.</em></p>
+
+<img src="../assets/ca-mp-compare-snapshots.png" alt="Compare Snapshots: 115.0 MB vs 122.0 MB.">
+<p><em>VI: <strong>▲ Tab Compare Snapshots</strong> — đặt cạnh nhau <strong>115.0 MB</strong> (19:48:46) và <strong>122.0 MB</strong> (20:47:01) để thấy CHÍNH XÁC 7 MB đã đi đâu. / EN: Compare Snapshots: 115.0 MB vs 122.0 MB.</em></p>
+
+<img src="../assets/ca-mp-table-by-type.png" alt="The memory table grouped by Type.">
+<p><em>VI: <strong>▲ Bảng gộp theo <code>Type</code></strong> — <strong>AudioListener (1) 432 B</strong> · <strong>AudioManager (1) 1.1 MB</strong> · <strong>BoxCollider (1) 256 B</strong> · <strong>BuildSettings (1) 0.6 KB</strong> · <strong>Camera (2) 8.5 KB</strong>, kèm cột <strong>Referenced By</strong>. / EN: The memory table grouped by Type.</em></p>
+
+<img src="../assets/ca-mp-filter-shader.png" alt="Filtering by Type = Shader: 34 shaders, 21.5 MB total.">
+<p><em>VI: <strong>▲ Lọc <code>Type = Shader</code></strong> — <strong>Count 34 · Total Size 21.5 MB</strong>; nặng nhất là <code>Hidden/Universal Render Pipeline/…</code> <strong>19.1 MB</strong> và <strong>417.1 KB</strong>, còn <code>Universal Render Pipeline/Lit</code> <strong>181.4 KB</strong>. / EN: Filtering by Type = Shader: 34 shaders, 21.5 MB total.</em></p>
+
+<img src="../assets/ca-mp-references-raw.png" alt="The Referenced By (Raw) tree tracing who holds a Texture2D.">
+<p><em>VI: <strong>▲ Referenced By (Raw)</strong> — truy ngược một <code>Texture2D "Unnamed Object"</code> qua <code>UnityEngine.Texture2D</code> → <code>TextureTest[0x0aafad00]</code> → <code>TextureTest[]</code> → <code>System.Collections.Generic.List&lt;TextureTest&gt;</code>. Đây là cách TÌM RA ai đang GIỮ tham chiếu. / EN: The Referenced By (Raw) tree tracing who holds a Texture2D.</em></p>
+
+<img src="../assets/ca-mp-table-view-rawdata.png" alt="Select Table View > Raw Data with the full object counts.">
+<p><em>VI: <strong>▲ <code>Select Table View › Raw Data</code></strong> — <strong>All Native Allocations 27.903 · All Managed Objects 2.206 · All Native Objects 1.003 · All Objects 3.209</strong>; cột phải: <strong>Native Type 86 · Native Type Base 236 · Native Connection 1.209 · Managed Type 9.111</strong>. / EN: Select Table View > Raw Data with the full object counts.</em></p>
 
 <img src="../assets/ca-memory-breakdowns-bars.png" alt="Memory Breakdowns bars with System Used 135.0 MB and Empty Fragmented ">
 <p><em>VI: <strong>Memory Breakdowns</strong> — <strong>System Used 135.0 MB / Total 239.8 MB</strong>; <strong>Graphics &amp; Graphics Driver 75.3 MB</strong> · <strong>Executable &amp; DLLs 48.0/50.0 MB</strong> · <strong>Managed Heap 0.9/1.0 MB</strong> · <strong>Empty Fragmented Heap Space 0.6 MB</strong> (dấu hiệu PHÂN MẢNH). / EN: Memory Breakdowns bars with System Used 135.0 MB and Empty Fragmented Heap Space.</em></p>
@@ -3196,6 +3387,18 @@ private void OnClickedButton()
 
 ### 22.2. 🗺️ Heap Explorer — công cụ ĐỘC NHẤT của cuốn sách này
 
+<img src="../assets/ca-heap-explorer-splash.png" alt="Heap Explorer 4.0 for Unity by Peter Schraut.">
+<p><em>VI: <strong>▲ Heap Explorer 4.0 for Unity</strong> — tác giả <strong>Peter Schraut</strong>, mã nguồn tại <code>github.com/pschraut/UnityHeapExplorer</code>. Màn hình mở đầu liệt kê các file <code>.heap</code> gần đây. / EN: Heap Explorer 4.0 for Unity by Peter Schraut.</em></p>
+
+<img src="../assets/ca-heap-explorer-capture.png" alt="Capture and Save 'Autoconnected Player' in Heap Explorer.">
+<p><em>VI: <strong>▲ Chụp từ THIẾT BỊ</strong> — chọn <code>Autoconnected Player</code> trong Profiler rồi <strong>Capture and Save 'Autoconnected Player'…</strong> (hoặc <strong>Capture and Analyze</strong>). / EN: Capture and Save 'Autoconnected Player' in Heap Explorer.</em></p>
+
+<img src="../assets/ca-heap-explorer-referenced-by.png" alt="Referenced by 2 object(s) in Heap Explorer.">
+<p><em>VI: <strong>▲ Referenced by 2 object(s)</strong> — một Texture2D đang bị <code>PostProcessData</code> (<code>0x11413E660</code>) và <code>Medium06</code> (<code>0x1112B97C0</code>) GIỮ. / EN: Referenced by 2 object(s) in Heap Explorer.</em></p>
+
+<img src="../assets/ca-heap-explorer-references-to.png" alt="References to 1 object(s) in Heap Explorer.">
+<p><em>VI: <strong>▲ References to 1 object(s)</strong> — chiều NGƯỢC LẠI: một <code>GCHandle</code> đang trỏ tới <code>UnityEngine.Texture2D</code> tại <code>0x1112B97C0</code>. / EN: References to 1 object(s) in Heap Explorer.</em></p>
+
 <img src="../assets/ca-heap-explorer-cpp-objects.png" alt="Heap Explorer's C++ Objects table with DDoL and Persistent columns.">
 <p><em>VI: Bảng <strong>C++ Objects</strong> của Heap Explorer — <strong>RenderTexture 44.7 MB / 5 cái</strong> · <strong>Shader 21.5 MB / 35</strong> · <strong>Texture2D 5.7 MB / 63</strong> (trong đó <code>rock</code> 2.7 MB). Chú ý hai cột <strong>DDoL</strong> và <strong>Persistent</strong>. / EN: Heap Explorer's C++ Objects table with DDoL and Persistent columns.</em></p>
 
@@ -3284,6 +3487,9 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 
 ### 23.1. Hai cách profile từ Xcode
 
+<img src="../assets/ca-xcode-attach-process.png" alt="Debug > Attach to Process > BibleSample (473).">
+<p><em>VI: <strong>▲ Gắn vào tiến trình ĐANG CHẠY</strong> — <code>Debug › Attach to Process › BibleSample (473)</code>; danh sách còn có <code>biometrickitd (91)</code>, <code>bird (242)</code>, <code>BlueTool (127)</code>. Cách này KHÔNG cần build lại từ Xcode. / EN: Debug > Attach to Process > BibleSample (473).</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>1️⃣ <em>"<strong>Build và chạy app TRỰC TIẾP từ Xcode</strong> rồi chạy nó trên máy. (Cài đặt như chứng chỉ khi build được BỎ QUA trong tài liệu này.)"</em></p>
@@ -3333,6 +3539,18 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 <p><em>VI: <strong>FPS Gauge</strong> — thứ Unity Profiler KHÔNG cho bạn: <strong>Frames Per Second 60</strong>; <strong>Utilization: VERTEX 90%, FRAGMENT 89%, DEVICE 90%</strong>; <strong>Frame Time: CPU 16.7 ms vs GPU 15 ms</strong>. 🔑 Đây là cách nhanh nhất để kết luận bạn đang <strong>GPU-bound hay CPU-bound</strong>. / EN: The FPS Gauge — not only FPS but shader-stage utilisation and separate CPU/GPU frame times.</em></p>
 
 ### 23.3. 🎮 GPU Frame Capture — frame debugger cấp Metal
+
+<img src="../assets/ca-xcode-gpu-capture-metal.png" alt="Setting GPU Frame Capture to Metal in the scheme Options.">
+<p><em>VI: <strong>▲ Điều kiện BẮT BUỘC</strong> — trong scheme, tab <strong>Options</strong>, đặt <strong><code>GPU Frame Capture: Metal</code></strong> (không để <em>Automatically Enabled</em>/<em>Disabled</em>). Ô <strong>Profile GPU Trace after capture</strong> nằm ngay dưới. / EN: Setting GPU Frame Capture to Metal in the scheme Options.</em></p>
+
+<img src="../assets/ca-xcode-capture-button-versions.png" alt="The capture button differs between Xcode 12 or earlier and Xcode 13 or late">
+<p><em>VI: <strong>▲ BẪY phiên bản</strong> — nút chụp frame ĐỔI CHỖ và ĐỔI ICON: <strong>Xcode 12 trở về trước</strong> dùng icon MÁY ẢNH, <strong>Xcode 13 trở đi</strong> dùng icon hình sóng ở vị trí khác. Tìm nhầm chỗ là tưởng máy không hỗ trợ. / EN: The capture button differs between Xcode 12 or earlier and Xcode 13 or later.</em></p>
+
+<img src="../assets/ca-xcode-view-frame-menu.png" alt="The View Frame By Call / By Pipeline State menu.">
+<p><em>VI: <strong>▲ Chuyển cách xem</strong> — menu ở dòng <em>Captured GPU Frame</em>: <strong>View Frame By Call</strong> (mặc định) ↔ <strong>View Frame By Pipeline State</strong>. / EN: The View Frame By Call / By Pipeline State menu.</em></p>
+
+<img src="../assets/ca-xcode-geometry-vertex-table.png" alt="The Xcode Geometry viewer with the raw vertex table.">
+<p><em>VI: <strong>▲ Geometry viewer</strong> — xem lưới vertex trong không gian clip, kèm BẢNG dữ liệu thô: cột <strong>Index · Vertex (ushort) · POSITION0 (float3) · NORMAL0 (float3) · TEX…</strong>, ví dụ index 0 → vertex <strong>9</strong>, position <strong>(−4.000, −1e−16, 5.000)</strong>, normal <strong>(0.000, 1.000, 0.000)</strong>. / EN: The Xcode Geometry viewer with the raw vertex table.</em></p>
 
 <img src="../assets/ca-xcode-frame-by-call-vs-pipeline.png" alt="View Frame By Call vs View Frame By Pipeline State.">
 <p><em>VI: <strong>View Frame By Call</strong> (trái, theo THỨ TỰ GỌI) và <strong>View Frame By Pipeline State</strong> (phải, GOM theo shader/pipeline) — cách thứ hai giúp thấy ngay <strong>shader nào được dùng bao nhiêu lần</strong>. / EN: View Frame By Call vs View Frame By Pipeline State.</em></p>
@@ -3400,6 +3618,9 @@ không cho GC thu hồi. / EN: Path to Root — here a static field `s_CurrentPi
 
 ### 23.4. 🧠 Memory Graph — đo được cả thứ Unity KHÔNG đo được
 
+<img src="../assets/ca-xcode-malloc-option.png" alt="Enabling Malloc Stack Logging with Live Allocations Only.">
+<p><em>VI: <strong>▲ Bật trước khi chạy</strong> — mục <strong>Memory Management</strong> của scheme: tick <strong><code>Malloc Stack Logging</code></strong> và chọn <strong>Live Allocations Only</strong>. Không bật thì backtrace sẽ RỖNG. / EN: Enabling Malloc Stack Logging with Live Allocations Only.</em></p>
+
 <img src="../assets/ca-xcode-memory-graph-list.png" alt="Xcode Memory Graph listing per-resource allocations.">
 <p><em>VI: <strong>Memory Graph</strong> — <strong>Textures 66.0 MB · Buffers 24.3 MB · Non-Volatile 78.9 MB · Shared 90.3 MB</strong>; danh sách chi tiết có <code>_CameraColorTexture</code> <strong>5.7 MB</strong>, <code>_CameraDepthAttachment</code> <strong>7.3 MB</strong>, <code>_CameraDepthTexture</code> <strong>7.3 MB</strong>. / EN: Xcode Memory Graph listing per-resource allocations.</em></p>
 
@@ -3461,6 +3682,15 @@ vmmap --summary hoge.memgraph
 
 ### 24.1. Time Profiler — phân tích theo ĐOẠN, không theo frame
 
+<img src="../assets/ca-instruments-templates.png" alt="The Instruments profiling template chooser.">
+<p><em>VI: <strong>▲ Bảng chọn template của Instruments</strong> — <strong>Allocations</strong> (đang chọn) · Time Profiler · Leaks · Metal System Trace · Game Performance · Network · Energy Log · File Activity · System Trace · Counters · SceneKit · SwiftUI · Core Data · App Launch · Animation Hitches · Activity Monitor · Logging · Blank. / EN: The Instruments profiling template chooser.</em></p>
+
+<img src="../assets/ca-instruments-cpu-gauge.png" alt="The Instruments CPU gauge: 46% used.">
+<p><em>VI: <strong>▲ CPU</strong> — <strong>Percentage Used 46%</strong>; vòng <strong>Usage Comparison</strong> chia <strong>BibleSample 46% · Other Processes 18.1% · Free 37.5%</strong>; biểu đồ <em>Usage over Time</em> ghi <strong>Duration 2 min 38 sec · High 51% · Low 0%</strong>. / EN: The Instruments CPU gauge: 46% used.</em></p>
+
+<img src="../assets/ca-instruments-call-tree-options.png" alt="The four Call Tree options in Instruments.">
+<p><em>VI: <strong>▲ Bốn tuỳ chọn Call Tree phải biết</strong> — <strong>Separate by Thread ✓</strong> · <strong>Hide System Libraries ✓</strong> · <strong>Flatten Recursion ✓</strong> · <em>Invert Call Tree</em> / <em>Top Functions</em> / <em>Separate by State</em>. Không bật <em>Hide System Libraries</em> thì cây ngập hàm hệ thống. / EN: The four Call Tree options in Instruments.</em></p>
+
 <img src="../assets/ca-instruments-symbol-names.png" alt="Time Profiler symbol names in the class_method_hash form.">
 <p><em>VI: Tên symbol trong Time Profiler theo dạng <strong><code>class_method_hash</code></strong>: <code>SampleScript_TestMethod_m390D7F0A04D12D51B91D3A4D94835D6D77DA194F</code> — KHÁC với tên trong Unity Profiler. / EN: Time Profiler symbol names in the class_method_hash form.</em></p>
 
@@ -3487,6 +3717,18 @@ vmmap --summary hoge.memgraph
     **EN:** *"The symbol names in the Time Profiler differ from those in the Unity Profiler, but they are still the same: **`class_name_function_name_random_string`**."*
 
 ### 24.2. 🧯 Allocations — và option "Discard events for freed memory"
+
+<img src="../assets/ca-instruments-allocations-views.png" alt="The four Allocations views: Statistics, Call Trees, Allocations List, Gener">
+<p><em>VI: <strong>▲ Bốn cách xem của Allocations</strong> — <strong>Statistics</strong> (đang chọn) · <strong>Call Trees</strong> · <strong>Allocations List</strong> · <strong>Generations</strong>. / EN: The four Allocations views: Statistics, Call Trees, Allocations List, Generations.</em></p>
+
+<img src="../assets/ca-instruments-discard-freed.png" alt="The Discard events for freed memory option.">
+<p><em>VI: <strong>▲ Chính là option đó</strong> — <code>Options for: Allocations › All Allocations</code>: <strong>Discard unrecorded data upon stop ✓</strong>, <strong>Discard events for freed memory ✓</strong> (viền vàng), <strong>Only track VM allocations</strong>. / EN: The Discard events for freed memory option.</em></p>
+
+<img src="../assets/ca-instruments-disk.png" alt="The Instruments Disk instrument: 45.1 MB read.">
+<p><em>VI: <strong>▲ Disk</strong> — <strong>Reading 0.0 KB/s · tổng 45.1 MB</strong>; <strong>Writing 0.0 KB/s · tổng 0.2 MB</strong>, kèm biểu đồ tốc độ đọc/ghi theo thời gian. Đây là cách BẮT các đợt đọc file dồn dập lúc khởi động. / EN: The Instruments Disk instrument: 45.1 MB read.</em></p>
+
+<img src="../assets/ca-instruments-network.png" alt="The Instruments Network instrument.">
+<p><em>VI: <strong>▲ Network</strong> — <strong>Receiving 7.7 KB/s · tổng 64.1 KB</strong>; <strong>Sending 0.5 KB/s · tổng 8.6 KB</strong>, biểu đồ cột tách riêng <em>Received</em> / <em>Sent</em>. / EN: The Instruments Network instrument.</em></p>
 
 <img src="../assets/ca-instruments-allocations-stats.png" alt="Instruments Allocations statistics.">
 <p><em>VI: Thống kê Allocations — <strong>All Heap &amp; Anonymous VM 207.73 MiB</strong> (97.432 lần, 222.469 transient, <strong>tổng 428.90 MiB</strong>) và <strong>All Heap Allocations 82.82 MiB</strong>. / EN: Instruments Allocations statistics.</em></p>
@@ -3551,6 +3793,18 @@ vmmap --summary hoge.memgraph
 
 ## 25. 🤖 Android Studio — CPU & Memory
 
+<img src="../assets/ca-android-export-project.png" alt="Ticking Export Project in the Android build settings.">
+<p><em>VI: <strong>▲ Điều kiện tiên quyết</strong> — trong Build Settings Android phải tick <strong><code>Export Project ✓</code></strong> (cạnh <em>Texture Compression: Don't override</em>, <em>ETC2 fallback: 32-bit</em>, <em>Symlink Sources</em>) để mở được dự án bằng Android Studio. / EN: Ticking Export Project in the Android build settings.</em></p>
+
+<img src="../assets/ca-android-sessions.png" alt="Selecting a debuggable process in the Profiler SESSIONS list.">
+<p><em>VI: <strong>▲ Chọn phiên đo</strong> — <code>Profiler › SESSIONS › + › Google Pixel 4a › jp.co.sample.test (24983) (debuggable)</code>. Chỉ tiến trình <strong>debuggable</strong> mới profile được. / EN: Selecting a debuggable process in the Profiler SESSIONS list.</em></p>
+
+<img src="../assets/ca-android-cpu-record-config.png" alt="The four CPU recording configurations in Android Studio.">
+<p><em>VI: <strong>▲ Bốn chế độ ghi CPU</strong> — <strong>Callstack Sample Recording</strong> (lấy mẫu Java/Kotlin + native bằng <em>simpleperf</em>) · <strong>System Trace Recording</strong> (ở cấp nền tảng Android) · <strong>Java/Kotlin Method Trace Recording</strong> (<em>"gây overhead CAO khiến thông tin THỜI GIAN không chính xác"</em>) · <strong>Java/Kotlin Method Sample Recording (legacy)</strong>. / EN: The four CPU recording configurations in Android Studio.</em></p>
+
+<img src="../assets/ca-android-memory-record.png" alt="The three memory recording options: heap dump, native allocations, Java/Kot">
+<p><em>VI: <strong>▲ Ba chế độ ghi BỘ NHỚ</strong> — <strong>Capture heap dump</strong> · <strong>Record native allocations</strong> · <strong>Record Java / Kotlin allocations</strong>. / EN: The three memory recording options: heap dump, native allocations, Java/Kotlin allocations.</em></p>
+
 <img src="../assets/ca-android-cpu-threads.png" alt="Android Studio CPU profiler">
 <p><em>VI: <strong>CPU Profiler</strong> — <strong>App 17% · Others 17% · Threads 67</strong>, hàng <strong>UnityMain</strong> được chọn (chính là main thread của Unity). / EN: Android Studio CPU profiler with 67 threads and UnityMain selected.</em></p>
 
@@ -3613,6 +3867,15 @@ vmmap --summary hoge.memgraph
 
 ## 26. 🎛️ RenderDoc — Graphics debugger mã nguồn mở
 
+<img src="../assets/ca-renderdoc-launch-app.png" alt="The RenderDoc Launch Application tab.">
+<p><em>VI: <strong>▲ Tab Launch Application</strong> — điền <strong>Executable Path · Working Directory · Intent Arguments</strong>; nhóm <strong>Capture Options</strong> có <em>Allow Fullscreen · Allow VSync · Debugger Delay 0 secs · Collect Callstacks · Capture Child Processes · Ref all Resources · Auto Start</em>; nhóm <strong>Actions</strong> có <em>Queue Capture Frame 0 / # Frames 1</em> và nút <strong>Launch</strong>. / EN: The RenderDoc Launch Application tab.</em></p>
+
+<img src="../assets/ca-renderdoc-connection.png" alt="RenderDoc connected to a Pixel 3a over Vulkan.">
+<p><em>VI: <strong>▲ Kết nối đã thiết lập</strong> — <strong>Target: Google Pixel 3a — jp.co.sample.test [PID 16447]</strong>, <strong>Connection Status: Established</strong>, <strong>API: Vulkan (Active)</strong>; cột Tools có <strong>Capture 1 Sequential Frame(s) · Capture Frame(s) Immediately · Capture After Delay 0 secs · Capture Specific Frame(s) Frame 0</strong>. Ảnh chụp nằm ở <strong>Captures collected</strong>. / EN: RenderDoc connected to a Pixel 3a over Vulkan.</em></p>
+
+<img src="../assets/ca-renderdoc-timeline.png" alt="The RenderDoc Timeline with pixel history for a swapchain image.">
+<p><em>VI: <strong>▲ Timeline + Pixel History</strong> — trục sự kiện (EID) trải ngang với các nhãn <code>UniversalRenderPipeline.RenderSingleCamera</code>, <code>MainLightShadow</code>, <code>DrawOpaqueObjects</code>, <code>RenderLoopNewBatcher.Draw</code>, <code>CopyDepth</code>; dòng dưới ghi <em>Pixel history for Swapchain Image 419</em> — mỗi chấm là MỘT lần pixel đó bị ghi. / EN: The RenderDoc Timeline with pixel history for a swapchain image.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>🏆 <em>"RenderDoc là công cụ <strong>graphics debugger MÃ NGUỒN MỞ, MIỄN PHÍ, CHẤT LƯỢNG CAO</strong>."</em></p>
@@ -3660,6 +3923,12 @@ vmmap --summary hoge.memgraph
 </div>
 
 ### 26.2. Pipeline State — 9 stage của pipeline
+
+<img src="../assets/ca-renderdoc-blend-depth-stencil.png" alt="The Target Blends, Blend State, Depth State and Stencil State panels.">
+<p><em>VI: <strong>▲ Trạng thái blend / depth / stencil</strong> — <strong>Target Blends</strong>: Slot 0, <em>Enabled False</em>, Col Src <strong>One</strong>, Col Dst <strong>Zero</strong>, Col Op <strong>Add</strong>, Write Mask <strong>RGBA</strong>; <strong>Blend State</strong> Factor <strong>1.00, 1.00, 1.00, 1.00</strong>; <strong>Depth State</strong> Enabled ✓, Func <strong>Greater Equal</strong>, Write ✓, Bounds ✗; <strong>Stencil State</strong> tắt. / EN: The Target Blends, Blend State, Depth State and Stencil State panels.</em></p>
+
+<img src="../assets/ca-renderdoc-disassembly.png" alt="Shader disassembly as GLSL (SPIRV-Cross).">
+<p><em>VI: <strong>▲ Xem SHADER đã biên dịch</strong> — <strong>Disassembly type: GLSL (SPIRV-Cross)</strong>; mã <code>#version 450</code> với <code>layout(set = 1, binding = 0, std140) uniform _13_15</code>, <code>uniform mediump texture2D _33</code>, <code>uniform mediump sampler _37</code>. / EN: Shader disassembly as GLSL (SPIRV-Cross).</em></p>
 
 <img src="../assets/ca-renderdoc-pipeline-stages.png" alt="RenderDoc's nine pipeline stages with bound resources.">
 <p><em>VI: Thanh <strong>9 stage</strong> của RenderDoc: <strong>VTX → VS → TCS → TES → GS → RS → FS → FB → CS</strong> (đang chọn <strong>FS</strong>). Bên dưới là Resources: <strong><code>rock</code> 2048×2048 ETC2_RGB8_UNORM</strong> và Uniform Buffer <strong>1293888–1293904</strong>. / EN: RenderDoc's nine pipeline stages with bound resources.</em></p>
@@ -3719,6 +3988,12 @@ vmmap --summary hoge.memgraph
 
 ### 26.4. 🔥 Texture Viewer & Pixel History — điều tra OVERDRAW ở cấp PIXEL
 
+<img src="../assets/ca-renderdoc-inputs-outputs.png" alt="The Inputs and Outputs tabs of the RenderDoc Texture Viewer.">
+<p><em>VI: <strong>▲ Tab <em>Inputs</em> ↔ <em>Outputs</em></strong> — trái là ảnh đang xem (<code>Our Output 0 — _CameraColorTexture</code>), phải là kết quả của draw call ĐANG CHỌN (khung ĐỎ) trên nền caro báo vùng TRONG SUỐT. So hai bên là biết draw call đó THỰC SỰ vẽ được gì. / EN: The Inputs and Outputs tabs of the RenderDoc Texture Viewer.</em></p>
+
+<img src="../assets/ca-renderdoc-pixel-context.png" alt="Right-clicking a pixel opens the Pixel Context with History and Debug.">
+<p><em>VI: <strong>▲ Cách mở Pixel History</strong> — <strong>chuột phải</strong> lên một pixel trong Texture Viewer ⇒ khung <strong>Pixel Context</strong> phóng to vùng quanh pixel đó, kèm hai nút <strong>History</strong> và <strong>Debug</strong>. / EN: Right-clicking a pixel opens the Pixel Context with History and Debug.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>🖼️ <em>"Màn hình này hiển thị <strong>'texture dùng để INPUT' và 'kết quả OUTPUT' của lệnh đã chọn trong Event Browser.</strong> Ở khu vực bên PHẢI bạn kiểm tra được input và output texture. <strong>Bấm vào texture hiển thị sẽ phản ánh nó sang khu vực bên TRÁI</strong> — nơi không chỉ hiển thị texture mà còn <strong>cho phép LỌC KÊNH MÀU và áp dụng cài đặt toolbar.</strong>"</em></p>
@@ -3764,7 +4039,7 @@ vmmap --summary hoge.memgraph
 | Setting | 💀 Chi phí nếu SAI | ✅ Khuyến nghị |
 |---|---|---|
 | **Read/Write** | *"Nếu BẬT, nó sẽ được copy **KHÔNG CHỈ vào GPU memory mà CẢ main memory, do đó **GẤP ĐÔI** mức tiêu thụ."* | *"Nếu bạn **KHÔNG dùng API như `Texture.GetPixel` hay `Texture.SetPixel`** và chỉ dùng Shader để truy cập texture, **HÃY TẮT nó.**"* |
-| **Generate Mip Maps** | *"Bật Mip Map làm **TĂNG mức dùng bộ nhớ texture khoảng **1.3 LẦN**."* | *"Nó về cơ bản **KHÔNG CẦN THIẾT cho 2D sprite và ảnh UI, nên PHẢI TẮT.**"* |
+| **Generate Mip Maps** | *"Bật Mip Map làm **TĂNG mức dùng bộ nhớ texture khoảng 1.3 LẦN**."*<br>🎯 *"Thiết lập này **thường dùng cho object 3D để GIẢM RĂNG CƯA (jaggies) và GIẢM lượng texture phải TRUYỀN cho các vật thể Ở XA**."* | *"Nó về cơ bản **KHÔNG CẦN THIẾT cho 2D sprite và ảnh UI, nên PHẢI TẮT.**"*<br>*"This setting is generally used for 3D objects to reduce jaggies and texture transfer for distant objects."* |
 | **Aniso Level** | *"Giá trị Aniso Level **CÀNG CAO thì lợi ích CÀNG NHIỀU, nhưng CHI PHÍ XỬ LÝ CŨNG CAO HƠN.**"* | Chỉ dùng cho *"object trải DÀI như MẶT ĐẤT hay SÀN"* |
 | **Compression** | *"Texture **PHẢI được nén trừ khi có LÝ DO CỤ THỂ để không nén.**"* | *"Nếu bạn thấy texture CHƯA nén trong project, **có thể là LỖI CON NGƯỜI hoặc THIẾU QUY ĐỊNH. Hãy kiểm tra NGAY LẬP TỨC.**"* |
 
@@ -3844,6 +4119,12 @@ public class ImporterExample : AssetPostprocessor
 </div>
 
 ### 27.2. 🧊 Mesh — bốn setting và các XUNG ĐỘT giữa chúng
+
+<img src="../assets/ca-mesh-readwrite.png" alt="The Read/Write Enabled option in the Model import settings.">
+<p><em>VI: <strong>▲ <code>Read/Write Enabled</code></strong> (tab <strong>Model</strong> → mục <strong>Meshes</strong>) — bật là mesh bị GIỮ THÊM một bản trên CPU, <strong>NHÂN ĐÔI bộ nhớ</strong>. Chỉ bật khi thật sự cần đọc/sửa mesh lúc chạy. / EN: The Read/Write Enabled option in the Model import settings.</em></p>
+
+<img src="../assets/ca-mesh-compression.png" alt="The Mesh Compression dropdown.">
+<p><em>VI: <strong>▲ <code>Mesh Compression</code></strong> — mặc định <strong>Off</strong>; các mức <em>Low / Medium / High</em> giảm DUNG LƯỢNG FILE nhưng KHÔNG giảm bộ nhớ lúc chạy và làm mesh kém chính xác. / EN: The Mesh Compression dropdown.</em></p>
 
 <img src="../assets/ca-vertex-compression-flags.png" alt="Vertex Compression flags dropdown in Player Settings">
 <p><em>VI: <strong>Vertex Compression</strong> trong Player Settings — dropdown ở trạng thái <strong>Mixed</strong>: được TICK là <strong>Normal · Tangent · Tex Coord 0 · Tex Coord 2 · Tex Coord 3</strong>; KHÔNG tick <strong>Position</strong> và <strong>Color</strong>. Bên cạnh là <em>Optimize Mesh Data</em> và <em>Texture MipMap Stripping</em>. / EN: The Vertex Compression flags dropdown in Player Settings.</em></p>
@@ -4070,6 +4351,15 @@ QualitySettings.skinWeights = SkinWeights.TwoBones;
 
 ### 27.5. ✨ Particle System — hai điều QUAN TRỌNG
 
+<img src="../assets/ca-particle-main-module.png" alt="The Particle System main module with Max Particles 1000.">
+<p><em>VI: <strong>▲ Module chính</strong> — <strong>Duration 5 · Looping ✓ · Start Lifetime 5 · Start Speed 5 · Start Size 1 · Simulation Space Local · Delta Time Scaled · Emitter Velocity Rigidbody · <span>Max Particles 1000</span> · Culling Mode Automatic · Ring Buffer Mode Disabled</strong>. <strong>Max Particles</strong> là TRẦN chi phí của cả hệ. / EN: The Particle System main module with Max Particles 1000.</em></p>
+
+<img src="../assets/ca-particle-emission.png" alt="The Emission module with Rate over Time 10 and a 30-particle burst.">
+<p><em>VI: <strong>▲ Module Emission</strong> — <strong>Rate over Time 10</strong>, <strong>Rate over Distance 0</strong>, và một <strong>Burst</strong>: Time <strong>0.000</strong> · Count <strong>30</strong> · Cycles <strong>1</strong> · Interval <strong>0.010</strong> · Probability <strong>1.00</strong>. / EN: The Emission module with Rate over Time 10 and a 30-particle burst.</em></p>
+
+<img src="../assets/ca-particle-sub-emitters.png" alt="The Sub Emitters module.">
+<p><em>VI: <strong>▲ Module Sub Emitters</strong> — mỗi sub-emitter là MỘT Particle System NỮA: hàng <strong>Birth</strong>, <em>Inherit: Nothing</em>, <strong>Emit Probability 1</strong>. Lồng nhiều tầng là cách chi phí NHÂN LÊN mà không ai để ý. / EN: The Sub Emitters module.</em></p>
+
 <img src="../assets/ca-particle-noise-settings.png" alt="The Particle System Noise module with Quality set to High (3D).">
 <p><em>VI: Module <strong>Noise</strong> — <strong>Quality: High (3D)</strong> là mức ĐẮT NHẤT; các tham số Strength 1 · Frequency 0.5 · Octaves 1 và ô Preview bên phải. / EN: The Particle System Noise module with Quality set to High (3D).</em></p>
 
@@ -4116,6 +4406,9 @@ QualitySettings.skinWeights = SkinWeights.TwoBones;
 </div>
 
 ### 27.6. 🔊 Audio — Load Type, Compression Format, Sample Rate, Force To Mono
+
+<img src="../assets/ca-audio-sample-rate.png" alt="The Sample Rate Setting options on an AudioClip.">
+<p><em>VI: <strong>▲ <code>Sample Rate Setting</code></strong> — <strong>Preserve Sample Rate</strong> (đang chọn) · <strong>Optimize Sample Rate</strong> · <strong>Override Sample Rate</strong>; cùng <strong>Compression Format: Vorbis</strong> và <strong>Quality 100</strong>. Dòng cuối ghi <strong>Original Size: 450.6 KB</strong>. / EN: The Sample Rate Setting options on an AudioClip.</em></p>
 
 <img src="../assets/ca-audio-compression-format.png" alt="The AudioClip Compression Format options.">
 <p><em>VI: <strong>Compression Format</strong> — <strong>PCM · Vorbis (đang chọn) · ADPCM</strong>. / EN: The AudioClip Compression Format options.</em></p>
@@ -4743,6 +5036,12 @@ public void SetupResolution()
 
 ### 29.3. 🧮 Giảm DRAW CALL — 4 cơ chế và ĐIỀU KIỆN của chúng
 
+<img src="../assets/ca-player-dynamic-batching.png" alt="Player Settings Rendering with Static and Dynamic Batching.">
+<p><em>VI: <strong>▲ <code>Player Settings › Other Settings › Rendering</code></strong> — <strong>Multithreaded Rendering ✓ · Static Batching ✓ · Dynamic Batching</strong> (ô cần cân nhắc, viền vàng) · Compute Skinning · Graphics Jobs (Experimental); phía trên là <strong>Color Space: Gamma</strong> và <strong>Lightmap Encoding: Low Quality</strong>. / EN: Player Settings Rendering with Static and Dynamic Batching.</em></p>
+
+<img src="../assets/ca-static-flags-dropdown.png" alt="The full Static flags dropdown, with Batching Static ticked.">
+<p><em>VI: <strong>▲ Cờ Static ĐẦY ĐỦ</strong> — <strong>Nothing · Everything · Contribute GI · Occluder Static · Occludee Static · <span>Batching Static ✓</span> · Navigation Static · Off Mesh Link Generation · Reflection Probe Static</strong>. <strong>Static batching CHỈ ăn theo cờ <code>Batching Static</code></strong>, không phải cứ tick "Static" là xong. / EN: The full Static flags dropdown, with Batching Static ticked.</em></p>
+
 <img src="../assets/ca-material-gpu-instancing.png" alt="A Material with Enable GPU Instancing ticked.">
 <p><em>VI: Material Inspector — <strong>Enable GPU Instancing ✓</strong>, Render Queue <strong>From Shader 2000</strong>. / EN: A Material with Enable GPU Instancing ticked.</em></p>
 
@@ -4930,6 +5229,9 @@ CBUFFER_END
 
 ### 29.4. 🧩 SpriteAtlas
 
+<img src="../assets/ca-create-sprite-atlas-menu.png" alt="Assets > Create > 2D > Sprite Atlas.">
+<p><em>VI: <strong>▲ Tạo ở đâu</strong> — <code>Assets › Create › 2D › Sprite Atlas</code> (cùng nhóm với <em>Sprites</em> và <em>Physics Material 2D</em>). / EN: Assets > Create > 2D > Sprite Atlas.</em></p>
+
 <img src="../assets/ca-spriteatlas-objects.png" alt="A Sprite Atlas with its Objects for Packing list.">
 <p><em>VI: <strong>Sprite Atlas</strong> — danh sách <strong>Objects for Packing</strong> (thư mục <code>Atlas</code> và sprite <code>Square</code>); phía trên là Texture settings <strong>RGBA Compressed PVRTC 4 bit</strong>, <strong>Max Texture Size 2048</strong>. / EN: A Sprite Atlas with its Objects for Packing list.</em></p>
 
@@ -5025,6 +5327,9 @@ SubShader
     **EN:** *"**Only the object rendering process is reduced by occlusion culling, while processes such as REAL-TIME SHADOW RENDERING REMAIN UNCHANGED.**"*
 
 ### 29.6. 💻 Shaders — bốn kỹ thuật
+
+<img src="../assets/ca-create-shader-variant-menu.png" alt="Assets > Create > Shader > Shader Variant Collection.">
+<p><em>VI: <strong>▲ Tạo Shader Variant Collection</strong> — <code>Assets › Create › Shader › Shader Variant Collection</code>; cùng menu còn có <em>Standard Surface Shader · Unlit Shader · Image Effect Shader · Compute Shader · Ray Tracing Shader</em>. / EN: Assets > Create > Shader > Shader Variant Collection.</em></p>
 
 <img src="../assets/ca-shader-variant-collection.png" alt="A Shader Variant Collection listing three recorded variants.">
 <p><em>VI: <strong>Shader Variant Collection</strong> — ba variant của Standard đã được ghi lại: <strong>ForwardBase DIRECTIONAL</strong> · <strong>DIRECTIONAL LIGHTMAP_ON</strong> · <strong>DIRECTIONAL DYNAMICLIGHTMAP_ON</strong>. / EN: A Shader Variant Collection listing three recorded variants.</em></p>
@@ -5139,6 +5444,18 @@ public void PreloadShaderVariants(ShaderVariantCollection collection)
 ```
 
 ### 29.7. 💡 Lighting — real-time shadow, pseudo shadow & lightmap
+
+<img src="../assets/ca-shadowmask-mode.png" alt="Quality Shadows including Shadowmask Mode: Distance Shadowmask.">
+<p><em>VI: <strong>▲ <code>Quality › Shadows</code> đầy đủ</strong> — <strong>Shadowmask Mode: Distance Shadowmask</strong> · <strong>Shadows: Hard and Soft Shadows</strong> · Shadow Resolution High · Shadow Projection Stable Fit · <strong>Shadow Distance 150</strong> · <strong>Shadow Near Plane Offset 3</strong> · <strong>Four Cascades</strong> (6.7% / 13.3% / 26.7% / 53.3%). / EN: Quality Shadows including Shadowmask Mode: Distance Shadowmask.</em></p>
+
+<img src="../assets/ca-mesh-renderer-cast-shadows.png" alt="Mesh Renderer's Cast Shadows and Probes settings.">
+<p><em>VI: <strong>▲ Tắt bóng TỪNG object</strong> — <code>Mesh Renderer › Lighting › Cast Shadows: On</code> (còn <em>Off · Two Sided · Shadows Only</em>), cùng <strong>Receive Shadows ✓</strong>, <strong>Contribute Global Illumination</strong>, <strong>Probes: Light Probes / Reflection Probes = Blend Probes</strong>, <strong>Motion Vectors: Per Object Motion</strong>, <strong>Dynamic Occlusion ✓</strong>. / EN: Mesh Renderer's Cast Shadows and Probes settings.</em></p>
+
+<img src="../assets/ca-light-shadow-type.png" alt="A Light component with Shadow Type set to Soft Shadows.">
+<p><em>VI: <strong>▲ Thiết lập bóng trên chính đèn</strong> — <strong>Type Directional · Mode Mixed · Intensity 1 · Indirect Multiplier 1</strong>; nhóm <strong>Shadow Type: Soft Shadows</strong> với <strong>Realtime Shadows: Strength 1 · Resolution Use Quality Settings · Bias 0.05 · Normal Bias 0.4 · Near Plane 0.2</strong>. / EN: A Light component with Shadow Type set to Soft Shadows.</em></p>
+
+<img src="../assets/ca-generate-lighting.png" alt="The Generate Lighting button and bake statistics.">
+<p><em>VI: <strong>▲ Nút bake</strong> — mục <strong>Workflow Settings</strong>: bỏ tick <strong>Auto Generate</strong> rồi bấm <strong>Generate Lighting</strong>. Dòng thống kê bên dưới: <strong>0 Non-Directional Lightmaps — 0 B · No Lightmaps · Occupied Texels 0.0 · Total Bake Time 0:00:00</strong>. / EN: The Generate Lighting button and bake statistics.</em></p>
 
 <img src="../assets/ca-light-mode-dropdown.png" alt="The Light Mode dropdown.">
 <p><em>VI: <strong>Light Mode</strong> — <strong>Realtime · Mixed (đang chọn) · Baked</strong>. / EN: The Light Mode dropdown.</em></p>
@@ -8286,6 +8603,12 @@ private IEnumerator LoadGameSceneAsync()
 
 ### 54.4. 🎬 Scenes
 
+<img src="../assets/fg-scene-templates.png" alt="The New Scene window with Scene Templates and the Load additively option.">
+<p><em>VI: <strong>▲ Cửa sổ New Scene</strong> — <strong>Scene Templates in Project</strong>: <em>Basic Indoors (HDRP)</em> (đang chọn) · <em>Basic Outdoors (HDRP)</em> · <em>Empty (Built-in)</em> · <em>Basic (Built-in)</em>. Mô tả: <em>"Basic indoors scene for High-Definition Render Pipeline. Contains basic settings, a camera, and a spot light."</em> Ô <strong>Load additively</strong> ở góc dưới trái là cách mở scene CỘNG DỒN. / EN: The New Scene window with Scene Templates and the Load additively option.</em></p>
+
+<img src="../assets/fg-multi-scene-hierarchy.png" alt="Two scenes loaded additively in the same Hierarchy.">
+<p><em>VI: <strong>▲ Nhiều scene MỞ CÙNG LÚC</strong> — <code>SampleScene*</code> (Lighting · Props · Structure · VFX · PlayerControllerFPS · Media) và <code>OutdoorsScene</code> (Main Camera · Sun · Sky and Fog Volume) nằm song song trong CÙNG một Hierarchy. / EN: Two scenes loaded additively in the same Hierarchy.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p><strong>Scene</strong> là nơi bạn làm việc với nội dung trong Unity. Chúng chứa các object của game và có thể được dùng để tạo main menu, từng level riêng lẻ, và mọi thứ khác. Trong mỗi scene, bạn sẽ đặt môi trường, chướng ngại vật và trang trí — <strong>tương ứng đại khái với một level</strong> của game. Điều này cho phép bạn <strong>thiết kế và xây dựng ứng dụng từng mảnh một, giữ tính module</strong>.</p>
@@ -8304,6 +8627,32 @@ private IEnumerator LoadGameSceneAsync()
 <p>When creating a new scene, Unity allows you to select from a set of Scene Templates. For example, the HDRP 3D Sample Scene comes with several templates. You can define your own scene templates to streamline your workflow.</p>
 </div>
 </div>
+
+### 54.5. 🌳 The Hierarchy window — và NĂM mẹo tổ chức scene
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"Cửa sổ Hierarchy <strong>hiển thị MỌI GameObject trong asset của scene đang nạp</strong> — gồm model, Camera và Prefab của bạn. <strong>Chỉ cần KÉO một GameObject là đổi được quan hệ CHA–CON.</strong>"</em></p>
+<p>🔁 <em>"<strong>Thêm hoặc xoá object trong Scene view cũng THÊM/XOÁ chúng khỏi cửa sổ Hierarchy (và ngược lại). Hierarchy có thể hiển thị NHIỀU HƠN MỘT scene đã nạp lúc runtime, mỗi scene chứa GameObject riêng của nó.</strong>"</em></p>
+<p>📜 <em>"Unity cung cấp <strong>SceneManagement API</strong> để nạp hoặc quản lý scene TỪ SCRIPT."</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"The Hierarchy window displays every GameObject in the currently loaded scene's assets. These include your models, Cameras, and Prefabs. Simply drag a GameObject to change its parenting."</em></p>
+<p>🔁 <em>"Adding or removing objects in the Scene view also adds or removes them from the Hierarchy window (and vice versa). The Hierarchy window can show more than one loaded scene at runtime, with each scene containing its own GameObjects."</em></p>
+<p>📜 <em>"Unity provides a SceneManagement API for loading or managing scenes from scripts."</em></p>
+</div>
+</div>
+
+**🧭 NĂM mẹo cho scene & hierarchy — nguyên văn / General tips for scenes and hierarchies**
+
+| # | Mẹo | Nội dung nguyên văn |
+|---|---|---|
+| **①** | **Dùng GameObject RỖNG có TÊN làm dải phân cách** | *"Tổ chức scene CẨN THẬN để DỄ TÌM object. ⚠️ **Giữ số này ở mức TỐI THIỂU, vì MỖI GameObject đều CÓ GIÁ. Hãy CÂN BẰNG nhu cầu tổ chức với hiệu năng. TRÁNH parenting KHÔNG CẦN THIẾT chỉ để tổ chức** (xem mẹo ⑤)."* |
+| **②** | **Đặt Prefab bảo trì & GameObject rỗng ở GỐC TOẠ ĐỘ** | *"**NẾU một transform KHÔNG được dùng CỤ THỂ để định vị object, nó NÊN ở (0,0,0).** ✅ **Việc này ĐƠN GIẢN HOÁ code và GIẢM lỗi khi chuyển đổi giữa local space và world space.**"* |
+| **③** | **Đặt SÀN của thế giới ở `y = 0`** | *"Việc này khiến **ĐẶT object lên sàn DỄ HƠN. Hãy coi thế giới như KHÔNG GIAN 2D dọc theo mặt phẳng `xz` cho game logic, AI và physics.**"* |
+| **④** | **TÁCH object ĐỘNG và TĨNH** | *"NẾU bạn sinh object CHUYỂN ĐỘNG lúc runtime, hãy **giữ chúng có tổ chức DƯỚI một object placeholder RỖNG. Tương tự, lưu hình học màn chơi KHÔNG chuyển động ở PHẦN KHÁC của hierarchy.** 💡 **Việc này giúp bạn áp ĐÚNG kỹ thuật chiếu sáng cho từng loại hình học** (ví dụ **lightmapping** với **probe lighting**)."* |
+| **⑤** | **Parenting ĐÚNG CÁCH** | *"**NHÓM các object liên quan THEO CHỨC NĂNG.** Dùng lẽ thường khi tạo hierarchy (ví dụ **parent bánh xe làm CON của thân xe**). 🚨 **TRÁNH parenting KHÔNG CẦN THIẾT khi có thể, vì hierarchy PHẲNG HƠN thì HIỆU NĂNG TỐT HƠN.**"* |
+
 
 ---
 
@@ -8564,6 +8913,12 @@ SceneManager.LoadSceneAsync("Level01_Lighting", LoadSceneMode.Additive);
 
 ## 57. 🏛️ Centralized vs Distributed — Chọn theo QUY MÔ ASSET
 
+<img src="../assets/vc-centralized-diagram.png" alt="Centralized version control: one repository, working copies that UPDATE and">
+<p><em>VI: <strong>▲ TẬP TRUNG</strong> — MỘT <strong>REPOSITORY</strong> trên mây, mỗi máy chỉ giữ <strong>WORKING COPY</strong>; hai thao tác duy nhất là <strong>UPDATE ↓</strong> và <strong>COMMIT ↑</strong> đi THẲNG tới server. / EN: Centralized version control: one repository, working copies that UPDATE and COMMIT.</em></p>
+
+<img src="../assets/vc-distributed-diagram.png" alt="Distributed version control: each machine has its own repository, pushing a">
+<p><em>VI: <strong>▲ PHÂN TÁN</strong> — MỖI máy có <strong>REPOSITORY RIÊNG</strong> để <em>update/commit</em> cục bộ, rồi mới <strong>PUSH →</strong> / <strong>← PULL</strong> với server trung tâm. Đây là lý do commit KHÔNG cần mạng, nhưng ổ cứng phải chứa TOÀN BỘ lịch sử. / EN: Distributed version control: each machine has its own repository, pushing and pulling.</em></p>
+
 | | **CENTRALIZED** *(tập trung)* | **DISTRIBUTED** *(phân tán)* |
 |---|---|---|
 | **Repo nằm ở đâu** | *"Nhiều công ty chọn tuỳ chọn TẬP TRUNG để **GIỮ SERVER host phần mềm ĐỘC QUYỀN của họ TẠI CHỖ (on-site). BẢO MẬT source control thường là yếu tố QUAN TRỌNG khi chọn loại hệ thống này.**"* ⚠️ *"Hệ thống tập trung KHÔNG BẮT BUỘC phải là server on-site vì repo VẪN có thể host trên cloud, **nhưng cấu hình này ÍT PHỔ BIẾN HƠN so với hệ phân tán**"* | *"Vẫn có MỘT vị trí DUY NHẤT nơi repo tồn tại, **thường trên dịch vụ cloud như GitHub, nhưng NGƯỜI DÙNG CLONE TOÀN BỘ LỊCH SỬ dự án về máy của mình**"* |
@@ -8572,12 +8927,63 @@ SceneManager.LoadSceneAsync("Level01_Lighting", LoadSceneMode.Additive);
 | **Khoá file** | ✅ *"Để TRÁNH XUNG ĐỘT, người dùng có thể **KHOÁ file để sửa — gọi là CHECKING OUT — và nó NGĂN BẤT KỲ AI KHÁC commit thay đổi cho tới khi file được check back in**"* | ❌ *"**Locking nhìn chung KHÔNG được hỗ trợ trong workflow phân tán**"* |
 | **Trên máy người dùng có gì** | *"Người dùng **CHỈ CÓ phiên bản MỚI NHẤT của file dự án**, và **SERVER giữ TOÀN BỘ lịch sử**"* | *"**TOÀN BỘ lịch sử dự án nằm SẴN trên máy cục bộ**"* |
 
+**🗺️ BA hệ VCS ↔ kiểu workflow / The three systems and the workflow each supports**
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"Xuyên suốt cuốn sách này, chúng tôi tập trung vào <strong>BA hệ version control chính</strong>, và <strong>đáng ghi nhớ mỗi hệ hỗ trợ workflow NÀO:</strong>"</em></p>
+<ul>
+<li><strong>Git — PHÂN TÁN</strong></li>
+<li><strong>Perforce — TẬP TRUNG</strong></li>
+<li><strong>Plastic SCM — CẢ HAI</strong></li>
+</ul>
+</div>
+<div class="col-en">
+<p>📖 <em>"Throughout this book, we'll focus on three main version control systems, and it's worth keeping in mind which workflow each supports:"</em></p>
+<ul>
+<li><strong>Git – distributed</strong></li>
+<li><strong>Perforce – centralized</strong></li>
+<li><strong>Plastic SCM – both</strong></li>
+</ul>
+</div>
+</div>
+
+**🔁 QUY TRÌNH ĐIỂN HÌNH — nguyên văn / Typical workflow, verbatim**
+
+| **CENTRALIZED** | **DISTRIBUTED** |
+|---|---|
+| ① *Update your working copy with changes from the server*<br>② *Make your changes*<br>③ *Commit your changes to the central server* | ① *Pull any remote changes into your local repo*<br>② *Make changes*<br>③ *Commit changes*<br>④ ***Perform steps 2 and 3 as many times as you like***<br>⑤ *Push all commits back to the remote repo* |
+| ① **CẬP NHẬT** working copy bằng thay đổi từ server<br>② **SỬA**<br>③ **COMMIT thẳng lên server trung tâm** | ① **PULL** thay đổi remote về repo cục bộ<br>② **SỬA**<br>③ **COMMIT**<br>④ 🔑 **LẶP bước ② và ③ BAO NHIÊU LẦN TUỲ Ý**<br>⑤ **PUSH toàn bộ commit lên repo remote** |
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>💡 <em>"Làm việc theo cách này cho phép bạn <strong>TẠO một NHÓM changeset tương đương một tính năng LỚN HƠN trước khi push lên cho phần còn lại của đội.</strong> Thực tế, <strong>người ta KHUYẾN KHÍCH commit ÍT và THƯỜNG XUYÊN.</strong>"</em></p>
+<p>🔓 <em>"<strong>File locking VẪN có ở MỘT SỐ workflow phân tán, tuy nhiên nó ÍT PHỔ BIẾN HƠN vì bạn xử lý merge dễ hơn.</strong> ✅ <strong>Bằng cách PULL thay đổi mới nhất từ server về dự án cục bộ, bạn có thể SO SÁNH thay đổi của người khác với của mình để CHẮC CHẮN KHÔNG có xung đột TRƯỚC KHI push.</strong>"</em></p>
+<p>💀 <strong>HAI nhược điểm của PHÂN TÁN — nguyên văn:</strong></p>
+<ul>
+<li>🗄️ <em>"Giữ TOÀN BỘ lịch sử dự án trên máy cục bộ <strong>CHIẾM RẤT NHIỀU dung lượng, ĐẶC BIỆT với đội làm việc với file NHỊ PHÂN.</strong> Git có tuỳ chọn <strong>Large File Storage (LFS) chuyển lịch sử của một số file thành CON TRỎ VĂN BẢN</strong>, giảm bớt phần nào. <strong>Tuy nhiên các file khác VẪN giữ toàn bộ lịch sử, và repo có thể CHẤT ĐỐNG dữ liệu test CŨ hoặc ÔI THIU. Studio dùng ổ M2 NHỎ sẽ thấy repo PHÌNH TO vì các phiên bản cũ, làm QUÁ TẢI ổ đĩa.</strong>"</em></li>
+<li>🏝️ <em>"<strong>Thứ hai, vì lập trình viên KHÔNG BUỘC phải giữ liên lạc với server trung tâm, họ có thể LÀM VIỆC CÔ LẬP TRONG THỜI GIAN DÀI. Bản cục bộ của họ có thể TÁCH RỜI khá xa repository chính, và ĐẾN LÚC phải merge ngược lại, việc đó có thể NHIỀU VIỆC HƠN họ tưởng.</strong>"</em></li>
+</ul>
+</div>
+<div class="col-en">
+<p>💡 <em>"Working this way allows you to create a group of changesets that perhaps equate to a larger feature before pushing them up for the rest of your team. In fact, it's encouraged to commit little and often."</em></p>
+<p>🔓 <em>"File locking is still available in some distributed workflows, however, it's less common since you can handle merges more easily. By pulling the latest changes from the server to your local project, you can compare anyone else's changes to your own to be sure there are no conflicts before pushing your changes to the repo."</em></p>
+<p>💀 <strong>The two disadvantages of the distributed approach:</strong></p>
+<ul>
+<li>🗄️ <em>"Having the entire project history on local machines takes up a lot of space, especially for teams working with binary file types. Git has an option called Large File Storage (LFS), which converts the history of certain files to text pointers, offloading some of the weight. However, other files have the entire history, and repos can end up with a load of old or stale test data. Studios working with small M2 drives may then find the size of the repo gets bloated with old versions, overloading their drives."</em></li>
+<li>🏝️ <em>"Secondly, as developers don't have to stay in contact with a central server, they can end up working in isolation for long periods. Their local version can become quite detached from the main repository, and when it comes time to merge their changes back in, this may be more work than they bargained for."</em></li>
+</ul>
+</div>
+</div>
+
 ### 57.1. 📖 Mười ba THUẬT NGỮ then chốt — nguyên văn
 
 | Thuật ngữ | Giải thích / Explanation |
 |---|---|
 | **Repository ("repo")** | *"File dự án được lưu trong một **CƠ SỞ DỮ LIỆU DÙNG CHUNG**"* |
-| **Commit** | *"Bạn có thể tạo NHIỀU thay đổi riêng lẻ và **'commit' chúng như MỘT NHÓM DUY NHẤT để versioning. Commit này nằm như MỘT ĐIỂM trên DÒNG THỜI GIAN của dự án**"* |
+| **Working copy** | *"**Phiên bản CỤC BỘ của dự án trên máy bạn.** Đôi khi còn gọi là **checkout** hoặc **workspace**. Bạn **thay đổi trên working copy, và KHI ĐÃ HÀI LÒNG thì COMMIT chúng vào repository.**"* |
+| **Pull / update / check out** | *"**Pull hoặc update LẤY VỀ các thay đổi MỚI NHẤT có trên server.** ⚠️ **Check out là thuật ngữ PHỔ BIẾN HƠN khi làm việc trong workflow TẬP TRUNG.**"* |
+| **Commit / check in** | *"Bạn có thể tạo NHIỀU thay đổi riêng lẻ và **'commit' chúng như MỘT NHÓM DUY NHẤT để versioning. Commit này nằm như MỘT ĐIỂM trên DÒNG THỜI GIAN của dự án**"*<br>🔀 *"**Commit MÃ HOÁ các sửa đổi file. Workflow TẬP TRUNG GỬI những thay đổi đó TỚI SERVER và thường được gọi là CHECKING IN. Trong workflow PHÂN TÁN, nó THÊM chúng vào changeset để SAU ĐÓ mới push lên server.**"* |
 | **Locking** | *"Khoá một file **NGĂN nó bị sửa bởi người dùng khác.** Bạn đang nói với server: **'Tôi đang làm việc trên cái này; xin ĐỪNG thay đổi gì khác.'** ⚠️ **Locking nhìn chung KHÔNG được hỗ trợ trong workflow phân tán**"* |
 | **Clone** | *"Trong workflow phân tán, clone một repo là cách bạn **LẤY BẢN SAO ĐẦU TIÊN của dự án VÀ TOÀN BỘ LỊCH SỬ về máy cục bộ**"* |
 | **Tags** | *"Ghi chú ĐẶC BIỆT có thể thêm vào một commit. **Thường dùng để ĐÁNH DẤU thời điểm một BUILD được tạo ra**"* |
@@ -8591,6 +8997,24 @@ SceneManager.LoadSceneAsync("Level01_Lighting", LoadSceneMode.Additive);
 | **Git stash** | *"NẾU bạn có thay đổi **CHƯA SẴN SÀNG commit, nhưng cần chuyển sang việc khác, bạn có thể dùng STASH để LƯU chúng vào file TẠM và reset bản làm việc về head**"* |
 
 ### 57.2. 🐙 Git — mã nguồn mở, PHÂN TÁN, nhưng SỢ file nhị phân
+
+<img src="../assets/vc-client-fork.png" alt="The Fork Git client.">
+<p><em>VI: <strong>▲ Fork</strong> — bố cục ba cột: cây <em>Branches / Remotes / Tags / Stashes / Submodules</em> bên trái, danh sách commit ở giữa (kèm AUTHOR · COMMITTER · SHA · PARENTS), diff bên dưới. / EN: The Fork Git client.</em></p>
+
+<img src="../assets/vc-client-gitkraken.png" alt="The GitKraken branch graph.">
+<p><em>VI: <strong>▲ GitKraken</strong> — đồ thị nhánh NHIỀU MÀU: <code>production</code>, <code>dev</code>, <code>7.7.0-release-notes</code>, <code>doc-updates-7-7</code>, cạnh cột <strong>COMMIT MESSAGE</strong> với avatar người commit. Đây chính là ý <em>"visualizes your repos"</em> trong bảng so sánh ở §57.6. / EN: The GitKraken branch graph.</em></p>
+
+<img src="../assets/vc-client-vscode.png" alt="The built-in Source Control panel of Visual Studio Code.">
+<p><em>VI: <strong>▲ Visual Studio Code</strong> — panel <strong>SOURCE CONTROL</strong> tích hợp sẵn: ô nhập message (<em>Ctrl+Enter to commit</em>), nhóm <strong>Staged Changes</strong> và <strong>Changes</strong>, kèm diff xanh/đỏ ngay bên phải. / EN: The built-in Source Control panel of Visual Studio Code.</em></p>
+
+<img src="../assets/vc-client-sourcetree.png" alt="The SourceTree Git client.">
+<p><em>VI: <strong>▲ SourceTree</strong> — cột trái <em>WORKSPACE (File status · History · Search) · BRANCHES · BOOKMARKS · TAGS · REMOTES · SHELVED · SUBREPOSITORIES</em>; bảng History có cột <strong>Graph · Commit · Author · Description · Date</strong>. / EN: The SourceTree Git client.</em></p>
+
+<img src="../assets/vc-client-sublime-merge.png" alt="The Sublime Merge client.">
+<p><em>VI: <strong>▲ Sublime Merge</strong> — giao diện TỐI, gọn: cột commit bên trái, khung <strong>Commit Message</strong> + <strong>Working Directory</strong> bên phải với hai nút <strong>Discard</strong> / <strong>Stage</strong>. Đúng mô tả <em>"lightweight, high-performance client"</em>. / EN: The Sublime Merge client.</em></p>
+
+<img src="../assets/vc-github-site.png" alt="The Unity Technologies organization page on GitHub.">
+<p><em>VI: <strong>▲ GitHub</strong> — trang tổ chức <strong>Unity Technologies</strong> với danh sách <em>Popular repositories</em>, thành viên, và biểu đồ hoạt động. Nhắc lại: <strong>GitHub là DỊCH VỤ HOSTING, KHÔNG phải Git.</strong> / EN: The Unity Technologies organization page on GitHub.</em></p>
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -8683,6 +9107,12 @@ SceneManager.LoadSceneAsync("Level01_Lighting", LoadSceneMode.Additive);
 </div>
 
 ### 57.5. 🌿 Plastic SCM — LINH HOẠT cả hai chiều, và Gluon dành riêng cho ARTIST
+
+<img src="../assets/vc-gluon-timeline.png" alt="The Plastic SCM branch timeline grouped by date.">
+<p><em>VI: <strong>▲ Dòng thời gian của nhánh <code>/main</code></strong> — mỗi vòng tròn là MỘT changeset, nhóm theo NGÀY (<strong>18/08/2021 · 09/11/2021 · 11/11/2021 · 16/11/2021</strong>). Đây là cách Plastic/Gluon cho người KHÔNG chuyên kỹ thuật đọc lịch sử mà không cần hiểu đồ thị nhánh. / EN: The Plastic SCM branch timeline grouped by date.</em></p>
+
+<img src="../assets/vc-plastic-code-review.png" alt="The built-in Code Review window of Plastic SCM.">
+<p><em>VI: <strong>▲ Code Review TÍCH HỢP SẴN</strong> — cửa sổ <em>Review of branch /main/scm005 - Fix error when loading</em> với trạng thái <strong>Under review</strong>, người review, diff SONG SONG hai bản, khung <strong>Comments for line 65</strong> cùng nút <strong>Request a change</strong> / <strong>Ask a question</strong>, và hai chế độ <strong>Text diff</strong> / <strong>Semantic diff</strong>. / EN: The built-in Code Review window of Plastic SCM.</em></p>
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -8792,6 +9222,105 @@ SceneManager.LoadSceneAsync("Level01_Lighting", LoadSceneMode.Additive);
 ---
 
 ## 58. 📁 Tổ chức dự án — Sáu quy tắc THƯ MỤC
+
+<img src="../assets/vc-project-window-layouts.png" alt="The one-column and two-column Project window layouts.">
+<p><em>VI: <strong>▲ Hai bố cục của cửa sổ Project</strong> — <strong>one-column layout</strong> (cây lồng nhau) và <strong>two-column layout</strong> (cây bên trái + lưới icon bên phải). Chọn bố cục nào là chuyện thói quen, nhưng CẢ ĐỘI nên thống nhất khi hướng dẫn nhau. / EN: The one-column and two-column Project window layouts.</em></p>
+
+!!! danger "💀 Đặt SAI cấu trúc thư mục từ đầu = MẤT LỊCH SỬ FILE"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p><em>"<strong>ĐỊNH NGHĨA cấu trúc dự án TỐT NGAY TỪ ĐẦU sẽ TRÁNH được các vấn đề version control về sau. NẾU bạn DI CHUYỂN asset từ thư mục này sang thư mục khác, NHIỀU VCS sẽ xem đó chỉ là XOÁ một file và THÊM một file khác, chứ KHÔNG phải file được DI CHUYỂN. 💀 Việc này LÀM MẤT LỊCH SỬ của file gốc.</strong>"</em></p>
+    <p>✅ <em>"<strong>Plastic SCM xử lý được việc di chuyển file BÊN TRONG Unity và GIỮ NGUYÊN lịch sử của mọi file được di chuyển.</strong> ⚠️ <strong>Tuy nhiên, ĐIỀU CỐT YẾU là khi di chuyển file, bạn PHẢI làm TRONG Unity Editor để file <code>.meta</code> ĐI THEO file asset.</strong>"</em></p>
+    </div>
+    <div class="col-en">
+    <p><em>"Defining a good project structure in the beginning will avoid version control issues later. If you move assets from one folder to another, many VCS will see that as just deleting one file and adding another, rather than the file being moved. This loses the history of the original file."</em></p>
+    <p>✅ <em>"Plastic SCM can handle file moves within Unity and maintains the history of any file that's moved. However, it's essential that when you move a file, you do it in the Unity Editor so that the .meta file moves with the asset file."</em></p>
+    </div>
+    </div>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🛠️ <em>"Sau khi đã CHỐT cấu trúc thư mục cho dự án, hãy <strong>dùng một Editor script để TÁI SỬ DỤNG template và tạo CÙNG cấu trúc thư mục cho MỌI dự án về sau.</strong> Khi đặt trong thư mục <strong><code>Editor</code></strong>, script dưới đây sẽ <strong>tạo một thư mục GỐC trong <code>Assets</code> trùng với biến <code>PROJECT_NAME</code>. Làm vậy giữ công việc CỦA BẠN TÁCH BIỆT khỏi package bên thứ ba.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🛠️ <em>"Once you've decided on a folder structure for your projects, use an Editor script to reuse the template and create the same folder structure for all projects moving forward. When it's placed in an Editor folder, the script below will create a root folder in Assets matching the "PROJECT_NAME" variable. Doing this keeps your own work separate from third-party packages."</em></p>
+</div>
+</div>
+
+```csharp
+using UnityEditor;
+using UnityEngine;
+using System.Collections.Generic;
+using System.IO;
+
+public class CreateFolders : EditorWindow
+{
+    private static string projectName = "PROJECT_NAME";
+
+    [MenuItem("Assets/Create Default Folders")]
+    private static void SetUpFolders()
+    {
+        CreateFolders window = ScriptableObject.CreateInstance<CreateFolders>();
+        window.position = new Rect(Screen.width / 2, Screen.height / 2, 400, 150);
+        window.ShowPopup();
+    }
+
+    private static void CreateAllFolders()
+    {
+        List<string> folders = new List<string>
+        {
+            "Animations", "Audio", "Editor", "Materials", "Meshes",
+            "Prefabs", "Scripts", "Scenes", "Shaders", "Textures", "UI"
+        };
+
+        foreach (string folder in folders)
+        {
+            if (!Directory.Exists("Assets/" + folder))
+            {
+                Directory.CreateDirectory("Assets/" + projectName + "/" + folder);
+            }
+        }
+
+        List<string> uiFolders = new List<string> { "Assets", "Fonts", "Icon" };
+
+        foreach (string subfolder in uiFolders)
+        {
+            if (!Directory.Exists("Assets/" + projectName + "/UI/" + subfolder))
+            {
+                Directory.CreateDirectory("Assets/" + projectName + "/UI/" + subfolder);
+            }
+        }
+
+        AssetDatabase.Refresh();
+    }
+
+    void OnGUI()
+    {
+        EditorGUILayout.LabelField("Insert the Project name used as the root folder");
+        projectName = EditorGUILayout.TextField("Project Name: ", projectName);
+        this.Repaint();
+        GUILayout.Space(70);
+        if (GUILayout.Button("Generate!"))
+        {
+            CreateAllFolders();
+            this.Close();
+        }
+    }
+}
+```
+
+<img src="../assets/vc-create-default-folders.png" alt="The Assets > Create Default Folders menu item added by the editor script.">
+<p><em>VI: <strong>▲ Script tạo thư mục MẶC ĐỊNH</strong> — sau khi thêm script, menu <code>Assets › Create Default Folders</code> xuất hiện; một cú bấm dựng xong toàn bộ khung thư mục chuẩn cho dự án MỚI. / EN: The Assets > Create Default Folders menu item added by the editor script.</em></p>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📁 <strong>Về THƯ MỤC RỖNG:</strong> <em>"Thư mục rỗng như trong các ảnh trên có thể gây <strong>chút rắc rối trong version control — nên CHỈ tạo những thư mục bạn CẦN. Với Git và Perforce, thư mục RỖNG bị BỎ QUA theo mặc định. Nếu các thư mục dự án này được dựng sẵn và ai đó cố commit chúng, họ sẽ KHÔNG THỂ commit cho tới khi có thứ gì đó được đặt vào trong.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📁 <strong>About empty folders:</strong> <em>"Empty folders like those shown in the previous images can present a bit of an issue in version control – so only create the folders for what you need. With Git and Perforce, empty folders are ignored by default. If these project folders are set up and someone attempts to commit them, they'll be unable to until something is placed in the folder."</em></p>
+</div>
+</div>
+
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -8905,6 +9434,9 @@ Assets
 
 ## 59. ✏️ Năm chuẩn ĐẶT TÊN GameObject
 
+<img src="../assets/fg-hierarchy-separators.png" alt="Using empty GameObjects as visual separators in the Hierarchy.">
+<p><em>VI: <strong>▲ Mẹo dải PHÂN CÁCH trong Hierarchy</strong> — dùng GameObject RỖNG đặt tên kiểu <code>--------Managers</code>, <code>----Environment, Static----</code>, <code>----User Interface</code>, <code>----Dynamic Gameplay</code> để CHIA KHỐI cây scene. Inspector bên phải cho thấy đó chỉ là một Transform rỗng, KHÔNG có component nào. / EN: Using empty GameObjects as visual separators in the Hierarchy.</em></p>
+
 | Chuẩn / Standard | Ví dụ ĐÚNG | Ví dụ SAI |
 |---|---|---|
 | **Dùng tên MÔ TẢ, ĐỪNG viết tắt** — *"Dùng tên bạn SẼ NHỚ sau VÀI THÁNG. Cân nhắc liệu NGƯỜI KHÁC có hiểu ký hiệu của bạn, và chọn tên bạn có thể PHÁT ÂM và NHỚ được. **Lưu ý rằng VIẾT TẮT và LỖI CHÍNH TẢ có thể gây NHẦM LẪN.**"* | `largeButton` · `LargeButton` · `leftButton` | ❌ `lButton` |
@@ -8999,9 +9531,166 @@ Assets
 </div>
 </div>
 
+### 60.1. 🧩 Chuẩn CODE — namespace, header chuẩn & script template
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"Chuẩn code cũng giúp <strong>công việc của đội NHẤT QUÁN và giúp lập trình viên CHUYỂN QUA LẠI giữa các mảng khác nhau của dự án DỄ HƠN.</strong> Lần nữa, <strong>KHÔNG có luật cứng nào ở đây. Bạn phải QUYẾT ĐỊNH cái gì TỐT NHẤT cho đội mình — nhưng một khi đã quyết, hãy BÁM CHẶT lấy nó.</strong>"</em></p>
+<p>🗂️ <strong>Namespace:</strong> <em>"Ví dụ, <strong>namespace giúp TỔ CHỨC code TỐT HƠN. Chúng cho phép bạn TÁCH các module bên trong dự án và TRÁNH XUNG ĐỘT với asset bên thứ ba nơi tên class có thể TRÙNG.</strong> ⚙️ Khi dùng namespace trong code, hãy <strong>CHIA cấu trúc THƯ MỤC theo namespace để tổ chức tốt hơn.</strong>"</em></p>
+<p>🏷️ <strong>Header chuẩn:</strong> <em>"Một <strong>header chuẩn cũng là thông lệ TỐT. Đưa header chuẩn vào code template sẽ giúp GHI LẠI MỤC ĐÍCH của một class, NGÀY nó được tạo, và cả AI đã tạo nó.</strong> 💀 <strong>Tất cả những thông tin này RẤT DỄ BỊ MẤT trong lịch sử dài của một dự án, KỂ CẢ KHI đang dùng version control.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"Coding standards will also help keep your team's work consistent and make it easier for developers to swap between different areas of your project. Again, there are no set-in-stone rules here. You need to decide what is best for your team – but once you've decided, stick with it."</em></p>
+<p>🗂️ <strong>Namespaces:</strong> <em>"As an example, namespaces can help organize your code better. They allow you to separate modules inside your project and avoid conflicts with third-party assets where class names may end up repeating. When using namespaces in your code, break your folder structure up by the namespace for better organization."</em></p>
+<p>🏷️ <strong>A standard header:</strong> <em>"A standard header is also a good practice. Including a standard header in your code template will help to document the purpose of a class, the date it was created, and even who created it. All of this is information that could easily get lost in the long history of a project, even when using version control."</em></p>
+</div>
+</div>
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📁 <strong>Nơi Unity giữ template:</strong> <em>"Unity dùng một <strong>script template để ĐỌC RA mỗi khi bạn tạo MonoBehaviour mới.</strong> Mỗi lần tạo script hay shader mới, Unity dùng template lưu ở <code>%EDITOR_PATH%\Data\Resources\ScriptTemplates</code>."</em></p>
+<ul>
+<li><strong>Windows:</strong> <code>C:\Program Files\Unity\Editor\Data\Resources\ScriptTemplates</code></li>
+<li><strong>Mac:</strong> <code>/Applications/Hub/Editor/[version]/Unity/Unity.app/Contents/Resources/ScriptTemplates</code></li>
+</ul>
+<p>👉 <em>"Template MonoBehaviour mặc định là <strong><code>81-C# Script-NewBehaviourScript.cs.txt</code></strong>. Cũng có template cho <strong>shader, các script behavior khác và assembly definition.</strong>"</em></p>
+<p>💎 <em>"Với template RIÊNG của dự án, hãy <strong>tạo thư mục <code>Assets/ScriptTemplates</code> và copy template vào đó để GHI ĐÈ bản mặc định.</strong> Bạn cũng có thể sửa thẳng template mặc định cho MỌI dự án, <strong>nhưng hãy CHẮC CHẮN SAO LƯU bản gốc trước.</strong>"</em></p>
+<p>⚠️ <strong>BẪY nâng cấp Unity — chỉ e-book này nói:</strong> <em>"<strong>MỖI phiên bản Unity có THƯ MỤC TEMPLATE RIÊNG, nên khi bạn CẬP NHẬT lên phiên bản mới, bạn PHẢI THAY template LẠI TỪ ĐẦU.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📁 <strong>Where Unity keeps the templates:</strong> <em>"Unity employs a template script to read from whenever you create a new Monobehaviour in the project. Every time you create a new script or shader, Unity uses a template stored in <code>%EDITOR_PATH%\Data\Resources\ScriptTemplates</code>."</em></p>
+<ul>
+<li><strong>Windows:</strong> <code>C:\Program Files\Unity\Editor\Data\Resources\ScriptTemplates</code></li>
+<li><strong>Mac:</strong> <code>/Applications/Hub/Editor/[version]/Unity/Unity.app/Contents/Resources/ScriptTemplates</code></li>
+</ul>
+<p>👉 <em>"The default Monobehaviour template is this one: <code>81-C# Script-NewBehaviourScript.cs.txt</code>. There are also templates for shaders, other behavior scripts, and assembly definitions."</em></p>
+<p>💎 <em>"For project-specific script templates, create an Assets/ScriptTemplates folder, and copy the script templates into this folder to override the defaults. You can also modify the default script templates directly for all projects, but make sure you back up the originals before making any changes."</em></p>
+<p>⚠️ <strong>The Unity-upgrade trap:</strong> <em>"Each version of Unity has its own template folder, so when you update to a new version, you need to replace the templates again."</em></p>
+</div>
+</div>
+
+**🔑 HAI từ khoá của template / The two template keywords**
+
+| Từ khoá | Ý nghĩa nguyên văn |
+|---|---|
+| **`#SCRIPTNAME#`** | *"chỉ **tên file đã nhập** hoặc **tên mặc định** (ví dụ `NewBehaviourScript`)."* |
+| **`#NOTRIM#`** | *"đảm bảo **cặp ngoặc CHỨA một dòng khoảng trắng**."* |
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🔧 <strong>Tự định nghĩa từ khoá RIÊNG:</strong> <em>"Bạn cũng có thể <strong>dùng từ khoá CỦA RIÊNG BẠN và THAY THẾ chúng bằng một Editor script hiện thực phương thức <code>OnWillCreateAsset</code>.</strong>"</em></p>
+<p>🎁 <em>"Dùng header trong script dưới đây bên trong script template của bạn, và <strong>MỌI script mới sẽ được tạo ra kèm header hiển thị NGÀY tạo, NGƯỜI tạo và DỰ ÁN mà nó thuộc về ban đầu. Việc này HỮU ÍCH nếu bạn TÁI SỬ DỤNG code ở dự án tương lai.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🔧 <strong>Define your own keywords:</strong> <em>"You can also use your own keywords and replace them with an Editor script implementing the OnWillCreateAsset method."</em></p>
+<p>🎁 <em>"Use the header in the script above inside your script template, and any new script will be created with a header that shows its date, the user who created it, and the project to which it originally belonged. This is useful should you reuse the code in future projects."</em></p>
+</div>
+</div>
+
+```csharp
+// ── Đặt phần header này vào ĐẦU script template của bạn ──────────────
+/*-------------------------------------------
+---------------------------------------------
+Creation Date: #DATETIME#
+Author: #DEVELOPER#
+Description: #PROJECTNAME#
+---------------------------------------------
+-------------------------------------------*/
+
+// ── Và đặt script Editor này vào dự án để THAY THẾ các từ khoá đó ────
+using UnityEngine;
+using UnityEditor;
+
+public class KeywordReplace : UnityEditor.AssetModificationProcessor
+{
+    public static void OnWillCreateAsset(string path)
+    {
+        path = path.Replace(".meta", "");
+        int index = path.LastIndexOf(".");
+        if (index < 0)
+            return;
+
+        string file = path.Substring(index);
+        if (file != ".cs" && file != ".js" && file != ".boo")
+            return;
+
+        index = Application.dataPath.LastIndexOf("Assets");
+        path  = Application.dataPath.Substring(0, index) + path;
+        if (!System.IO.File.Exists(path))
+            return;
+
+        string fileContent = System.IO.File.ReadAllText(path);
+        fileContent = fileContent.Replace("#CREATIONDATE#",
+                          System.DateTime.Today.ToString("dd/MM/yy") + "");
+        fileContent = fileContent.Replace("#PROJECTNAME#",
+                          PlayerSettings.productName);
+        fileContent = fileContent.Replace("#DEVELOPER#",
+                          System.Environment.UserName);
+
+        System.IO.File.WriteAllText(path, fileContent);
+        AssetDatabase.Refresh();
+    }
+}
+```
+
+!!! tip "🔗 Nối với Phần I"
+    Cùng chủ đề script template được nói KỸ HƠN ở **[§65.5 — Script templates](#655-script-templates-sua-khuon-e-ca-oi-viet-giong-nhau)** (nguồn: e-book *70+ tips*), gồm cả **template gốc đầy đủ** và **bản sửa có sẵn `#region`**. Mục này bổ sung thứ e-book kia KHÔNG có: **script `KeywordReplace` để tự điền ngày / tác giả / tên dự án**, và **bẫy mất template khi nâng cấp Unity**.
+
+
 ---
 
 ## 61. 🗃️ Thiết lập Unity cho VCS — Ignore gì & File LỚN
+
+<img src="../assets/vc-meta-file-diff.png" alt="A .meta file diff showing import settings changes.">
+<p><em>VI: <strong>▲ Vì sao <code>.meta</code> PHẢI được commit</strong> — diff của một file <code>.meta</code>: vùng ĐỎ là giá trị cũ, vùng XANH là giá trị mới (<code>maxTextureSize</code>, <code>textureSettings</code>, <code>filterMode</code>, <code>wrapU/wrapV</code>, <code>alphaUsage</code>…). Toàn bộ Import Settings nằm ở đây — mất file này là mất cấu hình asset. / EN: A .meta file diff showing import settings changes.</em></p>
+
+**⚙️ Bật tích hợp VCS trong Editor — nguyên văn / Enabling the built-in integrations**
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🔶 <strong>Perforce Helix Core:</strong> <em>"Tích hợp Unity Editor có sẵn với hầu hết hệ version control, và <strong>tích hợp Perforce Helix Core được XÂY SẴN trong Editor. Bạn chỉ cần BẬT nó qua <code>Edit › Project Settings › Version Control</code>. Đặt Mode thành <code>Perforce</code>, rồi điền thông tin workspace và server.</strong>"</em></p>
+<p>🔒 <em>"Khi đã bật, bạn sẽ thấy các file được coi là <strong>\"Under Version Control\", với tuỳ chọn CHECK OUT chúng. Sau khi file được check out, bạn có thể LOCK · UNLOCK · SUBMIT hoặc REVERT file đó. Chọn SUBMIT sẽ mở hộp thoại CHANGESET để bạn thêm commit message trước khi gửi vào repository.</strong> Dùng giao diện Helix P4V để xem lịch sử dự án."</em></p>
+<p>🌿 <strong>Plastic SCM — danh sách phiên bản Unity có SẴN tích hợp:</strong></p>
+<ul>
+<li><strong>2019.4.32f1</strong> trở lên</li>
+<li><strong>2020.3.20f1</strong> trở lên</li>
+<li><strong>2021.1.25f1</strong> trở lên</li>
+<li><strong>2021.2.0b16</strong> trở lên</li>
+<li><strong>2022.1.0a12</strong> trở lên</li>
+</ul>
+<p>👉 <em>"Bạn bật nó bằng cách <strong>bấm icon Plastic SCM trên thanh công cụ GÓC PHẢI TRÊN</strong>, rồi hoàn tất thiết lập bằng cách <strong>KẾT NỐI Plastic SCM với Unity ID, THAM GIA hoặc TẠO một organization, DỰNG hoặc tham gia repository mới, và TẠO workspace.</strong>"</em></p>
+<p>🔁 <em>"Ngoài ra, bạn có thể bật qua <strong><code>Edit › Project Settings › Version Control</code> trong Unity 2020 LTS, rồi đặt Mode thành <code>PlasticSCM</code>.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🔶 <strong>Perforce Helix Core:</strong> <em>"Unity Editor integration is available with most version control systems, and Perforce Helix Core integration is built into the Editor. You only need to enable it via Edit &gt; Project Settings &gt; Version Control. Set the Mode to Perforce, and fill in the information of your workspace and server settings."</em></p>
+<p>🔒 <em>"Once this is enabled, you will see that files are now considered "Under Version Control," with the option to check them out. Once a file is checked out, you can lock, unlock, submit, or revert the file. Choosing to submit will bring up a changeset dialog for you to add your commit message before submitting it into the repository. Use the Helix P4V interface to view the project history."</em></p>
+<p>🌿 <strong>Plastic SCM is available built into Unity with any of the below editor versions:</strong></p>
+<ul>
+<li><strong>2019.4.32f1</strong> or later</li>
+<li><strong>2020.3.20f1</strong> or later</li>
+<li><strong>2021.1.25f1</strong> or later</li>
+<li><strong>2021.2.0b16</strong> or later</li>
+<li><strong>2022.1.0a12</strong> or later</li>
+</ul>
+<p>👉 <em>"You can enable this by clicking the Plastic SCM icon in the toolbar on the top right, then complete your set up by connecting Plastic SCM to your Unity ID, joining or creating an organization, set up or join a new repository, and create your workspace."</em></p>
+<p>🔁 <em>"Alternatively, you enable this via Edit &gt; Project Settings &gt; Version Control in Unity 2020 LTS, then set the Mode to PlasticSCM."</em></p>
+</div>
+</div>
+
+<img src="../assets/vc-settings-perforce.png" alt="Project Settings > Version Control in Perforce mode.">
+<p><em>VI: <strong>▲ Chế độ Perforce</strong> — <code>Project Settings › Version Control</code> với <strong>Mode: Perforce</strong>, các ô <strong>Username · Password · Workspace · Server (localhost:1666) · Log Level: Notice</strong> và nút <strong>Reconnect</strong>; nhóm tuỳ chọn có <strong>Work Offline · Automatic Add · Async Status · Show Failed Checkouts · Overwrite Failed Checkout Assets · Smart merge: Ask</strong>; dưới cùng là <strong>bảng chú giải Overlay Icons</strong> (Local · Out Of Sync · Checked Out Local/Remote · Deleted Local/Remote · Added Local/Remote · Conflicted · Locked Local/Remote · Updating Status). / EN: Project Settings > Version Control in Perforce mode.</em></p>
+
+<img src="../assets/vc-settings-plasticscm.png" alt="Project Settings > Version Control in PlasticSCM mode.">
+<p><em>VI: <strong>▲ Chế độ PlasticSCM</strong> — cùng bảng đó với <strong>Mode: PlasticSCM</strong>; các <strong>Overlay Icons</strong> hiển thị ở <strong>Project Window · Hierarchy Window · Other Windows</strong>. / EN: Project Settings > Version Control in PlasticSCM mode.</em></p>
+
+<img src="../assets/vc-unity-checked-out.png" alt="Checked-out state and the Version Control Changeset dialog inside Unity.">
+<p><em>VI: <strong>▲ Trạng thái khoá NGAY TRONG Editor</strong> — thanh trên ghi <strong>Locked Local; meta: Checked Out</strong> với các nút <strong>Unlock · Lock · Submit · Revert</strong>; hộp thoại <strong>Version Control Changeset</strong> bên dưới cho nhập <em>Description</em> ("Added the sample scene") và liệt kê <strong>Files: Assets/Scenes/SampleScene.unity</strong> + <strong>.meta</strong> — <strong>file và .meta LUÔN đi CẶP.</strong> / EN: Checked-out state and the Version Control Changeset dialog inside Unity.</em></p>
+
+<img src="../assets/vc-plastic-pending-changes.png" alt="The Plastic SCM Pending Changes tab inside the Unity Editor.">
+<p><em>VI: <strong>▲ Tab Plastic SCM trong Unity — <em>Pending Changes</em></strong>: <strong>Changed items — 6 of 6 items selected</strong> với cột <strong>Status</strong> (<em>Changed</em>, <em>Checked-out unchanged</em>) và <strong>Date modified</strong>; nhóm <strong>Added and private — 0 of 7 items selected</strong> gồm các file <em>Private</em>. Ô nhập <strong>checkin comment</strong> + nút <strong>Checkin Changes</strong> / <strong>Undo</strong> ở dưới. / EN: The Plastic SCM Pending Changes tab inside the Unity Editor.</em></p>
+
+<img src="../assets/vc-plastic-changesets.png" alt="The Plastic SCM Changesets tab.">
+<p><em>VI: <strong>▲ Tab <em>Changesets</em></strong> — lịch sử với <strong>Creation date · Created by · Comment</strong> ("Added a parent and nested pref…", "Added a folder for prefabs", "Added UI Gradient class", "Added some logs to check on th…"), và khung phải liệt kê file của changeset đang chọn. / EN: The Plastic SCM Changesets tab.</em></p>
 
 <img src="../assets/vc-plastic-ignore-config.png" alt="Adding files to the ignore list in Plastic SCM">
 <p><em>VI: Có thể thêm file vào danh sách BỎ QUA <strong>ngay trong Unity Editor</strong> khi dùng Plastic SCM. / EN: Files can be added to the ignored list directly from the Unity Editor when using Plastic SCM.</em></p>
@@ -9079,6 +9768,9 @@ Assets
 
 ## 62. ✅ Bảy thông lệ TỐT NHẤT về Version Control
 
+<img src="../assets/vc-submit-changelist.png" alt="The P4V Submit Changelist dialog with only two files ticked.">
+<p><em>VI: <strong>▲ CHỌN file khi commit — chứ KHÔNG <code>commit -a</code></strong>. Hộp thoại <em>Submit Changelist</em> của P4V: ô <strong>changelist description</strong> ở trên, bảng <strong>Choose files to submit</strong> ở dưới với cột <strong>File · In Folder · Resolve Status · Type · Pending Action</strong> (edit / add / delete). Ở đây CHỈ hai file được tick. / EN: The P4V Submit Changelist dialog with only two files ticked.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>📋 <em>"Những mẹo này đến từ <strong>ĐỘI HỖ TRỢ DOANH NGHIỆP của Unity — những người đang giúp tối ưu các dự án THỰC TẾ cho MỘT SỐ studio LỚN NHẤT hiện nay.</strong>"</em></p>
@@ -9091,10 +9783,10 @@ Assets
 | # | Thông lệ | Nội dung nguyên văn |
 |---|---|---|
 | **①** | **Commit ÍT, commit THƯỜNG XUYÊN** | *"Đây là **THAY ĐỔI DỄ NHẤT bạn có thể làm với workflow, NHƯNG lại là thứ MỘT SỐ lập trình viên CHẬT VẬT NHẤT.** 🔑 **Một commit CHỈ nên liên quan tới MỘT TASK hoặc MỘT TICKET** — trừ khi một dòng code THẦN KỲ sửa được vài bug. **Nếu bạn đang làm tính năng LỚN, hãy CHIA NHỎ thành các task nhỏ và commit cho từng task.** ✅ **Lợi thế LỚN NHẤT của commit nhỏ: khi có gì đó SAI, bạn sẽ TÌM RA thay đổi DỄ HƠN NHIỀU và có thể REVERT thay đổi xấu MÀ KHÔNG ảnh hưởng các thay đổi tốt khác.**"* |
-| **②** | **Giữ COMMIT MESSAGE SẠCH SẼ** | *"**Commit message MÔ TẢ LỊCH SỬ dự án của bạn.** 📖 **DỄ TÌM hơn NHIỀU nếu message là "Added high score tables to the menu" chứ KHÔNG PHẢI "bet you can't beat my score on these new tables!"** 💡 **Khi làm việc với hệ thống ticket như JIRA hay GitLab, càng TỐT HƠN nếu ĐƯA SỐ TICKET vào commit.**"* |
-| **③** | **TRÁNH commit BỪA BÃI** | *(Avoid indiscriminate commits — chỉ commit đúng những file cần thiết cho task)* |
+| **②** | **Giữ COMMIT MESSAGE SẠCH SẼ** | *"**Commit message MÔ TẢ LỊCH SỬ dự án của bạn.** 📖 **DỄ TÌM hơn NHIỀU nếu message là "Added high score tables to the menu" chứ KHÔNG PHẢI "bet you can't beat my score on these new tables!"** 💡 **Khi làm việc với hệ thống ticket như JIRA hay GitLab, càng TỐT HƠN nếu ĐƯA SỐ TICKET vào commit.**"* <br>🎫 *"**Nhiều hệ thống có thể thiết lập để hoạt động cùng SMART COMMIT — trong đó bạn THỰC SỰ THAM CHIẾU ticket và ĐỔI TRẠNG THÁI của chúng NGAY TỪ commit message.**"*<br>💡 *"**Ví dụ, commit `"JRA-123 #close #comment task completed"` sẽ ĐẶT ticket JIRA JRA-123 thành ĐÃ ĐÓNG, và để lại bình luận "task completed" trên ticket đó.**"*<br>📚 *"Để thiết lập workflow này, xem tài liệu của **JIRA** hoặc dịch vụ **Pivotal Tracker** trong GitLab."* |
+| **③** | **TRÁNH commit BỪA BÃI** | 💀 *"**Lần DUY NHẤT nên dùng `commit -a` (lệnh git nghĩa là "commit MỌI thay đổi") hoặc các lệnh tương đương là ở COMMIT ĐẦU TIÊN của dự án — thường là khi file duy nhất trong dự án là `README.md`.**"*<br>🎯 *"**Một commit CHỈ NÊN chứa những file LIÊN QUAN tới thay đổi bạn đang commit.** ⚠️ **PHẢI ĐẶC BIỆT cẩn thận khi làm việc với dự án Unity, vì MỘT SỐ thay đổi có thể khiến VÀI file bị đánh dấu là ĐÃ THAY ĐỔI — như scene, prefab hay sprite atlas — DÙ BẠN KHÔNG HỀ ĐỊNH sửa chúng.**"*<br>😱 *"**NẾU bạn LỠ TAY commit một thay đổi vào scene mà NGƯỜI KHÁC đang làm, việc đó có thể gây ĐAU ĐẦU cho họ khi họ commit và phát hiện phải merge thay đổi của bạn TRƯỚC.**"*<br>🚨 *"**Đây là MỘT TRONG NHỮNG LỖI PHỔ BIẾN NHẤT của người MỚI dùng version control. Quan trọng là phải hiểu: bạn CHỈ NÊN commit thứ BẠN đã thay đổi trong dự án.**"* |
 | **④** | **LẤY BẢN MỚI NHẤT** | *"**THƯỜNG XUYÊN NHẤT có thể, hãy PULL thay đổi mới nhất từ repo về bản làm việc. KHÔNG TỐT khi làm việc trong SỰ CÔ LẬP, vì việc này CHỈ LÀM TĂNG khả năng XUNG ĐỘT MERGE.**"* → xem bảng workflow dưới |
-| **⑤** | **HIỂU RÕ BỘ CÔNG CỤ của bạn** | *"**Dù đội bạn chọn VCS nào, hãy ĐẢM BẢO cả đội THOẢI MÁI dùng nó và HIỂU các công cụ có sẵn.** 🎨 **Nếu dùng Plastic SCM, hãy để NGHỆ SĨ làm quen với GLUON để đơn giản hoá workflow của họ. Gluon cho phép QUYẾT ĐỊNH file nào muốn làm việc và CHỈ TẢI VỀ những file đó — loại bỏ nhu cầu tải và quản lý TOÀN BỘ dự án. Nó cho phép KHOÁ file để ngăn người khác làm việc trên đó.** 🛠️ **Nếu dùng Perforce Helix Core, hãy dùng công cụ DỰNG SẴN trong Unity Editor để quản lý version control TRỰC TIẾP TỪ Editor** — cực kỳ hữu ích cho nghệ sĩ và cho việc xử lý scene, Prefab."* |
+| **⑤** | **HIỂU RÕ BỘ CÔNG CỤ của bạn** | *"**Dù đội bạn chọn VCS nào, hãy ĐẢM BẢO cả đội THOẢI MÁI dùng nó và HIỂU các công cụ có sẵn.** 🎨 **Nếu dùng Plastic SCM, hãy để NGHỆ SĨ làm quen với GLUON để đơn giản hoá workflow của họ. Gluon cho phép QUYẾT ĐỊNH file nào muốn làm việc và CHỈ TẢI VỀ những file đó — loại bỏ nhu cầu tải và quản lý TOÀN BỘ dự án. Nó cho phép KHOÁ file để ngăn người khác làm việc trên đó.** 🛠️ **Nếu dùng Perforce Helix Core, hãy dùng công cụ DỰNG SẴN trong Unity Editor để quản lý version control TRỰC TIẾP TỪ Editor** — cực kỳ hữu ích cho nghệ sĩ và cho việc xử lý scene, Prefab."* <br>🐙 *"**NẾU bạn dùng Git, KHÔNG PHẢI ai cũng cần dùng CÙNG MỘT GUI client. NHƯNG hãy đảm bảo MỌI NGƯỜI đều THOẢI MÁI với quy trình `commit > pull > push`, và họ BIẾT CÁCH chỉ commit đúng những file mình cần.**"*<br>🎨 *"…và **khi xong việc, người dùng SUBMIT file trở lại repository và MỞ KHOÁ chúng.**"* |
 | **⑥** | **FEATURE BRANCH & GIT FLOW** | *"Khi làm dự án DÀI HẠN với NHIỀU CHU KỲ PHÁT HÀNH, **feature branching có LỢI ÍCH KHỔNG LỒ.** … **Trong Git, workflow gọi là GIT FLOW tập trung vào việc dùng các BRANCH KHÁC NHAU cho TÍNH NĂNG, SỬA LỖI và PHÁT HÀNH.**"* |
 | **⑦** | **PULL REQUEST** | *"Khi hoàn thành công việc trên feature branch, **thông lệ TỐT là dùng pull request để đưa thay đổi về dòng chính. Pull request được TẠO bởi lập trình viên của tính năng, và THƯỜNG là trách nhiệm của SENIOR DEVELOPER hoặc DEVOPS để REVIEW trước khi chấp nhận.**"* |
 
@@ -9268,7 +9960,29 @@ Assets
 
     **EN:** *"Unity 2020.1 introduced the **Focused Inspector** window, which allows you to **INSPECT the properties for a SPECIFIC GameObject, component, or asset. It ALWAYS displays the properties of the item you opened it for, EVEN IF you select something else in the Scene.**" ▶️ **Right-click a GameObject/Component → choose `Properties`.** 💡 **"Opening MULTIPLE Focused Inspectors at the same time allows you to REFERENCE MULTIPLE GameObjects while making changes to the Scene."***
 
+### 63.0. 📦 Editor workflows & The Package Manager — lời mở của e-book
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"Unity 2020 LTS bao gồm <strong>NHIỀU cải tiến TĂNG TỐC workflow của Editor</strong> — như <strong>phím tắt để gọi các tính năng DÙNG THƯỜNG XUYÊN, giao diện tiện lợi để GIẢM tác vụ LẶP LẠI, cải tiến workflow DEBUG</strong>, và nhiều hơn nữa. ✅ <strong>Gộp lại, những cải tiến này có thể TIẾT KIỆM cho bạn HÀNG GIỜ làm việc qua từng ngày và từng tuần. Chất lượng cuộc sống với Unity ĐƯỢC CẢI THIỆN vì bạn LẶP NHANH HƠN và phát triển HIỆU QUẢ HƠN.</strong>"</em></p>
+<p>📦 <strong>Package Manager:</strong> <em>"<strong>Package Manager có VÀI cập nhật thiết kế ở 2020 LTS, gồm BỘ ICON giao diện MỚI, BỐ CỤC cải tiến, và PHÂN BIỆT TỐT HƠN giữa thông tin của package ĐANG CÀI và các bản CẬP NHẬT có sẵn.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"Unity 2020 LTS includes multiple improvements that speed up Editor workflows, such as keyboard shortcuts to launch frequently used features, handy user interfaces to reduce repetitive tasks, improvements to the debugging workflow, and much more. Collectively, these improvements can save you hours of work over days and weeks. Your quality of life with Unity improves because you can iterate faster and develop more efficiently."</em></p>
+<p>📦 <strong>The Package Manager:</strong> <em>"The Package Manager has several design updates in 2020 LTS, including new user interface (UI) iconography, improved layout, and better distinctions between information for currently installed packages and for available updates."</em></p>
+</div>
+</div>
+
 ### 63.1. 🎁 Mười mẹo NHỎ nhưng MẠNH cho Editor
+
+<img src="../assets/tip-paste-as-child.png" alt="The Paste As Child context-menu item.">
+<p><em>VI: <strong>▲ <code>Paste As Child</code></strong> — dán object vào ĐÚNG nhánh cha thay vì dán ra gốc rồi kéo lại; cùng menu còn có <em>Rename · Duplicate · Delete</em>. / EN: The Paste As Child context-menu item.</em></p>
+
+<img src="../assets/tip-playmode-tint-applied.png" alt="The whole Editor tinted red once a Playmode tint is set.">
+<p><em>VI: <strong>▲ Playmode tint KHI ĐÃ ÁP DỤNG</strong> — TOÀN BỘ Editor nhuốm ĐỎ. Không thể nhầm là đang ở Edit Mode nữa — đây là cách rẻ nhất để khỏi mất công sửa rồi bay hết khi thoát Play. / EN: The whole Editor tinted red once a Playmode tint is set.</em></p>
+
+<img src="../assets/tip-mesh-preview-uvchecker.png" alt="The mesh Preview with UV Layout / UV Checker / Normals modes.">
+<p><em>VI: <strong>▲ Ô Preview của mesh</strong> — chuyển kênh hiển thị sang <strong>UV Layout</strong> / <strong>UV Checker</strong> / <strong>Normals</strong> + <strong>Wireframe</strong> ngay trong Inspector; dòng cuối ghi <strong>1293 Vertices, 2106 Triangles | UV1</strong>. Kiểm tra UV chồng lấn mà không cần mở DCC. / EN: The mesh Preview with UV Layout / UV Checker / Normals modes.</em></p>
 
 | # | Mẹo / Tip |
 |---|---|
@@ -9302,6 +10016,9 @@ Assets
 <p><em>VI: <strong>▲ <code>GameObject › Align With View</code> (<code>⇧⌘F</code>)</strong> — đưa object (thường là Camera) <strong>KHỚP CHÍNH XÁC góc nhìn Scene view</strong> hiện tại; cạnh đó là <strong>Align View to Selected</strong> và <strong>Move To View <code>⌘⌥F</code></strong>. / EN: The Align With View menu item.</em></p>
 
 ### 63.2. 🔍 Focused Inspector — mở NHIỀU Inspector cùng lúc
+
+<img src="../assets/tip-properties-context-menu.png" alt="The right-click menu with the Properties… item that opens a Focused Inspect">
+<p><em>VI: <strong>▲ Đường vào</strong> — chuột phải trong Hierarchy → <strong><code>Properties…</code></strong> (mục cuối cùng). Cùng menu có <em>Paste As Child · Select Children · Set as Default Parent</em>. / EN: The right-click menu with the Properties… item that opens a Focused Inspector.</em></p>
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -9349,6 +10066,12 @@ Assets
 <p><em>VI: <strong>▲ Cửa sổ Select Preset</strong> — ví dụ của e-book: ba Preset chứa <strong>Import Settings KHÁC NHAU cho texture 2D tuỳ MỤC ĐÍCH</strong>: <strong>AlbedoTexture_D · NormalTexture · UtilityTexture</strong>, cùng nút <strong>Save current to…</strong> / EN: In this example, the Presets contain different Import Settings for 2D textures depending on usage (albedo, normal, or utility).</em></p>
 
 ### 63.4. 👁️ SceneVisibility & Isolation View — ẩn mà KHÔNG deactivate
+
+<img src="../assets/tip-scene-visibility-hierarchy.png" alt="The SceneVisibility eye column in the Hierarchy.">
+<p><em>VI: <strong>▲ Cột con MẮT trong Hierarchy</strong> — bật/tắt hiển thị cho từng nhánh (<code>Props</code>, <code>Room 1</code>, <code>Ball_PF</code>, <code>Structure</code>, <code>VFX</code>…) mà <strong>KHÔNG deactivate GameObject</strong>. / EN: The SceneVisibility eye column in the Hierarchy.</em></p>
+
+<img src="../assets/tip-hidden-count-badge.png" alt="The hidden-object counter (715) in the Scene view toolbar.">
+<p><em>VI: <strong>▲ Bộ đếm object ĐANG BỊ ẨN</strong> — con số <strong>715</strong> cạnh biểu tượng mắt trên thanh Scene view. Bấm vào đó là bỏ ẩn TẤT CẢ; nếu "mất" object trong scene, hãy nhìn con số này TRƯỚC. / EN: The hidden-object counter (715) in the Scene view toolbar.</em></p>
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -9402,6 +10125,9 @@ Assets
 
 ### 63.6. 🔎 Searching — cú pháp `t:` và `l:`
 
+<img src="../assets/tip-search-fields.png" alt="The three search fields in the Editor: Hierarchy, Scene view and Project.">
+<p><em>VI: <strong>▲ BA ô tìm kiếm</strong> (khoanh đỏ) — một ở <strong>Hierarchy</strong>, một ở <strong>Scene view</strong>, một ở <strong>Project</strong>. Cả ba đều nhận cú pháp <code>t:</code> và <code>l:</code>. / EN: The three search fields in the Editor: Hierarchy, Scene view and Project.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>📖 <em>"Editor có <strong>chức năng tìm kiếm cho Scene view, cửa sổ Hierarchy và cửa sổ Project.</strong>"</em></p>
@@ -9435,6 +10161,9 @@ Assets
 <p><em>VI: <strong>▲ Menu ⋮ của Inspector</strong> — <strong>Lock · Normal (✓) · Debug (đang bôi xanh) · Expand/Collapse All Components · Ping</strong>. / EN: Inspector Debug mode.</em></p>
 
 ### 63.8. ⚡ QuickSearch — tìm MỌI THỨ trong Unity
+
+<img src="../assets/tip-quicksearch-hotkeys.png" alt="The QuickSearch hotkey cheat sheet shown on the empty search screen.">
+<p><em>VI: <strong>▲ Bảng phím tắt NGAY TRONG QuickSearch</strong> — <strong>Alt + Up/Down</strong> lịch sử tìm kiếm · <strong>Alt + Left</strong> bộ lọc · <strong>Alt + Right</strong> menu hành động · <strong>Enter</strong> hành động mặc định · <strong>Alt + Enter</strong> hành động phụ · kéo-thả item · gõ <strong>?</strong> để xem trợ giúp. Dòng đáy: <em>Searching Asset, Menu, Objects, Scene, Settings</em>. / EN: The QuickSearch hotkey cheat sheet shown on the empty search screen.</em></p>
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -9505,6 +10234,9 @@ Assets
 
 ### 64.1. 🎮 Mười mẹo WORKFLOW 2D — nguyên văn
 
+<img src="../assets/tip-create-sprite-shader-graph.png" alt="Create > Shader > URP > Sprite Lit / Sprite Unlit Shader Graph.">
+<p><em>VI: <strong>▲ Mẹo ⑧ — hai MasterNode 2D</strong>: <code>Assets › Create › Shader › Universal Render Pipeline › <strong>Sprite Lit Shader Graph</strong></code> và <strong>Sprite Unlit Shader Graph</strong> (cạnh <em>Lit Shader Graph</em> / <em>Unlit Shader Graph</em> thường). / EN: Create > Shader > URP > Sprite Lit / Sprite Unlit Shader Graph.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>📖 <em>"<strong>Unity đã phát triển bộ công cụ 2D NATIVE của mình để giúp bạn phát triển NHANH HƠN.</strong> Tiết kiệm thời gian với những mẹo hữu ích này."</em></p>
@@ -9550,6 +10282,12 @@ Assets
 
 ### 64.2. 🧱 Prefab workflows — Prefab Mode, Nested Prefab & Variant
 
+<img src="../assets/tip-prefab-isolation-mode.png" alt="Prefab Mode in isolation with Auto Save enabled.">
+<p><em>VI: <strong>▲ Prefab Mode dạng CÔ LẬP</strong> — chỉ còn <code>Unit_Skeleton_Damak</code> và các con của nó trên NỀN XÁM TRƠN, có <strong>Auto Save ✓</strong>. So sánh với ảnh <em>in Context</em> ở trên: ở đây KHÔNG có gì khác để bạn lỡ tay override. / EN: Prefab Mode in isolation with Auto Save enabled.</em></p>
+
+<img src="../assets/tip-prefab-variants-weapons.png" alt="Prefab Variants with different weapons and abilities.">
+<p><em>VI: <strong>▲ Prefab Variant trong thực tế</strong> — cùng một bộ xương gốc nhưng ba Variant <code>Unit_Skeleton_Damak</code> / <code>Unit_Skeleton_Jabban</code> / <code>Unit_Skeleton_Yuanxing</code> mang <strong>VŨ KHÍ và KỸ NĂNG khác nhau</strong> (kiếm, rìu…). / EN: Prefab Variants with different weapons and abilities.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>📖 <em>"Prefab cho phép <strong>LƯU các GameObject đã cấu hình ĐẦY ĐỦ vào dự án để TÁI SỬ DỤNG.</strong>"</em></p>
@@ -9590,6 +10328,9 @@ Assets
 <p><em>VI: <strong>▲ Inspector của TextMeshPro</strong> — shader <strong>TextMeshPro/Distance Field</strong>; các nhóm <strong>Face</strong> (Color, Texture, Tiling, Softness, Dilate), <strong>Outline</strong> (Color, Texture, Thickness 0.15), rồi <strong>Underlay · Lighting · Glow · Debug Settings</strong>. Con số <strong>−26</strong> đỏ trong game chính là damage vẽ bằng TMP. / EN: TextMeshPro example from Dragon Crashers.</em></p>
 
 ### 64.4. 📐 Snapping — BA kiểu và bảng phím tắt
+
+<img src="../assets/tip-grid-views-xyz.png" alt="The grid plane in X View, Y View, Z View and 3D View.">
+<p><em>VI: <strong>▲ Lưới theo TỪNG trục</strong> — cùng một khối nhìn ở <strong>X View · Y View · Z View · 3D View</strong>; mặt phẳng lưới đổi theo <strong>Grid Axis</strong> đang chọn, nên snap luôn diễn ra trên mặt phẳng bạn đang nhìn. / EN: The grid plane in X View, Y View, Z View and 3D View.</em></p>
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -9720,6 +10461,12 @@ Assets
 
 ### 64.7. 💡 Progressive Lightmapper — SÁU cách rút ngắn thời gian bake
 
+<img src="../assets/tip-scene-with-lightmaps.png" alt="A scene with lightmaps applied.">
+<p><em>VI: <strong>▲ CÓ lightmap</strong> — bóng đổ mềm dưới mái, ánh sáng nảy làm sáng mặt trong của cột và sàn. / EN: A scene with lightmaps applied.</em></p>
+
+<img src="../assets/tip-scene-without-lightmaps.png" alt="The same scene without lightmapping.">
+<p><em>VI: <strong>▲ KHÔNG lightmap</strong> — CÙNG scene, cùng đèn: mất bóng tiếp xúc và mất ánh sáng gián tiếp, mọi bề mặt phẳng đều đều. Đây chính là thứ bạn ĐÁNH ĐỔI khi bỏ bake. / EN: The same scene without lightmapping.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>📖 <em>"Lightmapping cho phép <strong>TÍNH TRƯỚC cả ánh sáng TRỰC TIẾP lẫn GIÁN TIẾP</strong>, rồi lưu kết quả vào một Texture gọi là <strong>lightmap</strong>. Dù <strong>hình học đã lightmap chạy RẤT NHANH lúc runtime, việc BAKE lightmap trong lịch sử là RẤT ĐẮT.</strong>"</em></p>
@@ -9747,6 +10494,9 @@ Assets
 <p><em>VI: <strong>▲ Tab Baked Lightmaps</strong> — <strong>SÁU lightmap Index 0…5</strong>, mỗi cái <strong>2048×2048 · Format DXT5 · Compressed</strong>. Đây chính là dung lượng bạn phải TRẢ để có ánh sáng bake. / EN: The Baked Lightmaps tab of the Lighting window.</em></p>
 
 ### 64.8. 🔵 Light Probes — thay lightmap ở chỗ MẮT KHÔNG ĐỂ Ý
+
+<img src="../assets/tip-light-probes-in-scene.png" alt="Selecting Light Probes placed around the level.">
+<p><em>VI: <strong>▲ Chọn Light Probes trong scene</strong> — các probe (khoanh CAM) rải quanh cột, thùng và mặt đất; chúng đứng ở nơi vật thể ĐỘNG sẽ đi qua, chứ không phủ đều toàn scene. / EN: Selecting Light Probes placed around the level.</em></p>
 
 <div class="bilingual-row">
 <div class="col-vi">
@@ -10019,6 +10769,9 @@ public class ScreenshotTaker
 <p>📁 <strong>Vị trí template</strong> — <code>%EDITOR_PATH%\Data\Resources\ScriptTemplates</code>:</p>
 <ul>
 <li><strong>Windows:</strong> <code>C:\Program Files\Unity\Editor\Data\Resources\ScriptTemplates</code></li>
+<li><strong>MỌI script đều TRUY CẬP ĐƯỢC type định nghĩa trong BẤT KỲ script nào khác</strong> — <em>"Any script can access types defined in any other script."</em></li>
+<li><strong>MỌI script đều được BIÊN DỊCH cho MỌI NỀN TẢNG</strong> — <em>"All scripts are compiled for all platforms."</em></li>
+<li>📐 Sơ đồ tách assembly trong e-book: chia code thành <strong><code>Main</code> · <code>Stuff</code> · <code>Library</code></strong>. <em>"Ở đây, <strong>MỌI thay đổi trong <code>Main</code> KHÔNG THỂ ảnh hưởng tới code trong <code>Stuff</code>. Tương tự, vì <code>Library</code> KHÔNG phụ thuộc assembly nào khác, bạn TÁI SỬ DỤNG code trong <code>Library</code> ở dự án khác DỄ DÀNG HƠN.</strong>"</em></li>
 <li><strong>Mac:</strong> <code>/Applications/Hub/Editor/[version]/Unity/Unity.app/Contents/Resources/ScriptTemplates</code></li>
 </ul>
 <p>👉 <em>"Template MonoBehaviour mặc định là <strong><code>81-C# Script-NewBehaviourScript.cs.txt</code></strong>. Cũng có template cho <strong>shader, các script behavior khác, và assembly definition.</strong>"</em></p>
@@ -10199,6 +10952,9 @@ public class PlatformDefines : MonoBehaviour
 
 ### 65.8. 🗃️ ScriptableObject — `CreateAssetMenu` và asset trên đĩa
 
+<img src="../assets/tip-createassetmenu-result.png" alt="The menu path generated by the CreateAssetMenu attribute.">
+<p><em>VI: <strong>▲ KẾT QUẢ của <code>[CreateAssetMenu]</code></strong> — menu <code>Assets › Create › <strong>Dragon Crashers › Unit › Info Data</strong></code> (cạnh <em>SFX Data</em> và <em>Ability Data</em>). Chính chuỗi <code>menuName</code> trong code đã sinh ra ba tầng menu này. / EN: The menu path generated by the CreateAssetMenu attribute.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>📖 <em>"ScriptableObject là <strong>KHO CHỨA DỮ LIỆU lưu LƯỢNG LỚN dữ liệu, ĐỘC LẬP với các instance của class. ScriptableObject có thể GIẢM mức dùng bộ nhớ của dự án bằng cách TRÁNH các BẢN SAO giá trị.</strong>"</em></p>
@@ -10264,6 +11020,12 @@ namespace DragonCrashers
 
 ### 65.10. 🐞 Debugging — quy trình gắn debugger & TÁM mẹo `Debug`
 
+<img src="../assets/tip-toggle-breakpoint.png" alt="Toggling a breakpoint: a red circle appears next to the line number.">
+<p><em>VI: <strong>▲ Bước 2 — chấm ĐỎ ở lề trái</strong> dòng <code>aliveHeroUnits = new List&lt;UnitController&gt;();</code> (dòng 66). Bấm thẳng vào lề để bật/tắt. / EN: Toggling a breakpoint: a red circle appears next to the line number.</em></p>
+
+<img src="../assets/tip-attach-to-unity.png" alt="Attaching the debugger: Attach to Unity / Attach to Unity and Play.">
+<p><em>VI: <strong>▲ Bước 3 — <code>Attach to Unity</code></strong> (hoặc <strong>Attach to Unity and Play</strong> để tự bấm Play luôn). Thanh trạng thái hiện <strong>Debug › Assembly-CSharp.Player › ObjectPool › Start()</strong>. / EN: Attaching the debugger: Attach to Unity / Attach to Unity and Play.</em></p>
+
 <div class="bilingual-row">
 <div class="col-vi">
 <p>📖 <em>"<strong>Unity Debugger cho phép bạn debug code C# TRONG KHI Unity đang ở Play Mode.</strong> Bạn có thể <strong>gắn breakpoint trong trình soạn thảo để KIỂM TRA trạng thái code và các biến hiện tại LÚC CHẠY.</strong>"</em></p>
@@ -10286,6 +11048,18 @@ namespace DragonCrashers
 
 <img src="../assets/tip-breakpoint-watch.png" alt="Inspecting variables at a breakpoint">
 <p><em>VI: <strong>▲ Soi biến tại breakpoint</strong> — chấm ĐỎ ở lề trái dòng <code>tmp = Instantiate(...)</code>; bảng watch bên phải cho thấy <code>pooledObjects</code> <strong>Count = 14</strong> với từng phần tử <code>"PlayerLaser(Clone) (UnityEngine.GameObject)"</code> — đúng như e-book mô tả: <em>"xem danh sách được XÂY DẦN từng bước trong lúc thực thi"</em>. / EN: Debugging variables — watching the list build up one step at a time during execution.</em></p>
+
+!!! warning "⚠️ Debug trên Unity PLAYER — ĐIỀU KIỆN TIÊN QUYẾT ở Build Settings"
+    <div class="bilingual-row">
+    <div class="col-vi">
+    <p><em>"<strong>Bạn CŨNG debug được code script trong một Unity Player.</strong> Chỉ cần đảm bảo <strong>CẢ HAI ô <code>Development Build</code> và <code>Script Debugging</code> đều được BẬT trong <code>File › Build Settings</code> TRƯỚC KHI build Player.</strong> ✅ <strong>Tick thêm <code>Wait for Managed Debugger</code> để Player CHỜ debugger TRƯỚC KHI thực thi bất kỳ dòng script nào.</strong>"</em></p>
+    <p>⏹️ <em>"Bấm <strong><code>Stop</code></strong> để NGỪNG debug và TIẾP TỤC thực thi trong Editor."</em></p>
+    </div>
+    <div class="col-en">
+    <p><em>"You can debug script code in a Unity Player as well. Just make sure that Development Build and Script Debugging are both enabled in the File &gt; Build Settings before you build the Player. Check Wait for Managed Debugger to wait for the debugger before the Player executes any script code."</em></p>
+    <p>⏹️ <em>"Press Stop to discontinue debugging and resume execution in the Editor."</em></p>
+    </div>
+    </div>
 
 **🧰 TÁM mẹo `Debug` bổ sung — nguyên văn / Eight additional debugging tips, verbatim**
 
@@ -10437,6 +11211,36 @@ public class CustomCompileWindow : EditorWindow
     </div>
 
 ---
+
+### 66.1. ☁️ Unity Teams — lưu TOÀN BỘ dự án trên cloud
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>📖 <em>"Làm game là <strong>NGHỆ THUẬT CỘNG TÁC</strong>. Unity có thể giúp đội bạn <strong>KIẾN TẠO CÙNG NHAU, NHANH HƠN</strong> bằng cách dùng Source Control để tích hợp thay đổi và cập nhật của mọi người trong lúc họ làm việc. <strong>Dịch vụ Unity Teams và Unity Accelerator cũng có thể hỗ trợ bạn QUẢN LÝ lập trình viên và artist — dù TẠI CHỖ hay TRÊN CLOUD.</strong>"</em></p>
+<p>☁️ <em>"<strong>Unity Teams là MỘT LỰA CHỌN KHÁC để tinh gọn workflow của đội. Unity Teams cho phép bạn LƯU TOÀN BỘ dự án TRÊN CLOUD, nên nó được SAO LƯU và TRUY CẬP ĐƯỢC TỪ BẤT KỲ ĐÂU. Việc này khiến LƯU, CHIA SẺ và ĐỒNG BỘ dự án Unity với BẤT KỲ AI trở nên ĐƠN GIẢN.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>📖 <em>"Building games is a collaborative art. Unity can help your team create together, faster by using Source Control to integrate everyone's changes and updates as they work. The Unity Teams and Unity Accelerator services can also assist you with wrangling your developers and artists, either locally or on the cloud."</em></p>
+<p>☁️ <em>"Unity Teams is another option for streamlining your team workflows. Unity Teams allows you to store your entire project in the cloud, so it's backed up and accessible anywhere. This makes it simple to save, share, and sync your Unity projects with anyone."</em></p>
+</div>
+</div>
+
+### 66.2. 🏗️ Unity Build Server — vì sao ĐÁNG chuyển build sang máy khác
+
+<div class="bilingual-row">
+<div class="col-vi">
+<p>🏗️ <em>"Cân nhắc TĂNG CƯỜNG năng suất của đội bằng cách <strong>ĐẨY quá trình BUILD sang PHẦN CỨNG MẠNG dùng Unity Build Server. Việc này giúp đội sáng tạo của bạn BUILD dự án THƯỜNG XUYÊN theo nhu cầu, cho phép họ LẶP một cách TỰ CHỦ HƠN.</strong>"</em></p>
+<p>📈 <strong>Lý do — nguyên văn:</strong> <em>"<strong>Khi dự án Unity của bạn LỚN DẦN về kích thước và độ phức tạp, việc sinh ra một bản build TIÊU TỐN NGÀY CÀNG NHIỀU thời gian. NẾU bạn dùng CHÍNH máy trạm phát triển để build, bạn sẽ MẤT NĂNG SUẤT trong lúc cả đội NGỒI CHỜ build xong.</strong>"</em></p>
+<p>⚙️ <em>"<strong>Unity Build Server chạy Unity ở CHẾ ĐỘ BATCH (batch mode), CHỈ để build dự án Unity. Thành viên đội có thể YÊU CẦU build THEO NHU CẦU, theo nhịp riêng của họ.</strong> ✅ <strong>Việc này GIẢM thời gian CHỜ để sửa bug và phát hành tính năng mới cho khâu test. Build trên máy RIÊNG BIỆT giúp GIẢM thời gian chết của TỪNG lập trình viên và cho phép MỌI NGƯỜI lặp NHANH HƠN.</strong>"</em></p>
+<p>💳 <strong>Điều kiện giấy phép:</strong> <em>"<strong>CẢ Unity Pro LẪN Unity Enterprise đều có thể truy cập Unity Build Server. Khách hàng Unity Pro có thể mua GÓI BỔ SUNG, còn khách hàng Unity Enterprise NHẬN SẴN một số giấy phép Build Server dựa trên giấy phép Enterprise hiện có của họ.</strong>"</em></p>
+</div>
+<div class="col-en">
+<p>🏗️ <em>"Consider enhancing your team's productivity by offloading the building process to network hardware using Unity Build Server. This will help your creative team build the project as often as needed, allowing them to iterate more autonomously."</em></p>
+<p>📈 <strong>The reason, verbatim:</strong> <em>"As your Unity project grows in size and complexity, generating a build consumes more and more time. If you're using your development workstations to build a project, you will lose productivity while your team waits for the build to complete."</em></p>
+<p>⚙️ <em>"Unity Build Server runs Unity in batch mode, exclusively for building Unity projects. Team members can request builds on demand at their own pace. This reduces wait time for bug fixes and releasing new features for testing. Building on separate machines reduces each developer's downtime and allows everyone to iterate more quickly."</em></p>
+<p>💳 <strong>Licensing:</strong> <em>"Both Unity Pro and Unity Enterprise subscribers can get access to Unity Build Server. Unity Pro customers can get add-on packs, while Unity Enterprise customers receive a number of Build Server licenses based on their existing Enterprise licenses."</em></p>
+</div>
+</div>
 
 <img src="../assets/tip-accelerator-diskspace.png" alt="Unity Accelerator disk space configuration">
 <p><em>VI: <strong>▲ Cấu hình dung lượng của Unity Accelerator</strong> — hai chế độ <strong>Basic</strong> (chỉ có <em>Max Usage</em>) và <strong>Custom</strong>: đặt <strong>Percent available to use 45%</strong> / <strong>Percent to remain free 15%</strong>, hoặc <strong>Bytes available to use 100.0 GB</strong> / <strong>Bytes to remain free 10.7 GB</strong>. Mô tả nguyên văn: <em>"accelerator sẽ dùng NHIỀU dung lượng nhất được cấp; bỏ tick một giá trị sẽ GỠ giới hạn đó"</em>. Cột trái là các mục <strong>Logs · Collaborate · Asset Import Pipeline · Maintenance · Data Policy</strong>. / EN: The Unity Accelerator disk space usage configuration.</em></p>
