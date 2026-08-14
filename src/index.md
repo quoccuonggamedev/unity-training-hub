@@ -8,7 +8,7 @@
 
 | Cấp độ / Level | Module | Trạng thái / Status |
 |---|---|---|
-| 🌱 **Fresher** | [Module 1 — Ultimate Guide to Profiling](01-fresher/01-ultimate-guide-to-profiling.md) | ✅ Hoàn thành — 18 chương, 102 khối song ngữ, 44 ảnh |
+| 🌱 **Fresher** | [Module 1 — Ultimate Guide to Profiling](01-fresher/01-ultimate-guide-to-profiling.md) | ✅ Hoàn thành + **audit 2 lần** — 18 chương · 60 mục · 116 khối song ngữ · **95 ảnh** |
 | 🚀 **Junior** | [Module 2 — UI & Physics Deep Dive](02-junior/01-ui-physics-deep-dive.md) | ✅ Hoàn thành + **audit 2 lần (2 agent quét từng mục)** — 32 chương · 77 mục · 142 khối song ngữ · **43 ảnh** |
 | ⚔️ **Senior** | [Module 3 — Memory, Addressables & Networking](03-senior/01-memory-addressables-networking.md) | ✅ Hoàn thành + **audit 2 lần (2 agent quét từng mục)** — 14 chương · 48 mục · 86 khối song ngữ · **25 ảnh** |
 | 👑 **Tech Lead** | [Module 4 — GPU, URP & Advanced Rendering](04-tech-lead/01-gpu-urp-advanced-rendering.md) | ✅ Hoàn thành + **audit 4 lần (2 agent quét từng trang)** — 43 chương · 100 mục · 174 khối song ngữ · 52 bảng · **190 ảnh** |
